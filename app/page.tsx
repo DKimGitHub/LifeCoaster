@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { Inter } from "@next/font/google";
-import Card from "../components/card";
 import prisma from "../lib/prisma";
 
 async function fetchData() {
