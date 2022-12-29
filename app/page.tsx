@@ -1,7 +1,8 @@
 import Image from "next/image";
+import LifeGraph from "../components/LifeGraph";
 import prisma from "../lib/prisma";
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 async function fetchData() {
   const feed = await prisma.post.findMany({
@@ -19,7 +20,10 @@ export default async function Home() {
   const postList = await fetchData();
 
   return (
-    <div className="flex w-full flex-col items-center">
+    <>
+      <div className="h-96 w-full">
+        <LifeGraph/>
+      </div>
       <h1 className="self-start p-5 pt-20 text-7xl text-gray-100">
         Cards for List Page
       </h1>
@@ -44,6 +48,6 @@ export default async function Home() {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
