@@ -6,7 +6,7 @@ import CustomToolTip from "./CustomToolTip";
 
 export default function LifeGraph() {
   return (
-    <div className="relative m-5 h-full rounded-lg border border-black bg-white">
+    <div className="h-full rounded-lg border border-black bg-white">
       <ResponsiveLine
         margin={{ top: 30, right: 30, bottom: 30, left: 30 }}
         data={mockData1}
