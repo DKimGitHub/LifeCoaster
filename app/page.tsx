@@ -20,13 +20,13 @@ export default async function Home() {
 
   return (
     <div className="flex w-full flex-col items-center">
-      <h1 className="self-start p-5 pt-20 text-7xl text-gray-100">
+      <h1 className="self-start p-5 pt-20 text-7xl">
         Cards for List Page
       </h1>
       <div className="grid w-full grid-cols-2">
         {postList.map((data) => (
           <div className="card m-5 bg-base-100 shadow-xl">
-            <div className="card-body bg-gray-500">
+            <div className="card-body">
               <div className="flex justify-between">
                 <p className="card-title text-2xl">{data.title} </p>
                 <div className="italic">{data.author?.name}</div>
