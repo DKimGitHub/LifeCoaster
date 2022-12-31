@@ -1,10 +1,35 @@
 import Link from "next/link";
-import AuthButtonHeader from "./AuthButtonHeader"
+import AuthButtonHeader from "./AuthButtonHeader";
+import headerStyles from "../styles/header.module.css";
 
 export default function Header() {
-
   return (
-    <header className="navbar z-50 shadow-md py-3 pr-6 sm:px-8 md:px-16 lg:px-36">
+    <nav className={headerStyles.nav}>
+      <div className={headerStyles.logo}>
+        <Link href="/" className={headerStyles.link}>
+          LifeCoaster
+        </Link>
+      </div>
+      <ul className={headerStyles.linksList}>
+        <li>
+          <Link href="/create" className={headerStyles.link}>
+            Create
+          </Link>
+        </li>
+        <li>
+          <Link href="/list" className={headerStyles.link}>
+            List
+          </Link>
+        </li>
+        <li>
+          <AuthButtonHeader/>
+        </li>
+      </ul>
+    </nav>
+  );
+}
+{
+  /*<header className="navbar z-50 shadow-md py-3 pr-6 sm:px-8 md:px-16 lg:px-36">
       <div className="flex-1">
         <Link className="btn-ghost btn text-3xl normal-case text-purple-900 hover:text-black" href="/">LifeCoaster</Link>
       </div>
@@ -15,6 +40,5 @@ export default function Header() {
       </ul>
       <AuthButtonHeader/>
       </div>
-    </header>
-  );
+  </header>*/
 }

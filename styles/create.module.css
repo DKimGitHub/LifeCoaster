@@ -1,0 +1,13 @@
+.formContainer {
+  padding-left: 10%;
+  width: 100%;
+  background-color: yellow;
+}
+
+.formLabel {
+  margin: 1rem;
+}
+
+.formInput {
+  margin: 1rem;
+}
