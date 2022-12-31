@@ -5,3 +5,6 @@
 body {
     @apply text-black bg-gray-200;
 }
+html {
+  overflow-y: scroll;
+}

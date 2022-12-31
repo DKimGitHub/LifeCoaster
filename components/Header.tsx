@@ -1,32 +1,18 @@
-"use client";
-
-import Link from "next/link";
-import { signIn, signOut, useSession } from "next-auth/react";
+import AuthButtonHeader from "./AuthButtonHeader"
 
 export default function Header() {
-  const { data: session } = useSession();
 
   return (
-    <header className="navbar z-50 shadow-md">
+    <header className="navbar z-50 shadow-md py-3 pr-6 sm:px-8 md:px-16 lg:px-36">
       <div className="flex-1">
-        <a className="btn-ghost btn text-xl normal-case">LifeCoaster</a>
+        <a className="btn-ghost btn text-3xl normal-case text-purple-900 hover:text-black" href="/">LifeCoaster</a>
       </div>
       <div className="flex-none">
-        {session ? (
-          <>
-            <h1 className="pr-4">Signed in as {session?.user?.email} </h1>
-            <button className="btn" onClick={() => signOut()}>
-              logout
-            </button>
-          </>
-        ) : (
-          <>
-            <h1 className="pr-4">Not signed in</h1>
-            <button className="btn" onClick={() => signIn()}>
-              Login
-            </button>
-          </>
-        )}
+      <ul className="menu menu-horizontal pr-4">
+      <li><a href="/create" className="text-xl text-purple-900 font-bold rounded-md leading-none hover:text-black">create</a></li>
+      <li><a href="/list" className="text-xl text-purple-900 font-bold rounded-md leading-none hover:text-black">list</a></li>
+      </ul>
+      <AuthButtonHeader/>
       </div>
     </header>
   );
