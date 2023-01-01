@@ -1,7 +1,6 @@
 .formContainer {
   padding-left: 10%;
   width: 100%;
-  background-color: yellow;
 }
 
 .formLabel {
@@ -10,4 +9,9 @@
 
 .formInput {
   margin: 1rem;
+}
+
+.svg {
+  width: 90%;
+  height: 10rem;
 }
