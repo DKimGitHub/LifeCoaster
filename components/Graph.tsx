@@ -1,38 +1,57 @@
-import { curveNatural } from "@visx/curve";
-import { LinePath } from "@visx/shape";
-import { scaleLinear } from "@visx/scale";
-import { AxisLeft, AxisBottom } from "@visx/axis";
-import createStyles from "../styles/create.module.css";
+import React from "react";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 
-export default function Graph() {
-  const xScale = scaleLinear({
-    domain: [0, 10],
-    range: [-2, 12],
-    round: true,
-  });
+/* const data = [
+  {year: 1995, value: 10},
+  {year: 1997, value: -30},
+  {year: 2020, value: 50},
+  {year: 1993, value: -20}
+]; */
 
-  const yScale = scaleLinear({
-    domain: [-10, 10],
-    range: [-12, 12],
-    round: true,
-  });
+type FormState = {
+  year: number;
+  value: number;
+}
+
+export default function Graph(props) {
+  const data = props.data;
+  
+  data.sort((a: FormState,b:FormState) => a.year - b.year)
 
   return (
-    <svg className={createStyles.svg}>
-      <AxisLeft stroke={"black"} tickStroke={"black"} scale={yScale} />
-      <LinePath
-        curve={curveNatural}
-        data={[
-          { x: 1, y: 2 },
-          { x: 2, y: 4 },
-          { x: 3, y: 6 },
-          { x: 20, y: 15 },
-        ]}
-        x={(d) => d.x}
-        y={(d) => d.y}
-        stroke={"black"}
-        strokeWidth={3}
-      />
-    </svg>
+    <ResponsiveContainer width="100%" height="100%">
+      <LineChart
+        width={500}
+        height={300}
+        data={data}
+        margin={{
+          top: 5,
+          right: 30,
+          left: 20,
+          bottom: 5,
+        }}
+      >
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="year" />
+        <YAxis />
+        <Tooltip />
+        <Legend />
+        <Line
+          type="monotone"
+          dataKey="value"
+          stroke="#8884d8"
+          activeDot={{ r: 8 }}
+        />
+      </LineChart>
+    </ResponsiveContainer>
   );
 }
