@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import createStyles from "../../styles/create.module.css";
 import Graph from "../../components/Graph";
+import { findAncestor } from "typescript";
 
 
 export default function Page() {
@@ -20,7 +21,13 @@ export default function Page() {
     const formElements = form.elements;
     const year : number = parseInt(formElements.yearInput.value);
     const value : number = parseInt(formElements.valueInput.value);
-		setData(prevData => [...prevData, {year: year, value: value}]);
+    if (data.find(item => item.year === year) === undefined){
+      setData(prevData => [...prevData, {year: year, value: value}]);
+    }
+    else{
+      alert("The year overlaps!");
+    }
+		
   }
 
   return (
