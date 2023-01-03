@@ -1,4 +1,4 @@
-export const mockData1 = [
+export let mockData1 = [
   {
     id: "1",
     color: "hsl(0, 100%, 50%)",
@@ -29,7 +29,7 @@ export const mockData1 = [
       },
       {
         x: 18,
-        y: 5,
+        y: 1,
         title: "went to college",
         desc: "fk.."
       }

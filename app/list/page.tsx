@@ -1,4 +1,5 @@
 import Link from "next/link";
+import LifeGraph from "../../components/LifeGraph";
 import prisma from "../../lib/prisma";
 
 
@@ -26,7 +27,7 @@ export default async function Page() {
               <Link href={`/${data.author?.name}`} className="italic">{data.author?.name}</Link>
             </div>
             <p>{data.content}</p>
-            <div className="border aspect-[21/5] w-full"/>
+            <div className="border aspect-[21/5] w-full"><LifeGraph/></div>
           </div>
         </div>
       ))}
