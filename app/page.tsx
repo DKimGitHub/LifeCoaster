@@ -17,23 +17,10 @@ async function fetchData() {
 }
 
 export default async function Home() {
-  const postList = await fetchData();
-
   return (
     <>
-      <h1 className="self-start p-5 text-7xl">Cards for List Page</h1>
-      <div className="grid w-full grid-cols-2">
-        {postList.map((data) => (
-          <div className="card m-5 bg-base-100 shadow-xl">
-            <div className="card-body">
-              <h2 className="card-title">{data.title} <span className="italic">{data.author?.name}</span></h2>
-              <p>{data.content}</p>
-            </div>
-            <div className="h-72 m-4 mt-0">
-              <LifeGraph />
-            </div>
-          </div>
-        ))}
+      <div className="m-4 max-w-full rounded-xl border bg-blue-200 bg-gradient-to-br from-yellow-200 p-10 text-center text-7xl font-bold text-gray-700 ">
+        Project by Kimbros
       </div>
     </>
   );

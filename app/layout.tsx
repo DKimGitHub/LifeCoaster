@@ -1,3 +1,5 @@
+import Header from "../components/Header";
+import AuthContext from "../lib/AuthContext";
 import "./globals.css";
 
 export default function RootLayout({
@@ -9,12 +11,15 @@ export default function RootLayout({
     <html lang="en">
       <head />
       <body>
-        <div className="flex w-full flex-col items-center">
-          <div className="m-5 max-w-full rounded-3xl border bg-blue-200 bg-gradient-to-br from-yellow-200 p-10 text-center text-7xl font-bold text-gray-700 ">
-            Project by Kimbros
-          </div>
-          {children}
-        </div>
+        <AuthContext>
+          <main className="min-h-screen w-screen max-w-full overflow-x-hidden">
+            <Header />
+            <div className="sm:px-8 md:px-16 lg:px-36">
+              {children}
+              {/* footer */}
+            </div>
+          </main>
+        </AuthContext>
       </body>
     </html>
   );

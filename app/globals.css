@@ -3,5 +3,8 @@
 @tailwind utilities;
 
 body {
-    @apply text-white bg-gray-800;
+    @apply text-black bg-gray-200;
+}
+html {
+  overflow-y: scroll;
 }
