@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { CreateContext } from "../app/create/page"
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -47,8 +48,8 @@ const options = {
   //tension: 0.4
 };
 
-export default function Graph(props) {
-  const userInput = props.data;
+export default function Graph() {
+  const { userInput, updateUserInput } = useContext(CreateContext)
 
   userInput.sort((a: number, b: number) => a.year - b.year);
 

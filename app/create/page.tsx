@@ -1,57 +1,38 @@
-'use client'
+"use client";
 
-import React, { useState } from "react";
+import React, { useState, createContext } from "react";
 import createStyles from "../../styles/create.module.css";
 import Graph from "../../components/Graph";
+import CreateForm from "../../components/CreateForm"
 import { findAncestor } from "typescript";
 
+export const CreateContext = createContext("defaultValue");
 
 export default function Page() {
-  //const [formOutput, setFormOutput] = useState([]);
-  const [userInput, setUserInput] = useState<Array<FormState>>([{year: 1995, value: 0}]);
 
-  interface FormState{
-    year : number;
-    value : number;
+  const [userInput, setUserInput] = useState<FormState[]>([
+    { year: 1995, value: 0 },
+  ]);
+
+  interface FormState {
+    year: number;
+    value: number;
   }
 
-  function handleSubmit(event: React.SyntheticEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const form = event.currentTarget;
-    const formElements = form.elements;
-    const year : number = parseInt(formElements.yearInput.value);
-    const value : number = parseInt(formElements.valueInput.value);
-    if (userInput.find(item => item.year === year) === undefined){
-      setUserInput(prev => [...prev, {year: year, value: value}]);
-    }
-    else{
-      alert("The year overlaps!");
-    }
-		
+  function updateUserInput (input:FormState[]) {
+    setUserInput(input);
   }
-
-  function formValidation 
 
   return (
-    <div className="flex flex-col items-center">
-      <div className="mt-10 aspect-[21/5] w-full border border-black text-center">
-			<Graph data={userInput}/>
+    <CreateContext.Provider value={{userInput, updateUserInput}}>
+      <div className="flex flex-col items-center">
+        <div className="mt-10 aspect-[21/5] w-full border border-black text-center">
+          <Graph />
+        </div>
+        <div className={createStyles.formContainer}>
+          <CreateForm />
+        </div>
       </div>
-      <div className={createStyles.formContainer}>
-        <form onSubmit={handleSubmit}>
-          <label className={createStyles.formLabel}>Year</label>
-          <input className={createStyles.formInput} id="yearInput" type="text" />
-          <br />
-          <label className={createStyles.formLabel}>Value</label>
-          <input className={createStyles.formInput} id="valueInput" type="text" />
-          <br />
-          <input
-            className={createStyles.formSubmit}
-            type="submit"
-            value="Submit"
-          />
-        </form>
-      </div>
-    </div>
+    </CreateContext.Provider>
   );
 }
