@@ -1,57 +1,70 @@
-import React from "react";
+import React from 'react';
 import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
   Tooltip,
   Legend,
-  ResponsiveContainer,
-} from "recharts";
+} from 'chart.js';
+import { Line } from 'react-chartjs-2';
 
-/* const data = [
-  {year: 1995, value: 10},
-  {year: 1997, value: -30},
-  {year: 2020, value: 50},
-  {year: 1993, value: -20}
-]; */
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
-type FormState = {
-  year: number;
-  value: number;
-}
+const options = {
+  responsive: true,
+  plugins: {
+    legend:{
+      display: false
+    }
+  },
+  scales: {
+    x:{
+      type: 'linear',
+      grid:{
+        display: false
+      },
+      min: 1995,
+    },
+    y:{
+      type: 'linear',
+      grid:{
+        display: false
+      },
+    }
+  },
+  cubicInterpolationMode: 'monotone',
+  //tension: 0.4
+};
 
 export default function Graph(props) {
-  const data = props.data;
-  
-  data.sort((a: FormState,b:FormState) => a.year - b.year)
+  const userInput = props.data;
 
-  return (
-    <ResponsiveContainer width="100%" height="100%">
-      <LineChart
-        width={500}
-        height={300}
-        data={data}
-        margin={{
-          top: 5,
-          right: 30,
-          left: 20,
-          bottom: 5,
-        }}
-      >
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="year" />
-        <YAxis />
-        <Tooltip />
-        <Legend />
-        <Line
-          type="monotone"
-          dataKey="value"
-          stroke="#8884d8"
-          activeDot={{ r: 8 }}
-        />
-      </LineChart>
-    </ResponsiveContainer>
-  );
+  userInput.sort((a: number, b: number) => a.year - b.year);
+
+  const data = {
+    datasets: [
+      {
+        data: userInput,
+        borderColor: 'rgb(255, 99, 132)',
+        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+        parsing: {
+          xAxisKey: 'year',
+          yAxisKey: 'value'
+        }
+      },
+    ],
+  };
+  
+  return <Line options={options} data={data} />;
 }
