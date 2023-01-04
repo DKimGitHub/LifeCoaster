@@ -17,8 +17,9 @@ export const authOptions = {
     }),
     // ...add more providers here
   ],
+  secret: "cMYO3lrj9stWqBxIMj/mq357ju2cAnfQwomHWpD0ghk=",
   pages: {
-    //signIn: "/auth/signin",
+    signIn: "/auth/signin",
   }
 }
 export default NextAuth(authOptions)

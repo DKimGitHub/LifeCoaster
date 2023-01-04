@@ -3,14 +3,9 @@ import Image from "next/image";
 import styles from "./signin.module.css";
 import SigninButton from "../../../components/SigninButton";
 
-async function getData() {
-  const providers = await getProviders();
-  const csrfToken = await getCsrfToken();
-  return { providers, csrfToken };
-}
-
 export default async function Signin() {
-  const { providers, csrfToken } = await getData();
+  const csrfToken = await getCsrfToken();
+
   return (
     <div className="relative overflow-hidden">
       <div className={styles.wrapper} />
@@ -21,19 +16,15 @@ export default async function Signin() {
             width={96}
             height={64}
             alt="App Logo"
-            style={{ height: "85px", marginBottom: "20px" }}
+            className="h-20 mb-5"
           />
           <div className={styles.cardContent}>
             <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
             <input placeholder="Email (Not Setup - Please Use Github)" />
-             <button className={styles.primaryBtn}>Submit</button> 
+            <button className={styles.primaryBtn}>Submit</button>
             <hr />
-            {providers &&
-              Object.values(providers).map((provider) => {
-                return <SigninButton provider={provider}/>
-              }
-                 
-              )}
+            {/* @ts-expect-error Server Component */}
+            <SigninButton />
           </div>
         </div>
       </div>

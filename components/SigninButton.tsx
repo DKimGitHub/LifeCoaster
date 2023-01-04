@@ -1,13 +1,19 @@
-"use client"
-import { signIn } from "next-auth/react";
+"use client";
+import { getProviders, signIn } from "next-auth/react";
 
-export default function SigninButton(props: any) {
-  const { provider } = props;
+
+
+export default async function SigninButton(props: any) {
+  const providers = await getProviders();
+  if (!providers) return null;
   return (
-    <div key={provider.name} style={{ marginBottom: 0 }}>
-      <button onClick={() => signIn(provider.id)}>
-        Sign in with {provider.name}
-      </button>
-    </div>
+
+    Object.values(providers).map((provider) => (
+      <div key={provider.name} className="mb-0">
+        <button onClick={() => signIn(provider.id)}>
+          Sign in with {provider.name}
+        </button>
+      </div>
+    ))
   );
 }
