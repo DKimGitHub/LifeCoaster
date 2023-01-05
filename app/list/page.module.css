@@ -1,0 +1,16 @@
+.animated-card {
+    width: 30%;
+    height: 100%;
+    background-color: hsl(0,0%,80%);
+    transition: 0.5s;
+    transform-origin: left;
+    opacity: 0.5;
+    transition-timing-function: ease-out;
+    transform: perspective(2000px) rotateY(-90deg);
+
+}
+
+.graph:hover .animated-card {
+    transform: perspective(2000px) rotateY(0deg);
+    opacity: 1;
+}

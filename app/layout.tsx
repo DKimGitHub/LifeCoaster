@@ -14,7 +14,7 @@ export default function RootLayout({
         <AuthContext>
           <main className="min-h-screen w-screen max-w-full overflow-x-hidden">
             <Header />
-            <div className="sm:px-8 md:px-16 lg:px-36">
+            <div className="px-4 w-full max-w-6xl mx-auto">
               {children}
               {/* footer */}
             </div>
