@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-    @apply text-black bg-gray-200;
+    @apply text-black bg-white;
 }
 html {
   overflow-y: scroll;

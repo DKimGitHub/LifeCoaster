@@ -8,7 +8,7 @@ async function fetchData() {
     where: { published: true },
     include: {
       author: {
-        select: { name: true, image: true },
+        select: { name: true, },
       },
       graph: true,
     },
