@@ -10,4 +10,7 @@ module.exports = {
     extend: {},
   },
   plugins: [require("daisyui")],
+  daisyUI: {
+    themes: ["autumn", "forest", "coffee", "dark", "luxury", "dracula"]
+  }
 };

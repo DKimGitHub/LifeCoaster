@@ -1,5 +1,4 @@
 "use client";
-
 import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 export default function AuthButtonHeader() {
@@ -28,8 +27,7 @@ export default function AuthButtonHeader() {
       </div>
     </>
   ) : (
-    <button className="btn" onClick={() => signIn()}>
-      Login
-    </button>
+<label htmlFor="my-modal-4" className="btn btn-primary">Login</label>
+
   );
 }
