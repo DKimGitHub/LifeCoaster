@@ -2,9 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-    @apply text-black bg-white;
-}
+
 html {
   overflow-y: scroll;
 }

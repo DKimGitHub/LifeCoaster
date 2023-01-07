@@ -9,9 +9,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" data-theme="dracula">
       <head />
-      <AuthModal/>
       <body>
         <AuthContext>
           <main className="min-h-screen w-screen max-w-full overflow-x-hidden">
@@ -22,6 +21,7 @@ export default function RootLayout({
             </div>
           </main>
         </AuthContext>
+        <AuthModal/>
       </body>
     </html>
   );

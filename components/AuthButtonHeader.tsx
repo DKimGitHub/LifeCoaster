@@ -27,7 +27,7 @@ export default function AuthButtonHeader() {
       </div>
     </>
   ) : (
-<label htmlFor="my-modal-4" className="btn">Login</label>
+<label htmlFor="my-modal-4" className="btn btn-primary">Login</label>
 
   );
 }
