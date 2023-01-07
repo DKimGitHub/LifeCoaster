@@ -1,4 +1,5 @@
 import Link from "next/link";
+import LifeChart from "../../components/LifeChart";
 import prisma from "../../lib/prisma";
 import styles from './page.module.css'
 
@@ -17,23 +18,18 @@ async function fetchData() {
 }
 
 export default async function Page() {
-  const postList = await fetchData();
-  return (
-    <div className="mt-5 grid w-full grid-cols-1 md:grid-cols-2">
+  //const postList = await fetchData();
+  const postList = [1,2,3];
+  return (<>
+    <div className="text-4xl text-center py-10 font-bold">THESE ARE THE LIST OF GRAPHS!!</div>
+    <div className="mt-5 grid w-full grid-cols-1 md:grid-cols-2 gap-12 md:gap-12">
       {postList.map((data, index) => (<>
-        <div className={`${styles.graph} my-4 mx-2 lg:mx-4 border border-black aspect-[21/5] max-w-full`}> <div className={styles['animated-card']}> <p>  John Smith</p> </div></div>
+      <LifeChart colorTheme="cupcake"/>
         </>
       ))}
-      {/* graph::before {
-            width: 70%;
-            height: 100%;
-            background: #ffc107;
-            transition: .5s;
-            transform-origin: left;
-            transform: perspective(2000px) rotateY(-90deg); */}
 
     </div>
-
+    </>
     /* {postList.map((data, index) => (
         <div className="card m-5 bg-base-100 shadow-xl">
           <div className="card-body p-6 pt-5">
