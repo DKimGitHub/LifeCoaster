@@ -1,4 +1,4 @@
-import { PageProps } from "../../lib/types";
+import { PageProps } from "../../../lib/types";
 
 export default function Layout({ children, params }: PageProps) {
   return (

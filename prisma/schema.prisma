@@ -6,8 +6,9 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
 model User {
@@ -21,6 +22,7 @@ model User {
   posts    Post[]
   accounts Account[]
   sessions Session[]
+
   @@map(name: "users")
 }
 
@@ -55,14 +57,12 @@ model Node {
   xValue  Int
 }
 
-
-
 model Account {
   id                 Int     @id @default(autoincrement())
-  userId             Int      @map("user_id")
+  userId             Int     @map("user_id")
   type               String
   provider           String
-  providerAccountId  String  @map("provider_account_id") 
+  providerAccountId  String  @map("provider_account_id")
   refresh_token      String?
   access_token       String?
   expires_at         Int?

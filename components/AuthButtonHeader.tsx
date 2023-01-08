@@ -1,5 +1,4 @@
 "use client";
-
 import { signIn, signOut, useSession } from "next-auth/react";
 import headerStyles from "../styles/header.module.css";
 
@@ -10,8 +9,7 @@ export default function AuthButtonHeader() {
       logout
     </button>
   ) : (
-    <button className={headerStyles.link} onClick={() => signIn()}>
-      Login
-    </button>
+<label htmlFor="my-modal-4" className="btn btn-primary">Login</label>
+
   );
 }

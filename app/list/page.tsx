@@ -6,12 +6,12 @@ import styles from './page.module.css'
 async function fetchData() {
   const feed = await prisma.post.findMany({
     where: { published: true },
-    include: {
-      author: {
-        select: { name: true, image: true },
-      },
-      graph: true,
-    },
+    // include: {
+    //   author: {
+    //     select: { name: true, },
+    //   },
+    //   graph: true,
+    // },
   });
   return feed;
 }
