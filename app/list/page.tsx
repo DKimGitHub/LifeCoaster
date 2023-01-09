@@ -1,5 +1,5 @@
 import Link from "next/link";
-import LifeChart from "../../components/LifeChart";
+import LifeChart from "../../components/LifeChartListPage";
 import prisma from "../../lib/prisma";
 import styles from './page.module.css'
 
