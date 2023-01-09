@@ -1,5 +1,5 @@
 import AnimatedCart from "../components/AnimatedCart";
-import LifeChart from "../components/LifeChartListPage";
+import LifeChart from "../components/LifeChart";
 
 export default async function Home() {
   return (
@@ -7,8 +7,10 @@ export default async function Home() {
       <div className="mt-4 max-w-full rounded-xl border bg-blue-200 bg-gradient-to-br from-yellow-200 p-10 text-center text-7xl font-bold text-gray-700 ">
         Project by Kimbros
       </div>
-      <LifeChart/>
-      <AnimatedCart/>
+      <div
+                  className={`chartContainer h-60 relative z-10 border-4 border-solid bg-base-100`}>
+                  <LifeChart />
+                </div>      <AnimatedCart/>
     </>
   );
 }
