@@ -1,7 +1,10 @@
 import AuthModal from "../components/AuthModal";
 import Header from "../components/Header";
 import AuthContext from "../lib/AuthContext";
+import { CssBaseline } from "@nextui-org/react";
+
 import "./globals.css";
+import NextUIContext from "../lib/NextUIContext";
 
 export default function RootLayout({
   children,
@@ -12,6 +15,7 @@ export default function RootLayout({
     <html lang="en" data-theme="dracula">
       <head />
       <body>
+        <NextUIContext>
         <AuthContext>
           <main className="min-h-screen w-screen max-w-full overflow-x-hidden">
             <Header />
@@ -21,6 +25,7 @@ export default function RootLayout({
             </div>
           </main>
         </AuthContext>
+        </NextUIContext>
         <AuthModal/>
       </body>
     </html>
