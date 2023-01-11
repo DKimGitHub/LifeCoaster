@@ -33,22 +33,7 @@ export default function Header() {
           <AuthButtonHeader />
         </div>
       </div>
-      <ul className={headerStyles.linksList}>
-        <li>
-          <Link href="/create" className={headerStyles.link}>
-            Create
-          </Link>
-        </li>
-        <li>
-          <Link href="/list" className={headerStyles.link}>
-            List
-          </Link>
-        </li>
-        <li>
-          <AuthButtonHeader/>
-        </li>
-      </ul>
-    </nav>
+    </header>
   );
 }
 {

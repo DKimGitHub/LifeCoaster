@@ -2,23 +2,50 @@ import React, { useContext } from "react";
 import { CreateContext } from "../app/create/page";
 import createStyles from "../styles/create.module.css";
 import { useForm } from "react-hook-form";
+import useSWR from "swr";
 
 export default function CreateForm() {
-  const { userInput, updateUserInput } = useContext(CreateContext);
+  const { userInput, updateUserInput, graphId} = useContext(CreateContext);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  function onSubmit(data) {
+  interface dataType {
+    [key: string]: any
+  }
+
+  function onSubmit(data: dataType) {
     const year: number = parseInt(data.yearInput);
     const value: number = parseInt(data.valueInput);
-    if (userInput.find((item) => item.year === year) === undefined) {
+    if (userInput.find((item: dataType) => item.year === year) === undefined) {
       updateUserInput((prev) => [...prev, { year: year, value: value }]);
+      const options = {
+        method: "POST",
+        body: JSON.stringify({
+          data: {
+            graph: {
+              connect: {
+                id: graphId
+              }
+            },
+            title: "some title",
+            xValue: year,
+            yValue: value
+          },
+        }),
+      };
+      fetchData("/api/post/node", options);
     } else {
       alert("The year overlaps!");
     }
+  }
+
+  async function fetchData(api, options) {
+    const response = await fetch(api, options);
+    const data = await response.json();
+    return data;
   }
 
   return (
@@ -40,7 +67,11 @@ export default function CreateForm() {
           },
         })}
       />
-      {errors.yearInput && <p style={{display: 'inline', color:'red'}}>{errors.yearInput.message}</p>} 
+      {errors.yearInput && (
+        <p style={{ display: "inline", color: "red" }}>
+          {errors.yearInput.message}
+        </p>
+      )}
       <br />
       <label className={createStyles.formLabel}>Value</label>
       <input
@@ -59,7 +90,11 @@ export default function CreateForm() {
           },
         })}
       />
-      {errors.valueInput && <p style={{display: 'inline', color:'red'}}>{errors.valueInput.message}</p>}
+      {errors.valueInput && (
+        <p style={{ display: "inline", color: "red" }}>
+          {errors.valueInput.message}
+        </p>
+      )}
       <br />
       <input className={createStyles.formSubmit} type="submit" value="Submit" />
     </form>
