@@ -1,20 +1,22 @@
 import React, { useContext } from "react";
-import { CreateContext } from "../app/create/page";
+import { CreatePageContext } from "../lib/CreatePageContext";
 import createStyles from "../styles/create.module.css";
 import { useForm } from "react-hook-form";
-import useSWR from "swr";
+import { dataType, FormState } from "../lib/types";
+
+async function fetchData(api: string, options: dataType) {
+  const response = await fetch(api, options);
+  const data = await response.json();
+  return data;
+}
 
 export default function CreateForm() {
-  const { userInput, updateUserInput, graphId} = useContext(CreateContext);
+  const { userInput, updateUserInput, graphId } = useContext(CreatePageContext);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-
-  interface dataType {
-    [key: string]: any
-  }
 
   function onSubmit(data: dataType) {
     const year: number = parseInt(data.yearInput);
@@ -27,12 +29,12 @@ export default function CreateForm() {
           data: {
             graph: {
               connect: {
-                id: graphId
-              }
+                id: graphId,
+              },
             },
             title: "some title",
             xValue: year,
-            yValue: value
+            yValue: value,
           },
         }),
       };
@@ -40,12 +42,6 @@ export default function CreateForm() {
     } else {
       alert("The year overlaps!");
     }
-  }
-
-  async function fetchData(api, options) {
-    const response = await fetch(api, options);
-    const data = await response.json();
-    return data;
   }
 
   return (
@@ -69,7 +65,7 @@ export default function CreateForm() {
       />
       {errors.yearInput && (
         <p style={{ display: "inline", color: "red" }}>
-          {errors.yearInput.message}
+          {errors.yearInput.message as string}
         </p>
       )}
       <br />
@@ -92,7 +88,7 @@ export default function CreateForm() {
       />
       {errors.valueInput && (
         <p style={{ display: "inline", color: "red" }}>
-          {errors.valueInput.message}
+          {errors.valueInput.message as string}
         </p>
       )}
       <br />
