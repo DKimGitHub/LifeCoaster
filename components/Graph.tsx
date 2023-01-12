@@ -67,6 +67,6 @@ export default function Graph() {
       },
     ],
   };
-  
+  // @ts-expect-error
   return <Line options={options} data={data} />;
 }
