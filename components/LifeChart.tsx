@@ -58,7 +58,9 @@ export const options = {
     intersect: false,
   },
   layout: {
-    padding: 5,
+    padding: {
+      top:25
+    },
   },
   //aspectRatio: 3,
   maintainAspectRatio: false,
@@ -66,7 +68,7 @@ export const options = {
 };
 const graphData = [
   { x: 0, y: 0 },
-  { x: 30, y: 0 },
+  { x: 30, y: 1 },
   { x: 20, y: 10 },
   { x: 14, y: 2 },
   { x: 1, y: 8 },

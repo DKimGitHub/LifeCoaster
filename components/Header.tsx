@@ -7,7 +7,7 @@ export default function Header() {
       <div className="mx-auto w-full max-w-6xl px-4">
         <div className="flex-1">
           <Link
-            className="btn-ghost btn text-2xl normal-case"
+            className="btn-ghost btn text-2xl normal-case pl-0"
             href="/">
             LifeCoaster
           </Link>
