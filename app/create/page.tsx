@@ -1,28 +1,20 @@
 "use client";
 
-import React, { useState, useEffect, createContext } from "react";
+import React, { useState, useEffect } from "react";
 import createStyles from "../../styles/create.module.css";
 import Graph from "../../components/Graph";
 import CreateForm from "../../components/CreateForm";
-import useSWR from "swr";
-import { findAncestor } from "typescript";
-import { useFetcher } from "react-router-dom";
-import { json } from "stream/consumers";
 
-export const CreateContext = createContext("defaultValue");
-
+import CreatePageContext from "../../lib/CreatePageContext";
+import { FormState } from "../../lib/types";
 export default function Page() {
   //Form Type
-  interface FormState {
-    year: number;
-    value: number;
-  }
 
-   //Node states
-   const [userInput, setUserInput] = useState<FormState[]>([
+  //Node states
+  const [userInput, setUserInput] = useState<FormState[]>([
     { year: 1995, value: 0 },
   ]);
-  const [graphId, setGraphId] = useState<number>();
+  const [graphId, setGraphId] = useState<number>(0);
 
   useEffect(() => {
     createPost();
@@ -52,12 +44,15 @@ export default function Page() {
   }
 
   //Function sent through ContextProvider for changing the node states
-  function updateUserInput(input: FormState[]) {
+  function updateUserInput(input: React.SetStateAction<FormState[]>) {
     setUserInput(input);
   }
 
   return (
-    <CreateContext.Provider value={{ userInput, updateUserInput, graphId }}>
+    <CreatePageContext
+      userInput={userInput}
+      updateUserInput={updateUserInput}
+      graphId={graphId}>
       <div className="flex flex-col items-center">
         <div className="mt-10 aspect-[21/5] w-full border border-black text-center">
           <Graph />
@@ -66,6 +61,6 @@ export default function Page() {
           <CreateForm />
         </div>
       </div>
-    </CreateContext.Provider>
+    </CreatePageContext>
   );
 }

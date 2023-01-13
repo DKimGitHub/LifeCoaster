@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { CreateContext } from "../app/create/page"
+import { CreatePageContext } from "../lib/CreatePageContext"
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -11,6 +11,7 @@ import {
   Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
+import { FormState } from '../lib/types';
 
 ChartJS.register(
   CategoryScale,
@@ -49,9 +50,9 @@ const options = {
 };
 
 export default function Graph() {
-  const { userInput, updateUserInput } = useContext(CreateContext)
+  const { userInput, updateUserInput } = useContext(CreatePageContext)
 
-  userInput.sort((a: number, b: number) => a.year - b.year);
+  userInput.sort((a: FormState, b: FormState) => a.year - b.year);
 
   const data = {
     datasets: [
@@ -66,6 +67,6 @@ export default function Graph() {
       },
     ],
   };
-  
+  // @ts-expect-error
   return <Line options={options} data={data} />;
 }
