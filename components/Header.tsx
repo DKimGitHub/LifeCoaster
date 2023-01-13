@@ -4,7 +4,7 @@ import headerStyles from "../styles/header.module.css";
 
 export default function Header() {
   return (
-    <header className="navbar min-h-12 h-12 z-50 py-1 shadow-md">
+    <nav className="navbar min-h-12 h-12 z-50 py-1 shadow-md">
       <div className="mx-auto w-full max-w-6xl px-4">
         <div className="flex-1">
           <Link
@@ -33,7 +33,7 @@ export default function Header() {
           <AuthButtonHeader />
         </div>
       </div>
-    </header>
+    </nav>
   );
 }
 {
