@@ -22,7 +22,7 @@ export default function CreatePageContextProvider({
   children,
 }: {
   userInput: FormState[];
-  updateUserInput: React.Dispatch<React.SetStateAction<FormState[]>>;
+  updateUserInput: (input: React.SetStateAction<FormState[]>) => void;
   graphId: number;
   children: React.ReactNode;
 }) {

@@ -1,3 +1,4 @@
+'use client';
 import React, { useContext } from "react";
 import { CreatePageContext } from "../lib/CreatePageContext";
 import createStyles from "../styles/create.module.css";
