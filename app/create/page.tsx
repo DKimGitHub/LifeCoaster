@@ -12,7 +12,7 @@ export default function Page() {
 
   //Node states
   const [userInput, setUserInput] = useState<FormState[]>([
-    { year: 1995, value: 0 },
+    { xValue: 1995, yValue: 0 },
   ]);
   const [graphId, setGraphId] = useState<number>(0);
 
