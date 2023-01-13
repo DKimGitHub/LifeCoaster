@@ -9,7 +9,8 @@ export default function AuthButtonHeader() {
       logout
     </button>
   ) : (
-<label htmlFor="my-modal-4" className="btn btn-primary">Login</label>
-
+    <label htmlFor="my-modal-4" className="btn-primary btn-sm btn">
+      Login
+    </label>
   );
 }

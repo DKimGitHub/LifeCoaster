@@ -1,5 +1,5 @@
 import AnimatedCart from "../components/AnimatedCart";
-import LifeChart from "../components/LifeChart";
+import ListPageGraph from "../components/ListPageGraph";
 
 export default async function Home() {
   return (
@@ -8,9 +8,10 @@ export default async function Home() {
         Project by Kimbros
       </div>
       <div
-                  className={`chartContainer h-60 relative z-10 border-4 border-solid bg-base-100`}>
-                  <LifeChart />
-                </div>      <AnimatedCart/>
+        className={`chartContainer relative z-10 h-60 border-4 border-solid bg-base-100`}>
+        <ListPageGraph />
+      </div>{" "}
+      <AnimatedCart />
     </>
   );
 }

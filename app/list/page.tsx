@@ -1,6 +1,6 @@
 import Link from "next/link";
-import LifeChart from "../../components/LifeChart";
-import ListPageLifeChart from "../../components/ListPageLifeChart";
+import LifeChart from "../../components/ListPageGraph";
+import ListPageCard from "../../components/ListPageCard";
 import PageModal from "../../components/PostPage";
 //import prisma from "../../lib/prisma";
 
@@ -35,7 +35,7 @@ export default function Page() {
 
       <div className="my-5 grid w-full grid-cols-1 gap-12 md:grid-cols-2 md:gap-12">
         {postList.map((data, index) => (
-          <ListPageLifeChart/>
+          <ListPageCard/>
         ))}
       </div>
     </>

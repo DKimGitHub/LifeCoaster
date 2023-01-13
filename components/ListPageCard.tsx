@@ -1,6 +1,6 @@
 "use client";
 
-import LifeChart from "./LifeChart";
+import ListPageGraph from "./ListPageGraph";
 import Modal from "react-modal";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -29,7 +29,7 @@ const customStyles = {
   },
 };
 //TODO disable scroll but keep scrollbar
-export default function ListPageLifeChart(data: any) {
+export default function ListPageCard(data: any) {
   const colorTheme = "light";
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -61,7 +61,7 @@ export default function ListPageLifeChart(data: any) {
           <button
             onClick={clickHandler}
             className={` relative h-56 w-full bg-base-200`}>
-            <LifeChart />
+            <ListPageGraph />
           </button>
 
           <div className="flex items-center justify-between p-2">

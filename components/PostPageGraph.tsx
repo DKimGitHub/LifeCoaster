@@ -1,6 +1,5 @@
 "use client";
 
-import styles from "./lifeChartListPage.module.css";
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -84,11 +83,12 @@ export const data = {
   ],
 };
 
-export default function LifeChart(props: any) {
+export default function PostPageGraph(props: any) {
   const { colorTheme } = props;
   //const ranNumDeg = Math.floor((Math.random() * (360)))+ "deg";
 
   return (
+      // @ts-expect-error
     <Line options={options} data={data} />
   );
 }

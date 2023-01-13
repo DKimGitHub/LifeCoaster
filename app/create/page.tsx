@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import createStyles from "../../styles/create.module.css";
-import Graph from "../../components/Graph";
+import CreatePageGraph from "../../components/CreatePageGraph";
 import CreateForm from "../../components/CreateForm";
 
 import CreatePageContext from "../../lib/CreatePageContext";
@@ -55,7 +55,7 @@ export default function Page() {
       graphId={graphId}>
       <div className="flex flex-col items-center">
         <div className="mt-10 aspect-[21/5] w-full border border-black text-center">
-          <Graph />
+          <CreatePageGraph />
         </div>
         <div className={createStyles.formContainer}>
           <CreateForm />

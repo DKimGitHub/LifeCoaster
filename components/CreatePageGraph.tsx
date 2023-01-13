@@ -49,7 +49,7 @@ const options = {
   //tension: 0.4
 };
 
-export default function Graph() {
+export default function CreatePageGraph() {
   const { userInput, updateUserInput } = useContext(CreatePageContext)
 
   userInput.sort((a: FormState, b: FormState) => a.year - b.year);
