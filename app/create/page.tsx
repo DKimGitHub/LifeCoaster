@@ -11,14 +11,19 @@ export default function Page() {
   //Form Type
 
   //Node states
-  const [userInput, setUserInput] = useState<FormState[]>([
-    { xValue: 1995, yValue: 0 },
-  ]);
+
+  const [defaultNode, setDefaultNode] = useState<FormState[]>([{ xValue: 1995, yValue: 0 }]);
+  const [userInput, setUserInput] = useState<FormState[]>(defaultNode);
   const [graphId, setGraphId] = useState<number>(0);
 
   useEffect(() => {
-    createPost();
+    const savedState = localStorage.getItem("userInput");
+    savedState? setUserInput(JSON.parse(savedState)) : createPost ();
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem("userInput", JSON.stringify(userInput));
+  }, [userInput]);
 
   async function createPost() {
     const options = {
@@ -48,11 +53,17 @@ export default function Page() {
     setUserInput(input);
   }
 
+  function reset() {
+    localStorage.removeItem("userInput");
+    setUserInput([{ xValue: 1995, yValue: 0 }]);
+  }
+
   return (
     <CreatePageContext
       userInput={userInput}
       updateUserInput={updateUserInput}
       graphId={graphId}>
+      <button onClick={reset}>start from scratch</button>
       <div className="flex flex-col items-center">
         <div className="mt-10 aspect-[21/5] w-full border border-black text-center">
           <CreatePageGraph />
