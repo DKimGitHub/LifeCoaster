@@ -61,30 +61,34 @@ export const options = {
       top:25
     },
   },
+  parsing: {
+    xAxisKey: 'xValue',
+    yAxisKey: 'yValue'
+  },
   //aspectRatio: 3,
   maintainAspectRatio: false,
   cubicInterpolationMode: "monotone",
 };
-const graphData = [
-  { x: 0, y: 0 },
-  { x: 30, y: 1 },
-  { x: 20, y: 10 },
-  { x: 14, y: 2 },
-  { x: 1, y: 8 },
-].sort((a, b) => a.x - b.x);
-
-export const data = {
-  datasets: [
-    {
-      label: "Dataset 1",
-      data: graphData,
-      borderColor: "hsl(0,0%,50%)",
-    },
-  ],
-};
+// const graphData = [
+//   { x: 0, y: 0 },
+//   { x: 30, y: 1 },
+//   { x: 20, y: 10 },
+//   { x: 14, y: 2 },
+//   { x: 1, y: 8 },
+// ].sort((a, b) => a.x - b.x);
 
 export default function ListPageGraph(props: any) {
-  const { colorTheme } = props;
+  //const { colorTheme } = props;
+  const graphData = props.data?.graph.nodes.sort((a, b) => a.xValue - b.xValue)
+  const data = {
+    datasets: [
+      {
+        label: "Dataset 1",
+        data: graphData,
+        borderColor: "hsl(0,0%,50%)",
+      },
+    ],
+  };
   //const ranNumDeg = Math.floor((Math.random() * (360)))+ "deg";
 
   return (

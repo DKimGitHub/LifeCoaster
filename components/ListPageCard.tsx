@@ -10,6 +10,7 @@ import Tilt from "react-parallax-tilt";
 import Image from "next/image";
 import CommentIcon from "../public/comment.svg";
 import HeartIcon from "../public/heart_outline.svg";
+import { dataType } from "../lib/types"
 
 const customStyles = {
   content: {
@@ -29,10 +30,11 @@ const customStyles = {
   },
 };
 //TODO disable scroll but keep scrollbar
-export default function ListPageCard(data: any) {
+export default function ListPageCard(props: dataType) {
   const colorTheme = "light";
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const data = props.data;
 
   function clickHandler() {
     window.history.pushState(null, "Post 6", "/p/6");
@@ -61,7 +63,7 @@ export default function ListPageCard(data: any) {
           <button
             onClick={clickHandler}
             className={` relative h-56 w-full bg-base-200`}>
-            <ListPageGraph />
+            <ListPageGraph data = {data}/>
           </button>
 
           <div className="flex items-center justify-between p-2">
