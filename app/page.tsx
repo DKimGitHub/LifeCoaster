@@ -8,7 +8,7 @@ export default async function Home() {
         Project by Kimbros
       </div>
       <div
-        className={`chartContainer relative z-10 h-60 border-4 border-solid bg-base-100`}>
+        className={`chartContainer relative h-60 border-4 border-solid bg-base-100`}>
         <ListPageGraph />
       </div>{" "}
       <AnimatedCart />

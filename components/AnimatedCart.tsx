@@ -178,7 +178,7 @@ export default function AnimatedCart() {
       };
     return (
   <div
-    className={`relative z-10 border-4 border-solid bg-base-100 transition-transform duration-300 ease-in-out hover:translate-y-2`}>
+    className={`relative border-4 border-solid bg-base-100 transition-transform duration-300 ease-in-out hover:translate-y-2`}>
     {/* @ts-expect-error */}
     <Line className="h-50" data={data} options={options}/>
   </div>);
