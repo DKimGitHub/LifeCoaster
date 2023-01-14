@@ -7,23 +7,29 @@ import CreateForm from "../../components/CreateForm";
 
 import CreatePageContext from "../../lib/CreatePageContext";
 import { FormState } from "../../lib/types";
+
 export default function Page() {
-  //Form Type
-
-  //Node states
-
-  const [defaultNode, setDefaultNode] = useState<FormState[]>([{ xValue: 1995, yValue: 0 }]);
-  const [userInput, setUserInput] = useState<FormState[]>(defaultNode);
-  const [graphId, setGraphId] = useState<number>(0);
+  const [userInput, setUserInput] = useState<FormState[]>([]);
+  const [graphId, setGraphId] = useState<string>("");
 
   useEffect(() => {
-    const savedState = localStorage.getItem("userInput");
-    savedState? setUserInput(JSON.parse(savedState)) : createPost ();
+    const savedState = localStorage.getItem("savedPost");
+    if (savedState){
+      setUserInput(JSON.parse(savedState).userInput)
+      setGraphId(JSON.parse(savedState).graphId)
+    }
+    else{
+      createPost()
+    }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("userInput", JSON.stringify(userInput));
-  }, [userInput]);
+    const savedPost = {
+      userInput: userInput,
+      graphId: graphId
+    }
+    localStorage.setItem("savedPost", JSON.stringify(savedPost));
+  }, [userInput, graphId]);
 
   async function createPost() {
     const options = {
@@ -48,6 +54,7 @@ export default function Page() {
     setGraphId(data.graph.id);
   }
 
+ 
   //Function sent through ContextProvider for changing the node states
   function updateUserInput(input: React.SetStateAction<FormState[]>) {
     setUserInput(input);
@@ -55,7 +62,8 @@ export default function Page() {
 
   function reset() {
     localStorage.removeItem("userInput");
-    setUserInput([{ xValue: 1995, yValue: 0 }]);
+    setUserInput([]);
+    createPost();
   }
 
   return (

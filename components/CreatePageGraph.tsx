@@ -52,7 +52,7 @@ const options = {
 export default function CreatePageGraph() {
   const { userInput, updateUserInput } = useContext(CreatePageContext)
 
-  userInput.sort((a: FormState, b: FormState) => a.year - b.year);
+  userInput.sort((a: FormState, b: FormState) => a.xValue - b.xValue);
 
   const data = {
     datasets: [
@@ -61,8 +61,8 @@ export default function CreatePageGraph() {
         borderColor: 'rgb(255, 99, 132)',
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
         parsing: {
-          xAxisKey: 'year',
-          yAxisKey: 'value'
+          xAxisKey: 'xValue',
+          yAxisKey: 'yValue'
         }
       },
     ],

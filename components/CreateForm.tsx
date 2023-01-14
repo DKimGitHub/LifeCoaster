@@ -21,7 +21,7 @@ export default function CreateForm() {
   function onSubmit(data: dataType) {
     const year: number = parseInt(data.yearInput);
     const value: number = parseInt(data.valueInput);
-    if (userInput.find((item: dataType) => item.year === year) === undefined) {
+    if (userInput.find((item: dataType) => item.xValue === year) === undefined) {
       updateUserInput((prev) => [...prev, { xValue: year, yValue: value }]);
       const options = {
         method: "POST",

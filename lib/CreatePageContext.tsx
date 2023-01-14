@@ -6,13 +6,13 @@ import { dataType, FormState } from "./types";
 interface CreatePageContextInterface {
   userInput: FormState[];
   updateUserInput: (input: React.SetStateAction<FormState[]>) => void;
-  graphId: number;
+  graphId: string;
 }
 
 export const CreatePageContext = createContext<CreatePageContextInterface>({
   userInput: [],
   updateUserInput: () => {},
-  graphId: NaN,
+  graphId: "",
 });
 
 export default function CreatePageContextProvider({
@@ -23,7 +23,7 @@ export default function CreatePageContextProvider({
 }: {
   userInput: FormState[];
   updateUserInput: React.Dispatch<React.SetStateAction<FormState[]>>;
-  graphId: number;
+  graphId: string;
   children: React.ReactNode;
 }) {
   return (

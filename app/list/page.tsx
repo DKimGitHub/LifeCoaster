@@ -8,7 +8,6 @@ import { dataType } from "../../lib/types";
 async function fetchData() {
   const feed = await prisma.post.findMany({
     select: {
-      authorId: true,
       graph: {
         include: {
           nodes: {
