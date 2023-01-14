@@ -13,7 +13,7 @@ export default function Header() {
             LifeCoaster
           </Link>
         </div>
-        <div className="flex-none flex">
+        <div className="flex-none flex items-center">
           <ul className="menu menu-horizontal">
             <li>
               <Link
