@@ -67,7 +67,7 @@ export default function ListPageCard(data: any) {
           <div className="flex items-center justify-between p-2">
             {" "}
             <div className="flex flex-1">
-              <img
+              <Image
                 height={46}
                 width={46}
                 src="https://api.dicebear.com/5.x/fun-emoji/svg?seed=Ryan&radius=10"

@@ -12,7 +12,7 @@ export default function PostPage() {
       <div className="flex h-full items-center">
         <div
           data-theme={colorTheme}
-          className={`chartContainer peer relative z-10 h-96 w-2/3 border-4 border-solid bg-base-100`}>
+          className={`chartContainer peer relative h-96 w-2/3 border-4 border-solid bg-base-100`}>
           <PostPageGraph />
         </div>
         <div className="flex w-1/3 flex-col">
