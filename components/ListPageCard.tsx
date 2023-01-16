@@ -33,22 +33,22 @@ const customStyles = {
 export default function ListPageCard(props: dataType) {
   const colorTheme = "light";
   const router = useRouter();
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAgeModalOpen, setIsAgeModalOpen] = useState(false);
   const data = props.data;
 
   function clickHandler() {
     window.history.pushState(null, "Post 6", "/p/6");
-    setIsModalOpen(true);
+    setIsAgeModalOpen(true);
     router.prefetch("p/6");
   }
   function onModalClose() {
     router.back();
-    setIsModalOpen(false);
+    setIsAgeModalOpen(false);
   }
   return (
     <>
       <Modal
-        isOpen={isModalOpen}
+        isOpen={isAgeModalOpen}
         onRequestClose={onModalClose}
         contentLabel="Post Modal"
         ariaHideApp={false}

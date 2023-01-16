@@ -6,6 +6,7 @@ import CreatePageGraph from "../../components/CreatePageGraph";
 import CreateForm from "../../components/CreateForm";
 import Modal from "react-modal";
 import CreatePageAgeModal from "../../components/CreatePageAgeModal";
+import CreatePageContinueModal from "../../components/CreatePageContinueModal"
 
 import CreatePageContext from "../../lib/CreatePageContext";
 import { FormState, DOBType } from "../../lib/types";
@@ -24,7 +25,8 @@ export default function Page() {
     },
     value: NaN,
   });
-  const [isModalOpen, setIsModalOpen] = useState(true);
+  const [isAgeModalOpen, setIsAgeModalOpen] = useState(false);
+  const [isContinueModalOpen, setIsContinueModalOpen] = useState(true);
 
   useEffect(() => {
     const savedState = localStorage.getItem("savedPost");
@@ -32,8 +34,9 @@ export default function Page() {
       setUserInput(JSON.parse(savedState).userInput);
       setGraphId(JSON.parse(savedState).graphId);
       setFirstNode(JSON.parse(savedState).firstNode);
-      setIsModalOpen(false);
     } else {
+      setIsContinueModalOpen(false);
+      setIsAgeModalOpen(true);
       createPost();
     } 
   }, []);
@@ -56,7 +59,6 @@ export default function Page() {
       marginRight: "-50%",
       transform: "translate(-50%, -50%)",
       marginX: "auto",
-      width: "50%",
       maxWidth: "72rem",
       maxHeight: "36rem",
     },
@@ -66,7 +68,11 @@ export default function Page() {
   };
 
   function closeModal() {
-    setIsModalOpen(false);
+    setIsAgeModalOpen(false);
+  }
+
+  function closeContinueModal(){
+    setIsContinueModalOpen(false);
   }
 
   async function createPost() {
@@ -103,15 +109,19 @@ export default function Page() {
     setFirstNode(input);
   }
 
-  function updateIsModalOpen(input: React.SetStateAction<boolean>) {
-    setIsModalOpen(input);
+  function updateisAgeModalOpen(input: React.SetStateAction<boolean>) {
+    setIsAgeModalOpen(input);
+  }
+
+  function updateIsContinueModalOpen(input: React.SetStateAction<boolean>) {
+    setIsContinueModalOpen(input);
   }
 
   function reset() {
     localStorage.removeItem("userInput");
     setUserInput([]);
     createPost();
-    setIsModalOpen(true);
+    setIsAgeModalOpen(true);
   }
 
   return (
@@ -121,13 +131,26 @@ export default function Page() {
       graphId={graphId}
       firstNode = {firstNode}
       updateFirstNode={updateFirstNode}
-      updateIsModalOpen={updateIsModalOpen}>
+      updateIsContinueModalOpen={updateIsContinueModalOpen}
+      updateisAgeModalOpen={updateisAgeModalOpen}
+      reset={reset}>
       <Modal
-        isOpen={isModalOpen}
-        onRequestClose={closeModal}
-        contentLabel="Post Modal"
+        isOpen={isContinueModalOpen}
+        onRequestClose={closeContinueModal}
+        contentLabel="Continue Modal"
         ariaHideApp={false}
         closeTimeoutMS={150}
+        shouldCloseOnOverlayClick={false}
+        style={customStyles}>
+        <CreatePageContinueModal />
+      </Modal>{" "}
+      <Modal
+        isOpen={isAgeModalOpen}
+        onRequestClose={closeModal}
+        contentLabel="Age Modal"
+        ariaHideApp={false}
+        closeTimeoutMS={150}
+        shouldCloseOnOverlayClick={false}
         style={customStyles}>
         <CreatePageAgeModal />
       </Modal>{" "}

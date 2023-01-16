@@ -5,7 +5,7 @@ import { CreatePageContext } from "../lib/CreatePageContext";
 import createStyles from "../styles/create.module.css";
 
 function CreatePageAgeModal() {
-  const { updateFirstNode, updateIsModalOpen, updateUserInput } = useContext(CreatePageContext);
+  const { updateFirstNode, updateisAgeModalOpen, updateUserInput } = useContext(CreatePageContext);
 
   function onSubmit(data: dataType) {
     const dateArray = data.dateInput.split("-");
@@ -21,7 +21,7 @@ function CreatePageAgeModal() {
       ...prev,
       { xValue: parseInt(dateArray[0]), yValue: parseInt(data.valueInput)},
     ])
-    updateIsModalOpen(false);
+    updateisAgeModalOpen(false);
   }
 
   async function createNode(){

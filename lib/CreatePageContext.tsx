@@ -9,7 +9,9 @@ interface CreatePageContextInterface {
   graphId: string;
   firstNode: {dateOfBirth: DOBType, value: number};
   updateFirstNode: React.Dispatch<React.SetStateAction<{dateOfBirth: DOBType, value: number}>>;
-  updateIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  updateIsContinueModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  updateisAgeModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  reset: () => void;
 }
 
 export const CreatePageContext = createContext<CreatePageContextInterface>({
@@ -25,7 +27,9 @@ export const CreatePageContext = createContext<CreatePageContextInterface>({
     value: NaN,
   },
   updateFirstNode: () => {},
-  updateIsModalOpen: () => {},
+  updateIsContinueModalOpen: () => {},
+  updateisAgeModalOpen: () => {},
+  reset: () => {}
 });
 
 export default function CreatePageContextProvider({
@@ -34,7 +38,9 @@ export default function CreatePageContextProvider({
   graphId,
   firstNode,
   updateFirstNode,
-  updateIsModalOpen,
+  updateisAgeModalOpen,
+  updateIsContinueModalOpen,
+  reset,
   children,
 }: {
   userInput: FormState[];
@@ -42,7 +48,9 @@ export default function CreatePageContextProvider({
   graphId: string;
   firstNode: {dateOfBirth: DOBType, value: number};
   updateFirstNode: React.Dispatch<React.SetStateAction<{dateOfBirth: DOBType, value: number}>>;
-  updateIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  updateIsContinueModalOpen:  React.Dispatch<React.SetStateAction<boolean>>;
+  updateisAgeModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  reset: () => void
   children: React.ReactNode;
 }) {
   return (
@@ -53,7 +61,9 @@ export default function CreatePageContextProvider({
         graphId,
         firstNode,
         updateFirstNode,
-        updateIsModalOpen,
+        updateIsContinueModalOpen,
+        updateisAgeModalOpen,
+        reset,
       }}>
       {children}
     </CreatePageContext.Provider>
