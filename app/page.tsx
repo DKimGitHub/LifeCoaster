@@ -1,6 +1,5 @@
 import AnimatedCart from "../components/AnimatedCart";
 import ListPageGraph from "../components/ListPageGraph";
-import NextUITester from "../components/NextUITester";
 export default async function Home() {
   return (
     <>
@@ -12,7 +11,6 @@ export default async function Home() {
         <ListPageGraph />
       </div>{" "}
       <AnimatedCart />
-      <NextUITester />
     </>
   );
 }

@@ -39,7 +39,7 @@ export default function AuthButtonHeader() {
     </Dropdown>
   ) : (
     //@ts-expect-error
-    <Button as="label" htmlFor="my-modal-4" ghost color="primary" auto>
+    <Button className="px-3" as="label" htmlFor="my-modal-4" ghost color="primary" auto>
       LOGIN
     </Button>
   );
