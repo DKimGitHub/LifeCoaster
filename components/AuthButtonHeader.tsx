@@ -4,7 +4,8 @@ import headerStyles from "../styles/header.module.css";
 import { Dropdown, Avatar, Text, Button } from "@nextui-org/react";
 
 export default function AuthButtonHeader() {
-  const { data: session } = useSession();
+  // const { data: session } = useSession();
+  const session = true;
   // return !session ? (
   //   <label htmlFor="my-modal-4" className="btn-primary btn-sm btn">
   //     Login
