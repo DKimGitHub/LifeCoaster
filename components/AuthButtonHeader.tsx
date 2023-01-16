@@ -4,22 +4,14 @@ import headerStyles from "../styles/header.module.css";
 import { Dropdown, Avatar, Text, Button } from "@nextui-org/react";
 
 export default function AuthButtonHeader() {
-  // const { data: session } = useSession();
-  const session = true;
-  // return !session ? (
-  //   <label htmlFor="my-modal-4" className="btn-primary btn-sm btn">
-  //     Login
-  //   </label>
-  // ) :
+  const { data: session } = useSession();
   return session ? (
     <Dropdown placement="bottom-right">
       <Dropdown.Trigger>
         <Avatar
-          bordered
+          className="border-[3px] border-primary"
           size="lg"
-          as="button"
-          color="secondary"
-          src={`https://api.dicebear.com/5.x/fun-emoji/svg?seed=test`}
+          src={`https://api.dicebear.com/5.x/fun-emoji/svg?seed=chamna`}
         />
       </Dropdown.Trigger>
       <Dropdown.Menu
@@ -48,7 +40,7 @@ export default function AuthButtonHeader() {
   ) : (
     //@ts-expect-error
     <Button as="label" htmlFor="my-modal-4" ghost color="primary" auto>
-    LOGIN
-   </Button>
+      LOGIN
+    </Button>
   );
 }
