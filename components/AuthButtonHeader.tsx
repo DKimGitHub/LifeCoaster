@@ -45,6 +45,7 @@ export default function AuthButtonHeader() {
       </Dropdown.Menu>
     </Dropdown>
   ) : (
+    //@ts-expect-error
     <Button as="label" htmlFor="my-modal-4" ghost color="primary" auto>
     LOGIN
    </Button>
