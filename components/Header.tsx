@@ -4,17 +4,17 @@ import headerStyles from "../styles/header.module.css";
 
 export default function Header() {
   return (
-    <nav className="navbar z-50 py-1 shadow-md">
-      <div className="mx-auto w-full max-w-7xl md:px-4">
+    <nav className="navbar h-16 z-50 py-1 shadow-md">
+      <div className="mx-auto w-full max-w-[76rem] md:px-4">
         <div className="flex-1">
           <Link
-            className="btn-ghost btn text-2xl normal-case"
+            className="btn-ghost btn text-3xl normal-case"
             href="/">
             LifeCoaster
           </Link>
         </div>
-        <div className="flex-none flex items-center">
-          <ul className="menu menu-horizontal">
+        <div className="flex-none flex items-center mr-4">
+          <ul className="menu menu-horizontal mr-4">
             <li>
               <Link
                 href="/create"
@@ -31,7 +31,6 @@ export default function Header() {
             </li>
           </ul>
           <AuthButtonHeader />
-          <div className="mx-2 inline"></div>
         </div>
       </div>
     </nav>
