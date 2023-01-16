@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import { CreatePageContext } from "../lib/CreatePageContext"
+import React, { useContext, useState, useEffect } from "react";
+import { CreatePageContext } from "../lib/CreatePageContext";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -9,9 +9,9 @@ import {
   Title,
   Tooltip,
   Legend,
-} from 'chart.js';
-import { Line } from 'react-chartjs-2';
-import { FormState } from '../lib/types';
+} from "chart.js";
+import { Line } from "react-chartjs-2";
+import { FormState } from "../lib/types";
 
 ChartJS.register(
   CategoryScale,
@@ -23,47 +23,51 @@ ChartJS.register(
   Legend
 );
 
-const options = {
-  responsive: true,
-  plugins: {
-    legend:{
-      display: false
-    }
-  },
-  scales: {
-    x:{
-      type: 'linear',
-      grid:{
-        display: false
-      },
-      min: 1995,
-    },
-    y:{
-      type: 'linear',
-      grid:{
-        display: false
-      },
-    }
-  },
-  cubicInterpolationMode: 'monotone',
-  //tension: 0.4
-};
-
 export default function CreatePageGraph() {
-  const { userInput, updateUserInput } = useContext(CreatePageContext)
+  const { userInput, firstNode } = useContext(CreatePageContext);
+  const yearBorn = firstNode.dateOfBirth.year
+  
 
   userInput.sort((a: FormState, b: FormState) => a.xValue - b.xValue);
+
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
+    scales: {
+      x: {
+        type: "linear",
+        grid: {
+          display: false,
+        },
+        min: yearBorn? yearBorn : 0,
+      },
+      y: {
+        type: "linear",
+        grid: {
+          display: false,
+        },
+        min: -11,
+        max: 11
+      },
+    },
+    cubicInterpolationMode: "monotone",
+    //tension: 0.4
+  };
 
   const data = {
     datasets: [
       {
         data: userInput,
-        borderColor: 'rgb(255, 99, 132)',
-        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+        borderColor: "rgb(255, 99, 132)",
+        backgroundColor: "rgba(255, 99, 132, 0.5)",
         parsing: {
-          xAxisKey: 'xValue',
-          yAxisKey: 'yValue'
-        }
+          xAxisKey: "xValue",
+          yAxisKey: "yValue",
+        },
       },
     ],
   };

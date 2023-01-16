@@ -10,3 +10,9 @@ export type PageProps = {
     xValue: number;
     yValue: number;
   }
+
+  export type DOBType = {
+    year: number;
+    month: number;
+    day: number
+  }

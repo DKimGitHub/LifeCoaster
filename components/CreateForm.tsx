@@ -11,12 +11,14 @@ async function fetchData(api: string, options: dataType) {
 }
 
 export default function CreateForm() {
-  const { userInput, updateUserInput, graphId } = useContext(CreatePageContext);
+  const { userInput, updateUserInput, graphId, firstNode } = useContext(CreatePageContext);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  const yearBorn = firstNode.dateOfBirth.year
 
   function onSubmit(data: dataType) {
     const year: number = parseInt(data.yearInput);
@@ -54,8 +56,8 @@ export default function CreateForm() {
         {...register("yearInput", {
           required: "This is required",
           min: {
-            value: 1995,
-            message: "minimum year is 1995",
+            value: yearBorn,
+            message: `minimum value is ${yearBorn}`,
           },
           max: {
             value: 2023,
