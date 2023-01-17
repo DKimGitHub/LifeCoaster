@@ -2,14 +2,15 @@
 
 import ListPageGraph from "./ListPageGraph";
 import Modal from "react-modal";
-import { useState } from "react";
+import { useState, lazy, Suspense } from "react";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
-import PostPage from "./PostPage";
 import Tilt from "react-parallax-tilt";
 import Image from "next/image";
 import CommentIcon from "../public/comment.svg";
 import HeartIcon from "../public/heart_outline.svg";
+
+const PostPage = lazy(() => import("./PostPage"));
 
 const customStyles = {
   content: {
@@ -52,7 +53,8 @@ export default function ListPageCard(data: any) {
         ariaHideApp={false}
         closeTimeoutMS={150}
         style={customStyles}>
-        <PostPage />
+          <Suspense fallback={<div>loading...</div>}>
+        <PostPage /></Suspense>
       </Modal>{" "}
       <Tilt perspective={2000} tiltMaxAngleX={10} tiltMaxAngleY={10}>
         <div
