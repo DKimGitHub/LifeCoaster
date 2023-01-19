@@ -2,7 +2,7 @@
 
 import ListPageGraph from "./ListPageGraph";
 import Modal from "react-modal";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import PostPage from "./PostPage";
@@ -10,6 +10,7 @@ import Tilt from "react-parallax-tilt";
 import Image from "next/image";
 import CommentIcon from "../public/comment.svg";
 import HeartIcon from "../public/heart_outline.svg";
+import { ListPageModalContext } from "../lib/ListPageModalProvider";
 
 const customStyles = {
   content: {
@@ -30,12 +31,14 @@ const customStyles = {
 };
 //TODO disable scroll but keep scrollbar
 export default function ListPageCard(data: any) {
+  let { visible, setVisible } = useContext(ListPageModalContext);
   const colorTheme = "light";
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   function clickHandler() {
     window.history.pushState(null, "Post 6", "/p/6");
+    setVisible(true);
     setIsModalOpen(true);
     router.prefetch("p/6");
   }
@@ -45,7 +48,7 @@ export default function ListPageCard(data: any) {
   }
   return (
     <>
-      <Modal
+      {/* <Modal
         isOpen={isModalOpen}
         onRequestClose={onModalClose}
         contentLabel="Post Modal"
@@ -53,11 +56,11 @@ export default function ListPageCard(data: any) {
         closeTimeoutMS={150}
         style={customStyles}>
         <PostPage />
-      </Modal>{" "}
+      </Modal>{" "} */}
       <Tilt perspective={2000} tiltMaxAngleX={10} tiltMaxAngleY={10}>
         <div
           data-theme={colorTheme}
-          className="gradientBorder card card-compact rounded-sm bg-base-100 shadow-xl border-2  border-solid">
+          className="gradientBorder card card-compact rounded-sm border-2 border-solid bg-base-100  shadow-xl">
           <button
             onClick={clickHandler}
             className={` relative h-56 w-full bg-base-200`}>
