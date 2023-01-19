@@ -8,13 +8,13 @@ export default function Header() {
       <div className="mx-auto w-full max-w-[76rem] md:px-4">
         <div className="flex-1">
           <Link
-            className="btn-ghost btn-sm md:btm-md btn text-xl md:text-3xl normal-case"
+            className=" btn text-xl btn-ghost md:text-3xl normal-case"
             href="/">
             LifeCoaster
           </Link>
         </div>
         <div className="flex-none flex items-center mr-4">
-          <ul className="menu menu-horizontal mr-2">
+          <ul className="menu menu-horizontal mr-4">
             <li>
               <Link
                 href="/create"

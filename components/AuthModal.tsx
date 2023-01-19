@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import Image from "next/image";
 import GoogleIcon from "../public/google_logo.svg";
 import IGIcon from "../public/Instagram_logo_2022.svg";
+import { Input } from "@nextui-org/react";
 
 export default function AuthModal() {
   // const { data: session, status } = useSession();
@@ -94,16 +95,16 @@ export default function AuthModal() {
         onChange={modalChangeHandler}
       />
       <label htmlFor="my-modal-4" className="modal cursor-pointer">
-        <label className="modal-box relative rounded-md" htmlFor="">
+        <label className="modal-box max-w-[26rem] relative rounded-md" htmlFor="">
           <label
             htmlFor="my-modal-4"
             className="btn-ghost btn-sm btn-circle btn absolute right-2 top-2">
             ✕
           </label>
-          <h1 className="pt-8 pb-4 text-2xl font-bold">Login</h1>
-          <p className="text-sm font-medium">With magic email link:</p>
+          <h1 className="pt-6 pb-4 text-2xl font-bold">Login</h1>
+          <p className="text-sm font-medium mb-1">With magic email link:</p>
           <form onSubmit={handleSubmit}>
-            <label className="label pb-0 pl-0 text-xs text-gray-400">
+            {/* <label className="label pb-0 pl-0 text-xs text-gray-400">
               Email
             </label>
             <input
@@ -111,7 +112,15 @@ export default function AuthModal() {
               className="input-bordered input input-sm mb-1 w-full rounded-sm focus:outline-offset-0"
               value={email}
               onChange={handleChange}
-            />
+            /> */}
+                    <Input className="mb-1"
+                    aria-label="email-input"
+                    fullWidth
+          underlined
+          value={email}
+          onChange={handleChange}
+          placeholder="Email" 
+          color="primary" />
             <br />
             {isError && (
               <p className="pb-1 text-xs text-error">
