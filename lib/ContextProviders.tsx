@@ -10,21 +10,6 @@ const globalStyles = globalCss({
   li: { marginBottom: "0 !important" }
 });
 
-const lightTheme = createTheme({
-  type: "light",
-  theme: {
-    // colors: {
-    //  background: 'radial-gradient(circle, rgba(255,207,207,1) 0%, rgba(255,255,255,1) 100%)'
-    //  }, // optional
- },
-});
-
-const darkTheme = createTheme({
-  type: "dark",
-  theme: {
-     colors: {background: '$gray50'  }, // optional
-  },
-});
 export default function ContextProviders({
   children,
 }: {
@@ -38,11 +23,7 @@ export default function ContextProviders({
   return (
     <>
       <NextThemesProvider
-        attribute="class"
-        value={{
-          light: lightTheme.className,
-          dark: darkTheme.className,
-        }}>
+        attribute="class">
         <NextUIProvider>
           <SessionProvider>{children} </SessionProvider>
         </NextUIProvider>
