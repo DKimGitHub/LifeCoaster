@@ -34,17 +34,19 @@
 .resetContainer {
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: flex-start;
   width: 100%;
+  margin-top: 0.4rem;
 }
 
 .resetButton {
   padding: 0.2rem 1rem;
   margin: 0.1rem;
   border: 1px solid brown;
-  border-radius: 2rem;
+  border-radius: 10px;
   color: brown;
   font-weight: bold;
+  font-size: 0.8rem;
   transition: background-color 0.3s, color 0.3s, font-size 0.1s;
 }
 

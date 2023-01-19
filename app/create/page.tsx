@@ -157,7 +157,7 @@ export default function Page() {
       </Modal>
       {""}
       <div className="flex flex-col items-center">
-        <div className="mt-10 h-60 w-full border border-black text-center">
+        <div className="mt-10 h-60 w-full text-center">
           <CreatePageGraph />
         </div>
         <div className={createStyles.resetContainer}>
