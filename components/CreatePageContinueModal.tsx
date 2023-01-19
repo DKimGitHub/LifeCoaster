@@ -10,7 +10,7 @@ function CreatePageAgeModal() {
   function beginningButtonClick(){
     updateisAgeModalOpen(true);
     updateIsContinueModalOpen(false);
-    reset;
+    reset();
   }
 
   function continueButtonClick(){

@@ -12,6 +12,7 @@ import {
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 import { FormState } from "../lib/types";
+import CustomTooltip from "../components/Tooltip"
 
 ChartJS.register(
   CategoryScale,
@@ -25,17 +26,21 @@ ChartJS.register(
 
 export default function CreatePageGraph() {
   const { userInput, firstNode } = useContext(CreatePageContext);
-  const yearBorn = firstNode.dateOfBirth.year
-  
+  const yearBorn = firstNode.dateOfBirth.year;
 
   userInput.sort((a: FormState, b: FormState) => a.xValue - b.xValue);
 
   const options = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         display: false,
       },
+      tooltip: {
+        enabled: false,
+        external: CustomTooltip
+      }
     },
     scales: {
       x: {
@@ -43,7 +48,15 @@ export default function CreatePageGraph() {
         grid: {
           display: false,
         },
-        min: yearBorn? yearBorn : 0,
+        min: yearBorn ? yearBorn : 0,
+        ticks: {
+          callback: function (value: any){
+            if (Math.floor(value) === value){
+              return value
+            }
+          },
+          minRotation: 1
+        }
       },
       y: {
         type: "linear",
@@ -51,7 +64,14 @@ export default function CreatePageGraph() {
           display: false,
         },
         min: -11,
-        max: 11
+        max: 11,
+        ticks: {
+          autoSkip: false,
+          stepSize: 1, 
+          callback: function (value: any){
+            return value % 5 === 0 ? value : ''
+          }
+        }
       },
     },
     cubicInterpolationMode: "monotone",

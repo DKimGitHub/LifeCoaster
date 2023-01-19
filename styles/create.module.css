@@ -30,3 +30,25 @@
   width: 90%;
   height: 10rem;
 }
+
+.resetContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.resetButton {
+  padding: 0.2rem 1rem;
+  margin: 0.1rem;
+  border: 1px solid brown;
+  border-radius: 2rem;
+  color: brown;
+  font-weight: bold;
+  transition: background-color 0.3s, color 0.3s, font-size 0.1s;
+}
+
+.resetButton:hover{
+  background-color: brown;
+  color: white;
+}

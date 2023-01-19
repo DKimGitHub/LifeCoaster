@@ -6,7 +6,7 @@ import CreatePageGraph from "../../components/CreatePageGraph";
 import CreateForm from "../../components/CreateForm";
 import Modal from "react-modal";
 import CreatePageAgeModal from "../../components/CreatePageAgeModal";
-import CreatePageContinueModal from "../../components/CreatePageContinueModal"
+import CreatePageContinueModal from "../../components/CreatePageContinueModal";
 
 import CreatePageContext from "../../lib/CreatePageContext";
 import { FormState, DOBType } from "../../lib/types";
@@ -38,7 +38,7 @@ export default function Page() {
       setIsContinueModalOpen(false);
       setIsAgeModalOpen(true);
       createPost();
-    } 
+    }
   }, []);
 
   useEffect(() => {
@@ -71,7 +71,7 @@ export default function Page() {
     setIsAgeModalOpen(false);
   }
 
-  function closeContinueModal(){
+  function closeContinueModal() {
     setIsContinueModalOpen(false);
   }
 
@@ -92,7 +92,7 @@ export default function Page() {
           },
         },
       }),
-    }; 
+    };
     const response = await fetch("/api/post", options);
     const data = await response.json();
     setGraphId(data.graph.id);
@@ -118,8 +118,9 @@ export default function Page() {
   }
 
   function reset() {
-    localStorage.removeItem("userInput");
+    localStorage.removeItem("savedPost");
     setUserInput([]);
+    console.log(userInput);
     createPost();
     setIsAgeModalOpen(true);
   }
@@ -129,7 +130,7 @@ export default function Page() {
       userInput={userInput}
       updateUserInput={updateUserInput}
       graphId={graphId}
-      firstNode = {firstNode}
+      firstNode={firstNode}
       updateFirstNode={updateFirstNode}
       updateIsContinueModalOpen={updateIsContinueModalOpen}
       updateisAgeModalOpen={updateisAgeModalOpen}
@@ -153,11 +154,16 @@ export default function Page() {
         shouldCloseOnOverlayClick={false}
         style={customStyles}>
         <CreatePageAgeModal />
-      </Modal>{" "}
-      <button onClick={reset}>start from scratch</button>
+      </Modal>
+      {""}
       <div className="flex flex-col items-center">
-        <div className="mt-10 aspect-[21/5] w-full border border-black text-center">
+        <div className="mt-10 h-60 w-full border border-black text-center">
           <CreatePageGraph />
+        </div>
+        <div className={createStyles.resetContainer}>
+          <button className={createStyles.resetButton} onClick={reset}>
+            start from scratch
+          </button>
         </div>
         <div className={createStyles.formContainer}>
           <CreateForm />
