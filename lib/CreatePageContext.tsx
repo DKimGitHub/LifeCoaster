@@ -7,8 +7,8 @@ interface CreatePageContextInterface {
   userInput: FormState[];
   updateUserInput: React.Dispatch<React.SetStateAction<FormState[]>>;
   graphId: string;
-  firstNode: {dateOfBirth: DOBType, value: number};
-  updateFirstNode: React.Dispatch<React.SetStateAction<{dateOfBirth: DOBType, value: number}>>;
+  yearBorn: number;
+  updateYearBorn: React.Dispatch<React.SetStateAction<number>>;
   updateIsContinueModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   updateisAgeModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   reset: () => void;
@@ -18,15 +18,8 @@ export const CreatePageContext = createContext<CreatePageContextInterface>({
   userInput: [],
   updateUserInput: () => {},
   graphId: "",
-  firstNode: {
-    dateOfBirth: {
-      year: NaN,
-      month: NaN,
-      day: NaN,
-    },
-    value: NaN,
-  },
-  updateFirstNode: () => {},
+  yearBorn: NaN,
+  updateYearBorn: () => {},
   updateIsContinueModalOpen: () => {},
   updateisAgeModalOpen: () => {},
   reset: () => {}
@@ -36,8 +29,8 @@ export default function CreatePageContextProvider({
   userInput,
   updateUserInput,
   graphId,
-  firstNode,
-  updateFirstNode,
+  yearBorn,
+  updateYearBorn,
   updateisAgeModalOpen,
   updateIsContinueModalOpen,
   reset,
@@ -46,8 +39,8 @@ export default function CreatePageContextProvider({
   userInput: FormState[];
   updateUserInput: React.Dispatch<React.SetStateAction<FormState[]>>;
   graphId: string;
-  firstNode: {dateOfBirth: DOBType, value: number};
-  updateFirstNode: React.Dispatch<React.SetStateAction<{dateOfBirth: DOBType, value: number}>>;
+  yearBorn: number;
+  updateYearBorn: React.Dispatch<React.SetStateAction<number>>;
   updateIsContinueModalOpen:  React.Dispatch<React.SetStateAction<boolean>>;
   updateisAgeModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   reset: () => void
@@ -59,8 +52,8 @@ export default function CreatePageContextProvider({
         userInput,
         updateUserInput,
         graphId,
-        firstNode,
-        updateFirstNode,
+        yearBorn,
+        updateYearBorn,
         updateIsContinueModalOpen,
         updateisAgeModalOpen,
         reset,

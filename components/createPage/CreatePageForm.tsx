@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
-import { CreatePageContext } from "../lib/CreatePageContext";
-import createStyles from "../styles/create.module.css";
 import { useForm } from "react-hook-form";
-import { dataType, FormState } from "../lib/types";
+
+import { CreatePageContext } from "../../lib/CreatePageContext";
+import styles from "../../styles/createPage/form.module.css";
+import { dataType, FormState } from "../../lib/types";
 
 async function fetchData(api: string, options: dataType) {
   const response = await fetch(api, options);
@@ -11,14 +12,12 @@ async function fetchData(api: string, options: dataType) {
 }
 
 export default function CreateForm() {
-  const { userInput, updateUserInput, graphId, firstNode } = useContext(CreatePageContext);
+  const { userInput, updateUserInput, graphId, yearBorn } = useContext(CreatePageContext);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-
-  const yearBorn = firstNode.dateOfBirth.year
 
   function onSubmit(data: dataType) {
     const year: number = parseInt(data.yearInput);
@@ -48,9 +47,9 @@ export default function CreateForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <label className={createStyles.formLabel}>Year</label>
+      <label className={styles.label}>Year</label>
       <input
-        className={createStyles.formInput}
+        className={styles.input}
         type="text"
         placeholder="Year"
         {...register("yearInput", {
@@ -71,9 +70,9 @@ export default function CreateForm() {
         </p>
       )}
       <br />
-      <label className={createStyles.formLabel}>Value</label>
+      <label className={styles.label}>Value</label>
       <input
-        className={createStyles.formInput}
+        className={styles.input}
         type="text"
         placeholder="value"
         {...register("valueInput", {
@@ -94,7 +93,7 @@ export default function CreateForm() {
         </p>
       )}
       <br />
-      <input className={createStyles.formSubmit} type="submit" value="Submit" />
+      <input className={styles.submit} type="submit" value="Submit" />
     </form>
   );
 }

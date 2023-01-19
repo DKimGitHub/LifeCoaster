@@ -1,0 +1,23 @@
+.label {
+  margin: 1rem;
+}
+
+.input {
+  margin: 1rem;
+}
+
+.submit {
+  padding: 0.2rem 1rem;
+  margin: 0.1rem;
+  border: 1px solid brown;
+  background-color: brown;
+  border-radius: 7px;
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+.submit:hover{
+  background-color: rgb(99, 34, 34);
+}

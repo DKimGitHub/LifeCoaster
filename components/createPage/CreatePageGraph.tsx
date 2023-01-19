@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { CreatePageContext } from "../lib/CreatePageContext";
+import { CreatePageContext } from "../../lib/CreatePageContext";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -11,8 +11,8 @@ import {
   Legend,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
-import { FormState } from "../lib/types";
-import CustomTooltip from "../components/Tooltip"
+import { FormState } from "../../lib/types";
+import CustomTooltip from "../Tooltip"
 
 ChartJS.register(
   CategoryScale,
@@ -25,8 +25,7 @@ ChartJS.register(
 );
 
 export default function CreatePageGraph() {
-  const { userInput, firstNode } = useContext(CreatePageContext);
-  const yearBorn = firstNode.dateOfBirth.year;
+  const { userInput, yearBorn } = useContext(CreatePageContext);
 
   userInput.sort((a: FormState, b: FormState) => a.xValue - b.xValue);
 
@@ -53,9 +52,8 @@ export default function CreatePageGraph() {
           callback: function (value: any){
             if (Math.floor(value) === value){
               return value
-            }
+            } 
           },
-          minRotation: 1
         }
       },
       y: {
