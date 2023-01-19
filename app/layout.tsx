@@ -1,5 +1,6 @@
+import AuthModal from "../components/AuthModal";
 import Header from "../components/Header";
-import AuthContext from "../lib/AuthContext";
+import ContextProviders from "../lib/ContextProviders";
 import "./globals.css";
 
 export default function RootLayout({
@@ -8,18 +9,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" data-theme="light">
       <head />
       <body>
-        <AuthContext>
+        <ContextProviders>
           <main className="min-h-screen w-screen max-w-full overflow-x-hidden">
             <Header />
-            <div className="sm:px-8 md:px-16 lg:px-36">
+            <div className="mx-auto w-full max-w-6xl px-4">
               {children}
               {/* footer */}
             </div>
           </main>
-        </AuthContext>
+
+          <AuthModal />
+        </ContextProviders>
       </body>
     </html>
   );

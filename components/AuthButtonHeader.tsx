@@ -1,35 +1,46 @@
 "use client";
-
 import { signIn, signOut, useSession } from "next-auth/react";
-import Link from "next/link";
+import headerStyles from "../styles/header.module.css";
+import { Dropdown, Avatar, Text, Button } from "@nextui-org/react";
+
 export default function AuthButtonHeader() {
   const { data: session } = useSession();
   return session ? (
-    <>
-      <div className="dropdown-bottom dropdown-end dropdown">
-        <label tabIndex={0} className="btn">
-          Me
-        </label>
-        <ul
-          tabIndex={0}
-          className="dropdown-content menu rounded-box w-52 bg-base-100 p-2 mt-1 shadow"
-        >
-          <li>
-          <Link href="/profile" className="btn btn-ghost">
-              My Profile
-            </Link>
-          </li>
-          <li>
-            <button className="btn btn-ghost" onClick={() => signOut()}>
-              logout
-            </button>
-          </li>
-        </ul>
-      </div>
-    </>
+    <Dropdown placement="bottom-right">
+      <Dropdown.Trigger>
+        <Avatar
+          className="border-[3px] border-primary"
+          size="lg"
+          src={`https://api.dicebear.com/5.x/fun-emoji/svg?seed=chamna`}
+        />
+      </Dropdown.Trigger>
+      <Dropdown.Menu
+        color="secondary"
+        aria-label="Avatar Actions"
+        disabledKeys={["email"]}>
+        <Dropdown.Item
+          key="email"
+          css={{ height: "$18", color: "var(--nextui-colors-text)" }}>
+          <Text color="inherit" css={{ d: "flex", fontWeight: "500" }}>
+            Signed in as
+          </Text>
+          <Text color="inherit" css={{ d: "flex", fontWeight: "500" }}>
+            zoey@example.com
+          </Text>
+        </Dropdown.Item>
+        <Dropdown.Item key="profile" withDivider>
+          My Profile
+        </Dropdown.Item>
+        <Dropdown.Item key="team_settings">Team Settings</Dropdown.Item>
+        <Dropdown.Item key="logout" color="error" withDivider>
+          <button onClick={() => signOut()}>Log Out</button>
+        </Dropdown.Item>
+      </Dropdown.Menu>
+    </Dropdown>
   ) : (
-    <button className="btn" onClick={() => signIn()}>
-      Login
-    </button>
+    //@ts-expect-error
+    <Button className="px-3" as="label" htmlFor="my-modal-4" ghost color="primary" auto>
+      LOGIN
+    </Button>
   );
 }
