@@ -25,7 +25,7 @@ export default function AuthButtonHeader() {
             Signed in as
           </Text>
           <Text color="inherit" css={{ d: "flex", fontWeight: "500" }}>
-            zoey@example.com
+            {session.user?.email}
           </Text>
         </Dropdown.Item>
         <Dropdown.Item key="profile" withDivider>
