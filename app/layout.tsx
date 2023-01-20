@@ -2,6 +2,7 @@ import AuthModal from "../components/AuthModal";
 import Header from "../components/Header";
 import ContextProviders from "../lib/ContextProviders";
 import "./globals.css";
+import background from "../assets/modalBackground.jpg"
 
 export default function RootLayout({
   children,

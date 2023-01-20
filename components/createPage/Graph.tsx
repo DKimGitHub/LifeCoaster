@@ -24,7 +24,7 @@ ChartJS.register(
   Legend
 );
 
-export default function CreatePageGraph() {
+export default function Graph() {
   const { userInput, yearBorn } = useContext(CreatePageContext);
 
   userInput.sort((a: FormState, b: FormState) => a.xValue - b.xValue);

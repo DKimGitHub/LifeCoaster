@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import Modal from "react-modal";
+import { Button } from '@nextui-org/react';
 
 import { CreatePageContext } from "../../lib/CreatePageContext";
 import styles from "../../styles/createPage/modal.module.css";

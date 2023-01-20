@@ -3,11 +3,11 @@
 import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 
-import Graph from "../../components/createPage/CreatePageGraph";
+import Graph from "../../components/createPage/Graph";
 import Form from "../../components/createPage/questions/CreatePageForm";
-import AgeModal from "../../components/createPage/CreatePageAgeModal";
-import ContinueModal from "../../components/createPage/CreatePageContinueModal";
-import IntroModal from "../../components/createPage/CreatePageIntroModal";
+import AgeModal from "../../components/createPage/AgeModal";
+import ContinueModal from "../../components/createPage/ContinueModal";
+import IntroModal from "../../components/createPage/IntroModal";
 
 import CreatePageContext from "../../lib/CreatePageContext";
 import { FormState, DOBType } from "../../lib/types";

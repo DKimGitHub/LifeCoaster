@@ -24,7 +24,7 @@ async function fetchData() {
 }
 
 export default async function Page() {
-  const postList = JSON.stringify(await fetchData());
+  const postList = await fetchData();
   const colorTheme = "cupcake";
   return (
     <>

@@ -1,3 +1,5 @@
+import Background from '../../assets/modalBackground.jpg'
+
 export const customStyles = {
   content: {
     top: "40%",
@@ -11,10 +13,10 @@ export const customStyles = {
     maxWidth: "72rem",
     maxHeight: "36rem",
     border: "0px",
-    color: "white",
-    backgroundColor: "hsla(0,0%,0%,0.8)",
+    color: "#9e3116",
+    backgroundColor:  "#FFB4A2AA",
   },
   overlay: {
-    backgroundColor: "hsla(0,0%,0%,0.2)",
+    backgroundColor: "#b5807455",
   },
 };

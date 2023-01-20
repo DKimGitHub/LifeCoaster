@@ -12,16 +12,21 @@
   width: fit-content;
   padding: 0.5rem 1rem;
   margin: 2rem 0;
-  background-color: rgb(227, 211, 214);
   border-radius: 7px;
   color: black;
   font-weight: bold;
   font-size: 1rem;
-  transition: background-color 0.3s;
+  transition: all 0.3s;
+  background-color: #B5838DAA;
 }
 
 .button:hover{
-  background-color: rgb(163, 127, 135);
+  background-color: #8c666eaa;
+}
+
+.button:active{
+  transform: scale(0.95);
+  
 }
 
 .formInput{
