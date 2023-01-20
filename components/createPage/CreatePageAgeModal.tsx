@@ -4,10 +4,11 @@ import { useForm } from "react-hook-form";
 
 import { CreatePageContext } from "../../lib/CreatePageContext";
 import { dataType, DOBType } from "../../lib/types";
-import styles from "../../styles/createPage/ageModal.module.css";
+import styles from "../../styles/createPage/modal.module.css";
+import {customStyles} from "../../styles/createPage/modalCustomStyle"
 
 function CreatePageAgeModal(props: any) {
-  const { updateisAgeModalOpen, updateYearBorn } =
+  const { updateIsAgeModalOpen, updateYearBorn } =
     useContext(CreatePageContext);
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -23,7 +24,7 @@ function CreatePageAgeModal(props: any) {
   function onSubmit(data: dataType) {
     updateYearBorn(data.yearInput)
     setIsModalOpen(false);
-    updateisAgeModalOpen(false);
+    updateIsAgeModalOpen(false);
   }
 
   const {
@@ -31,23 +32,6 @@ function CreatePageAgeModal(props: any) {
     handleSubmit,
     formState: { errors },
   } = useForm();
-
-  const customStyles = {
-    content: {
-      top: "30%",
-      left: "50%",
-      right: "auto",
-      bottom: "auto",
-      marginRight: "-50%",
-      transform: "translate(-50%, -50%)",
-      marginX: "auto",
-      maxWidth: "72rem",
-      maxHeight: "36rem",
-    },
-    overlay: {
-      backgroundColor: "hsla(0,0%,0%,0.3)",
-    },
-  };
 
   return (
     <Modal
@@ -58,10 +42,10 @@ function CreatePageAgeModal(props: any) {
       closeTimeoutMS={150}
       shouldCloseOnOverlayClick={false}
       style={customStyles}>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <label className={styles.label}>When were you born?</label>
+      <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
+        <label className={styles.formLabel}>When were you born?</label>
         <input
-          className={styles.input}
+          className={styles.formInput}
           type="text"
           placeholder="Year"
           {...register("yearInput", {
@@ -78,7 +62,7 @@ function CreatePageAgeModal(props: any) {
           </p>
         )}
         <br />
-        <input className={styles.submit} type="submit" value="Next" />
+        <input className={styles.button} type="submit" value="Next" />
       </form>
     </Modal>
   );

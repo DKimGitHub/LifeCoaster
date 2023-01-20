@@ -1,37 +1,28 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Modal from "react-modal";
+import { CreatePageContext } from "../../lib/CreatePageContext";
+import styles from "../../styles/createPage/modal.module.css";
+import { customStyles } from "../../styles/createPage/modalCustomStyle"
 
 export default function CreatePageIntroModal(props: any) {
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(true);
+  const { updateIsIntroModalOpen, updateIsAgeModalOpen } =
+    useContext(CreatePageContext);
 
-  // useEffect(() => {
-  //   setIsModalOpen(props.isModalOpen);
-  // }, [props]);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+  useEffect(() => {
+    setIsModalOpen(props.isModalOpen);
+  }, [props]);
 
   function closeModal() {
     setIsModalOpen(false);
   }
 
-  const customStyles = {
-    content: {
-      top: "30%",
-      left: "50%",
-      right: "auto",
-      bottom: "auto",
-      width: "50%",
-      height: "40%",
-      transform: "translate(-50%, -50%)",
-      marginX: "auto",
-      maxWidth: "72rem",
-      maxHeight: "36rem",
-      border: "0px",
-      color: "white",
-      backgroundColor: "hsla(0,0%,0%,0.8)"
-    },
-    overlay: {
-      backgroundColor: "hsla(0,0%,0%,0.2)",
-    },
-  };
+  function buttonClicked() {
+    updateIsIntroModalOpen(false);
+    setIsModalOpen(false);
+    updateIsAgeModalOpen(true);
+  }
 
   return (
     <Modal
@@ -42,16 +33,11 @@ export default function CreatePageIntroModal(props: any) {
       closeTimeoutMS={150}
       shouldCloseOnOverlayClick={false}
       style={customStyles}>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          marginTop: "3rem",
-          justifyContent: "center",
-          fontWeight: "bold",
-          fontFamily: "Courier New"
-        }}>
+      <div className={styles.container}>
         {"Welcome to Life Coaster... explanation ...Let's begin"}
+        <button className={styles.button} onClick={buttonClicked}>
+          Next
+        </button>
       </div>
     </Modal>
   );

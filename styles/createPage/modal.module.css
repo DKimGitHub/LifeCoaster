@@ -1,0 +1,31 @@
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-family: "Courier New";
+}
+
+.button {
+  width: fit-content;
+  padding: 0.5rem 1rem;
+  margin: 2rem 0;
+  background-color: rgb(227, 211, 214);
+  border-radius: 7px;
+  color: black;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+.button:hover{
+  background-color: rgb(163, 127, 135);
+}
+
+.formInput{
+  margin-top: 1rem;
+  padding: 3px;
+  color: black;
+}

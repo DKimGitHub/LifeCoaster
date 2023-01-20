@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 
-import { CreatePageContext } from "../../lib/CreatePageContext";
-import styles from "../../styles/createPage/form.module.css";
-import { dataType, FormState } from "../../lib/types";
+import { CreatePageContext } from "../../../lib/CreatePageContext";
+import styles from "../../../styles/createPage/form.module.css";
+import { dataType, FormState } from "../../../lib/types";
 
 async function fetchData(api: string, options: dataType) {
   const response = await fetch(api, options);

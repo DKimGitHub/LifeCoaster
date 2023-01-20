@@ -10,7 +10,8 @@ interface CreatePageContextInterface {
   yearBorn: number;
   updateYearBorn: React.Dispatch<React.SetStateAction<number>>;
   updateIsContinueModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  updateisAgeModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  updateIsAgeModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  updateIsIntroModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   reset: () => void;
 }
 
@@ -21,7 +22,8 @@ export const CreatePageContext = createContext<CreatePageContextInterface>({
   yearBorn: NaN,
   updateYearBorn: () => {},
   updateIsContinueModalOpen: () => {},
-  updateisAgeModalOpen: () => {},
+  updateIsAgeModalOpen: () => {},
+  updateIsIntroModalOpen: () => {},
   reset: () => {}
 });
 
@@ -31,8 +33,9 @@ export default function CreatePageContextProvider({
   graphId,
   yearBorn,
   updateYearBorn,
-  updateisAgeModalOpen,
+  updateIsAgeModalOpen,
   updateIsContinueModalOpen,
+  updateIsIntroModalOpen,
   reset,
   children,
 }: {
@@ -42,7 +45,8 @@ export default function CreatePageContextProvider({
   yearBorn: number;
   updateYearBorn: React.Dispatch<React.SetStateAction<number>>;
   updateIsContinueModalOpen:  React.Dispatch<React.SetStateAction<boolean>>;
-  updateisAgeModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  updateIsAgeModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  updateIsIntroModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   reset: () => void
   children: React.ReactNode;
 }) {
@@ -55,7 +59,8 @@ export default function CreatePageContextProvider({
         yearBorn,
         updateYearBorn,
         updateIsContinueModalOpen,
-        updateisAgeModalOpen,
+        updateIsAgeModalOpen,
+        updateIsIntroModalOpen,
         reset,
       }}>
       {children}

@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 
 import Graph from "../../components/createPage/CreatePageGraph";
-import Form from "../../components/createPage/CreatePageForm";
+import Form from "../../components/createPage/questions/CreatePageForm";
 import AgeModal from "../../components/createPage/CreatePageAgeModal";
 import ContinueModal from "../../components/createPage/CreatePageContinueModal";
 import IntroModal from "../../components/createPage/CreatePageIntroModal";
@@ -19,6 +19,7 @@ export default function Page() {
   const [yearBorn, setYearBorn] = useState<number>(NaN);
   const [isAgeModalOpen, setIsAgeModalOpen] = useState(false);
   const [isContinueModalOpen, setIsContinueModalOpen] = useState(false);
+  const [isIntroModalOpen, setIsIntroModalOpen] = useState(false);
 
   useEffect(() => {
     const savedState = localStorage.getItem("savedPost");
@@ -28,7 +29,7 @@ export default function Page() {
       setIsContinueModalOpen(true);
     } else {
       setIsContinueModalOpen(false);
-      setIsAgeModalOpen(true);
+      setIsIntroModalOpen(true);
       createPost();
     }
   }, []);
@@ -70,11 +71,11 @@ export default function Page() {
     setUserInput(input);
   }
 
-  function updateYearBorn (input: React.SetStateAction<number>){
-    setYearBorn(input)
+  function updateYearBorn(input: React.SetStateAction<number>) {
+    setYearBorn(input);
   }
 
-  function updateisAgeModalOpen(input: React.SetStateAction<boolean>) {
+  function updateIsAgeModalOpen(input: React.SetStateAction<boolean>) {
     setIsAgeModalOpen(input);
   }
 
@@ -82,11 +83,15 @@ export default function Page() {
     setIsContinueModalOpen(input);
   }
 
+  function updateIsIntroModalOpen(input: React.SetStateAction<boolean>) {
+    setIsIntroModalOpen(input);
+  }
+
   function reset() {
     localStorage.removeItem("savedPost");
     setUserInput([]);
     createPost();
-    setIsAgeModalOpen(true);
+    setIsIntroModalOpen(true);
   }
 
   return (
@@ -94,14 +99,15 @@ export default function Page() {
       userInput={userInput}
       updateUserInput={updateUserInput}
       graphId={graphId}
-      yearBorn = {yearBorn}
-      updateYearBorn = {updateYearBorn}
+      yearBorn={yearBorn}
+      updateYearBorn={updateYearBorn}
       updateIsContinueModalOpen={updateIsContinueModalOpen}
-      updateisAgeModalOpen={updateisAgeModalOpen}
+      updateIsAgeModalOpen={updateIsAgeModalOpen}
+      updateIsIntroModalOpen={updateIsIntroModalOpen}
       reset={reset}>
-      <AgeModal isModalOpen={isAgeModalOpen}/>
-      <ContinueModal isModalOpen={isContinueModalOpen}/>
-      <IntroModal/>
+      <AgeModal isModalOpen={isAgeModalOpen} />
+      <ContinueModal isModalOpen={isContinueModalOpen} />
+      <IntroModal isModalOpen={isIntroModalOpen} />
       <div className="flex flex-col items-center">
         <div className="mt-10 h-60 w-full text-center">
           <Graph />
@@ -111,9 +117,7 @@ export default function Page() {
             start from scratch
           </button>
         </div>
-        <div className={styles.formContainer}>
-          <Form />
-        </div>
+        <Form />
       </div>
     </CreatePageContext>
   );
