@@ -5,7 +5,9 @@ const nextConfig = {
     appDir: true,
   },
   images: {
-    domains: ["api.dicebear.com"],
+    domains: ["api.dicebear.com", "lh3.googleusercontent.com"],
+      dangerouslyAllowSVG: true,
+      contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
 };
 
