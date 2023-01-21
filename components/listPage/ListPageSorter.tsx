@@ -1,14 +1,21 @@
 "use client";
 
 import { Dropdown } from "@nextui-org/react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
-export default function ListPageSorter() {
+export default function ListPageSorter({
+  handleSelect,
+}: {
+  handleSelect: (selection: string) => void;
+}) {
   const [selected, setSelected] = useState(new Set(["Recently Updated"]));
   const selectedValue = useMemo(
     () => Array.from(selected).join(", ").replaceAll("_", " "),
     [selected]
   );
+  useEffect(() => {
+    handleSelect(selectedValue);
+  });
 
   return (
     <Dropdown>

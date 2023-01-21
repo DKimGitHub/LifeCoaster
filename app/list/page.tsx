@@ -45,9 +45,6 @@ export default async function Page() {
   const colorTheme = "cupcake";
   return (
     <>
-      <div className="flex w-full justify-end my-5">
-        <ListPageSorter />
-      </div>
       <ListPageContent listOfPosts={JSON.stringify(listOfPosts)}/>
     </>
   );

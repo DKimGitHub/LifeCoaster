@@ -41,6 +41,7 @@ model Post {
   comments  Comment[]
 
   usersWhoHearted String[]
+  numOfHearts Int @default(0)
 }
 
 model Graph {
