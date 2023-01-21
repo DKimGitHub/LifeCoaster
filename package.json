@@ -29,6 +29,7 @@
     "react-chartjs-2": "^5.1.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.41.5",
+    "react-infinite-scroll-component": "^6.1.0",
     "react-modal": "^3.16.1",
     "react-parallax-tilt": "^1.7.85",
     "swr": "^2.0.0",

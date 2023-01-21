@@ -1,14 +1,15 @@
 import Link from "next/link";
-import LifeChart from "../../components/ListPageGraph";
-import ListPageCard from "../../components/ListPageCard";
+import LifeChart from "../../components/listPage/ListPageGraph";
+import ListPageCard from "../../components/listPage/ListPageCard";
 import PageModal from "../../components/PostPage";
-import ListPageSorter from "../../components/ListPageSorter";
+import ListPageSorter from "../../components/listPage/ListPageSorter";
 import prisma from "../../lib/prisma";
 import { dataType } from "../../lib/types";
+import ListPageContent from "../../components/listPage/ListPageContent";
 
 async function fetchData() {
-  const feed = await prisma.post.findMany({
-    take: 8,
+  const listOfPosts = await prisma.post.findMany({
+    take: 6,
     // where: {
     //   published:true,
     // },
@@ -16,6 +17,8 @@ async function fetchData() {
       user: true,
       usersWhoHearted: true,
       comments: true,
+      updatedAt: true,
+      createdAt: true,
       graph: {
         include: {
           nodes: {
@@ -35,22 +38,17 @@ async function fetchData() {
   //   (e) => e.graph?.nodes && e.graph?.nodes.length > 0
   // );
   // return filtered;
-  console.log(feed);
-  return feed;
+  return {listOfPosts};
 }
 export default async function Page() {
-  const postList = await fetchData();
+  const { listOfPosts } = await fetchData();
   const colorTheme = "cupcake";
   return (
     <>
-      <div className="float-right my-5">
+      <div className="flex w-full justify-end my-5">
         <ListPageSorter />
       </div>
-      <div className="my-5 grid w-full grid-cols-1 gap-12 md:grid-cols-2 md:gap-12">
-        {postList.map((data: any, index: number) => (
-          <ListPageCard key={index} data={data} />
-        ))}
-      </div>
+      <ListPageContent listOfPosts={JSON.stringify(listOfPosts)}/>
     </>
   );
 }

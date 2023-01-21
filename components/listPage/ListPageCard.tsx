@@ -5,11 +5,11 @@ import Modal from "react-modal";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
-import PostPage from "./PostPage";
+import PostPage from "../PostPage";
 import Tilt from "react-parallax-tilt";
 import Image from "next/image";
-import CommentIcon from "../public/comment.svg";
-import HeartIcon from "../public/heart_outline.svg";
+import CommentIcon from "../../public/comment.svg";
+import HeartIcon from "../../public/heart_outline.svg";
 
 const customStyles = {
   content: {

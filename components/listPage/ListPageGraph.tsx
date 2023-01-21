@@ -14,7 +14,7 @@ import {
   ChartData,
   ChartOptions,
 } from "chart.js";
-import { NodeType } from "../lib/types";
+import { NodeType } from "../../lib/types";
 
 ChartJS.register(
   CategoryScale,
