@@ -10,3 +10,7 @@ export type PageProps = {
     year: number;
     value: number;
   }
+  export type NodeType = {
+    xValue: number;
+    yValue: number;
+  }

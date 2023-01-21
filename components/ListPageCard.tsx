@@ -29,7 +29,7 @@ const customStyles = {
   },
 };
 //TODO disable scroll but keep scrollbar
-export default function ListPageCard(data: any) {
+export default function ListPageCard({ data }: { data: any }) {
   const colorTheme = "light";
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -57,11 +57,11 @@ export default function ListPageCard(data: any) {
       <Tilt perspective={2000} tiltMaxAngleX={10} tiltMaxAngleY={10}>
         <div
           data-theme={colorTheme}
-          className="gradientBorder card card-compact rounded-sm bg-base-100 shadow-xl border-2  border-solid">
+          className="gradientBorder card card-compact rounded-sm border-2 border-solid bg-base-100  shadow-xl">
           <button
             onClick={clickHandler}
             className={` relative h-56 w-full bg-base-200`}>
-            <ListPageGraph />
+            <ListPageGraph data={data?.graph?.nodes} />
           </button>
 
           <div className="flex items-center justify-between p-2">

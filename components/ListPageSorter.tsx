@@ -1,10 +1,10 @@
-'use client'
+"use client";
 
 import { Dropdown } from "@nextui-org/react";
 import { useMemo, useState } from "react";
 
 export default function ListPageSorter() {
-  const [selected, setSelected] = useState(new Set(["Recently Created"]));
+  const [selected, setSelected] = useState(new Set(["Recently Updated"]));
   const selectedValue = useMemo(
     () => Array.from(selected).join(", ").replaceAll("_", " "),
     [selected]
@@ -23,10 +23,9 @@ export default function ListPageSorter() {
         selectedKeys={selected}
         //@ts-expect-error
         onSelectionChange={setSelected}>
-        <Dropdown.Item key="Recently Created">Recently Created</Dropdown.Item>
         <Dropdown.Item key="Recently Updated">Recently Updated</Dropdown.Item>
+        <Dropdown.Item key="Recently Created">Recently Created</Dropdown.Item>
         <Dropdown.Item key="Most Hearted">Most Hearted</Dropdown.Item>
-
       </Dropdown.Menu>
     </Dropdown>
   );
