@@ -14,8 +14,10 @@ async function fetchData() {
     //   published:true,
     // },
     select: {
+      id: true,
       user: true,
       usersWhoHearted: true,
+      numOfHearts: true,
       comments: true,
       updatedAt: true,
       createdAt: true,

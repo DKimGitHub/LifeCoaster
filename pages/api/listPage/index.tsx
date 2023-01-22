@@ -8,24 +8,6 @@ export default async function handler(
   const { method, body, query } = req;
   const offset = Number(query.offset);
   const sortBy = query.sortby;
-  const sortByQuery =
-    sortBy === "RU"
-      ? {
-          orderBy: {
-            updatedAt: "desc",
-          },
-        }
-      : sortBy === "RC"
-      ? {
-          orderBy: {
-            createdAt: "desc",
-          },
-        }
-      : {
-          orderBy: {
-            numOfHearts: "desc",
-          },
-        };
 
   switch (method) {
     case "GET":
@@ -34,8 +16,10 @@ export default async function handler(
         take: 6,
         skip: offset,
         select: {
+          id: true,
           user: true,
           usersWhoHearted: true,
+          numOfHearts: true,
           comments: true,
           updatedAt: true,
           createdAt: true,
@@ -51,7 +35,11 @@ export default async function handler(
           },
         },
         orderBy: {
-          updatedAt: "desc",
+          ...(sortBy === "RC"
+            ? { createdAt: "desc" }
+            : sortBy === "MH"
+            ? { numOfHearts: "desc" }
+            : { updatedAt: "desc" })
         },
       });
 
