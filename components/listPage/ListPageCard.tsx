@@ -39,11 +39,13 @@ export default function ListPageCard({ data }: { data: any }) {
   const colorTheme = "light";
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  
   const [hearts, setHearts] = useState<number>(data?.numOfHearts);
-
+  const [heartedList, setHeartedList] = useState<string[]>(data?.usersWhoHearted);
+  const initialIsHearted = (!session) ? false : data?.usersWhoHearted.includes(session?.user?.email as string) ? true : false;
   function isHearted() {
     if (!session) return false;
-    return data.usersWhoHearted.includes(session?.user?.email) ? true : false;
+    return heartedList.includes(session?.user?.email as string) ? true : false;
   }
 
   function clickHandler() {
@@ -69,12 +71,12 @@ export default function ListPageCard({ data }: { data: any }) {
         });
       return;
     };
-    isHearted() ? setHearts((prev) => prev - 1) : setHearts((prev) => prev + 1);
+    //isHearted() ? setHearts((prev) => prev - 1) : setHearts((prev) => prev + 1);
     const body = {
       email: session?.user?.email,
       postId: data?.id,
-      usersWhoHearted: data.usersWhoHearted,
-      numOfHearts: data.numOfHearts,
+      usersWhoHearted: heartedList,
+      numOfHearts: hearts,
       isHearted: isHearted(),
     };
     const options = {
@@ -88,8 +90,9 @@ export default function ListPageCard({ data }: { data: any }) {
       .then((response) => response.json())
       .then((response) => {
         // probably need to change heart value here but theres a delay for api response...
-        // setHearts(response.newNumOfHearts);
+         setHearts(response.newNumOfHearts);
         // console.log('newnumofhearts ' + response.newNumOfHearts)
+        setHeartedList(response.updatedList);
       })
       .catch((error) => console.log(error));
   }
@@ -139,7 +142,7 @@ export default function ListPageCard({ data }: { data: any }) {
                   <Image
                     className={clsx(
                       "mr-2 inline",
-                      isHearted() ? "swap-on" : "swap-off",
+                      initialIsHearted ? "swap-on" : "swap-off",
                       
                     )}
                     width={22}
@@ -150,7 +153,7 @@ export default function ListPageCard({ data }: { data: any }) {
                   <Image
                     className={clsx(
                       "mr-2 inline",
-                      isHearted() ? "swap-off" : "swap-on"
+                      initialIsHearted ? "swap-off" : "swap-on"
                     )}
                     width={22}
                     height={22}

@@ -12,8 +12,9 @@ export default async function handler(
       try {
         const body = req.body;
         let newNumOfHearts = body.numOfHearts;
+        let updatedList = body.usersWhoHearted;
         if (body.isHearted) {
-          const updatedList = body.usersWhoHearted.filter(
+           updatedList = updatedList.filter(
             (item: string) => item !== body.email
           );
           await prisma.post.update({
@@ -25,6 +26,7 @@ export default async function handler(
           });
           newNumOfHearts--;
         } else {
+          updatedList.push(body.email);
           await prisma.post.update({
             where: { id: body.postId },
             data: {
@@ -35,7 +37,7 @@ export default async function handler(
           newNumOfHearts++;
         }
 
-        res.status(200).json({ newNumOfHearts });
+        res.status(200).json({ newNumOfHearts, updatedList });
       } catch (err) {
         res.status(500).send({ error: "failed to fetch data" });
       }
