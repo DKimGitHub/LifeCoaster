@@ -8,7 +8,6 @@ export default async function handler(
   const { method, body, query } = req;
   const offset = Number(query.offset);
   const sortBy = query.sortby;
-
   switch (method) {
     case "GET":
       if (!query.offset) res.status(400).end("need offset in query");

@@ -33,7 +33,7 @@ async function fetchData() {
       },
     },
     orderBy: {
-      updatedAt: 'desc'
+      createdAt: 'desc'
     }
   });
   // const filtered = feed.filter(

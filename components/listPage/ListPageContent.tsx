@@ -18,26 +18,41 @@ export default function ListPageContent({
 }: {
   listOfPosts: string;
 }) {
+  const defaultValue = { "Recently Created": JSON.parse(listOfPosts) };
+  const [cache, setCache] = useState(new Map(Object.entries(defaultValue)));
   const [posts, setPosts] = useState(JSON.parse(listOfPosts));
   const [hasMore, setHasMore] = useState(true);
-  const [sortBy, setSortBy] = useState("Recently Updated");
+  const [sortBy, setSortBy] = useState("Recently Created");
 
   const getMorePosts = async () => {
     const enumType = Object.entries(sortByEnum).find(
       ([key, val]) => val === sortBy
     )?.[0];
-
     const res = await fetch(
       `/api/listPage?sortby=${enumType}&offset=${posts.length}`
     );
     const newPosts = await res.json();
+    const curPosts = posts; 
     newPosts.length === 0
       ? setHasMore(false)
       : setPosts((post: any[]) => [...post, ...newPosts]);
+    setCache((prev) => prev.set(sortBy, [...curPosts, ...newPosts]));
   };
 
-  const callback = (selection: string) => {
+  const callback = async (selection: string) => {
     setSortBy(selection);
+    const enumType = Object.entries(sortByEnum).find(
+      ([key, val]) => val === selection
+    )?.[0];
+    if (cache.has(selection)) {
+      setPosts(cache.get(selection));
+    } else {
+      const res = await fetch(`/api/listPage?sortby=${enumType}&offset=0`);
+      const newPosts = await res.json();
+      setPosts(newPosts);
+      setCache((prev) => prev.set(selection, newPosts));
+      setHasMore(true);
+    }
   };
 
   return (
