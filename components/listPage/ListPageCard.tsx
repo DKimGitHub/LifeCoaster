@@ -66,7 +66,7 @@ export default function ListPageCard({
     if (!session) {
       toast.info("Login to heart posts!", {
         position: "top-center",
-        autoClose: false,
+        autoClose: 2000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,

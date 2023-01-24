@@ -50,6 +50,7 @@ export default function AuthModal() {
       setSuccess(true);
       setTempEmail(email);
       setEmail("");
+      setDisabled("btn-disabled")
     }
   }
   function handleChange(e: any) {
