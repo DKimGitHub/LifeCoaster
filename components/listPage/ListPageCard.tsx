@@ -2,7 +2,7 @@
 
 import ListPageGraph from "./ListPageGraph";
 import Modal from "react-modal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import PostPage from "../PostPage";
@@ -14,7 +14,7 @@ import outlineHeartIcon from "../../public/heart_outline.svg";
 import { useSession } from "next-auth/react";
 import { clsx } from "clsx";
 import { toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
 const customStyles = {
   content: {
@@ -34,20 +34,24 @@ const customStyles = {
   },
 };
 //TODO disable scroll but keep scrollbar
-export default function ListPageCard({ data }: { data: any }) {
+export default function ListPageCard({
+  data,
+  handleChange,
+}: {
+  data: any;
+  handleChange: (post: any) => void;
+}) {
   const { data: session, status } = useSession();
   const colorTheme = "light";
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  
-  const [hearts, setHearts] = useState<number>(data?.numOfHearts);
-  const [heartedList, setHeartedList] = useState<string[]>(data?.usersWhoHearted);
-  const initialIsHearted = (!session) ? false : data?.usersWhoHearted.includes(session?.user?.email as string) ? true : false;
+
   function isHearted() {
     if (!session) return false;
-    return heartedList.includes(session?.user?.email as string) ? true : false;
+    return data.usersWhoHearted.includes(session?.user?.email as string)
+      ? true
+      : false;
   }
-
   function clickHandler() {
     window.history.pushState(null, "Post 6", "/p/6");
     setIsModalOpen(true);
@@ -58,26 +62,23 @@ export default function ListPageCard({ data }: { data: any }) {
     setIsModalOpen(false);
   }
   function heartHandler() {
-    if (!session)  {
-      toast.info('Login to heart posts!', {
+    //const toastContent = <label htmlFor="my-modal-4" >Login to heart posts!</label>
+    if (!session) {
+      toast.info("Login to heart posts!", {
         position: "top-center",
-        autoClose: 2000,
+        autoClose: false,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
         theme: "light",
-        });
+      });
       return;
-    };
-    //isHearted() ? setHearts((prev) => prev - 1) : setHearts((prev) => prev + 1);
+    }
     const body = {
       email: session?.user?.email,
       postId: data?.id,
-      usersWhoHearted: heartedList,
-      numOfHearts: hearts,
-      isHearted: isHearted(),
     };
     const options = {
       method: "POST",
@@ -89,10 +90,7 @@ export default function ListPageCard({ data }: { data: any }) {
     fetch("/api/heart", options)
       .then((response) => response.json())
       .then((response) => {
-        // probably need to change heart value here but theres a delay for api response...
-         setHearts(response.newNumOfHearts);
-        // console.log('newnumofhearts ' + response.newNumOfHearts)
-        setHeartedList(response.updatedList);
+        handleChange(response);
       })
       .catch((error) => console.log(error));
   }
@@ -121,6 +119,13 @@ export default function ListPageCard({ data }: { data: any }) {
           <div className="flex items-center justify-between p-2">
             {" "}
             <div className="flex flex-1">
+              <button
+                className="btn"
+                onClick={() => {
+                  console.log(data);
+                }}>
+                test
+              </button>
               <Image
                 height={46}
                 width={46}
@@ -133,28 +138,25 @@ export default function ListPageCard({ data }: { data: any }) {
               </div>
             </div>
             <div className="flex flex-none items-center">
-              <p className="pr-1 text-xl font-medium">{hearts}</p>
+              <p className="pr-1 text-xl font-medium">{data.numOfHearts}</p>
               <button
                 onClick={heartHandler}
                 className="flex items-center justify-center">
-                <label className="swap swap-flip">
-                  {session && <input type="checkbox" />}
+                <label
+                  className={clsx(
+                    "swap swap-flip",
+                    isHearted() && "swap-active"
+                  )}>
+                  {/* {session && <input type="checkbox" />} */}
                   <Image
-                    className={clsx(
-                      "mr-2 inline",
-                      initialIsHearted ? "swap-on" : "swap-off",
-                      
-                    )}
+                    className={clsx("swap-off mr-2 inline")}
                     width={22}
                     height={22}
                     src={outlineHeartIcon}
                     alt="Heart"
                   />
                   <Image
-                    className={clsx(
-                      "mr-2 inline",
-                      initialIsHearted ? "swap-off" : "swap-on"
-                    )}
+                    className={clsx("swap-on mr-2 inline")}
                     width={22}
                     height={22}
                     src={redHeartIcon}
@@ -162,7 +164,7 @@ export default function ListPageCard({ data }: { data: any }) {
                   />
                 </label>
               </button>
-              <p className="pr-1 text-xl font-medium">6</p>
+              <p className="pr-1 text-xl font-medium">{data.comments.length}</p>
               <Image
                 className="mr-1 inline"
                 width={20}
@@ -174,11 +176,6 @@ export default function ListPageCard({ data }: { data: any }) {
           </div>
         </div>
       </Tilt>
-      {/* <div
-          className={`absolute top-0 z-[-1] flex w-full rounded-t-md bg-accent px-2 text-accent-content transition-transform duration-300 ease-in-out peer-hover:-translate-y-4 `}>
-          <div className="flex-1">John Smith</div>{" "}
-          <div className="flex-none">{"   "} 3 hearts</div>
-        </div> */}
     </>
   );
 }

@@ -38,7 +38,11 @@ export default async function handler(
             ? { createdAt: "desc" }
             : sortBy === "MH"
             ? { numOfHearts: "desc" }
-            : { updatedAt: "desc" })
+            : { 
+              graph: {
+                updatedAt: "desc",
+              } 
+            })
         },
       });
 

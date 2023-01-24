@@ -11,33 +11,41 @@ export default async function handler(
     case "POST":
       try {
         const body = req.body;
-        let newNumOfHearts = body.numOfHearts;
-        let updatedList = body.usersWhoHearted;
-        if (body.isHearted) {
-           updatedList = updatedList.filter(
+        let updated;
+        const currentPost = await prisma.post.findUnique({where: {id: body.postId}});
+
+        const isHearted = currentPost?.usersWhoHearted.includes(body.email) ? true : false;
+        if (isHearted) {
+           const updatedList = currentPost?.usersWhoHearted.filter(
             (item: string) => item !== body.email
           );
-          await prisma.post.update({
+          updated = await prisma.post.update({
             where: { id: body.postId },
             data: {
               usersWhoHearted: updatedList,
-              numOfHearts: { decrement: 1 },
+              numOfHearts: {decrement: 1},
             },
+            select: {
+              id: true,
+              numOfHearts: true,
+              usersWhoHearted: true,
+            }
           });
-          newNumOfHearts--;
         } else {
-          updatedList.push(body.email);
-          await prisma.post.update({
+          updated = await prisma.post.update({
             where: { id: body.postId },
             data: {
               usersWhoHearted: { push: body.email },
-              numOfHearts: { increment: 1 },
+              numOfHearts: {increment: 1},
             },
+            select: {
+              id: true,
+              numOfHearts: true,
+              usersWhoHearted: true,
+            }
           });
-          newNumOfHearts++;
         }
-
-        res.status(200).json({ newNumOfHearts, updatedList });
+        res.status(200).json(updated);
       } catch (err) {
         res.status(500).send({ error: "failed to fetch data" });
       }

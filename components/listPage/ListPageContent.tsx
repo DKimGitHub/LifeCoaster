@@ -18,8 +18,8 @@ export default function ListPageContent({
 }: {
   listOfPosts: string;
 }) {
-  const defaultValue = { "Recently Created": JSON.parse(listOfPosts) };
-  const [cache, setCache] = useState(new Map(Object.entries(defaultValue)));
+  //const defaultValue = { "Recently Created": JSON.parse(listOfPosts) };
+  //const [cache, setCache] = useState(new Map(Object.entries(defaultValue)));
   const [posts, setPosts] = useState(JSON.parse(listOfPosts));
   const [hasMore, setHasMore] = useState(true);
   const [sortBy, setSortBy] = useState("Recently Created");
@@ -32,29 +32,41 @@ export default function ListPageContent({
       `/api/listPage?sortby=${enumType}&offset=${posts.length}`
     );
     const newPosts = await res.json();
-    const curPosts = posts; 
+    const curPosts = posts;
     newPosts.length === 0
       ? setHasMore(false)
       : setPosts((post: any[]) => [...post, ...newPosts]);
-    setCache((prev) => prev.set(sortBy, [...curPosts, ...newPosts]));
+    //setCache((prev) => prev.set(sortBy, [...curPosts, ...newPosts]));
   };
 
-  const callback = async (selection: string) => {
+  const sorterCallback = async (selection: string) => {
     setSortBy(selection);
     const enumType = Object.entries(sortByEnum).find(
       ([key, val]) => val === selection
     )?.[0];
-    if (cache.has(selection)) {
-      setPosts(cache.get(selection));
-    } else {
-      const res = await fetch(`/api/listPage?sortby=${enumType}&offset=0`);
-      const newPosts = await res.json();
-      setPosts(newPosts);
-      setCache((prev) => prev.set(selection, newPosts));
-      setHasMore(true);
-    }
+    // if (cache.has(selection)) {
+    //   setPosts(cache.get(selection));
+    // } else {
+    const res = await fetch(`/api/listPage?sortby=${enumType}&offset=0`);
+    const newPosts = await res.json();
+    setPosts(newPosts);
+    //setCache((prev) => prev.set(selection, newPosts));
+    setHasMore(true);
+    // }
   };
-
+  const cardCallback = (post: any) => {
+    setPosts((prevPosts: any) =>
+      prevPosts.map((p: any) =>
+        p.id === post.id
+          ? {
+              ...p,
+              usersWhoHearted: post.usersWhoHearted,
+              numOfHearts: post.numOfHearts,
+            }
+          : p
+      )
+    );
+  };
   return (
     <>
       <ToastContainer
@@ -71,7 +83,7 @@ export default function ListPageContent({
         theme="light"
       />
       <div className="my-5 flex w-full justify-end">
-        <ListPageSorter handleSelect={callback} />
+        <ListPageSorter handleSelect={sorterCallback} />
       </div>
       <InfiniteScroll
         className="!overflow-visible"
@@ -85,8 +97,8 @@ export default function ListPageContent({
           </div>
         }>
         <div className="mb-10 grid w-full grid-cols-1 gap-12 md:grid-cols-2 md:gap-12">
-          {posts.map((post: any, index: number) => (
-            <ListPageCard key={index} data={post} />
+          {posts.map((post: any) => (
+            <ListPageCard handleChange={cardCallback} data={post} />
           ))}
         </div>
       </InfiniteScroll>
