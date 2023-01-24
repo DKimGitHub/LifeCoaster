@@ -33,6 +33,7 @@ export default async function handler(
             },
           },
         },
+        //@ts-ignore
         orderBy: {
           ...(sortBy === "RC"
             ? { createdAt: "desc" }
