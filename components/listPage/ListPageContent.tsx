@@ -98,6 +98,7 @@ export default function ListPageContent({
         }>
         <div className="mb-10 grid w-full grid-cols-1 gap-12 md:grid-cols-2 md:gap-12">
           {posts.map((post: any) => (
+            //eslint-disable-line
             <ListPageCard handleChange={cardCallback} data={post} />
           ))}
         </div>
