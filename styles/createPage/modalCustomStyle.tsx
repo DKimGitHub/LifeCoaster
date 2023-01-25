@@ -12,11 +12,11 @@ export const customStyles = {
     marginX: "auto",
     maxWidth: "72rem",
     maxHeight: "36rem",
-    border: "0px",
+    border: "2px solid #ff4114",
     color: "#9e3116",
-    backgroundColor:  "#FFB4A2AA",
+    backgroundColor:  "#ff6f4dAA",
   },
   overlay: {
-    backgroundColor: "#b5807455",
+    backgroundColor: "#c9afa1aa",
   },
 };

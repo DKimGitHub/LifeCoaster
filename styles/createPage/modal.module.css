@@ -18,6 +18,7 @@
   font-size: 1rem;
   transition: all 0.3s;
   background-color: #B5838DAA;
+  border: 2px solid #b5435a;
 }
 
 .button:hover{

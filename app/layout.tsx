@@ -14,7 +14,7 @@ export default function RootLayout({
       <head />
       <body>
         <ContextProviders>
-          <main className="min-h-screen w-screen max-w-full overflow-x-hidden">
+          <main className="min-h-screen w-screen max-w-full overflow-x-hidden bg-[#f7d4c1aa]">
             <Header />
             <div className="mx-auto w-full max-w-6xl px-4">
               {children}

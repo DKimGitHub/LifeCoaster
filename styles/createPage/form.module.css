@@ -3,6 +3,9 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  font-family: "Courier New";
+  font-weight: bold;
+  color: #704f47;
 }
 
 .label {
@@ -13,19 +16,32 @@
   margin: 1rem;
 }
 
-.submit {
-  padding: 0.2rem 1rem;
-  margin: 0.1rem;
-  border: 1px solid brown;
-  background-color: brown;
-  border-radius: 7px;
-  color: white;
-  font-weight: bold;
-  font-size: 1rem;
-  transition: background-color 0.3s;
-
+.buttonContainer {
+  display: flex;
+  width: 100%; 
+  justify-content: right;
+  margin-right: 2rem;
 }
 
-.submit:hover{
-  background-color: rgb(99, 34, 34);
+.button {
+  align-self: 'right';
+  width: fit-content;
+  padding: 0.5rem 1rem;
+  margin: 2rem 0;
+  border-radius: 7px;
+  color: #fbc6b9;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: all 0.3s;
+  background-color: #704f47;
+  border: 2px solid #382723;
+}
+
+.button:hover{
+  background-color: #4c3631;
+}
+
+.button:active{
+  transform: scale(0.95);
+  
 }

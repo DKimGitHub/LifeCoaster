@@ -4,10 +4,10 @@ import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 
 import Graph from "../../components/createPage/Graph";
-import Form from "../../components/createPage/questions/CreatePageForm";
-import AgeModal from "../../components/createPage/AgeModal";
-import ContinueModal from "../../components/createPage/ContinueModal";
-import IntroModal from "../../components/createPage/IntroModal";
+import Form from "../../components/createPage/questions/Questions";
+import AgeModal from "../../components/createPage/modals/AgeModal";
+import ContinueModal from "../../components/createPage/modals/ContinueModal";
+import IntroModal from "../../components/createPage/modals/IntroModal";
 
 import CreatePageContext from "../../lib/CreatePageContext";
 import { FormState, DOBType } from "../../lib/types";
@@ -20,12 +20,15 @@ export default function Page() {
   const [isAgeModalOpen, setIsAgeModalOpen] = useState(false);
   const [isContinueModalOpen, setIsContinueModalOpen] = useState(false);
   const [isIntroModalOpen, setIsIntroModalOpen] = useState(false);
+  const [nextBigEvent, setNextBigEvent] = useState<number>(NaN);
 
   useEffect(() => {
     const savedState = localStorage.getItem("savedPost");
     if (savedState) {
       setUserInput(JSON.parse(savedState).userInput);
       setGraphId(JSON.parse(savedState).graphId);
+      setYearBorn(JSON.parse(savedState).yearBorn);
+      setNextBigEvent(JSON.parse(savedState).nextBigEvent);
       setIsContinueModalOpen(true);
     } else {
       setIsContinueModalOpen(false);
@@ -39,9 +42,10 @@ export default function Page() {
       userInput: userInput,
       graphId: graphId,
       yearBorn: yearBorn,
+      nextBigEvent: nextBigEvent,
     };
     localStorage.setItem("savedPost", JSON.stringify(savedPost));
-  }, [userInput, graphId, yearBorn]);
+  }, [userInput, graphId, yearBorn, nextBigEvent]);
 
   async function createPost() {
     const options = {
@@ -75,6 +79,10 @@ export default function Page() {
     setYearBorn(input);
   }
 
+  function updateNextBigEvent (input: React.SetStateAction<number>) {
+    setNextBigEvent(input);
+  }
+
   function updateIsAgeModalOpen(input: React.SetStateAction<boolean>) {
     setIsAgeModalOpen(input);
   }
@@ -100,7 +108,9 @@ export default function Page() {
       updateUserInput={updateUserInput}
       graphId={graphId}
       yearBorn={yearBorn}
+      nextBigEvent={nextBigEvent}
       updateYearBorn={updateYearBorn}
+      updateNextBigEvent={updateNextBigEvent}
       updateIsContinueModalOpen={updateIsContinueModalOpen}
       updateIsAgeModalOpen={updateIsAgeModalOpen}
       updateIsIntroModalOpen={updateIsIntroModalOpen}

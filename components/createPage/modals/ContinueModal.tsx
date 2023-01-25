@@ -2,9 +2,9 @@ import React, { useState, useContext, useEffect } from "react";
 import Modal from "react-modal";
 import { Button } from '@nextui-org/react';
 
-import { CreatePageContext } from "../../lib/CreatePageContext";
-import styles from "../../styles/createPage/modal.module.css";
-import { customStyles } from "../../styles/createPage/modalCustomStyle"
+import { CreatePageContext } from "../../../lib/CreatePageContext";
+import styles from "../../../styles/createPage/modal.module.css";
+import { customStyles } from "../../../styles/createPage/modalCustomStyle"
 
 function CreatePageAgeModal(props: any) {
   const { updateIsIntroModalOpen, updateIsContinueModalOpen, reset } =

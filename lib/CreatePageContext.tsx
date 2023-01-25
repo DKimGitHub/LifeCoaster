@@ -8,7 +8,9 @@ interface CreatePageContextInterface {
   updateUserInput: React.Dispatch<React.SetStateAction<FormState[]>>;
   graphId: string;
   yearBorn: number;
+  nextBigEvent: number;
   updateYearBorn: React.Dispatch<React.SetStateAction<number>>;
+  updateNextBigEvent:  React.Dispatch<React.SetStateAction<number>>;
   updateIsContinueModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   updateIsAgeModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   updateIsIntroModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -20,7 +22,9 @@ export const CreatePageContext = createContext<CreatePageContextInterface>({
   updateUserInput: () => {},
   graphId: "",
   yearBorn: NaN,
+  nextBigEvent: NaN,
   updateYearBorn: () => {},
+  updateNextBigEvent:  () => {},
   updateIsContinueModalOpen: () => {},
   updateIsAgeModalOpen: () => {},
   updateIsIntroModalOpen: () => {},
@@ -32,7 +36,9 @@ export default function CreatePageContextProvider({
   updateUserInput,
   graphId,
   yearBorn,
+  nextBigEvent,
   updateYearBorn,
+  updateNextBigEvent,
   updateIsAgeModalOpen,
   updateIsContinueModalOpen,
   updateIsIntroModalOpen,
@@ -43,7 +49,9 @@ export default function CreatePageContextProvider({
   updateUserInput: React.Dispatch<React.SetStateAction<FormState[]>>;
   graphId: string;
   yearBorn: number;
+  nextBigEvent: number;
   updateYearBorn: React.Dispatch<React.SetStateAction<number>>;
+  updateNextBigEvent:  React.Dispatch<React.SetStateAction<number>>;
   updateIsContinueModalOpen:  React.Dispatch<React.SetStateAction<boolean>>;
   updateIsAgeModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   updateIsIntroModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -57,7 +65,9 @@ export default function CreatePageContextProvider({
         updateUserInput,
         graphId,
         yearBorn,
+        nextBigEvent,
         updateYearBorn,
+        updateNextBigEvent,
         updateIsContinueModalOpen,
         updateIsAgeModalOpen,
         updateIsIntroModalOpen,

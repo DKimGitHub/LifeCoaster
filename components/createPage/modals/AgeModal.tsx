@@ -2,13 +2,13 @@ import React, { useState, useContext, useEffect } from "react";
 import Modal from "react-modal";
 import { useForm } from "react-hook-form";
 
-import { CreatePageContext } from "../../lib/CreatePageContext";
-import { dataType, DOBType } from "../../lib/types";
-import styles from "../../styles/createPage/modal.module.css";
-import {customStyles} from "../../styles/createPage/modalCustomStyle"
+import { CreatePageContext } from "../../../lib/CreatePageContext";
+import { dataType, DOBType } from "../../../lib/types";
+import styles from "../../../styles/createPage/modal.module.css";
+import {customStyles} from "../../../styles/createPage/modalCustomStyle"
 
 function CreatePageAgeModal(props: any) {
-  const { updateIsAgeModalOpen, updateYearBorn } =
+  const { updateIsAgeModalOpen, updateYearBorn, updateNextBigEvent } =
     useContext(CreatePageContext);
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -22,7 +22,8 @@ function CreatePageAgeModal(props: any) {
   }
 
   function onSubmit(data: dataType) {
-    updateYearBorn(data.yearInput)
+    updateYearBorn(parseInt(data.yearInput))
+    updateNextBigEvent(parseInt(data.yearInput))
     setIsModalOpen(false);
     updateIsAgeModalOpen(false);
   }

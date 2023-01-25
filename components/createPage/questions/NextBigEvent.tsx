@@ -4,11 +4,11 @@ import { useForm, Controller } from "react-hook-form";
 import { CreatePageContext } from "../../../lib/CreatePageContext";
 import styles from "../../../styles/createPage/form.module.css";
 import { dataType, FormState } from "../../../lib/types";
-import Slider from "../tools/ValueSlider";
+import Select from "../tools/YearSelect";
 import "../../../styles/slider.css";
 
 export default function CreateForm(props: any) {
-  const { updateUserInput, graphId, yearBorn } =
+  const { updateUserInput, graphId, nextBigEvent, updateNextBigEvent } =
     useContext(CreatePageContext);
   const {
     register,
@@ -18,12 +18,10 @@ export default function CreateForm(props: any) {
   } = useForm();
 
   function onSubmit(data: dataType) {
-    updateUserInput((prev) => [
-      ...prev,
-      { xValue: yearBorn, yValue: data.valueSlider },
-    ]);
-    props.setIsFirstQuestion(false);
-    props.setIsNextBigEvent(true);
+    props.setIsNextBigEvent(false);
+    props.setIsYearOverlay(true);
+    props.setPrevBigEvent(nextBigEvent)
+    updateNextBigEvent(parseInt(data.yearSelect))
     const options = {
       method: "POST",
       body: JSON.stringify({
@@ -42,18 +40,18 @@ export default function CreateForm(props: any) {
   return (
     <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
       <label className={styles.label}>
-        How content were you when you were born?
+        When was your next big event?
       </label>
       <Controller
-        name="valueSlider"
+        name="yearSelect"
         control={control}
         render={({ field: { onChange, value } }) => (
-          <Slider onChange={onChange} />
+          <Select onChange={onChange} />
         )}
       />
-      {errors.valueSlider && (
+      {errors.yearSelect && (
         <p style={{ display: "inline", color: "red" }}>
-          {errors.valueSlider.message as string}
+          {errors.yearSelect.message as string}
         </p>
       )}
       <input className={styles.button} type="submit" value="Next" />

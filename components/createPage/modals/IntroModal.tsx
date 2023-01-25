@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import Modal from "react-modal";
-import { CreatePageContext } from "../../lib/CreatePageContext";
-import styles from "../../styles/createPage/modal.module.css";
-import { customStyles } from "../../styles/createPage/modalCustomStyle"
+import { CreatePageContext } from "../../../lib/CreatePageContext";
+import styles from "../../../styles/createPage/modal.module.css";
+import { customStyles } from "../../../styles/createPage/modalCustomStyle"
 
 export default function CreatePageIntroModal(props: any) {
   const { updateIsIntroModalOpen, updateIsAgeModalOpen } =
