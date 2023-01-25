@@ -28,6 +28,7 @@ const customStyles = {
     width: "90%",
     maxWidth: "72rem",
     maxHeight: "36rem",
+    padding: "0",
   },
   overlay: {
     backgroundColor: "hsla(0,0%,0%,0.3)",
@@ -69,7 +70,7 @@ export default function ListPageCard({
         autoClose: 2000,
         hideProgressBar: false,
         closeOnClick: true,
-        pauseOnHover: true,
+        pauseOnHover: false,
         draggable: true,
         progress: undefined,
         theme: "light",

@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 html {
   overflow-y: scroll;
 }
@@ -19,7 +18,7 @@ html {
   }
 }
 @property --angle {
-  syntax: '<angle>';
+  syntax: "<angle>";
   initial-value: 0deg;
   inherits: false;
 }
@@ -27,12 +26,20 @@ html {
 .ReactModal__Overlay {
   opacity: 0;
   transition: opacity 150ms ease-in-out;
+  z-index: 200;
 }
 
-.ReactModal__Overlay--after-open{
+.ReactModal__Overlay--after-open {
   opacity: 1;
 }
 
-.ReactModal__Overlay--before-close{
+.ReactModal__Overlay--before-close {
   opacity: 0;
+}
+.commentContainer {
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+}
+.commentContainer::-webkit-scrollbar { 
+    display: none;  /* Safari and Chrome */
 }

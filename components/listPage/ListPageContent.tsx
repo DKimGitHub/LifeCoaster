@@ -75,7 +75,7 @@ export default function ListPageContent({
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
-        transition={Flip}
+        // transition={Flip}
         rtl={false}
         pauseOnFocusLoss={false}
         draggable
