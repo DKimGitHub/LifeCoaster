@@ -20,8 +20,8 @@ export default function CreateForm(props: any) {
   function onSubmit(data: dataType) {
     props.setIsNextBigEvent(false);
     props.setIsYearOverlay(true);
-    props.setPrevBigEvent(nextBigEvent)
-    updateNextBigEvent(parseInt(data.yearSelect))
+    props.setPrevBigEvent(nextBigEvent);
+    updateNextBigEvent(data.yearSelect.props.value);
     const options = {
       method: "POST",
       body: JSON.stringify({
@@ -39,9 +39,7 @@ export default function CreateForm(props: any) {
 
   return (
     <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
-      <label className={styles.label}>
-        When was your next big event?
-      </label>
+      <label className={styles.label}>When was your next big event?</label>
       <Controller
         name="yearSelect"
         control={control}

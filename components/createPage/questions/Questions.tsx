@@ -21,7 +21,6 @@ export default function CreateForm() {
   const [isNextBigEvent, setIsNextBigEvent] = useState<boolean>(false);
   const [isYearOverlay, setIsYearOverlay] = useState<boolean>(false);
   const [prevBigEvent, setPrevBigEvent] = useState<number>(NaN);
-  const [nextBigEvent, setNextBigEvent] = useState<number>(NaN);
   const {
     register,
     handleSubmit,
@@ -41,15 +40,12 @@ export default function CreateForm() {
       <NextBigEvent
         setIsNextBigEvent={setIsNextBigEvent}
         setIsYearOverlay={setIsYearOverlay}
-        setNextBigEvent={setNextBigEvent}
         setPrevBigEvent={setPrevBigEvent}
       />
     );
   }
   if (isYearOverlay) {
-    return (<YearOverlay 
-      prevBigEvent={prevBigEvent}
-    />);
+    return <YearOverlay prevBigEvent={prevBigEvent} />;
   } else {
     return <p>Page Not Found!</p>;
   }

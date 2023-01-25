@@ -5,8 +5,6 @@ import { CreatePageContext } from "../../../lib/CreatePageContext";
 
 export default function YearSelect(field: any) {
   const { nextBigEvent } = useContext(CreatePageContext);
-  console.log(nextBigEvent)
-
   const start = nextBigEvent;
   const end = 2023;
   const range = Array.from(Array(end - start + 1).keys(), (x) => x + start);
