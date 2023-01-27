@@ -23,6 +23,11 @@
   margin: 1rem;
 }
 
+.descriptionText{
+  width: 10rem;
+  height: 5rem;
+}
+
 .button {
   width: fit-content;
   padding: 0.5rem 1rem;
@@ -41,7 +46,7 @@
 }
 
 .button.right{
-  margin-left: auto;
+  margin-left: auto; 
   margin-right: 2rem;
 }
 

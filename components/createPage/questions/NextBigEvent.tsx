@@ -7,7 +7,7 @@ import { dataType } from "../../../lib/types";
 import Select from "../tools/YearSelect";
 
 export default function NextBigEvent() {
-  const { setQuestionPageNum, nextBigEvent, setNextBigEvent, setPrevBigEvent } =
+  const { setQuestionPageNum, events, setEvents } =
     useContext(CreatePageContext);
   const {
     register,
@@ -17,19 +17,20 @@ export default function NextBigEvent() {
     setValue,
   } = useForm();
 
-  useEffect (() => {
-    setValue('yearSelect', nextBigEvent + 1)
-  }, [setValue, nextBigEvent])
+  useEffect(() => {
+    setValue("yearSelect", events.slice(-1)[0].bigEvent + 1);
+  }, [setValue, events]);
 
-  function prevButtonClicked (){
+  function prevButtonClicked() {
     setQuestionPageNum(1);
   }
 
   function onSubmit(data: dataType) {
-    
     setQuestionPageNum(3);
-    setPrevBigEvent(nextBigEvent);
-    setNextBigEvent(data.yearSelect);
+    setEvents((prev) => [
+      ...prev,
+      { bigEvent: data.yearSelect, overallValue: NaN, specificEvents: [] },
+    ]);
   }
 
   return (
@@ -45,7 +46,7 @@ export default function NextBigEvent() {
           name="yearSelect"
           control={control}
           render={({ field: { onChange, value } }) => (
-            <Select reverse={false} onChange={onChange}/>
+            <Select reverse={false} onChange={onChange} />
           )}
         />
         {errors.yearSelect && (

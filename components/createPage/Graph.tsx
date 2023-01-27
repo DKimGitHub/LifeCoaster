@@ -25,9 +25,7 @@ ChartJS.register(
 );
 
 export default function Graph() {
-  const { userInput, yearBorn } = useContext(CreatePageContext);
-
-  userInput.sort((a: FormState, b: FormState) => a.xValue - b.xValue);
+  const { } = useContext(CreatePageContext);
 
   const options = {
     responsive: true,
@@ -47,7 +45,7 @@ export default function Graph() {
         grid: {
           display: false,
         },
-        min: yearBorn ? yearBorn : 0,
+        min: 0,
         ticks: {
           callback: function (value: any){
             if (Math.floor(value) === value){
@@ -79,7 +77,7 @@ export default function Graph() {
   const data = {
     datasets: [
       {
-        data: userInput,
+        data: [],
         borderColor: "rgb(255, 99, 132)",
         backgroundColor: "rgba(255, 99, 132, 0.5)",
         parsing: {

@@ -7,15 +7,12 @@ import QuestionsMain from "../../components/createPage/questions/QuestionsMain";
 import ModalsMain from "../../components/createPage/modals/ModalsMain";
 
 import CreatePageContext from "../../lib/CreatePageContext";
-import { dataType } from "../../lib/types";
+import { eventType} from "../../lib/types";
 import styles from "../../styles/createPage/create.module.css";
 
 export default function Page() {
-  const [userInput, setUserInput] = useState<dataType[]>([]);
   const [graphId, setGraphId] = useState<string>("");
-  const [yearBorn, setYearBorn] = useState<number>(NaN);
-  const [nextBigEvent, setNextBigEvent] = useState<number>(1900);
-  const [prevBigEvent, setPrevBigEvent] = useState<number>(NaN);
+  const [events, setEvents] = useState<eventType>([]);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(true);
   const [modalPageNum, setModalPageNum] = useState<number>(NaN);
   /* 
@@ -35,10 +32,8 @@ export default function Page() {
   useEffect(() => {
     const savedState = localStorage.getItem("savedPost");
     if (savedState && !Number.isNaN(JSON.parse(savedState).questionPageNum)) {
-      setUserInput(JSON.parse(savedState).userInput);
       setGraphId(JSON.parse(savedState).graphId);
-      setYearBorn(JSON.parse(savedState).yearBorn);
-      setNextBigEvent(JSON.parse(savedState).nextBigEvent);
+      setEvents(JSON.parse(savedState).events);
       setQuestionPageNum(JSON.parse(savedState).questionPageNum);
       setModalPageNum(1);
     } 
@@ -50,14 +45,12 @@ export default function Page() {
 
   useEffect(() => {
     const savedState = {
-      userInput: userInput,
       graphId: graphId,
-      yearBorn: yearBorn,
-      nextBigEvent: nextBigEvent,
+      events: events,
       questionPageNum: questionPageNum,
     };
     localStorage.setItem("savedPost", JSON.stringify(savedState))
-  }, [userInput, graphId, yearBorn, nextBigEvent, questionPageNum]);
+  }, [graphId, events, questionPageNum]);
 
   async function createPost() {
     // const options = {
@@ -84,26 +77,18 @@ export default function Page() {
 
   function reset() {
     localStorage.removeItem("savedPost");
-    setUserInput([]);
-    setNextBigEvent(1900);
+    setEvents([{bigEvent: 1900, overallValue: NaN, specificEvents: []}]);
     setGraphId("");
     setModalPageNum(2);
     setQuestionPageNum(0);
-    setYearBorn(NaN);
     setIsModalOpen(true);
     createPost();
   }
 
   const contextProps = {
-    userInput,
-    setUserInput,
     graphId,
-    yearBorn,
-    setYearBorn,
-    nextBigEvent,
-    setNextBigEvent,
-    prevBigEvent,
-    setPrevBigEvent,
+    events,
+    setEvents,
     modalPageNum,
     setModalPageNum,
     isModalOpen,

@@ -3,7 +3,7 @@ import styles from "../../../styles/createPage/yearOverlay.module.css";
 import { CreatePageContext } from "../../../lib/CreatePageContext";
 
 export default function YearOverlay() {
-  const { nextBigEvent, prevBigEvent, setQuestionPageNum } = useContext(CreatePageContext);
+  const { events, setQuestionPageNum } = useContext(CreatePageContext);
 
   function handleAnimationEnd (e: AnimationEvent<HTMLDivElement>){
     setQuestionPageNum(4);
@@ -12,7 +12,7 @@ export default function YearOverlay() {
   return (
     <>
       <div className={styles.container} onAnimationEnd={handleAnimationEnd}>
-        <p className={styles.text}>{`${prevBigEvent} ~ ${nextBigEvent}`}</p>
+        <p className={styles.text}>{`${events.slice(-2)[0].bigEvent} ~ ${events.slice(-1)[0].bigEvent}`}</p>
       </div>
     </>
   );

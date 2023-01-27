@@ -8,13 +8,10 @@ import Slider from "../tools/ValueSlider";
 
 export default function FirstQuestion() {
   const {
-    setUserInput,
-    yearBorn,
     setQuestionPageNum,
     setIsModalOpen,
     setModalPageNum,
-    setNextBigEvent,
-    setYearBorn,
+    setEvents,
   } = useContext(CreatePageContext);
 
   const {
@@ -28,16 +25,11 @@ export default function FirstQuestion() {
     setQuestionPageNum(0);
     setIsModalOpen(true);
     setModalPageNum(3);
-    setNextBigEvent(1990);
-    setYearBorn(NaN);
+    setEvents([{bigEvent: 1900, overallValue: NaN, specificEvents: []}]);
   }
 
   function onSubmit(data: dataType) {
     console.log(data)
-    setUserInput((prev) => [
-      ...prev,
-      { xValue: yearBorn, yValue: data.valueSlider },
-    ]);
     setQuestionPageNum(2);
     // const options = {
     //   method: "POST",

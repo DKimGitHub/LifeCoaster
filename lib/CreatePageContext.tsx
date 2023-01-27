@@ -1,18 +1,12 @@
 "use client";
 
 import { createContext } from "react";
-import { dataType, FormState, DOBType } from "./types";
+import { eventType } from "./types";
 
 interface CreatePageContextInterface {
-  userInput: dataType;
-  setUserInput: React.Dispatch<React.SetStateAction<dataType[]>>;
   graphId: string;
-  yearBorn: number;
-  setYearBorn: React.Dispatch<React.SetStateAction<number>>;
-  nextBigEvent: number;
-  setNextBigEvent: React.Dispatch<React.SetStateAction<number>>;
-  prevBigEvent: number;
-  setPrevBigEvent: React.Dispatch<React.SetStateAction<number>>;
+  events: eventType;
+  setEvents: React.Dispatch<React.SetStateAction<eventType>>;
   modalPageNum: number;
   setModalPageNum: React.Dispatch<React.SetStateAction<number>>;
   isModalOpen: boolean;
@@ -23,15 +17,9 @@ interface CreatePageContextInterface {
 }
 
 export const CreatePageContext = createContext<CreatePageContextInterface>({
-  userInput: {},
-  setUserInput: (value) => {},
   graphId: "",
-  yearBorn: NaN,
-  setYearBorn: (value) => {},
-  nextBigEvent: 1900,
-  setNextBigEvent: (value) => {},
-  prevBigEvent: 1900,
-  setPrevBigEvent: (value) => {},
+  events: [],
+  setEvents: (value) => {},
   modalPageNum: NaN,
   setModalPageNum: (value) => {},
   isModalOpen: false,
@@ -42,15 +30,9 @@ export const CreatePageContext = createContext<CreatePageContextInterface>({
 });
 
 export default function CreatePageContextProvider({
-  userInput,
-  setUserInput,
   graphId,
-  yearBorn,
-  setYearBorn,
-  nextBigEvent,
-  setNextBigEvent,
-  prevBigEvent,
-  setPrevBigEvent,
+  events,
+  setEvents,
   modalPageNum,
   setModalPageNum,
   isModalOpen,
@@ -60,15 +42,9 @@ export default function CreatePageContextProvider({
   reset,
   children,
 }: {
-  userInput: dataType;
-  setUserInput: React.Dispatch<React.SetStateAction<dataType[]>>;
   graphId: string;
-  yearBorn: number;
-  setYearBorn: React.Dispatch<React.SetStateAction<number>>;
-  nextBigEvent: number;
-  setNextBigEvent: React.Dispatch<React.SetStateAction<number>>;
-  prevBigEvent: number;
-  setPrevBigEvent: React.Dispatch<React.SetStateAction<number>>;
+  events: eventType;
+  setEvents: React.Dispatch<React.SetStateAction<eventType>>;
   modalPageNum: number;
   setModalPageNum: React.Dispatch<React.SetStateAction<number>>;
   isModalOpen: boolean;
@@ -81,15 +57,9 @@ export default function CreatePageContextProvider({
   return (
     <CreatePageContext.Provider
       value={{
-        userInput,
-        setUserInput,
         graphId,
-        yearBorn,
-        setYearBorn,
-        nextBigEvent,
-        setNextBigEvent,
-        prevBigEvent,
-        setPrevBigEvent,
+        events,
+        setEvents,
         modalPageNum,
         setModalPageNum,
         isModalOpen,

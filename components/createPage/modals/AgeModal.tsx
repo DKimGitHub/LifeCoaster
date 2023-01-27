@@ -10,16 +10,14 @@ export default function AgeModal() {
   const {
     setModalPageNum,
     setIsModalOpen,
-    setYearBorn,
-    setNextBigEvent,
     setQuestionPageNum,
+    setEvents
   } = useContext(CreatePageContext);
 
   function onSubmit(data: dataType) {
     setModalPageNum(0);
     setIsModalOpen(false);
-    setYearBorn(parseInt(data.yearSelect));
-    setNextBigEvent(parseInt(data.yearSelect));
+    setEvents([{bigEvent: data.yearSelect, overallValue: NaN, specificEvents: []}]);
     setQuestionPageNum(1);
   }
 

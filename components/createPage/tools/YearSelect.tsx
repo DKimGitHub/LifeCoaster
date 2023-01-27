@@ -10,8 +10,8 @@ export default function YearSelect({
   onChange: (...event: any[]) => void;
   reverse: boolean;
 }) {
-  const { nextBigEvent } = useContext(CreatePageContext);
-  const start = nextBigEvent + 1;
+  const { events } = useContext(CreatePageContext);
+  const start = events.slice(-1)[0].bigEvent + 1;
   const end = 2023;
   
   const range = reverse

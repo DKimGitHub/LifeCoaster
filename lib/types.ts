@@ -6,13 +6,8 @@ export type PageProps = {
   export type dataType = {
     [key: string]: any;
   }
-  export type FormState = {
-    xValue: number;
-    yValue: number;
-  }
-
-  export type DOBType = {
-    year: number;
-    month: number;
-    day: number
-  }
+  export type eventType = {
+    bigEvent: number;
+    overallValue: number;
+    specificEvents: {year: number, value: number, description: string}[];
+  }[]

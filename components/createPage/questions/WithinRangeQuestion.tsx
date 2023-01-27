@@ -7,7 +7,7 @@ import { dataType } from "../../../lib/types";
 import Slider from "../tools/ValueSlider";
 
 export default function WithinRangeQuestion() {
-  const { setQuestionPageNum, setNextBigEvent, prevBigEvent } = useContext(CreatePageContext);
+  const { setQuestionPageNum, setEvents} = useContext(CreatePageContext);
   const {
     register,
     handleSubmit,
@@ -16,15 +16,11 @@ export default function WithinRangeQuestion() {
   } = useForm();
 
   function prevButtonClicked(){
-    setNextBigEvent(prevBigEvent)
+    setEvents(prev => prev.slice(0, -1))
     setQuestionPageNum(2);
   }
 
   function onSubmit(data: dataType) {
-    // updateUserInput((prev) => [
-    //   ...prev,
-    //   { xValue: yearBorn, yValue: data.valueSlider },
-    // ]);
     setQuestionPageNum(5);
   }
 

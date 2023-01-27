@@ -19,7 +19,6 @@ async function fetchData(api: string, options: dataType) {
 export default function QuestionsMain() {
   const { questionPageNum, setQuestionPageNum } = useContext(CreatePageContext);
 
-  const [prevBigEvent, setPrevBigEvent] = useState<number>(NaN);
   const {
     register,
     handleSubmit,
