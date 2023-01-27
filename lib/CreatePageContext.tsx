@@ -4,73 +4,98 @@ import { createContext } from "react";
 import { dataType, FormState, DOBType } from "./types";
 
 interface CreatePageContextInterface {
-  userInput: FormState[];
-  updateUserInput: React.Dispatch<React.SetStateAction<FormState[]>>;
+  userInput: dataType;
+  setUserInput: React.Dispatch<React.SetStateAction<dataType[]>>;
   graphId: string;
   yearBorn: number;
+  setYearBorn: React.Dispatch<React.SetStateAction<number>>;
   nextBigEvent: number;
-  updateYearBorn: React.Dispatch<React.SetStateAction<number>>;
-  updateNextBigEvent:  React.Dispatch<React.SetStateAction<number>>;
-  updateIsContinueModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  updateIsAgeModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  updateIsIntroModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setNextBigEvent: React.Dispatch<React.SetStateAction<number>>;
+  prevBigEvent: number;
+  setPrevBigEvent: React.Dispatch<React.SetStateAction<number>>;
+  modalPageNum: number;
+  setModalPageNum: React.Dispatch<React.SetStateAction<number>>;
+  isModalOpen: boolean;
+  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  questionPageNum: number;
+  setQuestionPageNum: React.Dispatch<React.SetStateAction<number>>;
   reset: () => void;
 }
 
 export const CreatePageContext = createContext<CreatePageContextInterface>({
-  userInput: [],
-  updateUserInput: () => {},
+  userInput: {},
+  setUserInput: (value) => {},
   graphId: "",
   yearBorn: NaN,
-  nextBigEvent: NaN,
-  updateYearBorn: () => {},
-  updateNextBigEvent:  () => {},
-  updateIsContinueModalOpen: () => {},
-  updateIsAgeModalOpen: () => {},
-  updateIsIntroModalOpen: () => {},
-  reset: () => {}
+  setYearBorn: (value) => {},
+  nextBigEvent: 1900,
+  setNextBigEvent: (value) => {},
+  prevBigEvent: 1900,
+  setPrevBigEvent: (value) => {},
+  modalPageNum: NaN,
+  setModalPageNum: (value) => {},
+  isModalOpen: false,
+  setIsModalOpen: (value) => {},
+  questionPageNum: NaN,
+  setQuestionPageNum: (value) => {},
+  reset: () => {},
 });
 
 export default function CreatePageContextProvider({
   userInput,
-  updateUserInput,
+  setUserInput,
   graphId,
   yearBorn,
+  setYearBorn,
   nextBigEvent,
-  updateYearBorn,
-  updateNextBigEvent,
-  updateIsAgeModalOpen,
-  updateIsContinueModalOpen,
-  updateIsIntroModalOpen,
+  setNextBigEvent,
+  prevBigEvent,
+  setPrevBigEvent,
+  modalPageNum,
+  setModalPageNum,
+  isModalOpen,
+  setIsModalOpen,
+  questionPageNum,
+  setQuestionPageNum,
   reset,
   children,
 }: {
-  userInput: FormState[];
-  updateUserInput: React.Dispatch<React.SetStateAction<FormState[]>>;
+  userInput: dataType;
+  setUserInput: React.Dispatch<React.SetStateAction<dataType[]>>;
   graphId: string;
   yearBorn: number;
+  setYearBorn: React.Dispatch<React.SetStateAction<number>>;
   nextBigEvent: number;
-  updateYearBorn: React.Dispatch<React.SetStateAction<number>>;
-  updateNextBigEvent:  React.Dispatch<React.SetStateAction<number>>;
-  updateIsContinueModalOpen:  React.Dispatch<React.SetStateAction<boolean>>;
-  updateIsAgeModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  updateIsIntroModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  reset: () => void
-  children: React.ReactNode;
+  setNextBigEvent: React.Dispatch<React.SetStateAction<number>>;
+  prevBigEvent: number;
+  setPrevBigEvent: React.Dispatch<React.SetStateAction<number>>;
+  modalPageNum: number;
+  setModalPageNum: React.Dispatch<React.SetStateAction<number>>;
+  isModalOpen: boolean;
+  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  questionPageNum: number;
+  setQuestionPageNum: React.Dispatch<React.SetStateAction<number>>;
+  reset: () => void;
+  children: any;
 }) {
   return (
     <CreatePageContext.Provider
       value={{
         userInput,
-        updateUserInput,
+        setUserInput,
         graphId,
         yearBorn,
+        setYearBorn,
         nextBigEvent,
-        updateYearBorn,
-        updateNextBigEvent,
-        updateIsContinueModalOpen,
-        updateIsAgeModalOpen,
-        updateIsIntroModalOpen,
+        setNextBigEvent,
+        prevBigEvent,
+        setPrevBigEvent,
+        modalPageNum,
+        setModalPageNum,
+        isModalOpen,
+        setIsModalOpen,
+        questionPageNum,
+        setQuestionPageNum,
         reset,
       }}>
       {children}

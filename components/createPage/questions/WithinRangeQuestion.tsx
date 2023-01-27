@@ -1,35 +1,31 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { useForm, Controller } from "react-hook-form";
 
 import { CreatePageContext } from "../../../lib/CreatePageContext";
 import styles from "../../../styles/createPage/form.module.css";
 import { dataType } from "../../../lib/types";
-import Select from "../tools/YearSelect";
+import Slider from "../tools/ValueSlider";
 
-export default function NextBigEvent() {
-  const { setQuestionPageNum, nextBigEvent, setNextBigEvent, setPrevBigEvent } =
-    useContext(CreatePageContext);
+export default function WithinRangeQuestion() {
+  const { setQuestionPageNum, setNextBigEvent, prevBigEvent } = useContext(CreatePageContext);
   const {
     register,
     handleSubmit,
     formState: { errors },
     control,
-    setValue,
   } = useForm();
 
-  useEffect (() => {
-    setValue('yearSelect', nextBigEvent + 1)
-  }, [setValue, nextBigEvent])
-
-  function prevButtonClicked (){
-    setQuestionPageNum(1);
+  function prevButtonClicked(){
+    setNextBigEvent(prevBigEvent)
+    setQuestionPageNum(2);
   }
 
   function onSubmit(data: dataType) {
-    
-    setQuestionPageNum(3);
-    setPrevBigEvent(nextBigEvent);
-    setNextBigEvent(data.yearSelect);
+    // updateUserInput((prev) => [
+    //   ...prev,
+    //   { xValue: yearBorn, yValue: data.valueSlider },
+    // ]);
+    setQuestionPageNum(5);
   }
 
   return (
@@ -40,17 +36,19 @@ export default function NextBigEvent() {
         Prev
       </button>
       <div className={styles.subContainer}>
-        <label className={styles.label}>When was your next big event?</label>
+        <label className={styles.label}>
+          What is the overall satisfactory value within this range of years?
+        </label>
         <Controller
-          name="yearSelect"
+          name="valueSlider"
           control={control}
           render={({ field: { onChange, value } }) => (
-            <Select reverse={false} onChange={onChange}/>
+            <Slider onChange={onChange} />
           )}
         />
-        {errors.yearSelect && (
+        {errors.valueSlider && (
           <p style={{ display: "inline", color: "red" }}>
-            {errors.yearSelect.message as string}
+            {errors.valueSlider.message as string}
           </p>
         )}
       </div>

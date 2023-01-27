@@ -2,21 +2,15 @@ import React, { useContext } from "react";
 import { useForm, Controller } from "react-hook-form";
 
 import { CreatePageContext } from "../../../lib/CreatePageContext";
-import styles from "../../../styles/createPage/form.module.css";
 import { dataType } from "../../../lib/types";
+
 import Slider from "../tools/ValueSlider";
+import Select from "../tools/YearSelect";
 
-export default function FirstQuestion() {
-  const {
-    setUserInput,
-    yearBorn,
-    setQuestionPageNum,
-    setIsModalOpen,
-    setModalPageNum,
-    setNextBigEvent,
-    setYearBorn,
-  } = useContext(CreatePageContext);
+import styles from "../../../styles/createPage/form.module.css";
 
+export default function SpecificYearQuestion() {
+  const { setUserInput, setQuestionPageNum } = useContext(CreatePageContext);
   const {
     register,
     handleSubmit,
@@ -24,34 +18,16 @@ export default function FirstQuestion() {
     control,
   } = useForm();
 
-  function prevButtonClicked() {
-    setQuestionPageNum(0);
-    setIsModalOpen(true);
-    setModalPageNum(3);
-    setNextBigEvent(1990);
-    setYearBorn(NaN);
+  function prevButtonClicked(){
+    setQuestionPageNum(4);
   }
 
   function onSubmit(data: dataType) {
-    console.log(data)
-    setUserInput((prev) => [
-      ...prev,
-      { xValue: yearBorn, yValue: data.valueSlider },
-    ]);
+    // updateUserInput((prev) => [
+    //   ...prev,
+    //   { xValue: yearBorn, yValue: data.valueSlider },
+    // ]);
     setQuestionPageNum(2);
-    // const options = {
-    //   method: "POST",
-    //   body: JSON.stringify({
-    //     data: {
-    //       graph: {
-    //         connect: {
-    //           id: graphId,
-    //         },
-    //       },
-    //       title: "some title",
-    //     },
-    //   }),
-    // };
   }
 
   return (
@@ -62,9 +38,22 @@ export default function FirstQuestion() {
         Prev
       </button>
       <div className={styles.subContainer}>
-        <label className={styles.label}>
-          How content were you when you were born?
-        </label>
+        <label className={styles.label}>Specific year?</label>
+        <Controller
+          name="yearSelect"
+          control={control}
+          render={({ field: { onChange, value } }) => (
+            <Select onChange={onChange} reverse={false} />
+          )}
+        />
+        {errors.yearSelect && (
+          <p style={{ display: "inline", color: "red" }}>
+            {errors.yearSelect.message as string}
+          </p>
+        )}
+      </div>
+      <div className={styles.subContainer}>
+        <label className={styles.label}>Satisfactory level?</label>
         <Controller
           name="valueSlider"
           control={control}

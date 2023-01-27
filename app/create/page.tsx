@@ -1,123 +1,121 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Modal from "react-modal";
 
 import Graph from "../../components/createPage/Graph";
-import Form from "../../components/createPage/questions/Questions";
-import AgeModal from "../../components/createPage/modals/AgeModal";
-import ContinueModal from "../../components/createPage/modals/ContinueModal";
-import IntroModal from "../../components/createPage/modals/IntroModal";
+import QuestionsMain from "../../components/createPage/questions/QuestionsMain";
+import ModalsMain from "../../components/createPage/modals/ModalsMain";
 
 import CreatePageContext from "../../lib/CreatePageContext";
-import { FormState, DOBType } from "../../lib/types";
+import { dataType } from "../../lib/types";
 import styles from "../../styles/createPage/create.module.css";
 
 export default function Page() {
-  const [userInput, setUserInput] = useState<FormState[]>([]);
+  const [userInput, setUserInput] = useState<dataType[]>([]);
   const [graphId, setGraphId] = useState<string>("");
   const [yearBorn, setYearBorn] = useState<number>(NaN);
-  const [isAgeModalOpen, setIsAgeModalOpen] = useState(false);
-  const [isContinueModalOpen, setIsContinueModalOpen] = useState(false);
-  const [isIntroModalOpen, setIsIntroModalOpen] = useState(false);
-  const [nextBigEvent, setNextBigEvent] = useState<number>(NaN);
+  const [nextBigEvent, setNextBigEvent] = useState<number>(1900);
+  const [prevBigEvent, setPrevBigEvent] = useState<number>(NaN);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(true);
+  const [modalPageNum, setModalPageNum] = useState<number>(NaN);
+  /* 
+    #1: ContinueModal
+    #2: IntroModal
+    #3: AgeModal
+  */
+  const [questionPageNum, setQuestionPageNum] = useState<number>(NaN);
+  /*
+  #1: FirstQuestion
+  #2: NextBigEvent
+  #3: YearOverlay
+  #4: WithinRangeQuestion
+  #5: SpecificYearQuestion
+  */
 
   useEffect(() => {
     const savedState = localStorage.getItem("savedPost");
-    if (savedState) {
+    if (savedState && !Number.isNaN(JSON.parse(savedState).questionPageNum)) {
       setUserInput(JSON.parse(savedState).userInput);
       setGraphId(JSON.parse(savedState).graphId);
       setYearBorn(JSON.parse(savedState).yearBorn);
       setNextBigEvent(JSON.parse(savedState).nextBigEvent);
-      setIsContinueModalOpen(true);
-    } else {
-      setIsContinueModalOpen(false);
-      setIsIntroModalOpen(true);
+      setQuestionPageNum(JSON.parse(savedState).questionPageNum);
+      setModalPageNum(1);
+    } 
+    else {
+      setModalPageNum(2);
       createPost();
     }
   }, []);
 
   useEffect(() => {
-    const savedPost = {
+    const savedState = {
       userInput: userInput,
       graphId: graphId,
       yearBorn: yearBorn,
       nextBigEvent: nextBigEvent,
+      questionPageNum: questionPageNum,
     };
-    localStorage.setItem("savedPost", JSON.stringify(savedPost));
-  }, [userInput, graphId, yearBorn, nextBigEvent]);
+    localStorage.setItem("savedPost", JSON.stringify(savedState))
+  }, [userInput, graphId, yearBorn, nextBigEvent, questionPageNum]);
 
   async function createPost() {
-    const options = {
-      method: "POST",
-      body: JSON.stringify({
-        data: {
-          graph: {
-            create: { isYear: false },
-          },
-        },
-        include: {
-          graph: {
-            select: {
-              id: true,
-            },
-          },
-        },
-      }),
-    };
-    const response = await fetch("/api/post", options);
-    const data = await response.json();
-    setGraphId(data.graph.id);
-  }
-
-  //Function sent through ContextProvider for changing the node states
-  function updateUserInput(input: React.SetStateAction<FormState[]>) {
-    setUserInput(input);
-  }
-
-  function updateYearBorn(input: React.SetStateAction<number>) {
-    setYearBorn(input);
-  }
-
-  function updateNextBigEvent (input: React.SetStateAction<number>) {
-    setNextBigEvent(input);
-  }
-
-  function updateIsAgeModalOpen(input: React.SetStateAction<boolean>) {
-    setIsAgeModalOpen(input);
-  }
-
-  function updateIsContinueModalOpen(input: React.SetStateAction<boolean>) {
-    setIsContinueModalOpen(input);
-  }
-
-  function updateIsIntroModalOpen(input: React.SetStateAction<boolean>) {
-    setIsIntroModalOpen(input);
+    // const options = {
+    //   method: "POST",
+    //   body: JSON.stringify({
+    //     data: {
+    //       graph: {
+    //         create: { isYear: false },
+    //       },
+    //     },
+    //     include: {
+    //       graph: {
+    //         select: {
+    //           id: true,
+    //         },
+    //       },
+    //     },
+    //   }),
+    // };
+    // const response = await fetch("/api/post", options);
+    // const data = await response.json();
+    // setGraphId(data.graph.id);
   }
 
   function reset() {
     localStorage.removeItem("savedPost");
     setUserInput([]);
+    setNextBigEvent(1900);
+    setGraphId("");
+    setModalPageNum(2);
+    setQuestionPageNum(0);
+    setYearBorn(NaN);
+    setIsModalOpen(true);
     createPost();
-    setIsIntroModalOpen(true);
   }
 
+  const contextProps = {
+    userInput,
+    setUserInput,
+    graphId,
+    yearBorn,
+    setYearBorn,
+    nextBigEvent,
+    setNextBigEvent,
+    prevBigEvent,
+    setPrevBigEvent,
+    modalPageNum,
+    setModalPageNum,
+    isModalOpen,
+    setIsModalOpen,
+    questionPageNum,
+    setQuestionPageNum,
+    reset,
+  };
+
   return (
-    <CreatePageContext
-      userInput={userInput}
-      updateUserInput={updateUserInput}
-      graphId={graphId}
-      yearBorn={yearBorn}
-      nextBigEvent={nextBigEvent}
-      updateYearBorn={updateYearBorn}
-      updateNextBigEvent={updateNextBigEvent}
-      updateIsContinueModalOpen={updateIsContinueModalOpen}
-      updateIsAgeModalOpen={updateIsAgeModalOpen}
-      updateIsIntroModalOpen={updateIsIntroModalOpen}
-      reset={reset}>
-      <AgeModal isModalOpen={isAgeModalOpen} />
-      <ContinueModal isModalOpen={isContinueModalOpen} />
-      <IntroModal isModalOpen={isIntroModalOpen} />
+    <CreatePageContext {...contextProps}>
+      <ModalsMain />
       <div className="flex flex-col items-center">
         <div className="mt-10 h-60 w-full text-center">
           <Graph />
@@ -127,7 +125,7 @@ export default function Page() {
             start from scratch
           </button>
         </div>
-        <Form />
+        <QuestionsMain />
       </div>
     </CreatePageContext>
   );

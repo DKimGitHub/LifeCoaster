@@ -1,72 +1,57 @@
-import React, { useState, useContext, useEffect } from "react";
-import Modal from "react-modal";
-import { useForm } from "react-hook-form";
+import React, { useContext, useEffect } from "react";
+import { useForm, Controller } from "react-hook-form";
 
 import { CreatePageContext } from "../../../lib/CreatePageContext";
-import { dataType, DOBType } from "../../../lib/types";
+import { dataType } from "../../../lib/types";
 import styles from "../../../styles/createPage/modal.module.css";
-import {customStyles} from "../../../styles/createPage/modalCustomStyle"
+import Select from "../tools/YearSelect";
 
-function CreatePageAgeModal(props: any) {
-  const { updateIsAgeModalOpen, updateYearBorn, updateNextBigEvent } =
-    useContext(CreatePageContext);
-
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-
-  useEffect(() => {
-    setIsModalOpen(props.isModalOpen)
-  }, [props])
-
-  function closeModal() {
-    setIsModalOpen(false);
-  }
+export default function AgeModal() {
+  const {
+    setModalPageNum,
+    setIsModalOpen,
+    setYearBorn,
+    setNextBigEvent,
+    setQuestionPageNum,
+  } = useContext(CreatePageContext);
 
   function onSubmit(data: dataType) {
-    updateYearBorn(parseInt(data.yearInput))
-    updateNextBigEvent(parseInt(data.yearInput))
+    setModalPageNum(0);
     setIsModalOpen(false);
-    updateIsAgeModalOpen(false);
+    setYearBorn(parseInt(data.yearSelect));
+    setNextBigEvent(parseInt(data.yearSelect));
+    setQuestionPageNum(1);
   }
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    control,
+    setValue,
   } = useForm();
 
+  useEffect (() => {
+    setValue('yearSelect', 2023)
+  }, [setValue])
+
   return (
-    <Modal
-      isOpen={isModalOpen}
-      onRequestClose={closeModal}
-      contentLabel="Age Modal"
-      ariaHideApp={false}
-      closeTimeoutMS={150}
-      shouldCloseOnOverlayClick={false}
-      style={customStyles}>
-      <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
-        <label className={styles.formLabel}>When were you born?</label>
-        <input
-          className={styles.formInput}
-          type="text"
-          placeholder="Year"
-          {...register("yearInput", {
-            required: "This is required",
-            max: {
-              value: "2023",
-              message: "maximum date is 2023-01-15",
-            },
-          })}
-        />
-        {errors.dateInput && (
-          <p style={{ display: "inline", color: "red" }}>
-            {errors.dateInput.message as string}
-          </p>
-        )}
-        <br />
-        <input className={styles.button} type="submit" value="Next" />
-      </form>
-    </Modal>
+    <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
+      <label className={styles.formLabel}>When were you born?</label>
+      <Controller
+        name="yearSelect"
+        control={control}
+        render={({ field: { onChange, value } }) => {
+          return <Select onChange={onChange} reverse={true} />;
+        }}
+      />
+      {errors.yearSelect && (
+        <p style={{ display: "inline", color: "red" }}>
+          {errors.yearSelect.message as string}
+        </p>
+      )}
+      <br />
+      <input className={styles.button} type="submit" value="Next" />
+    </form>
   );
 }
-
-export default CreatePageAgeModal;

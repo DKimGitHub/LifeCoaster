@@ -1,11 +1,18 @@
 .container{
+  height: 10rem;
+  width: 100%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
   font-family: "Courier New";
   font-weight: bold;
   color: #704f47;
+}
+
+.subContainer{
+  display:flex;
+  flex-direction: column;
 }
 
 .label {
@@ -16,18 +23,9 @@
   margin: 1rem;
 }
 
-.buttonContainer {
-  display: flex;
-  width: 100%; 
-  justify-content: right;
-  margin-right: 2rem;
-}
-
 .button {
-  align-self: 'right';
   width: fit-content;
   padding: 0.5rem 1rem;
-  margin: 2rem 0;
   border-radius: 7px;
   color: #fbc6b9;
   font-weight: bold;
@@ -35,6 +33,16 @@
   transition: all 0.3s;
   background-color: #704f47;
   border: 2px solid #382723;
+}
+
+.button.left {
+  margin-right: auto;
+  margin-left: 2rem;
+}
+
+.button.right{
+  margin-left: auto;
+  margin-right: 2rem;
 }
 
 .button:hover{
