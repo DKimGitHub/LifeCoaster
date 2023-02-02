@@ -30,28 +30,25 @@ export const options = {
     legend: {
       display: false,
     },
-    tooltip: {
-      enabled: false,
-    },
   },
   scales: {
     x: {
       type: "linear",
       grid: { display: false },
-      display: false,
+      //display: false,
     },
     y: {
       type: "linear",
       grid: { display: false },
-      display: false,
+      //display: false,
     },
   },
-  elements: {
-    point: {
-      radius: 0,
-      hoverRadius: 0,
-    },
-  },
+  // elements: {
+  //   point: {
+  //     radius: 0,
+  //     hoverRadius: 0,
+  //   },
+  // },
   interaction: {
     mode: "nearest",
     intersect: false,

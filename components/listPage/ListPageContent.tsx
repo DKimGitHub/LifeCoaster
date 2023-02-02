@@ -90,7 +90,7 @@ export default function ListPageContent({
         dataLength={posts.length}
         next={getMorePosts}
         hasMore={hasMore}
-        scrollThreshold="48px"
+        scrollThreshold="96px"
         loader={
           <div className="mb-10 mt-10 flex justify-center">
             <Loading type="points" size="xl" />

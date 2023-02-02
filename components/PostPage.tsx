@@ -11,13 +11,13 @@ export default function PostPage() {
   const commentList = [1, 2, 3, 4, 5, 6, 7];
   return (
     <>
-      <div className="flex h-full flex-col items-center md:flex-row">
+      <div className="flex h-[calc(100vh-4rem)] flex-col pt-4 md:pt-10 md:flex-row overflow-y-hidden">
         <div
           data-theme={colorTheme}
-          className={`chartContainer peer relative h-[20rem] w-full border-4 border-solid bg-base-100 md:h-[30rem] md:w-2/3`}>
+          className={`py-auto relative h-[14rem] w-full md:h-[30rem] md:w-2/3`}>
           <PostPageGraph />
         </div>
-        <div className="flex h-[30rem] w-1/3 flex-col justify-between">
+        <div className="flex w-full md:max-h-[30rem] md:w-1/3 flex-col overflow-y-auto justify-between">
           <div className="flex items-center justify-between ">
             {" "}
             <div className="flex flex-1 items-center">
@@ -51,7 +51,7 @@ export default function PostPage() {
               </label>
             </div>
           </div>
-          <div className="commentContainer flex-1 overflow-scroll border-t border-b">
+          <div className="commentContainer flex flex-col-reverse flex-1 overflow-auto border-t border-b">
             {commentList.map(() => (
               <div className="flex h-16 w-full py-2 px-3">
                 <Image

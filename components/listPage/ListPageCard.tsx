@@ -26,8 +26,8 @@ const customStyles = {
     transform: "translate(-50%, -50%)",
     marginX: "auto",
     width: "90%",
-    maxWidth: "72rem",
-    maxHeight: "36rem",
+    maxWidth: "calc(100% - 80px)",
+    maxHeight: "calc(100% - 80px)",
     padding: "0",
   },
   overlay: {
