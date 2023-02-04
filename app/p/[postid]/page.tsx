@@ -1,7 +1,9 @@
-import PostPage from "../../../components/PostPage";
+import PostPage from "../../../components/postPage/PostPage";
 
 export default async function Page() {
-    return (<PostPage/>
-    );
+    return (<div className="">
+    <div className="p-2"/>
+    <PostPage/>
+    </div>);
   }
   

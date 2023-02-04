@@ -1,7 +1,7 @@
 import Link from "next/link";
 import LifeChart from "../../components/listPage/ListPageGraph";
 import ListPageCard from "../../components/listPage/ListPageCard";
-import PageModal from "../../components/PostPage";
+import PageModal from "../../components/postPage/PostPage";
 import ListPageSorter from "../../components/listPage/ListPageSorter";
 import prisma from "../../lib/prisma";
 import { dataType } from "../../lib/types";

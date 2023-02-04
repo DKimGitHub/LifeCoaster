@@ -2,10 +2,10 @@
 
 import ListPageGraph from "./ListPageGraph";
 import Modal from "react-modal";
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
-import PostPage from "../PostPage";
+import PostPage from "../postPage/PostPage";
 import Tilt from "react-parallax-tilt";
 import Image from "next/image";
 import CommentIcon from "../../public/comment.svg";
@@ -13,6 +13,7 @@ import redHeartIcon from "../../public/heart_red.svg";
 import outlineHeartIcon from "../../public/heart_outline.svg";
 import { useSession } from "next-auth/react";
 import { clsx } from "clsx";
+
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -38,14 +39,17 @@ const customStyles = {
 export default function ListPageCard({
   data,
   handleChange,
+  setIsModalOpen
 }: {
   data: any;
   handleChange: (post: any) => void;
+  setIsModalOpen: Dispatch<SetStateAction<boolean>>
+
 }) {
   const { data: session, status } = useSession();
   const colorTheme = "light";
   const router = useRouter();
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  //const [isModalOpen, setIsModalOpen] = useState(false);
 
   function isHearted() {
     if (!session) return false;
@@ -98,7 +102,7 @@ export default function ListPageCard({
 
   return (
     <>
-      <Modal
+      {/* <Modal
         isOpen={isModalOpen}
         onRequestClose={onModalClose}
         contentLabel="Post Modal"
@@ -106,7 +110,7 @@ export default function ListPageCard({
         closeTimeoutMS={150}
         style={customStyles}>
         <PostPage />
-      </Modal>{" "}
+      </Modal> */}
       <Tilt perspective={2000} tiltMaxAngleX={10} tiltMaxAngleY={10}>
         <div
           data-theme={colorTheme}
@@ -166,13 +170,13 @@ export default function ListPageCard({
                 </label>
               </button>
               <p className="pr-1 text-xl font-medium">{data.comments.length}</p>
-              <Image
-                className="mr-1 inline"
+              <button className="mr-1 inline" onClick={clickHandler}><Image
+                // className="mr-1 inline"
                 width={20}
                 height={20}
                 src={CommentIcon}
                 alt="Comment Icon"
-              />
+              /></button>
             </div>
           </div>
         </div>

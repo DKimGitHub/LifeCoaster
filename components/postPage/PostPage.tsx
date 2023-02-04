@@ -1,23 +1,23 @@
-"use client";
 
-import redHeartIcon from "../public/heart_red.svg";
-import outlineHeartIcon from "../public/heart_outline.svg";
+
+import redHeartIcon from "../../public/heart_red.svg";
+import outlineHeartIcon from "../../public/heart_outline.svg";
 import PostPageGraph from "./PostPageGraph";
 import Image from "next/image";
-import { Textarea } from "@nextui-org/react";
+import CommentTextArea from "./CommentTextArea";  
 
 export default function PostPage() {
   const colorTheme = "cupcake";
   const commentList = [1, 2, 3, 4, 5, 6, 7];
   return (
     <>
-      <div className="flex h-[calc(100vh-4rem)] flex-col pt-4 md:pt-10 md:flex-row overflow-y-hidden">
+      <div className="flex flex-col md:flex-row">
         <div
           data-theme={colorTheme}
-          className={`py-auto relative h-[14rem] w-full md:h-[30rem] md:w-2/3`}>
+          className={`py-auto relative h-[14rem] w-full md:h-[80vh] md:w-2/3`}>
           <PostPageGraph />
         </div>
-        <div className="flex w-full md:max-h-[30rem] md:w-1/3 flex-col overflow-y-auto justify-between">
+        <div className="flex w-full h-[calc(100vh-20rem)] md:h-[80vh] md:w-1/3 flex-col overflow-y-auto justify-between">
           <div className="flex items-center justify-between ">
             {" "}
             <div className="flex flex-1 items-center">
@@ -52,8 +52,8 @@ export default function PostPage() {
             </div>
           </div>
           <div className="commentContainer flex flex-col-reverse flex-1 overflow-auto border-t border-b">
-            {commentList.map(() => (
-              <div className="flex h-16 w-full py-2 px-3">
+            {commentList.map((_,index) => (
+              <div key={index} className="flex h-16 w-full py-2 px-3">
                 <Image
                   height={36}
                   width={36}
@@ -70,9 +70,7 @@ export default function PostPage() {
               </div>
             ))}
           </div>
-           <div className="">
-            <Textarea className="" fullWidth placeholder="Comment" minRows={1} />
-            </div>
+          <CommentTextArea/>
         </div>
       </div>
     </>

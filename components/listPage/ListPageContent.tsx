@@ -1,11 +1,33 @@
 "use client";
 import ListPageCard from "./ListPageCard";
 import InfiniteScroll from "react-infinite-scroll-component";
+import Modal from "react-modal";
 
 import { useState } from "react";
-import { Loading } from "@nextui-org/react";
+import { Loading, useModal } from "@nextui-org/react";
 import ListPageSorter from "./ListPageSorter";
 import { ToastContainer, Flip } from "react-toastify";
+import PostPage from "../postPage/PostPage";
+import ListPageModal from "./ListPageModal";
+
+const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+    marginX: "auto",
+    width: "90%",
+    maxWidth: "calc(100% - 80px)",
+    maxHeight: "calc(100% - 80px)",
+    padding: "0",
+  },
+  overlay: {
+    backgroundColor: "hsla(0,0%,0%,0.3)",
+  },
+};
 
 enum sortByEnum {
   RU = "Recently Updated",
@@ -23,6 +45,9 @@ export default function ListPageContent({
   const [posts, setPosts] = useState(JSON.parse(listOfPosts));
   const [hasMore, setHasMore] = useState(true);
   const [sortBy, setSortBy] = useState("Recently Created");
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { setVisible, bindings } = useModal();
 
   const getMorePosts = async () => {
     const enumType = Object.entries(sortByEnum).find(
@@ -67,6 +92,7 @@ export default function ListPageContent({
       )
     );
   };
+
   return (
     <>
       <ToastContainer
@@ -98,11 +124,13 @@ export default function ListPageContent({
         }>
         <div className="mb-10 grid w-full grid-cols-1 gap-12 md:grid-cols-2 md:gap-12">
           {posts.map((post: any) => (
-            //eslint-disable-next-line
-            <ListPageCard handleChange={cardCallback} data={post} />
+            //eslint-disable-next-line 
+            <ListPageCard handleChange={cardCallback} setIsModalOpen={setVisible} data={post} />
           ))}
         </div>
       </InfiniteScroll>
+
+      <ListPageModal bindings={bindings} setIsModalOpen={setIsModalOpen} isModalOpen={isModalOpen}><PostPage/></ListPageModal>
     </>
   );
 }

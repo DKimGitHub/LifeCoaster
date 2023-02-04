@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
-  overflow-y: scroll;
-}
-
 .gradientBorder {
   border-image: linear-gradient(var(--angle), hsl(var(--p)), hsl(var(--pc))) 1;
   animation: 6s rotate linear infinite;
