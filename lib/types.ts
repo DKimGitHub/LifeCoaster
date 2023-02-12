@@ -11,3 +11,8 @@ export type PageProps = {
     overallValue: number;
     specificEvents: {year: number, value: number, description: string}[];
   }[]
+
+  export type nodeType = {
+    xValue: number;
+    yValue: number;
+  }[]

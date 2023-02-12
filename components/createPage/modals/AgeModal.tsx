@@ -11,13 +11,16 @@ export default function AgeModal() {
     setModalPageNum,
     setIsModalOpen,
     setQuestionPageNum,
-    setEvents
+    setEvents,
+    events,
   } = useContext(CreatePageContext);
 
   function onSubmit(data: dataType) {
     setModalPageNum(0);
     setIsModalOpen(false);
-    setEvents([{bigEvent: data.yearSelect, overallValue: NaN, specificEvents: []}]);
+    setEvents([
+      { bigEvent: data.yearSelect, overallValue: NaN, specificEvents: [] },
+    ]);
     setQuestionPageNum(1);
   }
 
@@ -29,9 +32,9 @@ export default function AgeModal() {
     setValue,
   } = useForm();
 
-  useEffect (() => {
-    setValue('yearSelect', 2023)
-  }, [setValue])
+  useEffect(() => {
+    setValue("yearSelect", 2023);
+  }, [setValue]);
 
   return (
     <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
@@ -40,7 +43,14 @@ export default function AgeModal() {
         name="yearSelect"
         control={control}
         render={({ field: { onChange, value } }) => {
-          return <Select onChange={onChange} reverse={true} />;
+          return (
+            <Select
+              onChange={onChange}
+              reverse={true}
+              start={events.slice(-1)[0].bigEvent + 1}
+              end={new Date().getFullYear()}
+            />
+          );
         }}
       />
       {errors.yearSelect && (

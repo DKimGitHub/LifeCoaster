@@ -7,7 +7,7 @@ import { dataType } from "../../../lib/types";
 import Select from "../tools/YearSelect";
 
 export default function NextBigEvent() {
-  const { setQuestionPageNum, events, setEvents } =
+  const { setQuestionPageNum, events, setEvents, setNodes } =
     useContext(CreatePageContext);
   const {
     register,
@@ -22,7 +22,14 @@ export default function NextBigEvent() {
   }, [setValue, events]);
 
   function prevButtonClicked() {
-    setQuestionPageNum(1);
+    if (events.length === 1) {
+      setQuestionPageNum(1);
+      setEvents((prev) => [{ ...prev[0], overallValue: NaN }]);
+      setNodes((prev) => prev.slice(0, -1));
+    } else {
+      setQuestionPageNum(5);
+      //delete events and nodes when the nodes are deleted from the graph.
+    }
   }
 
   function onSubmit(data: dataType) {
@@ -42,18 +49,34 @@ export default function NextBigEvent() {
       </button>
       <div className={styles.subContainer}>
         <label className={styles.label}>When was your next big event?</label>
-        <Controller
-          name="yearSelect"
-          control={control}
-          render={({ field: { onChange, value } }) => (
-            <Select reverse={false} onChange={onChange} />
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "center",
+            width: "auto",
+          }}>
+          <p style={{ marginTop: "auto", marginBottom: "auto" }}>{`${
+            events.slice(-1)[0].bigEvent
+          } ~ `}</p>
+          <Controller
+            name="yearSelect"
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <Select
+                reverse={false}
+                onChange={onChange}
+                start={events.slice(-1)[0].bigEvent + 1}
+                end={new Date().getFullYear()}
+              />
+            )}
+          />
+          {errors.yearSelect && (
+            <p style={{ display: "inline", color: "red" }}>
+              {errors.yearSelect.message as string}
+            </p>
           )}
-        />
-        {errors.yearSelect && (
-          <p style={{ display: "inline", color: "red" }}>
-            {errors.yearSelect.message as string}
-          </p>
-        )}
+        </div>
       </div>
       <input
         className={`${styles.button} ${styles.right}`}

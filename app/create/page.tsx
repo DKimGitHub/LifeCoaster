@@ -7,13 +7,15 @@ import QuestionsMain from "../../components/createPage/questions/QuestionsMain";
 import ModalsMain from "../../components/createPage/modals/ModalsMain";
 
 import CreatePageContext from "../../lib/CreatePageContext";
-import { eventType} from "../../lib/types";
+import { eventType, nodeType} from "../../lib/types";
 import styles from "../../styles/createPage/create.module.css";
 
 export default function Page() {
   const [graphId, setGraphId] = useState<string>("");
-  const [events, setEvents] = useState<eventType>([]);
+  const [events, setEvents] = useState<eventType>([{bigEvent: 1900, overallValue: NaN, specificEvents: []}]);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(true);
+  const [nodes, setNodes] = useState<nodeType>([]);
+  const [phantomNodes, setPhantomNodes] = useState<nodeType>([]);
   const [modalPageNum, setModalPageNum] = useState<number>(NaN);
   /* 
     #1: ContinueModal
@@ -28,6 +30,12 @@ export default function Page() {
   #4: WithinRangeQuestion
   #5: SpecificYearQuestion
   */
+
+  useEffect(() => {
+    console.log(events);
+    console.log(nodes);
+    console.log(phantomNodes)
+  },[events, nodes, phantomNodes])
 
   useEffect(() => {
     const savedState = localStorage.getItem("savedPost");
@@ -78,6 +86,8 @@ export default function Page() {
   function reset() {
     localStorage.removeItem("savedPost");
     setEvents([{bigEvent: 1900, overallValue: NaN, specificEvents: []}]);
+    setNodes([]);
+    setPhantomNodes([]);
     setGraphId("");
     setModalPageNum(2);
     setQuestionPageNum(0);
@@ -89,6 +99,10 @@ export default function Page() {
     graphId,
     events,
     setEvents,
+    nodes,
+    setNodes,
+    phantomNodes,
+    setPhantomNodes,
     modalPageNum,
     setModalPageNum,
     isModalOpen,

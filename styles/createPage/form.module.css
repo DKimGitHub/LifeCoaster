@@ -11,8 +11,12 @@
 }
 
 .subContainer{
-  display:flex;
+  width: 100%;
+  display: flex;
+  margin: auto;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .label {
@@ -24,8 +28,10 @@
 }
 
 .descriptionText{
-  width: 10rem;
-  height: 5rem;
+  width: 50%;
+  height: fit-content;
+  padding: 1px;
+  overflow-wrap: break-word;
 }
 
 .button {

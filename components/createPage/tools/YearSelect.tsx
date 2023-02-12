@@ -6,13 +6,15 @@ import { CreatePageContext } from "../../../lib/CreatePageContext";
 export default function YearSelect({
   onChange,
   reverse,
+  start,
+  end,
 }: {
   onChange: (...event: any[]) => void;
   reverse: boolean;
+  start: number;
+  end: number;
 }) {
   const { events } = useContext(CreatePageContext);
-  const start = events.slice(-1)[0].bigEvent + 1;
-  const end = 2023;
   
   const range = reverse
     ? Array.from(Array(end - start + 1).keys(), (x) => x + start).reverse()

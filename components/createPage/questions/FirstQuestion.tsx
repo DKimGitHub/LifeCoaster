@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 
 import { CreatePageContext } from "../../../lib/CreatePageContext";
@@ -12,6 +12,8 @@ export default function FirstQuestion() {
     setIsModalOpen,
     setModalPageNum,
     setEvents,
+    events,
+    setNodes,
   } = useContext(CreatePageContext);
 
   const {
@@ -19,18 +21,26 @@ export default function FirstQuestion() {
     handleSubmit,
     formState: { errors },
     control,
+    setValue,
   } = useForm();
+
+  useEffect(() => {
+    setValue("valueSlider", 0);
+  }, [setValue]);
 
   function prevButtonClicked() {
     setQuestionPageNum(0);
     setIsModalOpen(true);
     setModalPageNum(3);
-    setEvents([{bigEvent: 1900, overallValue: NaN, specificEvents: []}]);
+    setEvents([{ bigEvent: 1900, overallValue: NaN, specificEvents: [] }]);
   }
 
   function onSubmit(data: dataType) {
-    console.log(data)
     setQuestionPageNum(2);
+    setEvents((prev) => [{ ...prev[0], overallValue: data.valueSlider }]);
+    setNodes((prev) => [
+      { xValue: events[0].bigEvent, yValue: data.valueSlider },
+    ]);
     // const options = {
     //   method: "POST",
     //   body: JSON.stringify({
@@ -57,18 +67,20 @@ export default function FirstQuestion() {
         <label className={styles.label}>
           How content were you when you were born?
         </label>
-        <Controller
-          name="valueSlider"
-          control={control}
-          render={({ field: { onChange, value } }) => (
-            <Slider onChange={onChange} />
+        <div style={{width: '50%'}}>
+          <Controller
+            name="valueSlider"
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <Slider onChange={onChange} />
+            )}
+          />
+          {errors.valueSlider && (
+            <p style={{ display: "inline", color: "red" }}>
+              {errors.valueSlider.message as string}
+            </p>
           )}
-        />
-        {errors.valueSlider && (
-          <p style={{ display: "inline", color: "red" }}>
-            {errors.valueSlider.message as string}
-          </p>
-        )}
+        </div>
       </div>
       <input
         className={`${styles.button} ${styles.right}`}

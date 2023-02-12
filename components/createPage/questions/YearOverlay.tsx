@@ -5,14 +5,20 @@ import { CreatePageContext } from "../../../lib/CreatePageContext";
 export default function YearOverlay() {
   const { events, setQuestionPageNum } = useContext(CreatePageContext);
 
-  function handleAnimationEnd (e: AnimationEvent<HTMLDivElement>){
+  function handleAnimationEnd(e: AnimationEvent<HTMLDivElement>) {
     setQuestionPageNum(4);
   }
 
   return (
     <>
       <div className={styles.container} onAnimationEnd={handleAnimationEnd}>
-        <p className={styles.text}>{`${events.slice(-2)[0].bigEvent} ~ ${events.slice(-1)[0].bigEvent}`}</p>
+        {events.slice(-2)[0].bigEvent === events.slice(-1)[0].bigEvent - 1 ? (
+          <p className={styles.text}>{`${events.slice(-2)[0].bigEvent}`}</p>
+        ) : (
+          <p className={styles.text}>{`${events.slice(-2)[0].bigEvent} ~ ${
+            events.slice(-1)[0].bigEvent
+          }`}</p>
+        )}
       </div>
     </>
   );
