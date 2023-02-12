@@ -1,6 +1,6 @@
 "use client";
 import { signIn, useSession } from "next-auth/react";
-import { useEffect, useRef, useState  } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import GoogleIcon from "../public/google_logo.svg";
@@ -8,8 +8,8 @@ import IGIcon from "../public/Instagram_logo_2022.svg";
 import { Input } from "@nextui-org/react";
 
 export default function AuthModal() {
-  // const { data: session, status } = useSession();
-
+  const { data: session, status } = useSession();
+  const closeButton = useRef(null);
   const [email, setEmail] = useState("");
   const [tempEmail, setTempEmail] = useState("");
   const [isError, setIsError] = useState(false);
@@ -19,6 +19,18 @@ export default function AuthModal() {
 
   const pathname = usePathname();
   const re = /^\S+@\S+\.\S+$/;
+  //const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // useEffect(() => {
+  //   if (session && !isLoggedIn) {
+  //     console.log(isLoggedIn);
+  //     //@ts-expect-error
+  //     closeButton?.current?.click();
+  //     setIsLoggedIn(true);
+  //   }
+  //   if (!session && isLoggedIn) {
+  //     setIsLoggedIn(false);
+  //   }
+  // }, [session]);
 
   async function handleSubmit(e: any) {
     e.preventDefault();
@@ -38,6 +50,7 @@ export default function AuthModal() {
       setSuccess(true);
       setTempEmail(email);
       setEmail("");
+      setDisabled("btn-disabled")
     }
   }
   function handleChange(e: any) {
@@ -95,14 +108,17 @@ export default function AuthModal() {
         onChange={modalChangeHandler}
       />
       <label htmlFor="my-modal-4" className="modal cursor-pointer">
-        <label className="modal-box max-w-[26rem] relative rounded-md" htmlFor="">
+        <label
+          className="modal-box relative max-w-[26rem] rounded-md"
+          htmlFor="">
           <label
+            ref={closeButton}
             htmlFor="my-modal-4"
             className="btn-ghost btn-sm btn-circle btn absolute right-2 top-2">
             ✕
           </label>
           <h1 className="pt-6 pb-4 text-2xl font-bold">Login</h1>
-          <p className="text-sm font-medium mb-1">With magic email link:</p>
+          <p className="mb-1 text-sm font-medium">With magic email link:</p>
           <form onSubmit={handleSubmit}>
             {/* <label className="label pb-0 pl-0 text-xs text-gray-400">
               Email
@@ -113,14 +129,16 @@ export default function AuthModal() {
               value={email}
               onChange={handleChange}
             /> */}
-                    <Input className="mb-1"
-                    aria-label="email-input"
-                    fullWidth
-          underlined
-          value={email}
-          onChange={handleChange}
-          placeholder="Email" 
-          color="primary" />
+            <Input
+              className="mb-1"
+              aria-label="email-input"
+              fullWidth
+              underlined
+              value={email}
+              onChange={handleChange}
+              placeholder="Email"
+              color="primary"
+            />
             <br />
             {isError && (
               <p className="pb-1 text-xs text-error">

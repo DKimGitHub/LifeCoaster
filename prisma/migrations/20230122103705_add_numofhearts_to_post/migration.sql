@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Post" ADD COLUMN     "numOfHearts" INTEGER NOT NULL DEFAULT 0;

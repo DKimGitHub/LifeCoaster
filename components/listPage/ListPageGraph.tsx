@@ -14,6 +14,7 @@ import {
   ChartData,
   ChartOptions,
 } from "chart.js";
+import { NodeType } from "../../lib/types";
 
 ChartJS.register(
   CategoryScale,
@@ -58,29 +59,23 @@ export const options = {
   },
   layout: {
     padding: {
-      top:25
+      top: 25,
     },
   },
   parsing: {
-    xAxisKey: 'xValue',
-    yAxisKey: 'yValue'
+    xAxisKey: "xValue",
+    yAxisKey: "yValue",
   },
   //aspectRatio: 3,
   maintainAspectRatio: false,
   cubicInterpolationMode: "monotone",
 };
-// const graphData = [
-//   { x: 0, y: 0 },
-//   { x: 30, y: 1 },
-//   { x: 20, y: 10 },
-//   { x: 14, y: 2 },
-//   { x: 1, y: 8 },
-// ].sort((a, b) => a.x - b.x);
 
-export default function ListPageGraph(props: any) {
-  //const { colorTheme } = props;
-  const graphData = props.data?.graph.nodes.sort((a, b) => a.xValue - b.xValue)
-  const data = {
+export default function ListPageGraph({ data }: { data: any }) {
+  const graphData = data?.sort(
+    (a: NodeType, b: NodeType) => a.xValue - b.xValue
+  );
+  const lineData: ChartData<"line", { xValue: number; yValue: number }[]> = {
     datasets: [
       {
         label: "Dataset 1",
@@ -89,10 +84,9 @@ export default function ListPageGraph(props: any) {
       },
     ],
   };
-  //const ranNumDeg = Math.floor((Math.random() * (360)))+ "deg";
 
   return (
-      // @ts-expect-error
-    <Line options={options} data={data} />
+    // @ts-expect-error
+    <Line options={options} data={lineData} />
   );
 }

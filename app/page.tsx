@@ -1,5 +1,3 @@
-import AnimatedCart from "../components/AnimatedCart";
-import ListPageGraph from "../components/ListPageGraph";
 export default async function Home() {
   return (
     <>
@@ -8,9 +6,7 @@ export default async function Home() {
       </div>
       <div
         className={`chartContainer relative h-60 border-4 border-solid bg-base-100`}>
-        <ListPageGraph />
-      </div>{" "}
-      <AnimatedCart />
+      </div>
     </>
   );
 }
