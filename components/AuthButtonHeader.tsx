@@ -1,6 +1,5 @@
 "use client";
 import { signIn, signOut, useSession } from "next-auth/react";
-import headerStyles from "../styles/header.module.css";
 import { Dropdown, Avatar, Text, Button } from "@nextui-org/react";
 
 export default function AuthButtonHeader() {
@@ -25,13 +24,13 @@ export default function AuthButtonHeader() {
             Signed in as
           </Text>
           <Text color="inherit" css={{ d: "flex", fontWeight: "500" }}>
-            zoey@example.com
+            {session.user?.email}
           </Text>
         </Dropdown.Item>
         <Dropdown.Item key="profile" withDivider>
           My Profile
         </Dropdown.Item>
-        <Dropdown.Item key="team_settings">Team Settings</Dropdown.Item>
+        <Dropdown.Item key="team_settings">Settings</Dropdown.Item>
         <Dropdown.Item key="logout" color="error" withDivider>
           <button onClick={() => signOut()}>Log Out</button>
         </Dropdown.Item>

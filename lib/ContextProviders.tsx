@@ -6,6 +6,9 @@ import { NextUIProvider, createTheme } from "@nextui-org/react";
 import React from "react";
 import { SessionProvider } from "next-auth/react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
+import {SSRProvider} from '@react-aria/ssr';
+
+
 const globalStyles = globalCss({
   li: { marginBottom: "0 !important" }
 });
@@ -22,12 +25,11 @@ export default function ContextProviders({
 
   return (
     <>
-      <NextThemesProvider
-        attribute="class">
+    <SSRProvider>
         <NextUIProvider>
           <SessionProvider>{children} </SessionProvider>
         </NextUIProvider>
-      </NextThemesProvider>
+      </SSRProvider>
     </>
   );
 }

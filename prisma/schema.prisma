@@ -41,6 +41,7 @@ model Post {
   comments  Comment[]
 
   usersWhoHearted String[]
+  numOfHearts     Int      @default(0)
 }
 
 model Graph {
@@ -48,6 +49,10 @@ model Graph {
   postId String? @unique
   post   Post?   @relation(fields: [postId], references: [id])
   nodes  Node[]
+
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
+
   isYear Boolean @default(false)
 }
 
