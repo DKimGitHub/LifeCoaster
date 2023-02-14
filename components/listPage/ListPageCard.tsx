@@ -13,29 +13,9 @@ import redHeartIcon from "../../public/heart_red.svg";
 import outlineHeartIcon from "../../public/heart_outline.svg";
 import { useSession } from "next-auth/react";
 import { clsx } from "clsx";
-
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const customStyles = {
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-    marginX: "auto",
-    width: "90%",
-    maxWidth: "calc(100% - 80px)",
-    maxHeight: "calc(100% - 80px)",
-    padding: "0",
-  },
-  overlay: {
-    backgroundColor: "hsla(0,0%,0%,0.3)",
-  },
-};
-//TODO disable scroll but keep scrollbar
 export default function ListPageCard({
   data,
   handleChange,
@@ -102,15 +82,6 @@ export default function ListPageCard({
 
   return (
     <>
-      {/* <Modal
-        isOpen={isModalOpen}
-        onRequestClose={onModalClose}
-        contentLabel="Post Modal"
-        ariaHideApp={false}
-        closeTimeoutMS={150}
-        style={customStyles}>
-        <PostPage />
-      </Modal> */}
       <Tilt perspective={2000} tiltMaxAngleX={10} tiltMaxAngleY={10}>
         <div
           data-theme={colorTheme}

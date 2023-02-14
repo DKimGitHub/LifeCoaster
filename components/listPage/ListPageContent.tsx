@@ -10,25 +10,6 @@ import { ToastContainer, Flip } from "react-toastify";
 import PostPage from "../postPage/PostPage";
 import ListPageModal from "./ListPageModal";
 
-const customStyles = {
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-    marginX: "auto",
-    width: "90%",
-    maxWidth: "calc(100% - 80px)",
-    maxHeight: "calc(100% - 80px)",
-    padding: "0",
-  },
-  overlay: {
-    backgroundColor: "hsla(0,0%,0%,0.3)",
-  },
-};
-
 enum sortByEnum {
   RU = "Recently Updated",
   RC = "Recently Created",
@@ -101,7 +82,7 @@ export default function ListPageContent({
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
-        // transition={Flip}
+        transition={Flip}
         rtl={false}
         pauseOnFocusLoss={false}
         draggable
