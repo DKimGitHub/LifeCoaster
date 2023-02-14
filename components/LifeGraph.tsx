@@ -1,6 +1,8 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ResponsiveLine, Line } from "@nivo/line";
+import { useSpring, animated } from "@react-spring/web";
+
 // import { mockData1 } from "../lib/mockData";
 import CustomToolTip from "./CustomToolTip";
 let mockData1 = [
@@ -42,35 +44,36 @@ let mockData1 = [
   },
 ];
 export default function LifeGraph(data: any) {
-  const [data1, setdata] = useState(mockData1);
-  function handler() {
-    setdata((prev) => [
-      {
-        id: "1",
-        color: "hsl(0, 100%, 50%)",
-        data: [
-          ...prev[0].data,
-          {
-            x: 20,
-            y: 10,
-            title: "When I was born :D",
-            desc: "it was so zen~",
-          },
-        ],
-      },
-    ]);
-    console.log(data1);
-  }
+  const ref = useRef(null);
+  const cartRef = useRef(null);
+  const handler = () => {
+    const svgPath = ref.current.querySelector("path").attributes.d.value;
+    cartRef.current.style.offsetPath = `path("${svgPath}")`;
+    cartRef.current.classList.add('animateCart')
+    console.log(svgPath);
+  };
+
+  // const [{ offsetDistance }, api] = useSpring({
+  //   from: { offsetDistance: "0%" },
+  //   loop: {
+  //     reverse: true
+  //   },
+  //   config: {
+  //     duration: 4000,
+  //   }
+  // });
+
   return (
     <>
-      <button className="absolute z-10" onClick={handler}>
-        {" "}
-        add{" "}
-      </button>
-      <div className="h-full rounded-lg border border-black bg-white">
-        <ResponsiveLine
+    <button onClick={handler}>click</button>
+    {/* <animated.div className="w-4 h-4 bg-black" style={{offsetDistance}}
+    ></animated.div> */}
+
+    <div ref={cartRef} className="w-4 h-4 bg-black absolute invisible" onAnimationEnd={()=> cartRef.current.classList.remove('animateCart')} ></div>
+    <div ref={ref} className={`relative h-96 w-full md:w-2/3`}>
+          <ResponsiveLine
           margin={{ top: 30, right: 30, bottom: 30, left: 30 }}
-          data={data1}
+          data={mockData1}
           curve={"cardinal"}
           enableGridX={false}
           enableGridY={false}
@@ -92,7 +95,7 @@ export default function LifeGraph(data: any) {
           tooltip={CustomToolTip}
           motionConfig={"wobbly"}
         />
-      </div>
+    </div>
     </>
   );
 }

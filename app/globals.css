@@ -36,3 +36,17 @@ html {
 .ReactModal__Overlay--before-close{
   opacity: 0;
 }
+
+.animateCart {
+  visibility: visible;
+  animation: move 4s linear;
+}
+
+@keyframes move {
+  0% {
+    offset-distance: 0%;
+  }
+  100% {
+    offset-distance: 100%;
+  }
+}
