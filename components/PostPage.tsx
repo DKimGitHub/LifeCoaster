@@ -5,21 +5,18 @@ import outlineHeartIcon from "../public/heart_outline.svg";
 import PostPageGraph from "./PostPageGraph";
 import Image from "next/image";
 import LifeGraph from "./LifeGraph";
-import { useEffect, useRef } from "react";
 
 export default function PostPage() {
-  const ref = useRef(null);
 
   return (
     <>
       <div className="flex flex-col md:flex-row h-full items-center">
-        <div
-        ref={ref}
+        {/* <div
           className={`relative h-96 w-full md:w-2/3`}>
         <LifeGraph/>
-        </div> 
+        </div>  */}
+        <LifeGraph/>
         <div className="flex w-1/3 flex-col justify-between">
-        <button onClick={handler}>click</button>
         <div className="flex items-center justify-between p-2">
             {" "}
             <div className="flex flex-1">
