@@ -1,26 +1,42 @@
 import React, { useContext, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 
-import { CreatePageContext } from "../../../lib/CreatePageContext";
-import { dataType } from "../../../lib/types";
+import { dataType, eventType } from "../../../lib/types";
 import styles from "../../../styles/createPage/modal.module.css";
 import Select from "../tools/YearSelect";
 
-export default function AgeModal() {
-  const {
-    setModalPageNum,
-    setIsModalOpen,
-    setQuestionPageNum,
-    setEvents,
-    events,
-  } = useContext(CreatePageContext);
+export default function AgeModal({
+  setModalPageNum,
+  setQuestionPageNum,
+  setEvents,
+  setNumPeriods,
+}: {
+  setModalPageNum: React.Dispatch<React.SetStateAction<number>>;
+  setQuestionPageNum: React.Dispatch<React.SetStateAction<number>>;
+  setEvents: React.Dispatch<React.SetStateAction<eventType>>;
+  setNumPeriods: React.Dispatch<React.SetStateAction<number>>;
+}) {
 
+  /*
+    Closes the modal and sets the nextYear and specificYear with the birth year.
+  */
   function onSubmit(data: dataType) {
-    setModalPageNum(0);
-    setIsModalOpen(false);
+    setModalPageNum(NaN);
     setEvents([
-      { bigEvent: data.yearSelect, overallValue: NaN, specificEvents: [] },
+      {
+        nextYear: data.yearSelect,
+        type: "specificYear",
+        period: null,
+        specificYear: [
+          {
+            year: data.yearSelect,
+            value: NaN,
+            description: "Born",
+          },
+        ],
+      },
     ]);
+    setNumPeriods(1);
     setQuestionPageNum(1);
   }
 
@@ -32,9 +48,8 @@ export default function AgeModal() {
     setValue,
   } = useForm();
 
-  useEffect(() => {
-    setValue("yearSelect", 2023);
-  }, [setValue]);
+  //Sets the default selector value
+  setValue("yearSelect", new Date().getFullYear);
 
   return (
     <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
@@ -42,12 +57,12 @@ export default function AgeModal() {
       <Controller
         name="yearSelect"
         control={control}
-        render={({ field: { onChange, value } }) => {
+        render={({ field: { onChange } }) => {
           return (
             <Select
               onChange={onChange}
               reverse={true}
-              start={events.slice(-1)[0].bigEvent + 1}
+              start={1900}
               end={new Date().getFullYear()}
             />
           );

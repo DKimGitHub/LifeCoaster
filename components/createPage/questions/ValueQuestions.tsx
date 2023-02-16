@@ -1,14 +1,17 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
+import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 
 import { CreatePageContext } from "../../../lib/CreatePageContext";
 import styles from "../../../styles/createPage/form.module.css";
-import { dataType } from "../../../lib/types";
+import { dataType, eventType } from "../../../lib/types";
 import Slider from "../tools/ValueSlider";
 
-export default function WithinRangeQuestion() {
-  const { setQuestionPageNum, setEvents, setPhantomNodes, events} =
-    useContext(CreatePageContext);
+export default function ValueQuestions({setQuestionPageNum, setEvents}: {
+  setQuestionPageNum: React.Dispatch<React.SetStateAction<number>>;
+  setEvents: React.Dispatch<React.SetStateAction<eventType>>;
+}) {
+
   const {
     register,
     handleSubmit,
@@ -17,6 +20,8 @@ export default function WithinRangeQuestion() {
     setValue,
   } = useForm();
 
+  const [mode, setMode] = useState<string | null>("period");
+
   useEffect(() => {
     setValue("valueSlider", 0);
   }, [setValue]);
@@ -24,6 +29,13 @@ export default function WithinRangeQuestion() {
   function prevButtonClicked() {
     setEvents((prev) => prev.slice(0, -1));
     setQuestionPageNum(2);
+  }
+
+  function handleMode(
+    event: React.MouseEvent<HTMLElement>,
+    newMode: string | null
+  ) {
+    setMode(newMode);
   }
 
   function onSubmit(data: dataType) {
@@ -60,6 +72,10 @@ export default function WithinRangeQuestion() {
 
   return (
     <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
+      <ToggleButtonGroup value={mode} exclusive onChange={handleMode}>
+        <ToggleButton value="period">Period</ToggleButton>
+        <ToggleButton value="year">Year</ToggleButton>
+      </ToggleButtonGroup>
       <button
         className={`${styles.button} ${styles.left}`}
         onClick={prevButtonClicked}>

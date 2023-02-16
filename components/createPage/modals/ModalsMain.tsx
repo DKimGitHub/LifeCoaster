@@ -1,19 +1,37 @@
-import React, { useContext } from "react";
+import React from "react";
 import Modal from "react-modal";
-
-import { CreatePageContext } from "../../../lib/CreatePageContext";
 
 import AgeModal from "../../../components/createPage/modals/AgeModal";
 import ContinueModal from "../../../components/createPage/modals/ContinueModal";
 import IntroModal from "../../../components/createPage/modals/IntroModal";
 import { customStyles } from "../../../styles/createPage/modalCustomStyle";
+import { eventType } from "../../../lib/types";
 
-export default function ModalsMain() {
-  const { isModalOpen, setIsModalOpen, modalPageNum } =
-    useContext(CreatePageContext);
+export default function ModalsMain({
+  modalPageNum,
+  setModalPageNum,
+  setQuestionPageNum,
+  setEvents,
+  setNumPeriods,
+  reset,
+}: {
+  modalPageNum: number;
+  setModalPageNum: React.Dispatch<React.SetStateAction<number>>;
+  setQuestionPageNum: React.Dispatch<React.SetStateAction<number>>;
+  setEvents: React.Dispatch<React.SetStateAction<eventType>>;
+  setNumPeriods: React.Dispatch<React.SetStateAction<number>>;
+  reset: () => void;
+}) {
+  //Opens the modal if the modal page number is not NaN.
+  var isModalOpen;
+  if (!Number.isNaN(modalPageNum)) {
+    isModalOpen = true;
+  } else {
+    isModalOpen = false;
+  }
 
   function closeModal() {
-    setIsModalOpen(false);
+    setModalPageNum(NaN);
   }
 
   return (
@@ -28,16 +46,21 @@ export default function ModalsMain() {
       {(() => {
         switch (modalPageNum) {
           case 1:
-            return (
-              <ContinueModal />
-            );
+            return <ContinueModal {...{ setModalPageNum, reset }} />;
             break;
           case 2:
-            return <IntroModal />;
+            return <IntroModal {...{ setModalPageNum }} />;
             break;
           case 3:
             return (
-              <AgeModal />
+              <AgeModal
+                {...{
+                  setModalPageNum,
+                  setQuestionPageNum,
+                  setEvents,
+                  setNumPeriods,
+                }}
+              />
             );
             break;
           default:

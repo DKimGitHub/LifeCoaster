@@ -1,14 +1,20 @@
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
-
-import { CreatePageContext } from "../../../lib/CreatePageContext";
 import styles from "../../../styles/createPage/form.module.css";
-import { dataType } from "../../../lib/types";
+import { dataType, eventType } from "../../../lib/types";
 import Select from "../tools/YearSelect";
 
-export default function NextBigEvent() {
-  const { setQuestionPageNum, events, setEvents, setNodes } =
-    useContext(CreatePageContext);
+export default function NextBigYear({
+  setQuestionPageNum,
+  events,
+  setEvents,
+  numPeriods,
+}: {
+  setQuestionPageNum: React.Dispatch<React.SetStateAction<number>>;
+  events: eventType;
+  setEvents: React.Dispatch<React.SetStateAction<eventType>>;
+  numPeriods: number;
+}) {
   const {
     register,
     handleSubmit,
@@ -17,31 +23,41 @@ export default function NextBigEvent() {
     setValue,
   } = useForm();
 
-  useEffect(() => {
-    setValue("yearSelect", events.slice(-1)[0].bigEvent + 1);
-  }, [setValue, events]);
+  /*
+  If the current period is the period right after the birth year, 
+  the period starts from birth year + 1. Otherwise, the period starts from the previous year.
+  */
+  events.length === 1
+    ? setValue("yearSelect", events.slice(-1)[0].nextYear + 1)
+    : setValue("yearSelect", events.slice(-1)[0].nextYear);
 
   function prevButtonClicked() {
-    if (events.length === 1) {
-      setQuestionPageNum(1);
-      setEvents((prev) => [{ ...prev[0], overallValue: NaN }]);
-      setNodes((prev) => prev.slice(0, -1));
-    } else {
-      setQuestionPageNum(5);
-      //delete events and nodes when the nodes are deleted from the graph.
+    events.length === 1
+      ? setQuestionPageNum(1)
+      : setQuestionPageNum(4);
+  }
+
+  function nextButtonClicked(data: dataType) {
+    setQuestionPageNum(3);
+    /*
+    The length of events is greater than numPeriod 
+    if the current page has been reached from the next page (i.e. by clicking prev from the next page)
+    */
+    if (events.length === numPeriods){
+      setEvents((prev) => [
+        ...prev,
+        { nextYear: data.yearSelect, type: null, period: null, specificYear: null },
+      ]);
+    } else if (events.length > numPeriods) {
+      setEvents((prev) => [
+        ...prev.slice(0, -1),
+        { nextYear: data.yearSelect, type: null, period: null, specificYear: null }
+      ])
     }
   }
 
-  function onSubmit(data: dataType) {
-    setQuestionPageNum(3);
-    setEvents((prev) => [
-      ...prev,
-      { bigEvent: data.yearSelect, overallValue: NaN, specificEvents: [] },
-    ]);
-  }
-
   return (
-    <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
+    <form className={styles.container} onSubmit={handleSubmit(nextButtonClicked)}>
       <button
         className={`${styles.button} ${styles.left}`}
         onClick={prevButtonClicked}>

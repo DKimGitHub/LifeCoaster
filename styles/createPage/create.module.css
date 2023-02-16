@@ -1,6 +1,23 @@
-.formContainer {
-  padding-left: 10%;
-  width: 100%;
+.container {
+  display: grid;
+  grid-template-rows: 5fr 1fr 5fr;
+  grid-template-areas:
+    "graph"
+    "tools"
+    "questions";
+  column-gap: 3px;
+}
+
+.graphContainer {
+  grid-area: graph;
+}
+
+.toolsContainer {
+  grid-area: tools;
+}
+
+.questionsContainer {
+  grid-area: questions;
 }
 
 .resetContainer {

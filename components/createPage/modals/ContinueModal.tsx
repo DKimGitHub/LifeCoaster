@@ -1,10 +1,16 @@
-import React, { useContext } from "react";
-
-import { CreatePageContext } from "../../../lib/CreatePageContext";
+import React from "react";
 import styles from "../../../styles/createPage/modal.module.css";
 
-export default function ContinueModal() {
-  const { setModalPageNum, setIsModalOpen, reset } = useContext(CreatePageContext);
+export default function ContinueModal(
+  {
+    setModalPageNum,
+    reset,
+  }:
+  {
+  setModalPageNum: React.Dispatch<React.SetStateAction<number>>;
+  reset: () => void;
+  }
+) {
 
   function beginningButtonClick() {
     setModalPageNum(2);
@@ -12,8 +18,7 @@ export default function ContinueModal() {
   }
 
   function continueButtonClick() {
-    setModalPageNum(0);
-    setIsModalOpen(false);
+    setModalPageNum(NaN);
   }
 
   return (

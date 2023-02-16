@@ -22,7 +22,7 @@ ChartJS.register(
   Title,
   Tooltip,
   Legend
-);
+); 
 
 export default function Graph() {
   const { nodes, phantomNodes, events } = useContext(CreatePageContext);
