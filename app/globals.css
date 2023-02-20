@@ -39,7 +39,8 @@ html {
 
 .animateCart {
   visibility: visible;
-  animation: move 4s linear;
+  animation: move 4s ease-in;
+  
 }
 
 @keyframes move {

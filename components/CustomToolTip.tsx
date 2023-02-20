@@ -7,8 +7,8 @@ export default function CustomToolTip(props: PointTooltipProps) {
     
   return (
     <div className="rounded-md border bg-gray-200 p-1 text-black ">
-      <p>{p.title}</p>
-      <p>{p.desc}</p>
+      <p>{p.xFormatted}</p>
+      <p>{p.yFormatted}</p>
 
     </div>
   );
