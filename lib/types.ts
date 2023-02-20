@@ -12,12 +12,12 @@ export type eventType = {
   period: {
     value: number;
     description: string;
-  } | null;
+  };
   specificYear: {
     year: number;
     value: number;
     description: string;
-  } [] | null;
+  } [];
 }[];
 
 export type nodeType = {

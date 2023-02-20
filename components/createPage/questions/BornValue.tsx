@@ -24,7 +24,7 @@ export default function BornValue({
   } = useForm();
 
   //Sets the default slider value
-  setValue("valueSlider", 0);
+  useEffect(() => setValue("valueSlider", 0), [setValue]);
 
   /*
     Go back to the age modal.

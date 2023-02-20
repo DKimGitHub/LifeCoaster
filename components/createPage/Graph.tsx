@@ -1,5 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
-import { CreatePageContext } from "../../lib/CreatePageContext";
+import React from "react";
 import { createGraphNodes } from "./tools/createGraphNodes";
 import {
   Chart as ChartJS,
@@ -13,6 +12,7 @@ import {
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 import CustomTooltip from "../Tooltip";
+import { eventType } from "../../lib/types";
 
 ChartJS.register(
   CategoryScale,
@@ -22,11 +22,15 @@ ChartJS.register(
   Title,
   Tooltip,
   Legend
-); 
+);
 
-export default function Graph() {
-  const { nodes, phantomNodes, events } = useContext(CreatePageContext);
+export default function Graph({ events }: { events: eventType }) {
 
+  const nodeData = events.length > 0 ? createGraphNodes(events) : null;
+  const nodes = nodeData? nodeData.periodNodes.concat(nodeData.yearNodes) : null;
+
+  const minYear = events.length > 0 ? events[0].nextYear : 1900;
+  
   const options = {
     responsive: true,
     maintainAspectRatio: false,
@@ -45,7 +49,7 @@ export default function Graph() {
         grid: {
           display: false,
         },
-        min: events[0].bigEvent,
+        min: minYear,
         ticks: {
           callback: function (value: any) {
             if (Math.floor(value) === value) {
@@ -77,9 +81,9 @@ export default function Graph() {
   const data = {
     datasets: [
       {
-        data: nodes.concat(phantomNodes).sort(function (a, b) {
+        data: nodes ? nodes.sort(function (a, b) {
           return a.xValue - b.xValue;
-        }),
+        }) : [],
         borderColor: "rgb(255, 99, 132)",
         backgroundColor: "rgba(255, 99, 132, 0.5)",
         parsing: {

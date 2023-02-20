@@ -27,14 +27,14 @@ export default function NextBigYear({
   If the current period is the period right after the birth year, 
   the period starts from birth year + 1. Otherwise, the period starts from the previous year.
   */
-  events.length === 1
-    ? setValue("yearSelect", events.slice(-1)[0].nextYear + 1)
-    : setValue("yearSelect", events.slice(-1)[0].nextYear);
+  useEffect(() => {
+    events.length === 1
+      ? setValue("yearSelect", events.slice(-1)[0].nextYear + 1)
+      : setValue("yearSelect", events.slice(-1)[0].nextYear);
+  }, [setValue, events]);
 
   function prevButtonClicked() {
-    events.length === 1
-      ? setQuestionPageNum(1)
-      : setQuestionPageNum(4);
+    events.length === 1 ? setQuestionPageNum(1) : setQuestionPageNum(4);
   }
 
   function nextButtonClicked(data: dataType) {
@@ -43,21 +43,33 @@ export default function NextBigYear({
     The length of events is greater than numPeriod 
     if the current page has been reached from the next page (i.e. by clicking prev from the next page)
     */
-    if (events.length === numPeriods){
+    if (events.length === numPeriods) {
       setEvents((prev) => [
         ...prev,
-        { nextYear: data.yearSelect, type: null, period: null, specificYear: null },
+        {
+          nextYear: data.yearSelect,
+          type: null,
+          period: { value: NaN, description: "" },
+          specificYear: [],
+        },
       ]);
     } else if (events.length > numPeriods) {
       setEvents((prev) => [
         ...prev.slice(0, -1),
-        { nextYear: data.yearSelect, type: null, period: null, specificYear: null }
-      ])
+        {
+          nextYear: data.yearSelect,
+          type: null,
+          period: { value: NaN, description: "" },
+          specificYear: [],
+        },
+      ]);
     }
   }
 
   return (
-    <form className={styles.container} onSubmit={handleSubmit(nextButtonClicked)}>
+    <form
+      className={styles.container}
+      onSubmit={handleSubmit(nextButtonClicked)}>
       <button
         className={`${styles.button} ${styles.left}`}
         onClick={prevButtonClicked}>
@@ -73,7 +85,7 @@ export default function NextBigYear({
             width: "auto",
           }}>
           <p style={{ marginTop: "auto", marginBottom: "auto" }}>{`${
-            events.slice(-1)[0].bigEvent
+            events.slice(-1)[0].nextYear
           } ~ `}</p>
           <Controller
             name="yearSelect"
@@ -82,7 +94,7 @@ export default function NextBigYear({
               <Select
                 reverse={false}
                 onChange={onChange}
-                start={events.slice(-1)[0].bigEvent + 1}
+                start={events.slice(-1)[0].nextYear + 1}
                 end={new Date().getFullYear()}
               />
             )}

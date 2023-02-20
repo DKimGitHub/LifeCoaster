@@ -16,7 +16,6 @@ export default function AgeModal({
   setEvents: React.Dispatch<React.SetStateAction<eventType>>;
   setNumPeriods: React.Dispatch<React.SetStateAction<number>>;
 }) {
-
   /*
     Closes the modal and sets the nextYear and specificYear with the birth year.
   */
@@ -26,7 +25,10 @@ export default function AgeModal({
       {
         nextYear: data.yearSelect,
         type: "specificYear",
-        period: null,
+        period: {
+          value: NaN,
+          description: "",
+        },
         specificYear: [
           {
             year: data.yearSelect,
@@ -49,7 +51,7 @@ export default function AgeModal({
   } = useForm();
 
   //Sets the default selector value
-  setValue("yearSelect", new Date().getFullYear);
+  useEffect(() => setValue("yearSelect", new Date().getFullYear), [setValue]);
 
   return (
     <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
