@@ -32,6 +32,21 @@
 .ReactModal__Overlay--before-close {
   opacity: 0;
 }
+
+.animateCart {
+  visibility: visible;
+  animation: move 4s ease-in;
+  
+}
+
+@keyframes move {
+  0% {
+    offset-distance: 0%;
+  }
+  100% {
+    offset-distance: 100%;
+  }
+}
 .commentContainer {
     -ms-overflow-style: none;  /* Internet Explorer 10+ */
     scrollbar-width: none;  /* Firefox */
