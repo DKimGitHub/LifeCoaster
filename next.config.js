@@ -2,6 +2,7 @@
 const nextConfig = {
   experimental: {
     appDir: true,
+    swcPlugins: [["next-superjson-plugin", {}]],
   },
   images: {
     domains: ["api.dicebear.com", "lh3.googleusercontent.com"],

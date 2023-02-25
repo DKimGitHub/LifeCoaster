@@ -5,11 +5,11 @@ import TrainSvg from "../public/train.svg";
 // import { mockData1 } from "../lib/mockData";
 import CustomToolTip from "./CustomToolTip";
 import Image from "next/image";
+import { Node } from "@prisma/client";
 
 let mockData1 = [
   {
     id: "1",
-    color: "hsl(0, 100%, 50%)",
     data: [
       {
         x: 0,
@@ -50,44 +50,44 @@ let mockData1 = [
     ],
   },
 ];
-export default function LifeGraph(data: any) {
+export default function LifeGraph({
+  data,
+}: {
+  data: Node[] | undefined;
+}) {
   const cartRef = useRef(null);
+  const nivoGraphData = data ? [{ id: 1, data: data }] : [{id: 1, data: []}];
   const handler = () => {
     if (!cartRef.current) return null;
     const cart = cartRef.current as HTMLElement;
-    const pathNode = (cart.nextSibling as Element)?.querySelector("svg > g > path");
+    const pathNode = (cart.nextSibling as Element)?.querySelector(
+      "svg > g > path"
+    );
     //@ts-ignore
     const svgPath = pathNode?.attributes?.d.value;
     cart.style.offsetPath = `path("${svgPath}")`;
     cart.classList.add("animateCart");
   };
 
-  // const [{ offsetDistance }, api] = useSpring({
-  //   from: { offsetDistance: "0%" },
-  //   loop: {
-  //     reverse: true
-  //   },
-  //   config: {
-  //     duration: 4000,
-  //   }
-  // });
-
   return (
     <>
       <button onClick={handler}>click</button>
-      <div className={`relative h-96 w-full md:w-2/3`}>
+      <div className={`py-auto relative h-[14rem] w-full md:h-[80vh] md:w-2/3`}>
         <Image
           src={TrainSvg}
           alt="train"
           width="30"
           height="30"
           ref={cartRef}
-          className=" invisible absolute top-5 left-[32px]"
-          onAnimationEnd={() => cartRef.current && (cartRef.current as HTMLElement).classList.remove("animateCart")}
+          className=" invisible absolute top-4 left-[20px] z-10"
+          onAnimationEnd={() =>
+            cartRef.current &&
+            (cartRef.current as HTMLElement).classList.remove("animateCart")
+          }
         />
         <ResponsiveLine
-          margin={{ top: 30, right: 30, bottom: 30, left: 30 }}
-          data={mockData1}
+          margin={{ top: 25, right: 25, bottom: 25, left: 25 }}
+          data={nivoGraphData}
           curve={"cardinal"}
           enableGridX={false}
           enableGridY={false}
@@ -95,23 +95,23 @@ export default function LifeGraph(data: any) {
           isInteractive
           useMesh
           enableCrosshair={false}
-          xScale={{ type: "linear", min: 0, max: "auto" }}
+          xScale={{ type: "linear", min: "auto", max: "auto" }}
           yScale={{
             type: "linear",
             min: 0,
             max: 10,
           }}
-          axisBottom={{tickSize:0, tickPadding: 8}}
-          axisLeft={{tickSize:0, tickPadding: 8}}
+          axisBottom={{ tickSize: 0, tickPadding: 8 }}
+          axisLeft={{ tickSize: 0, tickPadding: 8 }}
           pointSize={8}
           pointColor={"white"}
           pointBorderWidth={2}
           pointBorderColor={{ from: "serieColor" }}
           tooltip={CustomToolTip}
-          motionConfig={"wobbly"}
+          motionConfig={"gentle"}
           lineWidth={4}
           enableArea={true}
-          areaOpacity={0.2}
+          areaOpacity={0.8}
           defs={[
             {
               id: "gridLines",
@@ -119,7 +119,7 @@ export default function LifeGraph(data: any) {
               size: 28,
               padding: 3,
               stagger: false,
-              background: "#000000",
+              background: "#3f301d",
               color: "#ffffff",
             },
           ]}

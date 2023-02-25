@@ -35,7 +35,7 @@
 
 .animateCart {
   visibility: visible;
-  animation: move 4s ease-in;
+  animation: move 5s ease-in-out;
   
 }
 

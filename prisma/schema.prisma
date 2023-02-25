@@ -60,14 +60,15 @@ model Node {
   id      String  @id @default(cuid())
   graphId String
   graph   Graph   @relation(fields: [graphId], references: [id])
-  title   String
+  title   String?
   content String?
-  yValue  Int
-  xValue  Int
+  y  Int
+  x  Int
 }
 
 model Comment {
   id        String   @id @default(cuid())
+  text      String
   createdAt DateTime @default(now()) @map(name: "created_at")
   userId    String?
   user      User?    @relation(fields: [userId], references: [id])

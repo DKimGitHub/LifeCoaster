@@ -1,11 +1,8 @@
 "use client";
 
 import ListPageGraph from "./ListPageGraph";
-import Modal from "react-modal";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { usePathname } from "next/navigation";
-import PostPage from "../postPage/PostPage";
 import Tilt from "react-parallax-tilt";
 import Image from "next/image";
 import CommentIcon from "../../public/comment.svg";
@@ -15,16 +12,18 @@ import { useSession } from "next-auth/react";
 import { clsx } from "clsx";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { PostDataType } from "../../lib/types";
 
 export default function ListPageCard({
   data,
   handleChange,
-  setIsModalOpen
+  setIsModalOpen,
+  setModalPostData
 }: {
-  data: any;
+  data: PostDataType
   handleChange: (post: any) => void;
   setIsModalOpen: Dispatch<SetStateAction<boolean>>
-
+  setModalPostData: Dispatch<SetStateAction<PostDataType>>
 }) {
   const { data: session, status } = useSession();
   const colorTheme = "light";
@@ -33,21 +32,21 @@ export default function ListPageCard({
 
   function isHearted() {
     if (!session) return false;
-    return data.usersWhoHearted.includes(session?.user?.email as string)
+    return data?.usersWhoHearted.includes(session?.user?.email as string)
       ? true
       : false;
   }
   function clickHandler() {
-    window.history.pushState(null, "Post 6", "/p/6");
+    window.history.pushState(null, "LifeCoaster Post", `/p/${data?.id}`);
+    setModalPostData(data);
     setIsModalOpen(true);
-    router.prefetch("p/6");
+    //router.prefetch("p/6");
   }
-  function onModalClose() {
-    router.back();
-    setIsModalOpen(false);
-  }
+  // function onModalClose() {
+  //   router.back();
+  //   setIsModalOpen(false);
+  // }
   function heartHandler() {
-    //const toastContent = <label htmlFor="my-modal-4" >Login to heart posts!</label>
     if (!session) {
       toast.info("Login to heart posts!", {
         position: "top-center",
@@ -114,7 +113,7 @@ export default function ListPageCard({
               </div>
             </div>
             <div className="flex flex-none items-center">
-              <p className="pr-1 text-xl font-medium">{data.numOfHearts}</p>
+              <p className="pr-1 text-xl font-medium">{data?.numOfHearts}</p>
               <button
                 onClick={heartHandler}
                 className="flex items-center justify-center">
@@ -140,7 +139,7 @@ export default function ListPageCard({
                   />
                 </label>
               </button>
-              <p className="pr-1 text-xl font-medium">{data.comments.length}</p>
+              <p className="pr-1 text-xl font-medium">{data?.comments.length}</p>
               <button className="mr-1 inline" onClick={clickHandler}><Image
                 // className="mr-1 inline"
                 width={20}

@@ -34,8 +34,8 @@ export default function CreateForm() {
               },
             },
             title: "some title",
-            xValue: year,
-            yValue: value,
+            x: year,
+            y: value,
           },
         }),
       };
