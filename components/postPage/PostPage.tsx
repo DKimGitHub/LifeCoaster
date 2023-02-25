@@ -1,22 +1,16 @@
 "use client";
 import redHeartIcon from "../../public/heart_red.svg";
 import outlineHeartIcon from "../../public/heart_outline.svg";
-import PostPageGraph from "./PostPageGraph";
 import Image from "next/image";
 import CommentTextArea from "./CommentTextArea";
-import LifeGraph from "../LifeGraph";
+import PostPageGraph from "./PostPageGraph";
 import { PostDataType } from "../../lib/types";
 
 export default function PostPage({ postData } : { postData: PostDataType }) {
   return (
     <>
       <div className="flex flex-col md:flex-row">
-        {/* <div
-          data-theme={colorTheme}
-          className={`py-auto relative h-[14rem] w-full md:h-[80vh] md:w-2/3`}>
-          <PostPageGraph />
-        </div> */}
-        <LifeGraph data={postData?.graph?.nodes} />
+        <PostPageGraph data={postData?.graph?.nodes} />
         <div className="flex h-[calc(100vh-20rem)]  w-full flex-col justify-between overflow-y-auto md:h-[80vh] md:w-1/3">
           <div className="flex items-center justify-between ">
             {" "}

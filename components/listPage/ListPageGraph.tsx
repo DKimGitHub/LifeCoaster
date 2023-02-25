@@ -68,6 +68,7 @@ export const options = {
 
 export default function ListPageGraph({ data }: { data: any }) {
   const graphData = data?.sort(
+    // @ts-expect-error
     (a, b) => a.x - b.x
   );
   const lineData: ChartData<"line", { x: number; y: number }[]> = {

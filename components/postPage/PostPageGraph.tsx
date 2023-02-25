@@ -1,91 +1,88 @@
 "use client";
+import React, { useEffect, useRef, useState } from "react";
+import { ResponsiveLine, Line } from "@nivo/line";
+import TrainSvg from "../../public/train.svg";
+// import { mockData1 } from "../lib/mockData";
+import CustomToolTip from "../CustomToolTip";
+import Image from "next/image";
+import { Node } from "@prisma/client";
 
-import { Line } from "react-chartjs-2";
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-  defaults,
-  ChartData,
-  ChartOptions,
-} from "chart.js";
-
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend
-);
-export const options = {
-  responsive: true,
-  plugins: {
-    legend: {
-      display: false,
-    },
-  },
-  scales: {
-    x: {
-      type: "linear",
-      grid: { display: false },
-      //display: false,
-    },
-    y: {
-      type: "linear",
-      grid: { display: false },
-      //display: false,
-    },
-  },
-  // elements: {
-  //   point: {
-  //     radius: 0,
-  //     hoverRadius: 0,
-  //   },
-  // },
-  interaction: {
-    mode: "nearest",
-    intersect: false,
-  },
-  layout: {
-    padding: {
-      top:25
-    },
-  },
-  //aspectRatio: 3,
-  maintainAspectRatio: false,
-  cubicInterpolationMode: "monotone",
-};
-const graphData = [
-  { x: 0, y: 0 },
-  { x: 30, y: 1 },
-  { x: 20, y: 10 },
-  { x: 14, y: 2 },
-  { x: 1, y: 8 },
-].sort((a, b) => a.x - b.x);
-
-export const data = {
-  datasets: [
-    {
-      label: "Dataset 1",
-      data: graphData,
-      borderColor: "hsl(0,0%,50%)",
-    },
-  ],
-};
-
-export default function PostPageGraph(props: any) {
-  const { colorTheme } = props;
-  //const ranNumDeg = Math.floor((Math.random() * (360)))+ "deg";
+export default function PostPageGraph({
+  data,
+}: {
+  data: Node[] | undefined;
+}) {
+  const cartRef = useRef(null);
+  const nivoGraphData = data ? [{ id: 1, data: data }] : [{id: 1, data: []}];
+  const handler = () => {
+    if (!cartRef.current) return null;
+    const cart = cartRef.current as HTMLElement;
+    const pathNode = (cart.nextSibling as Element)?.querySelector(
+      "svg > g > path"
+    );
+    //@ts-ignore
+    const svgPath = pathNode?.attributes?.d.value;
+    cart.style.offsetPath = `path("${svgPath}")`;
+    cart.classList.add("animateCart");
+  };
 
   return (
-      // @ts-expect-error
-    <Line options={options} data={data} />
+    <>
+      <button onClick={handler}>click</button>
+      <div className={`py-auto relative h-[14rem] w-full md:h-[80vh] md:w-2/3`}>
+        <Image
+          src={TrainSvg}
+          alt="train"
+          width="30"
+          height="30"
+          ref={cartRef}
+          className=" invisible absolute top-4 left-[20px] z-10"
+          onAnimationEnd={() =>
+            cartRef.current &&
+            (cartRef.current as HTMLElement).classList.remove("animateCart")
+          }
+        />
+        <ResponsiveLine
+          margin={{ top: 25, right: 25, bottom: 25, left: 25 }}
+          data={nivoGraphData}
+          curve={"cardinal"}
+          enableGridX={false}
+          enableGridY={false}
+          animate={true}
+          isInteractive
+          useMesh
+          enableCrosshair={false}
+          xScale={{ type: "linear", min: "auto", max: "auto" }}
+          yScale={{
+            type: "linear",
+            min: 0,
+            max: 10,
+          }}
+          axisBottom={{ tickSize: 0, tickPadding: 8 }}
+          axisLeft={{ tickSize: 0, tickPadding: 8 }}
+          pointSize={8}
+          pointColor={"white"}
+          pointBorderWidth={2}
+          pointBorderColor={{ from: "serieColor" }}
+          tooltip={CustomToolTip}
+          motionConfig={"gentle"}
+          lineWidth={4}
+          enableArea={true}
+          areaOpacity={0.8}
+          defs={[
+            {
+              id: "gridLines",
+              type: "patternSquares",
+              size: 28,
+              padding: 3,
+              stagger: false,
+              background: "#3f301d",
+              color: "#ffffff",
+            },
+          ]}
+          fill={[{ match: "*", id: "gridLines" }]}
+        />
+      </div>
+    </>
   );
 }
