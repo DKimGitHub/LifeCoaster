@@ -1,6 +1,8 @@
 import prisma from "../../lib/prisma";
 import ListPageContent from "../../components/listPage/ListPageContent";
 
+export const dynamic = 'force-dynamic';
+
 async function fetchData() {
   const listOfPosts = await prisma.post.findMany({
     take: 6,
