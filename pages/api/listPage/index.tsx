@@ -18,12 +18,7 @@ export default async function handler(
           comments: true,
           graph: {
             include: {
-              nodes: {
-                select: {
-                  x: true,
-                  y: true,
-                },
-              },
+              nodes: true,
             },
           },
         },
