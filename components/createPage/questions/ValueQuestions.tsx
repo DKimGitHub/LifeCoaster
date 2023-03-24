@@ -51,6 +51,7 @@ export default function ValueQuestions({
             reset,
             mode,
             setMode,
+            setEvents,
           }}
         />
       </div>

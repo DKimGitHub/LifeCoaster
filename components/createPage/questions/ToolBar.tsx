@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { UseFormHandleSubmit, FieldValues } from 'react-hook-form';
-import styles from "../../../styles/createPage/form.module.css"
+import { UseFormHandleSubmit, FieldValues } from "react-hook-form";
+import styles from "../../../styles/createPage/form.module.css";
 
-import { dataType } from "../../../lib/types";
+import { dataType, eventType } from "../../../lib/types";
 import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 
 export default function ToolBar({
@@ -13,30 +13,51 @@ export default function ToolBar({
   reset,
   mode,
   setMode,
+  setEvents,
 }: {
   handlePrevButton: () => void;
-  handleNextButton:(data: dataType) => void;
+  handleNextButton: (data: dataType) => void;
   questionPageNum: number;
   handleSubmit: UseFormHandleSubmit<FieldValues>;
   reset: () => void;
-  mode?:"period"|"year";
+  mode?: "period" | "year";
   setMode?: React.Dispatch<React.SetStateAction<"period" | "year">>;
+  setEvents?: React.Dispatch<React.SetStateAction<eventType>>;
 }) {
-
-  const setModeToolBar = setMode? setMode : () => null;
+  const setModeToolBar = setMode ? setMode : () => null;
+  const setEventsToolBar = setEvents ? setEvents : () => null;
 
   function handleMode(
     event: React.MouseEvent<HTMLElement>,
     newMode: "period" | "year"
   ) {
+    console.log(newMode);
     setModeToolBar(newMode);
+    if ((newMode === "period")) {
+      setEventsToolBar((prev) => [
+        ...prev.slice(0, -1),
+        {
+          ...prev.slice(-1)[0],
+          type: "period",
+        },
+      ]);
+    } else if (newMode === "year"){
+      setEventsToolBar((prev) => [
+        ...prev.slice(0, -1),
+        {
+          ...prev.slice(-1)[0],
+          type: "specificYear",
+        },
+      ]);
+    }
   }
-  
 
   return (
     <div className={styles.tool}>
       <div style={{ flex: "1" }}>
-        <button className={styles.resetButton} onClick={reset}>Reset</button>
+        <button className={styles.resetButton} onClick={reset}>
+          Reset
+        </button>
       </div>
       <div
         style={{
@@ -63,7 +84,9 @@ export default function ToolBar({
             );
           }
         })()}
-        <button className={styles.nextButton} onClick={handleSubmit(handleNextButton)}>
+        <button
+          className={styles.nextButton}
+          onClick={handleSubmit(handleNextButton)}>
           Next
         </button>
       </div>

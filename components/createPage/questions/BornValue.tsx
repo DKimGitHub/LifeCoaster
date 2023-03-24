@@ -41,7 +41,6 @@ export default function BornValue({
   }
 
   function handleNextButton(data: dataType) {
-    console.log("BUG")
     setQuestionPageNum(2);
     //Update the specificYear array
     setEvents((prev) => [

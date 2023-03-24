@@ -27,6 +27,10 @@ export default function Page() {
   #4: ValueQuestions 
   */
 
+  useEffect(() => {
+    console.log(events)
+  }, [events])
+
   //Initialization when the Create page mounts
   useEffect(() => {
     const savedState = localStorage.getItem("savedPost");
