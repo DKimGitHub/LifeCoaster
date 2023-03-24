@@ -1,19 +1,23 @@
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 
-import { CreatePageContext } from "../../../lib/CreatePageContext";
+import ToolBar from "./ToolBar";
 import styles from "../../../styles/createPage/form.module.css";
 import { dataType, eventType } from "../../../lib/types";
 import Slider from "../tools/ValueSlider";
 
 export default function BornValue({
+  questionPageNum,
   setQuestionPageNum,
   setModalPageNum,
   setEvents,
+  reset,
 }: {
+  questionPageNum: number;
   setQuestionPageNum: React.Dispatch<React.SetStateAction<number>>;
   setModalPageNum: React.Dispatch<React.SetStateAction<number>>;
   setEvents: React.Dispatch<React.SetStateAction<eventType>>;
+  reset: () => void;
 }) {
   const {
     register,
@@ -30,23 +34,20 @@ export default function BornValue({
     Go back to the age modal.
     Year of birth is removed from the event array. 
   */
-  function prevButtonClicked() {
+  function handlePrevButton() {
     setQuestionPageNum(NaN);
     setModalPageNum(3);
     setEvents([]);
   }
 
-  function nextButtonClicked(data: dataType) {
+  function handleNextButton(data: dataType) {
+    console.log("BUG")
     setQuestionPageNum(2);
     //Update the specificYear array
     setEvents((prev) => [
       {
         ...prev[0],
-        ...(prev[0].specificYear && {
-          specificYear: [
-            { ...prev[0].specificYear[0], value: data.valueSlider },
-          ],
-        }),
+        specificYear: [{ ...prev[0].specificYear[0], value: data.valueSlider }],
       },
     ]);
     // const options = {
@@ -65,19 +66,23 @@ export default function BornValue({
   }
 
   return (
-    <form
-      className={styles.container}
-      onSubmit={handleSubmit(nextButtonClicked)}>
-      <button
-        className={`${styles.button} ${styles.left}`}
-        onClick={prevButtonClicked}>
-        Prev
-      </button>
-      <div className={styles.subContainer}>
-        <label className={styles.label}>
+    <form className={styles.questionContainer}>
+      <div className={styles.toolContainer}>
+        <ToolBar
+          {...{
+            handlePrevButton,
+            handleNextButton,
+            questionPageNum,
+            handleSubmit,
+            reset,
+          }}
+        />
+      </div>
+      <div className={styles.question}>
+        <label className={styles.questionText}>
           How content were you when you were born?
         </label>
-        <div style={{ width: "50%" }}>
+        <div className={styles.questionTool}>
           <Controller
             name="valueSlider"
             control={control}
@@ -92,11 +97,6 @@ export default function BornValue({
           )}
         </div>
       </div>
-      <input
-        className={`${styles.button} ${styles.right}`}
-        type="submit"
-        value="Next"
-      />
     </form>
   );
 }

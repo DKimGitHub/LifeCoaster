@@ -1,19 +1,24 @@
 import React, { useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
+import ToolBar from "./ToolBar";
 import styles from "../../../styles/createPage/form.module.css";
 import { dataType, eventType } from "../../../lib/types";
 import Select from "../tools/YearSelect";
 
 export default function NextBigYear({
+  questionPageNum,
   setQuestionPageNum,
   events,
   setEvents,
-  numPeriods,
+  setNumPeriods,
+  reset, 
 }: {
+  questionPageNum: number;
   setQuestionPageNum: React.Dispatch<React.SetStateAction<number>>;
   events: eventType;
   setEvents: React.Dispatch<React.SetStateAction<eventType>>;
-  numPeriods: number;
+  setNumPeriods: React.Dispatch<React.SetStateAction<number>>;
+  reset: () => void;
 }) {
   const {
     register,
@@ -33,18 +38,21 @@ export default function NextBigYear({
       : setValue("yearSelect", events.slice(-1)[0].nextYear);
   }, [setValue, events]);
 
-  function prevButtonClicked() {
+  function handlePrevButton() {
     events.length === 1 ? setQuestionPageNum(1) : setQuestionPageNum(4);
   }
 
-  function nextButtonClicked(data: dataType) {
+  function handleNextButton(data: dataType) {
     setQuestionPageNum(3);
+    setNumPeriods((prev) => prev + 1);
     /*
     The length of events is greater than numPeriod 
     if the current page has been reached from the next page (i.e. by clicking prev from the next page)
     */
-    if (events.length === numPeriods) {
-      setEvents((prev) => [
+
+    setEvents((prev) => {
+      console.log(prev);
+      return [
         ...prev,
         {
           nextYear: data.yearSelect,
@@ -52,41 +60,39 @@ export default function NextBigYear({
           period: { value: NaN, description: "" },
           specificYear: [],
         },
-      ]);
-    } else if (events.length > numPeriods) {
-      setEvents((prev) => [
-        ...prev.slice(0, -1),
-        {
-          nextYear: data.yearSelect,
-          type: null,
-          period: { value: NaN, description: "" },
-          specificYear: [],
-        },
-      ]);
-    }
+      ];
+    });
   }
 
   return (
-    <form
-      className={styles.container}
-      onSubmit={handleSubmit(nextButtonClicked)}>
-      <button
-        className={`${styles.button} ${styles.left}`}
-        onClick={prevButtonClicked}>
-        Prev
-      </button>
-      <div className={styles.subContainer}>
-        <label className={styles.label}>When was your next big event?</label>
+    <form className={styles.questionContainer}>
+      <div className={styles.toolContainer}>
+        <ToolBar
+          {...{
+            handlePrevButton,
+            handleNextButton,
+            questionPageNum,
+            handleSubmit,
+            reset,
+          }}
+        />
+      </div>
+      <div className={styles.question}>
+        <label className={styles.questionText}>
+          When was your next big event?
+        </label>
         <div
           style={{
+            height: "fit-content",
             display: "flex",
             flexDirection: "row",
-            justifyContent: "center",
-            width: "auto",
           }}>
-          <p style={{ marginTop: "auto", marginBottom: "auto" }}>{`${
-            events.slice(-1)[0].nextYear
-          } ~ `}</p>
+          <p
+            style={{
+              marginTop: "auto",
+              marginBottom: "auto",
+              width: "fit-content",
+            }}>{`${events.slice(-1)[0].nextYear} ~ `}</p>
           <Controller
             name="yearSelect"
             control={control}
@@ -106,11 +112,6 @@ export default function NextBigYear({
           )}
         </div>
       </div>
-      <input
-        className={`${styles.button} ${styles.right}`}
-        type="submit"
-        value="Next"
-      />
     </form>
   );
 }

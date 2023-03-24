@@ -1,14 +1,14 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 import { dataType, eventType } from "../../../lib/types";
-import { CreatePageContext } from "../../../lib/CreatePageContext";
 
 import BornValue from "./BornValue";
 import NextBigYear from "./NextBigYear";
 import YearOverlay from "./YearOverlay";
-import WithinRangeQuestion from "./ValueQuestions";
-import SpecificYearQuestion from "./SpecificYearQuestion";
+import ValueQuestions from "./ValueQuestions";
+
+import styles from "../../../styles/createPage/form.module.css";
 
 async function fetchData(api: string, options: dataType) {
   const response = await fetch(api, options);
@@ -24,6 +24,7 @@ export default function QuestionsMain({
   setEvents,
   numPeriods,
   setNumPeriods,
+  reset,
 }: {
   setModalPageNum: React.Dispatch<React.SetStateAction<number>>;
   questionPageNum: number;
@@ -32,6 +33,7 @@ export default function QuestionsMain({
   setEvents: React.Dispatch<React.SetStateAction<eventType>>;
   numPeriods: number;
   setNumPeriods: React.Dispatch<React.SetStateAction<number>>;
+  reset: () => void; 
 }) {
   const {
     register,
@@ -39,42 +41,59 @@ export default function QuestionsMain({
     formState: { errors },
   } = useForm();
 
+  var page = <></>;
+
   switch (questionPageNum) {
     case 1:
-      return (
+      page = (
         <BornValue
           {...{
+            questionPageNum,
             setQuestionPageNum,
             setModalPageNum,
-            events,
             setEvents,
+            reset,
           }}
         />
       );
       break;
     case 2:
-      return (
+      page = (
         <NextBigYear
           {...{
+            questionPageNum,
             setQuestionPageNum,
             events,
             setEvents,
-            numPeriods,
             setNumPeriods,
+            reset,
           }}
         />
       );
       break;
     case 3:
-      return <YearOverlay {...{ events, setQuestionPageNum }} />;
+      page = <YearOverlay {...{ events, setQuestionPageNum }} />;
       break;
     case 4:
-      return <WithinRangeQuestion />;
-      break;
-    case 5:
-      return <SpecificYearQuestion />;
+      page = (
+        <ValueQuestions
+          {...{
+            questionPageNum,
+            setQuestionPageNum,
+            events,
+            setEvents,
+            reset,
+          }}
+        />
+      );
       break;
     default:
-      return <p></p>;
+      page = <p></p>;
   }
+
+  return (
+    <div className={styles.container}>
+      {page}
+    </div>
+  );
 }

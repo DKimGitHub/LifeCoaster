@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 
 import styles from "../../../styles/createPage/form.module.css";
@@ -19,6 +19,7 @@ export default function YearToggleSelected({
     formState: { errors },
     control,
     reset,
+    setValue,
   } = useForm({
     defaultValues: {
       yearSelect: events.slice(-2)[0].nextYear,
@@ -32,6 +33,10 @@ export default function YearToggleSelected({
     events.length > 2
       ? events.slice(-2)[0].nextYear
       : events.slice(-2)[0].nextYear + 1;
+
+  useEffect(() => {
+    setValue("yearSelect", startYear);
+  }, [setValue, startYear]);
 
   function onSubmit(data: any) {
     setEvents((prev) => [
@@ -53,9 +58,10 @@ export default function YearToggleSelected({
   }
 
   return (
-    <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
-      <h1 className={styles.label}>Add info on specific years</h1>
-      <label className={styles.label}>Year</label>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className={styles.yearToggleQuestionContainer}>
+      <label className={styles.questionText}>What year?</label>
       <Controller
         name="yearSelect"
         control={control}
@@ -74,7 +80,7 @@ export default function YearToggleSelected({
         </p>
       )}
 
-      <label className={styles.label}>Value</label>
+      <label className={styles.questionText}>Value</label>
       <Controller
         name="valueSlider"
         control={control}
@@ -86,7 +92,7 @@ export default function YearToggleSelected({
         </p>
       )}
 
-      <label className={styles.label}>Description</label>
+      <label style={{ margin: "1rem" }}>Description</label>
       <Controller
         name="description"
         control={control}
@@ -100,11 +106,7 @@ export default function YearToggleSelected({
         </p>
       )}
 
-      <input
-        className={`${styles.button} ${styles.right}`}
-        type="submit"
-        value="Add"
-      />
+      <input className={styles.button} type="submit" value="Add" />
     </form>
   );
 }

@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm, Controller } from "react-hook-form";
 
+import ToolBar from "./ToolBar"
 import styles from "../../../styles/createPage/form.module.css";
 import { eventType } from "../../../lib/types";
 import Slider from "../tools/ValueSlider";
@@ -34,13 +35,13 @@ export default function PeriodToggleSelected({
       },
     ]);
   }
-
+  
   return (
-    <form className={styles.subContainer}>
-      <h1 className={styles.label}>
+    <div className={styles.questionContainer}>
+      <label className={styles.questionText}>
         What is the average satisfactory level within this period?
-      </h1>
-      <div style={{ width: "50%" }}>
+      </label>
+      <div className={styles.questionTool}>
         <Controller
           name="valueSlider"
           control={control}
@@ -52,6 +53,6 @@ export default function PeriodToggleSelected({
           </p>
         )}
       </div>
-    </form>
+    </div>
   );
 }

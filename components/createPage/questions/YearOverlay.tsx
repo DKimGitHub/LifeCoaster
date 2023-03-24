@@ -15,7 +15,7 @@ export default function YearOverlay({
   }
 
   return (
-    <>
+    <>  
       <div className={styles.container} onAnimationEnd={handleAnimationEnd}>
         {
           //If the two consecutive years differ by one year, display only the starting year
@@ -29,5 +29,5 @@ export default function YearOverlay({
         }
       </div>
     </>
-  );
+  );v
 }

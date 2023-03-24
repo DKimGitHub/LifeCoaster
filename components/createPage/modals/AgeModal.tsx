@@ -51,7 +51,8 @@ export default function AgeModal({
   } = useForm();
 
   //Sets the default selector value
-  useEffect(() => setValue("yearSelect", new Date().getFullYear), [setValue]);
+  useEffect(() => setValue("yearSelect", new Date().getFullYear()), [setValue]);
+  const currentYear = new Date().getFullYear();
 
   return (
     <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
@@ -65,7 +66,7 @@ export default function AgeModal({
               onChange={onChange}
               reverse={true}
               start={1900}
-              end={new Date().getFullYear()}
+              end={currentYear}
             />
           );
         }}

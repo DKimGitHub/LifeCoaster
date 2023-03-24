@@ -34,7 +34,9 @@ export default function Page() {
       setGraphId(JSON.parse(savedState).graphId);
       setEvents(JSON.parse(savedState).events);
       setQuestionPageNum(JSON.parse(savedState).questionPageNum);
+      setNumPeriods(JSON.parse(savedState).numPeriods);
       setModalPageNum(1);
+
     } else {
       setModalPageNum(2);
       createPost();
@@ -45,6 +47,7 @@ export default function Page() {
       setEvents([]);
       setQuestionPageNum(NaN);
       setModalPageNum(NaN);
+      setNumPeriods(0);
     };
   }, []);
 
@@ -54,9 +57,10 @@ export default function Page() {
       graphId: graphId,
       events: events,
       questionPageNum: questionPageNum,
+      numPeriods: numPeriods,
     };
     localStorage.setItem("savedPost", JSON.stringify(savedState));
-  }, [graphId, events, questionPageNum]);
+  }, [graphId, events, questionPageNum, numPeriods]);
 
   async function createPost() {
     // const options = {
@@ -91,21 +95,7 @@ export default function Page() {
     createPost();
   }
 
-  // const contextProps = {
-  //   graphId,
-  //   events,
-  //   setEvents,
-  //   modalPageNum,
-  //   setModalPageNum,
-  //   isModalOpen,
-  //   setIsModalOpen,
-  //   questionPageNum,
-  //   setQuestionPageNum,
-  //   reset,
-  // };
-
   return (
-    // <CreatePageContext {...contextProps}>
     <div className={styles.container}>
       <ModalsMain
         {...{
@@ -120,11 +110,6 @@ export default function Page() {
       <div className={styles.graphContainer}>
         <Graph {...{events}}/>
       </div>
-      <div className={styles.toolsContainer}>
-        <button className={styles.resetButton} onClick={reset}>
-          start from scratch
-        </button>
-      </div>
       <div className={styles.questionsContainer}>
         <QuestionsMain
           {...{
@@ -135,10 +120,10 @@ export default function Page() {
             setEvents,
             numPeriods,
             setNumPeriods,
+            reset,
           }}
         />
       </div>
     </div>
-    // </CreatePageContext>
   );
 }
