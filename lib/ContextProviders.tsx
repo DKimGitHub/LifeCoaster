@@ -22,9 +22,6 @@ export default function ContextProviders({
   children: React.ReactNode;
 }) {
   globalStyles();
-  useServerInsertedHTML(() => {
-    return <>{CssBaseline.flush()}</>;
-  });
 
   return (
     <>
