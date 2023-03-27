@@ -18,12 +18,12 @@ export default function ListPageCard({
   data,
   handleChange,
   setIsModalOpen,
-  setModalPostData
+  setModalPostData,
 }: {
-  data: PostDataType
+  data: PostDataType;
   handleChange: (post: any) => void;
-  setIsModalOpen: Dispatch<SetStateAction<boolean>>
-  setModalPostData: Dispatch<SetStateAction<PostDataType>>
+  setIsModalOpen: Dispatch<SetStateAction<boolean>>;
+  setModalPostData: Dispatch<SetStateAction<PostDataType>>;
 }) {
   const { data: session, status } = useSession();
   const colorTheme = "light";
@@ -84,32 +84,25 @@ export default function ListPageCard({
       <Tilt perspective={2000} tiltMaxAngleX={10} tiltMaxAngleY={10}>
         <div
           data-theme={colorTheme}
-          className="gradientBorder card card-compact rounded-sm border-2 border-solid bg-base-100  shadow-xl">
-          <button
-            onClick={clickHandler}
-            className={` relative h-56 w-full bg-base-200`}>
+          className=" card card-compact rounded-md border-2 border-solid border-black bg-base-100  shadow-xl">
+          <button onClick={clickHandler} className={` relative h-56 w-full`}>
             <ListPageGraph data={data?.graph?.nodes} />
           </button>
 
           <div className="flex items-center justify-between p-2">
             {" "}
             <div className="flex flex-1">
-              <button
-                className="btn"
-                onClick={() => {
-                  console.log(data);
-                }}>
-                test
+              <button onClick={clickHandler}>
+                <Image
+                  height={46}
+                  width={46}
+                  src="https://api.dicebear.com/5.x/fun-emoji/svg?seed=Ryan&radius=10"
+                  alt="avatar"
+                />
               </button>
-              <Image
-                height={46}
-                width={46}
-                src="https://api.dicebear.com/5.x/fun-emoji/svg?seed=Ryan&radius=10"
-                alt="avatar"
-              />{" "}
               <div className="flex flex-col pl-2">
-                <p className="text-lg font-semibold leading-6">Johnyg</p>
-                <p>2022 Year</p>
+                  <button onClick={clickHandler} className="text-lg font-semibold leading-6 text-left">Johnyg</button>
+                <p className="text-gray-500">4 days ago</p>
               </div>
             </div>
             <div className="flex flex-none items-center">
@@ -139,14 +132,18 @@ export default function ListPageCard({
                   />
                 </label>
               </button>
-              <p className="pr-1 text-xl font-medium">{data?.comments.length}</p>
-              <button className="mr-1 inline" onClick={clickHandler}><Image
-                // className="mr-1 inline"
-                width={20}
-                height={20}
-                src={CommentIcon}
-                alt="Comment Icon"
-              /></button>
+              <p className="pr-1 text-xl font-medium">
+                {data?.comments.length}
+              </p>
+              <button className="mr-1 inline" onClick={clickHandler}>
+                <Image
+                  // className="mr-1 inline"
+                  width={20}
+                  height={20}
+                  src={CommentIcon}
+                  alt="Comment Icon"
+                />
+              </button>
             </div>
           </div>
         </div>

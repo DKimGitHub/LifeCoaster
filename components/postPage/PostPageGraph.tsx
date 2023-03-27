@@ -6,6 +6,7 @@ import TrainSvg from "../../public/train.svg";
 import CustomToolTip from "../CustomToolTip";
 import Image from "next/image";
 import { Node } from "@prisma/client";
+import { Button, css } from "@nextui-org/react";
 
 export default function PostPageGraph({
   data,
@@ -13,9 +14,11 @@ export default function PostPageGraph({
   data: Node[] | undefined;
 }) {
   const cartRef = useRef(null);
+  const [isCartAnimating, setIsCartAnimating] = useState(false);
   const nivoGraphData = data ? [{ id: 1, data: data }] : [{id: 1, data: []}];
-  const handler = () => {
+  const startCartAnimation = () => {
     if (!cartRef.current) return null;
+    setTimeout(()=>setIsCartAnimating(true), 500);
     const cart = cartRef.current as HTMLElement;
     const pathNode = (cart.nextSibling as Element)?.querySelector(
       "svg > g > path"
@@ -24,12 +27,23 @@ export default function PostPageGraph({
     const svgPath = pathNode?.attributes?.d.value;
     cart.style.offsetPath = `path("${svgPath}")`;
     cart.classList.add("animateCart");
+    setTimeout(()=>setIsCartAnimating(false), 5000);
   };
 
   return (
     <>
-      <button onClick={handler}>click</button>
       <div className={`py-auto relative h-[14rem] w-full md:h-[80vh] md:w-2/3`}>
+        {!isCartAnimating && <Button shadow light auto onClick={startCartAnimation}
+        css={{
+          zIndex: 20,
+          position: "absolute",
+          left: "50%",
+          transform: "translateX(-50%)",
+          top: "0.5rem",
+        }}>
+          zoomies~
+        </Button>
+        }
         <Image
           src={TrainSvg}
           alt="train"
@@ -73,7 +87,7 @@ export default function PostPageGraph({
             {
               id: "gridLines",
               type: "patternSquares",
-              size: 28,
+              size: 50,
               padding: 3,
               stagger: false,
               background: "#3f301d",
@@ -81,6 +95,7 @@ export default function PostPageGraph({
             },
           ]}
           fill={[{ match: "*", id: "gridLines" }]}
+          // theme={{background: "#87CEEB"}}
         />
       </div>
     </>

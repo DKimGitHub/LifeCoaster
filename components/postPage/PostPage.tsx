@@ -12,7 +12,7 @@ export default function PostPage({ postData } : { postData: PostDataType }) {
       <div className="flex flex-col md:flex-row">
         <PostPageGraph data={postData?.graph?.nodes} />
         <div className="flex h-[calc(100vh-20rem)]  w-full flex-col justify-between overflow-y-auto md:h-[80vh] md:w-1/3">
-          <div className="flex items-center justify-between ">
+          <div className="flex items-center justify-between p-2">
             {" "}
             <div className="flex flex-1 items-center">
               <Image
