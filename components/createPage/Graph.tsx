@@ -11,7 +11,6 @@ import {
   Legend,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
-import CustomTooltip from "../Tooltip";
 import { eventType } from "../../lib/types";
 
 ChartJS.register(
@@ -41,10 +40,6 @@ export default function Graph({ events }: { events: eventType }) {
     plugins: {
       legend: {
         display: false,
-      },
-      tooltip: {
-        enabled: false,
-        external: CustomTooltip,
       },
     },
     scales: {
