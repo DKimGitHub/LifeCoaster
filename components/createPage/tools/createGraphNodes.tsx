@@ -6,21 +6,28 @@ export function createGraphNodes(events: eventType) {
 
   for (let i = 0; i < events.length; i++) {
     if (events[i].type === "period") {
-      if (i == 1) {
+      if (events[i - 1].nextYear === events[i].nextYear - 1) {
         periodNodes.push({
-          xValue: events[i - 1].nextYear + 1,
+          xValue: events[i].nextYear,
           yValue: events[i].period.value,
         });
       } else {
+        if (i == 1) {
+          periodNodes.push({
+            xValue: events[i - 1].nextYear + 1,
+            yValue: events[i].period.value,
+          });
+        } else {
+          periodNodes.push({
+            xValue: events[i - 1].nextYear,
+            yValue: events[i].period.value,
+          });
+        }
         periodNodes.push({
-          xValue: events[i - 1].nextYear,
+          xValue: events[i].nextYear - 1,
           yValue: events[i].period.value,
         });
       }
-      periodNodes.push({
-        xValue: events[i].nextYear - 1,
-        yValue: events[i].period.value,
-      });
     } else if (events[i].type === "specificYear") {
       for (let y of events[i].specificYear) {
         yearNodes.push({
@@ -31,5 +38,5 @@ export function createGraphNodes(events: eventType) {
     }
   }
 
-  return {periodNodes, yearNodes};
+  return { periodNodes, yearNodes };
 }

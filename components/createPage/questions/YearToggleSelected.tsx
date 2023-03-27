@@ -63,46 +63,46 @@ export default function YearToggleSelected({
       className={styles.yearToggleQuestionContainer}>
       <div
         style={{
-          gridRow: "1 / 2",
           display: "grid",
-          gridTemplateColumns: "auto auto",
+          gridTemplateRows: "1fr 1fr auto",
+          gridTemplateColumns: "1fr 2fr",
+          rowGap: "1rem",
         }}>
-        <div style={{ gridColumn: "1 / 2"}}>
-          <label className={styles.questionText}>What year?</label>
-          <Controller
-            name="yearSelect"
-            control={control}
-            render={({ field: { onChange } }) => (
-              <Select
-                onChange={onChange}
-                reverse={false}
-                start={startYear}
-                end={events.slice(-1)[0].nextYear - 1}
-              />
-            )}
-          />
-          {errors.yearSelect && (
-            <p style={{ display: "inline", color: "red" }}>
-              {errors.yearSelect.message as string}
-            </p>
+        <label className={styles.questionText}>What year?</label>
+
+        <Controller
+          name="yearSelect"
+          control={control}
+          render={({ field: { onChange } }) => (
+            <Select
+              onChange={onChange}
+              reverse={false}
+              start={startYear}
+              end={events.slice(-1)[0].nextYear - 1}
+            />
           )}
-        </div>
-        <div style={{ gridColumn: "2 / 3" }}>
-          <label className={styles.questionText}>Value</label>
-          <Controller
-            name="valueSlider"
-            control={control}
-            render={({ field: { onChange } }) => <Slider onChange={onChange} />}
-          />
-          {errors.valueSlider && (
-            <p style={{ display: "inline", color: "red" }}>
-              {errors.valueSlider.message as string}
-            </p>
-          )}
-        </div>
-      </div>
-      <div style={{ gridRow: "2 / 3", margin: "auto"}}>
-        <label style={{ margin: "1rem" }}>Description</label>
+        />
+        {errors.yearSelect && (
+          <p style={{ display: "inline", color: "red" }}>
+            {errors.yearSelect.message as string}
+          </p>
+        )}
+
+        <label className={styles.questionText}>Value</label>
+
+        <Controller
+          name="valueSlider"
+          control={control}
+          render={({ field: { onChange } }) => <Slider onChange={onChange} />}
+        />
+        {errors.valueSlider && (
+          <p style={{ display: "inline", color: "red" }}>
+            {errors.valueSlider.message as string}
+          </p>
+        )}
+
+        <label>Description</label>
+
         <Controller
           name="description"
           control={control}
@@ -115,8 +115,9 @@ export default function YearToggleSelected({
             {errors.description.message as string}
           </p>
         )}
-
-        <input className={styles.button} type="submit" value="Add" />
+        <div style={{width: 'fit-content'}}>
+          <input className={styles.button} type="submit" value="Add" />
+        </div>
       </div>
     </form>
   );
