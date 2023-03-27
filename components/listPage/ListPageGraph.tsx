@@ -14,7 +14,6 @@ import {
   ChartData,
   ChartOptions,
 } from "chart.js";
-import { nodeType } from "../../lib/types";
 
 ChartJS.register(
   CategoryScale,
@@ -73,7 +72,8 @@ export const options = {
 
 export default function ListPageGraph({ data }: { data: any }) {
   const graphData = data?.sort(
-    (a: {xValue: number, yValue: number}, b: {xValue: number, yValue: number})  => a.xValue - b.xValue
+    //@ts-expect-error
+    (a, b) => a.xValue - b.xValue
   );
   const lineData: ChartData<"line", { xValue: number; yValue: number }[]> = {
     datasets: [
