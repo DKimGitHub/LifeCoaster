@@ -8,7 +8,7 @@ export default function AuthButtonHeader() {
     <Dropdown placement="bottom-right">
       <Dropdown.Trigger>
         <Avatar
-          className="border-[3px] border-primary"
+          className="border-[3px] border-[#A66908]"
           size="lg"
           src={`https://api.dicebear.com/5.x/fun-emoji/svg?seed=chamna`}
         />

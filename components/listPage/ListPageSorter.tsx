@@ -22,12 +22,12 @@ export default function ListPageSorter({
 
   return (
     <Dropdown>
-      <Dropdown.Button flat color="secondary" css={{ tt: "capitalize" }}>
+      <Dropdown.Button flat color="primary" css={{ tt: "capitalize" }}>
         {selectedValue}
       </Dropdown.Button>
       <Dropdown.Menu
         aria-label="Single selection actions"
-        color="secondary"
+        color="primary"
         disallowEmptySelection
         selectionMode="single"
         selectedKeys={selected}

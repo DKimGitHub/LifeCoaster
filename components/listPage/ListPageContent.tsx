@@ -82,7 +82,7 @@ export default function ListPageContent({
         pauseOnHover
         theme="light"
       />
-      <div className="my-5 flex w-full justify-end">
+      <div className="my-5 mt-8 flex w-full justify-center">
         <ListPageSorter handleSelect={sorterCallback} />
       </div>
       <InfiniteScroll
