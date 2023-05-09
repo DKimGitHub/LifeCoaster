@@ -42,6 +42,7 @@ export default function Home() {
 
           <Button
             as="label"
+            //@ts-expect-error
             htmlFor="my-modal-4"
             
             auto
