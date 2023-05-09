@@ -8,11 +8,13 @@ export default function YearSelect({
   reverse,
   start,
   end,
+  defaultValue,
 }: {
   onChange: (...event: any[]) => void;
   reverse: boolean;
   start: number;
   end: number;
+  defaultValue: number;
 }) {
   const { events } = useContext(CreatePageContext);
   
@@ -20,12 +22,11 @@ export default function YearSelect({
     ? Array.from(Array(end - start + 1).keys(), (x) => x + start).reverse()
     : Array.from(Array(end - start + 1).keys(), (x) => x + start);
 
-
   return (
     <Select
       label="Year"
       onChange={(event, _ ) => onChange(event.target.value)}
-      defaultValue={reverse ? end : start}
+      defaultValue={defaultValue}
       sx={{
         color: "#704f47",
       }}>

@@ -12,15 +12,19 @@ export default function ModalsMain({
   setModalPageNum,
   setQuestionPageNum,
   setEvents,
-  setNumPeriods,
   reset,
+  graphId,
+  setEventId,
+  setSpecificYearId,
 }: {
   modalPageNum: number;
   setModalPageNum: React.Dispatch<React.SetStateAction<number>>;
   setQuestionPageNum: React.Dispatch<React.SetStateAction<number>>;
   setEvents: React.Dispatch<React.SetStateAction<eventType>>;
-  setNumPeriods: React.Dispatch<React.SetStateAction<number>>;
   reset: () => void;
+  graphId: String;
+  setEventId: React.Dispatch<React.SetStateAction<String>>;
+  setSpecificYearId: React.Dispatch<React.SetStateAction<String>>;
 }) {
   //Opens the modal if the modal page number is not NaN.
   var isModalOpen;
@@ -32,6 +36,10 @@ export default function ModalsMain({
 
   function closeModal() {
     setModalPageNum(NaN);
+  }
+
+  function skipClicked(){
+    setModalPageNum(3)
   }
 
   return (
@@ -58,7 +66,9 @@ export default function ModalsMain({
                   setModalPageNum,
                   setQuestionPageNum,
                   setEvents,
-                  setNumPeriods,
+                  graphId,
+                  setEventId,
+                  setSpecificYearId,
                 }}
               />
             );
@@ -67,6 +77,9 @@ export default function ModalsMain({
             return;
         }
       })()}
+      <div style={{ display: 'flex', flexDirection: 'row-reverse',width: "100%"}}>
+        <button onClick={skipClicked}>Skip</button>{" "}
+      </div>
     </Modal>
   );
 }

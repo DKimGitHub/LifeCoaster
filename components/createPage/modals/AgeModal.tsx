@@ -9,12 +9,16 @@ export default function AgeModal({
   setModalPageNum,
   setQuestionPageNum,
   setEvents,
-  setNumPeriods,
+  graphId,
+  setEventId,
+  setSpecificYearId,
 }: {
   setModalPageNum: React.Dispatch<React.SetStateAction<number>>;
   setQuestionPageNum: React.Dispatch<React.SetStateAction<number>>;
   setEvents: React.Dispatch<React.SetStateAction<eventType>>;
-  setNumPeriods: React.Dispatch<React.SetStateAction<number>>;
+  graphId: String;
+  setEventId: React.Dispatch<React.SetStateAction<String>>;
+  setSpecificYearId: React.Dispatch<React.SetStateAction<String>>;
 }) {
   /*
     Closes the modal and sets the nextYear and specificYear with the birth year.
@@ -38,7 +42,7 @@ export default function AgeModal({
         ],
       },
     ]);
-    setNumPeriods(1);
+    updateDBAdd(data);
     setQuestionPageNum(1);
   }
 
@@ -54,6 +58,53 @@ export default function AgeModal({
   useEffect(() => setValue("yearSelect", new Date().getFullYear()), [setValue]);
   const currentYear = new Date().getFullYear();
 
+  async function updateDBAdd(input: dataType) {
+    const options: any = {
+      method: "PUT",
+      body: JSON.stringify({
+        where: {
+          id: graphId,
+        },
+        data: {
+          event: {
+            create: [
+              {
+                nextYear: input.yearSelect,
+                type: "specificYear",
+                period: {
+                  create: {
+                    value: NaN,
+                    description: "",
+                  },
+                },
+                specificYear: {
+                  create: [
+                    {
+                      year: input.yearSelect,
+                      value: NaN,
+                      description: "Born",
+                    },
+                  ],
+                },
+              },
+            ],
+          },
+        },
+        include: {
+          event: {
+            include: {
+              specificYear: true
+            }
+          }
+        }
+      }),
+    };
+    const response = await fetch("/api/post/graph", options);
+    const data = await response.json();
+    setEventId(data.event.slice(-1)[0].id)
+    setSpecificYearId(data.event.slice(-1)[0].specificYear.slice(-1)[0].id)
+  }
+
   return (
     <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
       <label className={styles.formLabel}>When were you born?</label>
@@ -67,6 +118,7 @@ export default function AgeModal({
               reverse={true}
               start={1900}
               end={currentYear}
+              defaultValue={currentYear}
             />
           );
         }}
