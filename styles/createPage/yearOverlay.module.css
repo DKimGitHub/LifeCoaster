@@ -1,0 +1,36 @@
+.container {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: black;
+  animation: container ease-in-out 3.5s;
+  animation-fill-mode: forwards;
+}
+
+.text {
+  font-family: 'Courier New';
+  font-size: 10rem;
+  color: white;
+}
+
+@keyframes container {
+  0% {
+    opacity: 0;
+  }
+  25%{
+    opacity: 0.5;
+  }
+  75%{
+    opacity: 0.5
+  }
+  100%{
+    opacity: 0;
+  }
+}

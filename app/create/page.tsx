@@ -1,66 +1,133 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import createStyles from "../../styles/create.module.css";
-import CreatePageGraph from "../../components/CreatePageGraph";
-import CreateForm from "../../components/CreateForm";
 
-import CreatePageContext from "../../lib/CreatePageContext";
-import { FormState } from "../../lib/types";
+import Graph from "../../components/createPage/Graph";
+import QuestionsMain from "../../components/createPage/questions/QuestionsMain";
+import ModalsMain from "../../components/createPage/modals/ModalsMain";
+
+import { eventType, nodeType } from "../../lib/types";
+import styles from "../../styles/createPage/create.module.css";
+
 export default function Page() {
-  //Form Type
-
-  //Node states
-  const [userInput, setUserInput] = useState<FormState[]>([
-    { year: 1995, value: 0 },
-  ]);
-  const [graphId, setGraphId] = useState<number>(0);
+  const [graphId, setGraphId] = useState<string>("");
+  const [events, setEvents] = useState<eventType>([]);
+  const [numPeriods, setNumPeriods] = useState<number>(0);
+  const [modalPageNum, setModalPageNum] = useState<number>(NaN);
+  /* 
+    #1: ContinueModal
+    #2: IntroModal
+    #3: AgeModal
+  */
+  const [questionPageNum, setQuestionPageNum] = useState<number>(NaN);
+  /*
+  #1: BornValue
+  #2: NextBigYear
+  #3: YearOverlay
+  #4: ValueQuestions 
+  */
 
   useEffect(() => {
-    createPost();
+    console.log(events)
+  }, [events])
+
+  //Initialization when the Create page mounts
+  useEffect(() => {
+    const savedState = localStorage.getItem("savedPost");
+    if (savedState && !Number.isNaN(JSON.parse(savedState).questionPageNum)) {
+      setGraphId(JSON.parse(savedState).graphId);
+      setEvents(JSON.parse(savedState).events);
+      setQuestionPageNum(JSON.parse(savedState).questionPageNum);
+      setNumPeriods(JSON.parse(savedState).numPeriods);
+      setModalPageNum(1);
+
+    } else {
+      setModalPageNum(2);
+      createPost();
+    }
+    //clean up function
+    return () => {
+      setGraphId("");
+      setEvents([]);
+      setQuestionPageNum(NaN);
+      setModalPageNum(NaN);
+      setNumPeriods(0);
+    };
   }, []);
 
-  async function createPost() {
-    const options = {
-      method: "POST",
-      body: JSON.stringify({
-        data: {
-          graph: {
-            create: { isYear: false },
-          },
-        },
-        include: {
-          graph: {
-            select: {
-              id: true,
-            },
-          },
-        },
-      }),
+  //Update the local cache whenever these dependcies change.
+  useEffect(() => {
+    const savedState = {
+      graphId: graphId,
+      events: events,
+      questionPageNum: questionPageNum,
+      numPeriods: numPeriods,
     };
-    const response = await fetch("/api/post", options);
-    const data = await response.json();
-    setGraphId(data.graph.id);
+    localStorage.setItem("savedPost", JSON.stringify(savedState));
+  }, [graphId, events, questionPageNum, numPeriods]);
+
+  async function createPost() {
+    // const options = {
+    //   method: "POST",
+    //   body: JSON.stringify({
+    //     data: {
+    //       graph: {
+    //         create: { isYear: false },
+    //       },
+    //     },
+    //     include: {
+    //       graph: {
+    //         select: {
+    //           id: true,
+    //         },
+    //       },
+    //     },
+    //   }),
+    // };
+    // const response = await fetch("/api/post", options);
+    // const data = await response.json();
+    // setGraphId(data.graph.id);
   }
 
-  //Function sent through ContextProvider for changing the node states
-  function updateUserInput(input: React.SetStateAction<FormState[]>) {
-    setUserInput(input);
+  function reset() {
+    localStorage.removeItem("savedPost");
+    setEvents([]);
+    setNumPeriods(0);
+    setGraphId("");
+    setModalPageNum(2);
+    setQuestionPageNum(NaN);
+    createPost();
   }
 
   return (
-    <CreatePageContext
-      userInput={userInput}
-      updateUserInput={updateUserInput}
-      graphId={graphId}>
-      <div className="flex flex-col items-center">
-        <div className="mt-10 aspect-[21/5] w-full border border-black text-center">
-          <CreatePageGraph />
-        </div>
-        <div className={createStyles.formContainer}>
-          <CreateForm />
-        </div>
+    <div className={styles.container}>
+      <ModalsMain
+        {...{
+          modalPageNum,
+          setModalPageNum,
+          setQuestionPageNum,
+          setEvents,
+          setNumPeriods,
+          reset,
+        }}
+      />
+      <div className={styles.graphContainer}>
+        <Graph {...{events}}/>
       </div>
-    </CreatePageContext>
+      <div className={styles.questionsContainer}>
+        <QuestionsMain
+          {...{
+            setModalPageNum,
+            questionPageNum,
+            setQuestionPageNum,
+            events,
+            setEvents,
+            numPeriods,
+            setNumPeriods,
+            reset,
+          }}
+        />
+      </div>
+    </div>
   );
 }

@@ -39,7 +39,7 @@ model Post {
   graph     Graph?
   isYear    Boolean   @default(false)
   comments  Comment[]
-
+  
   usersWhoHearted String[]
   numOfHearts     Int      @default(0)
 }

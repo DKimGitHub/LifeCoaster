@@ -1,0 +1,37 @@
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+  padding-top: 1px
+}
+
+.button {
+  width: fit-content;
+  padding: 0.5rem 1rem;
+  margin: 2rem 0;
+  border-radius: 7px;
+  color: black;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: all 0.3s;
+  background-color: #B5838DAA;
+  border: 2px solid #b5435a;
+}
+
+.button:hover{
+  background-color: #8c666eaa;
+}
+
+.button:active{
+  transform: scale(0.95);
+  
+}
+
+.formInput{
+  margin-top: 1rem;
+  padding: 3px;
+  color: black;
+}

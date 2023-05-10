@@ -9,6 +9,9 @@ import { ThemeProvider as NextThemesProvider } from "next-themes";
 import {SSRProvider} from '@react-aria/ssr';
 
 
+import { theme } from "../styles/createTheme"
+
+
 const globalStyles = globalCss({
   li: { marginBottom: "0 !important" }
 });
@@ -19,9 +22,6 @@ export default function ContextProviders({
   children: React.ReactNode;
 }) {
   globalStyles();
-  // useServerInsertedHTML(() => {
-  //   return <>{CssBaseline.flush()}</>;
-  // });
 
   return (
     <>

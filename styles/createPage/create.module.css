@@ -1,0 +1,33 @@
+.container {
+  display: grid;
+  grid-template-rows: 40vh 1fr;
+  grid-template-areas:
+    "graph"
+    "questions";
+  column-gap: 3px;
+  height: 100%;
+}
+
+.graphContainer {
+  grid-area: graph;
+}
+
+.questionsContainer {
+  grid-area: questions;
+}
+
+.resetButton {
+  padding: 0.2rem 1rem;
+  margin: 0.1rem;
+  border: 1px solid brown;
+  border-radius: 10px;
+  color: brown;
+  font-weight: bold;
+  font-size: 0.8rem;
+  transition: background-color 0.3s, color 0.3s, font-size 0.1s;
+}
+
+.resetButton:hover{
+  background-color: brown;
+  color: white;
+}

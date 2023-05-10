@@ -7,7 +7,11 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+        'vintage': "url('/assets/vintageBackground.jpg')"
+      }
+    },
   },
   plugins: [require("daisyui")],
   daisyUI: {

@@ -1,0 +1,95 @@
+.container {
+  height: 100%;
+  font-family: "Courier New";
+  font-weight: bold;
+  color: #704f47;
+}
+
+.tool {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid black;
+  
+}
+
+.toolContainer {
+  grid-row: 1 / 2; 
+  width: 100%;
+  
+}
+
+.questionContainer {
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+.yearToggleQuestionContainer{
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  width: 100%;
+}
+
+.question {
+  width: 70%;
+  margin: auto;
+  grid-row: 2 / 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+.questionText {
+  margin: 1rem 0;
+}
+
+.questionTool {
+  width: 100%;
+}
+
+.button {
+  padding: 0.5rem 1rem;
+  border-radius: 7px;
+  color: #fbc6b9;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: all 0.3s;
+  background-color: #704f47;
+  border: 2px solid #382723;
+}
+
+.resetButton {
+  margin-left: 10px;
+}
+
+.prevButton {
+  margin: 0 20px;
+}
+
+.nextButton {
+  margin: 0 20px;
+}
+
+.button:hover {
+  background-color: #4c3631;
+}
+
+.button:active {
+  transform: scale(0.95);
+}
+
+.input {
+  margin: 1rem;
+}
+
+.descriptionText {
+  width: 50%;
+  height: fit-content;
+  padding: 1px;
+  overflow-wrap: break-word;
+}
+

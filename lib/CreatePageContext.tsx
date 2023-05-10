@@ -1,35 +1,94 @@
 "use client";
 
 import { createContext } from "react";
-import { dataType, FormState } from "./types";
+import { eventType, nodeType } from "./types";
 
 interface CreatePageContextInterface {
-  userInput: FormState[];
-  updateUserInput: (input: React.SetStateAction<FormState[]>) => void;
-  graphId: number;
+  graphId: string;
+  events: eventType;
+  setEvents: React.Dispatch<React.SetStateAction<eventType>>;
+  nodes: nodeType;
+  setNodes: React.Dispatch<React.SetStateAction<nodeType>>;
+  phantomNodes: nodeType;
+  setPhantomNodes: React.Dispatch<React.SetStateAction<nodeType>>;
+  modalPageNum: number;
+  setModalPageNum: React.Dispatch<React.SetStateAction<number>>;
+  isModalOpen: boolean;
+  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  questionPageNum: number;
+  setQuestionPageNum: React.Dispatch<React.SetStateAction<number>>;
+  reset: () => void;
 }
 
 export const CreatePageContext = createContext<CreatePageContextInterface>({
-  userInput: [],
-  updateUserInput: () => {},
-  graphId: NaN,
+  graphId: "",
+  events: [],
+  setEvents: (value) => {},
+  nodes: [],
+  setNodes: (value) => {},
+  phantomNodes: [],
+  setPhantomNodes: (value) => {},
+  modalPageNum: NaN,
+  setModalPageNum: (value) => {},
+  isModalOpen: false,
+  setIsModalOpen: (value) => {},
+  questionPageNum: NaN,
+  setQuestionPageNum: (value) => {},
+  reset: () => {},
 });
 
 export default function CreatePageContextProvider({
-  userInput,
-  updateUserInput,
   graphId,
+  events,
+  setEvents,
+  nodes,
+  setNodes,
+  phantomNodes,
+  setPhantomNodes,
+  modalPageNum,
+  setModalPageNum,
+  isModalOpen,
+  setIsModalOpen,
+  questionPageNum,
+  setQuestionPageNum,
+  reset,
   children,
 }: {
-  userInput: FormState[];
-  updateUserInput: (input: React.SetStateAction<FormState[]>) => void;
-  graphId: number;
-  children: React.ReactNode;
+  graphId: string;
+  events: eventType;
+  setEvents: React.Dispatch<React.SetStateAction<eventType>>;
+  nodes: nodeType;
+  setNodes: React.Dispatch<React.SetStateAction<nodeType>>;
+  phantomNodes: nodeType;
+  setPhantomNodes: React.Dispatch<React.SetStateAction<nodeType>>;
+  modalPageNum: number;
+  setModalPageNum: React.Dispatch<React.SetStateAction<number>>;
+  isModalOpen: boolean;
+  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  questionPageNum: number;
+  setQuestionPageNum: React.Dispatch<React.SetStateAction<number>>;
+  reset: () => void;
+  children: any;
 }) {
   return (
-    <CreatePageContext.Provider value={{ userInput, updateUserInput, graphId }}>
+    <CreatePageContext.Provider
+      value={{
+        graphId,
+        events,
+        setEvents,
+        nodes, 
+        setNodes,
+        phantomNodes, 
+        setPhantomNodes,
+        modalPageNum,
+        setModalPageNum,
+        isModalOpen,
+        setIsModalOpen,
+        questionPageNum,
+        setQuestionPageNum,
+        reset,
+      }}>
       {children}
     </CreatePageContext.Provider>
   );
 }
-

@@ -21,3 +21,22 @@ export type PostDataType = Post & {
       })
     | null;
 } | null;
+
+export type eventType = {
+  nextYear: number;
+  type: "period" | "specificYear" | null;
+  period: {
+    value: number;
+    description: string;
+  };
+  specificYear: {
+    year: number;
+    value: number;
+    description: string;
+  } [];
+}[];
+
+export type nodeType = {
+  xValue: number;
+  yValue: number;
+}[];
