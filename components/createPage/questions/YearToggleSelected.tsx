@@ -158,7 +158,6 @@ export default function YearToggleSelected({
     };
     const response = await fetch("/api/post/graph/event/", options);
     const data = await response.json();
-    console.log(data);
   }
 
   return (
