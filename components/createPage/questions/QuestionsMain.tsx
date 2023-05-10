@@ -22,18 +22,25 @@ export default function QuestionsMain({
   setQuestionPageNum,
   events,
   setEvents,
-  numPeriods,
-  setNumPeriods,
   reset,
+  graphId,
+  eventId, 
+  specificYearId,
+  setEventId,
+  setSpecificYearId,
+  
 }: {
   setModalPageNum: React.Dispatch<React.SetStateAction<number>>;
   questionPageNum: number;
   setQuestionPageNum: React.Dispatch<React.SetStateAction<number>>;
   events: eventType;
   setEvents: React.Dispatch<React.SetStateAction<eventType>>;
-  numPeriods: number;
-  setNumPeriods: React.Dispatch<React.SetStateAction<number>>;
-  reset: () => void; 
+  reset: () => void;
+  graphId: String;
+  eventId: String;
+  specificYearId: String;
+  setEventId: React.Dispatch<React.SetStateAction<String>>;
+  setSpecificYearId: React.Dispatch<React.SetStateAction<String>>
 }) {
   const {
     register,
@@ -53,6 +60,7 @@ export default function QuestionsMain({
             setModalPageNum,
             setEvents,
             reset,
+            specificYearId,
           }}
         />
       );
@@ -65,8 +73,10 @@ export default function QuestionsMain({
             setQuestionPageNum,
             events,
             setEvents,
-            setNumPeriods,
             reset,
+            graphId,
+            setEventId,
+            setSpecificYearId,
           }}
         />
       );
@@ -83,6 +93,8 @@ export default function QuestionsMain({
             events,
             setEvents,
             reset,
+            eventId,
+            specificYearId,
           }}
         />
       );

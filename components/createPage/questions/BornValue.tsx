@@ -12,12 +12,14 @@ export default function BornValue({
   setModalPageNum,
   setEvents,
   reset,
+  specificYearId,
 }: {
   questionPageNum: number;
   setQuestionPageNum: React.Dispatch<React.SetStateAction<number>>;
   setModalPageNum: React.Dispatch<React.SetStateAction<number>>;
   setEvents: React.Dispatch<React.SetStateAction<eventType>>;
   reset: () => void;
+  specificYearId: React.Dispatch<React.SetStateAction<String>>;
 }) {
   const {
     register,
@@ -49,19 +51,23 @@ export default function BornValue({
         specificYear: [{ ...prev[0].specificYear[0], value: data.valueSlider }],
       },
     ]);
-    // const options = {
-    //   method: "POST",
-    //   body: JSON.stringify({
-    //     data: {
-    //       graph: {
-    //         connect: {
-    //           id: graphId,
-    //         },
-    //       },
-    //       title: "some title",
-    //     },
-    //   }),
-    // };
+    updateDBAdd(data);
+  }
+
+  async function updateDBAdd(input: dataType) {
+    const options: any = {
+      method: "PUT",
+      body: JSON.stringify({
+        where: {
+          id: specificYearId
+        }, 
+        data: {
+          value: input.valueSlider
+        }
+      }),
+    };
+    const response = await fetch("/api/post/graph/event/specificYear", options);
+    const data = await response.json();
   }
 
   return (
@@ -86,7 +92,7 @@ export default function BornValue({
             name="valueSlider"
             control={control}
             render={({ field: { onChange, value } }) => (
-              <Slider onChange={onChange} />
+              <Slider onChange={onChange} defaultValue={0} />
             )}
           />
           {errors.valueSlider && (

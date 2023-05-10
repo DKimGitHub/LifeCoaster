@@ -14,6 +14,7 @@ export default function ToolBar({
   mode,
   setMode,
   setEvents,
+  eventId,
 }: {
   handlePrevButton: () => void;
   handleNextButton: (data: dataType) => void;
@@ -23,6 +24,7 @@ export default function ToolBar({
   mode?: "period" | "year";
   setMode?: React.Dispatch<React.SetStateAction<"period" | "year">>;
   setEvents?: React.Dispatch<React.SetStateAction<eventType>>;
+  eventId: String;
 }) {
   const setModeToolBar = setMode ? setMode : () => null;
   const setEventsToolBar = setEvents ? setEvents : () => null;
@@ -31,7 +33,6 @@ export default function ToolBar({
     event: React.MouseEvent<HTMLElement>,
     newMode: "period" | "year"
   ) {
-    console.log(newMode);
     setModeToolBar(newMode);
     if ((newMode === "period")) {
       setEventsToolBar((prev) => [
@@ -50,6 +51,23 @@ export default function ToolBar({
         },
       ]);
     }
+    updateDBAdd(newMode)
+  }
+
+  async function updateDBAdd(type: String) {
+    const options: any = {
+      method: "PUT",
+      body: JSON.stringify({
+        where: {
+          id: eventId
+        }, 
+        data: {
+          type: type
+        }
+      }),
+    };
+    const response = await fetch("/api/post/graph/event/", options);
+    const data = await response.json();
   }
 
   return (
