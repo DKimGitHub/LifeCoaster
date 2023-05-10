@@ -13,7 +13,7 @@ module.exports = {
       }
     },
   },
-  plugins: [require("daisyui")],
+  plugins: [require("daisyui"),     require("tailwindcss-animation-delay"),],
   daisyUI: {
     themes: ["autumn", "forest", "coffee", "dark", "luxury", "dracula", "cupcake", "emerald"]
   }

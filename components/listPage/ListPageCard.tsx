@@ -119,13 +119,6 @@ export default function ListPageCard({
           <div className="flex items-center justify-between p-2">
             {" "}
             <div className="flex flex-1">
-              <button
-                className="btn"
-                onClick={() => {
-                  console.log(data);
-                }}>
-                test
-              </button>
               <Image
                 height={46}
                 width={46}

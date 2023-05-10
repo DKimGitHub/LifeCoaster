@@ -36,3 +36,21 @@ html {
 .ReactModal__Overlay--before-close{
   opacity: 0;
 }
+
+.fade-list-item {
+  opacity: 0;
+  animation-name: fadein;
+  animation-duration: 1000ms;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
