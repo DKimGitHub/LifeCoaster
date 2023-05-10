@@ -19,12 +19,6 @@ export default async function handler(
       });
       res.status(200).json(postData);
       break
-    case "PUT":
-      const putData = await prisma.post.update({
-        ... JSON.parse(req.body)
-      });
-      res.status(200).json(putData);
-      break
     case "DELETE":
       const deleteData = await prisma.post.deleteMany(req.body.query);
       res.status(200).json(deleteData);

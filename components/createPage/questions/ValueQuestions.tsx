@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 
-import ToolBar from "./ToolBar";
+import ToolBar from "./ToolBar"
 import YearToggleSelected from "./YearToggleSelected";
 import PeriodToggleSelected from "./PeriodToggleSelected";
 import styles from "../../../styles/createPage/form.module.css";
@@ -13,16 +13,12 @@ export default function ValueQuestions({
   events,
   setEvents,
   reset,
-  eventId,
-  specificYearId,
 }: {
   questionPageNum: number;
   setQuestionPageNum: React.Dispatch<React.SetStateAction<number>>;
   events: eventType;
   setEvents: React.Dispatch<React.SetStateAction<eventType>>;
   reset: () => void;
-  eventId: String;
-  specificYearId: String;
 }) {
   const {
     register,
@@ -33,18 +29,6 @@ export default function ValueQuestions({
   } = useForm();
 
   const [mode, setMode] = useState<"period" | "year">("period");
-  const [defaultValues, setDefaultValues] = useState<number[]>([
-    0,
-    events.length > 2
-      ? events.slice(-2)[0].nextYear
-      : events.slice(-2)[0].nextYear + 1,
-    0,
-  ]);
-  /*
-      index 0: Period tab value slider
-      index 1: Year tab select year
-      index 2: Year tab value slider
-    */
 
   function handlePrevButton() {
     setEvents((prev) => prev.slice(0, -1));
@@ -68,31 +52,15 @@ export default function ValueQuestions({
             mode,
             setMode,
             setEvents,
-            eventId,
           }}
         />
       </div>
       <div className={styles.question}>
         {(() => {
           if (mode === "period") {
-            return (
-              <PeriodToggleSelected
-                {...{ setEvents, defaultValues, setDefaultValues, eventId }}
-              />
-            );
+            return <PeriodToggleSelected {...{ setEvents }} />;
           } else if (mode === "year") {
-            return (
-              <YearToggleSelected
-                {...{
-                  setEvents,
-                  events,
-                  defaultValues,
-                  setDefaultValues,
-                  specificYearId,
-                  eventId
-                }}
-              />
-            );
+            return <YearToggleSelected {...{ setEvents, events }} />;
           }
         })()}
       </div>
