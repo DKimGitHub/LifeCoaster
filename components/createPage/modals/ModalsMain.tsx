@@ -38,9 +38,12 @@ export default function ModalsMain({
     setModalPageNum(NaN);
   }
 
-  function skipClicked(){
-    setModalPageNum(3)
+  function skipClicked() {
+    setModalPageNum(3);
   }
+
+  const skipButton =
+    modalPageNum === 2 ? <button onClick={skipClicked}>Skip</button> : <></>;
 
   return (
     <Modal
@@ -77,8 +80,13 @@ export default function ModalsMain({
             return;
         }
       })()}
-      <div style={{ display: 'flex', flexDirection: 'row-reverse',width: "100%"}}>
-        <button onClick={skipClicked}>Skip</button>{" "}
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row-reverse",
+          width: "100%",
+        }}>
+        {skipButton}
       </div>
     </Modal>
   );

@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { UseFormHandleSubmit, FieldValues } from "react-hook-form";
 import styles from "../../../styles/createPage/form.module.css";
+import Image from 'next/image'
+import previousIcon from '../../../public/createPage/previous.svg'
+import nextIcon from '../../../public/createPage/next.svg'
+import resetIcon from '../../../public/createPage/reset.svg'
 
 import { dataType, eventType } from "../../../lib/types";
 import { ToggleButton, ToggleButtonGroup } from "@mui/material";
@@ -74,7 +78,12 @@ export default function ToolBar({
     <div className={styles.tool}>
       <div style={{ flex: "1" }}>
         <button className={styles.resetButton} onClick={reset}>
-          Reset
+        <Image
+            src={resetIcon}
+            alt="resetIcon"
+            width={30}
+            height={30}
+          />
         </button>
       </div>
       <div
@@ -84,7 +93,12 @@ export default function ToolBar({
           alignItems: "center",
         }}>
         <button className={styles.prevButton} onClick={handlePrevButton}>
-          Prev
+          <Image
+            src={previousIcon}
+            alt="previousIcon"
+            width={40}
+            height={40}
+          />
         </button>
         {(() => {
           if (questionPageNum === 4) {
@@ -105,7 +119,12 @@ export default function ToolBar({
         <button
           className={styles.nextButton}
           onClick={handleSubmit(handleNextButton)}>
-          Next
+          <Image
+            src={nextIcon}
+            alt="nextIcon"
+            width={40}
+            height={40}
+          />
         </button>
       </div>
       <div style={{ flex: "1" }}></div>

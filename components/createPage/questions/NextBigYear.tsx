@@ -12,6 +12,7 @@ export default function NextBigYear({
   setEvents,
   reset,
   graphId,
+  eventId,
   setEventId,
   setSpecificYearId,
 }: {
@@ -21,6 +22,7 @@ export default function NextBigYear({
   setEvents: React.Dispatch<React.SetStateAction<eventType>>;
   reset: () => void;
   graphId: String;
+  eventId: String;
   setEventId: React.Dispatch<React.SetStateAction<String>>;
   setSpecificYearId: React.Dispatch<React.SetStateAction<String>>;
 }) {
@@ -128,6 +130,8 @@ export default function NextBigYear({
             questionPageNum,
             handleSubmit,
             reset,
+            setEvents,
+            eventId,
           }}
         />
       </div>

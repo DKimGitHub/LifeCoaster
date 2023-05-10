@@ -1,0 +1,278 @@
+.social-links {
+  text-align: center;
+  position: relative;
+  top: 130px;
+}
+
+.line-betwen {
+  width: 15%;
+  height: 3px;
+  background-color: #F9B339;
+  position: relative;
+  left: 42.5%;
+  top: 80px;
+}
+
+.social-list li{
+  display: inline;
+  text-align: center;
+  font-size: 40px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.social-list a {
+  color: #fff;
+}
+
+.social-list a:hover {
+  color:#F9B339;
+}
+.nav {
+  position: relative;
+  width: auto;
+  display: inline-block;
+  border: none;
+}
+
+.btn-nav {
+  position: fixed;
+  top: 30px;
+  left: 30px;
+  background: transparent;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 99999;
+}
+
+.btn-nav:focus {
+  outline: 0;
+}
+
+.icon-bar {
+  display: block;
+  margin: 6px 0;
+  width: 35px;
+  height: 5px;
+  background-color: #F9B339;
+}
+
+.btn-nav:hover .icon-bar {
+  background-color: #F9B339;
+}
+
+.nav-content {
+  position: fixed;
+  top: -100%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0,0,0,.9);
+  display: block;
+  height: 100%;
+  z-index: 9;
+}
+
+.below-line {
+  width: 15%;
+  height: 3px;
+  background-color: #F9B339;
+  position: relative;
+  left: 42.5%;
+  top: 40px;
+}
+
+.nav-list {
+  list-style: none;
+  padding: 0;
+  position: relative;
+  top: 10%;
+}
+
+.item-anchor:after {
+  content: "";
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  left: 0;
+  bottom: 0;
+  z-index: 9;
+  background: transparent;
+ 
+}
+
+.item-anchor {
+  color: #fff;
+  font-size: 30px;
+  text-transform: uppercase;
+  position: relative;
+  text-decoration: none;
+  padding: 10px;
+  letter-spacing: 15px;
+}
+
+.item-anchor:hover,
+.item-anchor:focus {
+  color: #F9B339;
+ 
+}
+
+.item-anchor:hover:after,
+.item-anchor:focus:after{
+  width: 100%;
+  background: #F9B339;
+  -webkit-transition: all 1s ease;
+  -moz-transition: all 1s ease;
+  -ms-transition: all 1s ease;
+  -o-transition: all 1s ease;
+  transition: all 1s ease;
+}
+
+.nav-item {
+  margin: 40px auto;
+  text-align: center;
+}
+
+.animated {
+  display: block;
+  margin: 0 auto;
+}
+
+.animated:hover .icon-bar,
+.animated:focus .icon-bar{
+  background-color: #FCA311;
+}
+
+.animated:focus {
+  cursor: pointer;
+  z-index: 9999;
+}
+
+.middle {
+  margin: 0 auto;
+}
+
+.icon-bar {
+  -webkit-transition: all .7s ease;
+  -moz-transition: all .7s ease;
+  -ms-transition: all .7s ease;
+  -o-transition: all .7s ease;
+  transition: all .7s ease;
+  z-index: 999999;
+}
+
+.animated .icon-bar {
+  z-index: 999999;
+  background-color: #FCA311;
+}
+
+.animated .top {
+  -webkit-transform: translateY(10px) rotateZ(45deg);
+  -moz-transform: translateY(10px) rotateZ(45deg);
+  -ms-transform: translateY(10px) rotateZ(45deg);
+  -o-transform: translateY(10px) rotateZ(45deg);
+  transform: translateY(10px) rotateZ(45deg);
+}
+
+.animated .bottom {
+  -webkit-transform: translateY(-11px) rotateZ(-45deg);
+  -moz-transform: translateY(-11px) rotateZ(-45deg);
+  -ms-transform: translateY(-11px) rotateZ(-45deg);
+  -o-transform: translateY(-11px) rotateZ(-45deg);
+  transform: translateY(-11px) rotateZ(-45deg);
+}
+
+.animated .middle {
+  width: 0;
+}
+
+@keyframes showNav {
+  from {
+    top: -100%;
+  }
+  to {
+    top: 0;
+  }
+}
+
+@-webkit-keyframes showNav {
+  from {
+    top: -100%;
+  }
+  to {
+    top: 0;
+  }
+}
+
+@-moz-keyframes showNav {
+  from {
+    top: -100%;
+  }
+  to {
+    top: 0;
+  }
+}
+
+@-o-keyframes showNav {
+  from {
+    top: -100%;
+  }
+  to {
+    top: 0;
+  }
+}
+
+.showNav {
+  -webkit-animation: showNav 1s ease forwards;
+  -moz-animation: showNav 1s ease forwards;
+  -o-animation: showNav 1s ease forwards;
+  animation: showNav 1s ease forwards;
+}
+
+@keyframes hideNav {
+  from {
+    top: 0;
+  }
+  to {
+    top: -100%;
+  }
+}
+
+@-webkit-keyframes hideNav {
+  from {
+    top: 0;
+  }
+  to {
+    top: -100%;
+  }
+}
+
+@-moz-keyframes hideNav {
+  from {
+    top: 0;
+  }
+  to {
+    top: -100%;
+  }
+}
+
+@-o-keyframes hideNav {
+  from {
+    top: 0;
+  }
+  to {
+    top: -100%;
+  }
+}
+
+.hideNav {
+  -webkit-animation: hideNav 1s ease forwards;
+  -moz-animation: hideNav 1s ease forwards;
+  -o-animation: hideNav 1s ease forwards;
+  animation: hideNav 1s ease forwards;
+}
+
+.hidden {
+  display: none;
+}

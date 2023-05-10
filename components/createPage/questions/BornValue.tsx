@@ -13,6 +13,7 @@ export default function BornValue({
   setEvents,
   reset,
   specificYearId,
+  eventId,
 }: {
   questionPageNum: number;
   setQuestionPageNum: React.Dispatch<React.SetStateAction<number>>;
@@ -20,6 +21,7 @@ export default function BornValue({
   setEvents: React.Dispatch<React.SetStateAction<eventType>>;
   reset: () => void;
   specificYearId: React.Dispatch<React.SetStateAction<String>>;
+  eventId: String;
 }) {
   const {
     register,
@@ -59,11 +61,11 @@ export default function BornValue({
       method: "PUT",
       body: JSON.stringify({
         where: {
-          id: specificYearId
-        }, 
+          id: specificYearId,
+        },
         data: {
-          value: input.valueSlider
-        }
+          value: input.valueSlider,
+        },
       }),
     };
     const response = await fetch("/api/post/graph/event/specificYear", options);
@@ -80,6 +82,8 @@ export default function BornValue({
             questionPageNum,
             handleSubmit,
             reset,
+            setEvents,
+            eventId,
           }}
         />
       </div>

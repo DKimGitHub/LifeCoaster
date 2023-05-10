@@ -1,0 +1,7 @@
+.bodyBackground {
+  background-image:url("../public/main_page_background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+  border: black 1px solid;
+}

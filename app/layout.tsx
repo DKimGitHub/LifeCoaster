@@ -1,8 +1,11 @@
+"use client";
+
 import AuthModal from "../components/AuthModal";
 import Header from "../components/Header";
 import ContextProviders from "../lib/ContextProviders";
 import "./globals.css";
-import background from "../assets/modalBackground.jpg"
+import styles from "../styles/mainPage.module.css";
+import Navigation from "../components/Navigation";
 
 export default function RootLayout({
   children,
@@ -14,14 +17,21 @@ export default function RootLayout({
       <head />
       <body>
         <ContextProviders>
-          <main className="min-h-screen w-screen max-w-full overflow-x-hidden bg-[#f7d4c1aa]">
-            <Header />
-            <div className="mx-auto w-full h-auto max-w-6xl px-4">
-              {children}
-              {/* footer */}
-            </div>
-          </main>
-
+          <div>
+            <main
+              style={{
+                minHeight: "100vh",
+                width: "100vw",
+                maxWidth: "100%",
+                overflowX: 'hidden',
+              }}>
+              <Navigation />
+              <div style={{ height: "1000px" }}>
+                {children}
+                {/* footer */}
+              </div>
+            </main>
+          </div>
           <AuthModal />
         </ContextProviders>
       </body>
