@@ -6,14 +6,14 @@ import { NextUIProvider, createTheme } from "@nextui-org/react";
 import React from "react";
 import { SessionProvider } from "next-auth/react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
-import {SSRProvider} from '@react-aria/ssr';
+import { SSRProvider } from "@react-aria/ssr";
 
+import { theme } from "../styles/createTheme";
 
-import { theme } from "../styles/createTheme"
-
+import { useSSR } from "@nextui-org/react";
 
 const globalStyles = globalCss({
-  li: { marginBottom: "0 !important" }
+  li: { marginBottom: "0 !important" },
 });
 
 export default function ContextProviders({
@@ -22,14 +22,17 @@ export default function ContextProviders({
   children: React.ReactNode;
 }) {
   globalStyles();
+  const { isBrowser } = useSSR();
 
   return (
-    <>
-    <SSRProvider>
-        <NextUIProvider>
-          <SessionProvider>{children} </SessionProvider>
-        </NextUIProvider>
-      </SSRProvider>
-    </>
+    isBrowser && (
+      <>
+        <SSRProvider>
+          <NextUIProvider>
+            <SessionProvider>{children} </SessionProvider>
+          </NextUIProvider>
+        </SSRProvider>
+      </>
+    )
   );
 }
