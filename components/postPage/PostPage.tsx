@@ -48,7 +48,7 @@ export default function PostPage({ postData } : { postData: PostDataType }) {
           {postData?.comments.length === 0 ? (
             <div className="flex h-full flex-col">
               <p className="flex justify-center pt-5 text-gray-400">
-                Leave a Comment!
+                Be the first to leave a comment!
               </p>
             </div>
           ) : (
@@ -72,7 +72,7 @@ export default function PostPage({ postData } : { postData: PostDataType }) {
               ))}
             </div>
           )}
-          <CommentTextArea />
+          <CommentTextArea postId={postData?.id}/>
         </div>
       </div>
     </>
