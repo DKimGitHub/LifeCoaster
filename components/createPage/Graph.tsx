@@ -28,10 +28,6 @@ export default function Graph({ events }: { events: eventType }) {
   const nodeData = events.length > 0 ? createGraphNodes(events) : null;
   const nodes = nodeData? nodeData.periodNodes.concat(nodeData.yearNodes) : null;
 
-  useEffect(() => {
-    console.log(nodes)  
-  }, [nodes])
-
   const minYear = events.length > 0 ? events[0].nextYear : 1900;
   
   const options = {

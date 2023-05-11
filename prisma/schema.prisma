@@ -39,7 +39,7 @@ model Post {
   graph     Graph?
   isYear    Boolean   @default(false)
   comments  Comment[]
-  
+
   usersWhoHearted String[]
   numOfHearts     Int      @default(0)
 }
@@ -49,11 +49,51 @@ model Graph {
   postId String? @unique
   post   Post?   @relation(fields: [postId], references: [id])
   nodes  Node[]
+  event  Event[]
 
   createdAt DateTime @default(now()) @map(name: "created_at")
-  updatedAt DateTime @updatedAt @map(name: "updated_at")
+  updatedAt DateTime? @updatedAt @map(name: "updated_at")
 
-  isYear Boolean @default(false)
+  dummy Boolean
+}
+
+model Event {
+  id           String         @id @default(cuid())
+  nextYear     Int
+  type         String?
+  period       Period?
+  specificYear SpecificYear[]
+  graph        Graph?         @relation(fields: [graphId], references: [id])
+  graphId      String
+  
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime? @updatedAt @map(name: "updated_at")
+
+}
+
+model Period {
+  id          String  @id @default(cuid())
+  value       Int?
+  description String?
+  event       Event?  @relation(fields: [eventId], references: [id])
+  eventId     String  @unique
+
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime? @updatedAt @map(name: "updated_at")
+
+}
+
+model SpecificYear {
+  id          String  @id @default(cuid())
+  year        Int?
+  value       Int?
+  description String?
+  event       Event   @relation(fields: [eventId], references: [id])
+  eventId     String
+
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime? @updatedAt @map(name: "updated_at")
+
 }
 
 model Node {

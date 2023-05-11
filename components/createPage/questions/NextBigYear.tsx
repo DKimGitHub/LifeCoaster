@@ -10,15 +10,19 @@ export default function NextBigYear({
   setQuestionPageNum,
   events,
   setEvents,
-  setNumPeriods,
-  reset, 
+  reset,
+  graphId,
+  setEventId,
+  setSpecificYearId,
 }: {
   questionPageNum: number;
   setQuestionPageNum: React.Dispatch<React.SetStateAction<number>>;
   events: eventType;
   setEvents: React.Dispatch<React.SetStateAction<eventType>>;
-  setNumPeriods: React.Dispatch<React.SetStateAction<number>>;
   reset: () => void;
+  graphId: String;
+  setEventId: React.Dispatch<React.SetStateAction<String>>;
+  setSpecificYearId: React.Dispatch<React.SetStateAction<String>>;
 }) {
   const {
     register,
@@ -44,24 +48,74 @@ export default function NextBigYear({
 
   function handleNextButton(data: dataType) {
     setQuestionPageNum(3);
-    setNumPeriods((prev) => prev + 1);
-    /*
-    The length of events is greater than numPeriod 
-    if the current page has been reached from the next page (i.e. by clicking prev from the next page)
-    */
+    const newYear: number =
+      events.length > 2
+        ? events.slice(-2)[0].nextYear
+        : events.slice(-2)[0].nextYear + 1;
 
     setEvents((prev) => {
-      console.log(prev);
       return [
         ...prev,
         {
           nextYear: data.yearSelect,
           type: null,
-          period: { value: NaN, description: "" },
-          specificYear: [],
+          period: { value: 0, description: "" },
+          specificYear: [
+            {
+              year: newYear,
+              value: 0,
+              description: "",
+            },
+          ],
         },
       ];
     });
+
+    updateDBAdd(data, newYear);
+  }
+
+  async function updateDBAdd(input: dataType, newYear: number) {
+    const options: any = {
+      method: "PUT",
+      body: JSON.stringify({
+        where: {
+          id: graphId,
+        },
+        data: {
+          event: {
+            create: [
+              {
+                nextYear: input.yearSelect,
+                type: null,
+                period: {
+                  create: { value: 0, description: "" },
+                },
+                specificYear: {
+                  create: [
+                    {
+                      year: newYear,
+                      value: 0,
+                      description: "",
+                    },
+                  ],
+                },
+              },
+            ],
+          },
+        },
+        include: {
+          event: {
+            include: {
+              specificYear: true,
+            },
+          },
+        },
+      }),
+    };
+    const response = await fetch("/api/post/graph/", options);
+    const data = await response.json();
+    setEventId(data.event.slice(-1)[0].id);
+    setSpecificYearId(data.event.slice(-1)[0].specificYear.slice(-1)[0].id);
   }
 
   return (
@@ -102,6 +156,7 @@ export default function NextBigYear({
                 onChange={onChange}
                 start={events.slice(-1)[0].nextYear + 1}
                 end={new Date().getFullYear()}
+                defaultValue={events.slice(-1)[0].nextYear + 1}
               />
             )}
           />
