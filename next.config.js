@@ -2,6 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   experimental: {
+    serverActions: true,
     swcPlugins: [["next-superjson-plugin", {}]],
   },
   images: {

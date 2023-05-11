@@ -84,7 +84,7 @@ export default function ListPageCard({
       <Tilt perspective={2000} tiltMaxAngleX={10} tiltMaxAngleY={10}>
         <div
           data-theme={colorTheme}
-          className=" card card-compact rounded-md border-2 border-solid border-black bg-base-100  shadow-xl">
+          className=" card card-compact rounded-md bg-base-100  shadow-xl">
           <button onClick={clickHandler} className={` relative h-56 w-full`}>
             <ListPageGraph data={data?.graph?.nodes} />
           </button>

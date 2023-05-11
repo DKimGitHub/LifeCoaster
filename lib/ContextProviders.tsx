@@ -25,7 +25,7 @@ export default function ContextProviders({
   const { isBrowser } = useSSR();
 
   return (
-    isBrowser && (
+    isBrowser ? (
       <>
         <SSRProvider>
           <NextUIProvider>
@@ -33,6 +33,6 @@ export default function ContextProviders({
           </NextUIProvider>
         </SSRProvider>
       </>
-    )
+    ) : <></>
   );
 }

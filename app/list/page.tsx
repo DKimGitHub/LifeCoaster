@@ -29,6 +29,7 @@ async function fetchData() {
 }
 export default async function Page() {
   const { listOfPosts } = await fetchData();
+  console.log(listOfPosts);
   return (
     <>
       <ListPageContent listOfPosts={listOfPosts} data-superjson/>

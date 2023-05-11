@@ -108,7 +108,7 @@ model Node {
 
 model Comment {
   id        String   @id @default(cuid())
-  text      String
+  text      String @default("")
   createdAt DateTime @default(now()) @map(name: "created_at")
   userId    String?
   user      User?    @relation(fields: [userId], references: [id])
