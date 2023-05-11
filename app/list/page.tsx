@@ -10,7 +10,14 @@ async function fetchData() {
     //   published:true,
     // },
     include: {
-      comments: true,
+      comments: {
+        include: {
+          user: true,
+        },
+        orderBy: {
+          createdAt: "desc",
+        },
+      },
       graph: {
         include: {
           nodes: true,
@@ -29,7 +36,6 @@ async function fetchData() {
 }
 export default async function Page() {
   const { listOfPosts } = await fetchData();
-  console.log(listOfPosts);
   return (
     <>
       <ListPageContent listOfPosts={listOfPosts} data-superjson/>

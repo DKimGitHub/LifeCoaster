@@ -5,9 +5,11 @@ import Image from "next/image";
 import CommentTextArea from "./CommentTextArea";
 import PostPageGraph from "./PostPageGraph";
 import { PostDataType } from "../../lib/types";
+import { timeSince } from "../../lib/helpers";
 
 export default function PostPage({ postData } : { postData: PostDataType }) {
-  return (
+  console.log(postData);
+  return ( postData ? 
     <>
       <div className="flex flex-col md:flex-row">
         <PostPageGraph data={postData?.graph?.nodes} />
@@ -53,28 +55,30 @@ export default function PostPage({ postData } : { postData: PostDataType }) {
             </div>
           ) : (
             <div className="commentContainer flex flex-1 flex-col-reverse overflow-auto border-t border-b">
-              {postData?.comments.map((comment, index) => (
-                <div key={index} className="flex h-16 w-full py-2 px-3">
+              {postData?.comments. map((comment, index) => (
+                
+                <div key={index} className="flex w-full py-[0.6rem] px-3">
                   <Image
-                    height={36}
-                    width={36}
-                    src="https://api.dicebear.com/5.x/fun-emoji/svg?seed=aa&radius=50"
+                    height={38}
+                    width={38}
+                    src={`https://api.dicebear.com/5.x/fun-emoji/svg?seed=${comment.user?.email}&radius=50`}
                     alt="avatar"
                   />
-                  <div className="flex flex-col justify-start pl-2">
+                  <div className="flex h-max flex-col justify-start pl-4">
                     <div className="flex items-center">
                       <div className="pr-2 font-bold">ryan kim</div>{" "}
-                      <div className="text-sm">2 days ago</div>
+                      <div className="text-sm">{timeSince(comment.createdAt)}</div>
                     </div>
-                    <div>this is a comment</div>
+                    <div className="w-full">{comment.text}</div>
                   </div>
                 </div>
               ))}
             </div>
           )}
-          <CommentTextArea postId={postData?.id}/>
+          <CommentTextArea postId={postData.id as string}/>
         </div>
       </div>
     </>
+    : <div><p>empty like our mind</p></div>
   );
 }

@@ -4,9 +4,9 @@ import { useSession } from "next-auth/react";
 import { useTransition } from 'react';
 import { addComment } from "../../lib/actions";
 
-export default function CommentTextArea(postId : string) {
-  //const { data: session, status } = useSession();
-  const session = true; //BLUEBERRY
+export default function CommentTextArea({postId} : {postId: string}) {
+  const { data: session, status } = useSession();
+  //const session = true; //BLUEBERRY
   let [isPending, startTransition] = useTransition();
 
   const {
@@ -14,19 +14,8 @@ export default function CommentTextArea(postId : string) {
     bindings,
   } = useInput("");
 
-
-  async function createComment() {
-    startTransition(()=> addComment(value,session.user.email, postId));
-
-      // const response = await fetch(`/api/comment`, {
-      //     method: 'POST',
-      //     headers: {'Content-Type': 'application/json'},
-      //     body: JSON.stringify({text: value, email: session.user.email,postId: postId,})
-      //   })
-      }
-
   return session ? (
-    <form className="m-1 flex items-center">
+    <div className="m-1 flex items-center">
       <Textarea
               {...bindings}
         aria-label="Comment Field"
@@ -35,11 +24,13 @@ export default function CommentTextArea(postId : string) {
         placeholder="Comment..."
         minRows={1}
       />
-      {/*@ts-expect-error*/}
-      <button onClick={()=>    startTransition(()=> addComment(value,session.user.email, postId))} className="m-2 flex-none text-base font-medium leading-4">
+      {/* qwe123 */}
+            {/*@ts-expect-error*/}
+
+      <button onClick={()=>startTransition(()=> addComment(value,session.user?.email, postId))} className="m-2 flex-none text-base font-medium leading-4">
         Post
       </button>
-    </form>
+    </div>
   ) : (
     <div className="m-1 flex items-center">
       <Textarea

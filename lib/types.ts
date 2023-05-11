@@ -1,4 +1,4 @@
-import { Post, Comment, Graph, Node } from "@prisma/client";
+import { Post, Comment, Graph, Node, User } from "@prisma/client";
 
 export type PageProps = {
   params?: any;
@@ -14,7 +14,7 @@ export type FormState = {
 };
 
 export type PostDataType = Post & {
-  comments: Comment[];
+  comments: (Comment & {user:User | null})[];
   graph:
     | (Graph & {
         nodes: Node[];

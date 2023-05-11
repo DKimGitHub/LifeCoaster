@@ -4,13 +4,14 @@ import { Dropdown, Avatar, Text, Button } from "@nextui-org/react";
 
 export default function AuthButtonHeader() {
   const { data: session } = useSession();
+  console.log(session?.user?.email);
   return session ? (
     <Dropdown placement="bottom-right">
       <Dropdown.Trigger>
         <Avatar
           className="border-[3px] border-primary"
           size="lg"
-          src={`https://api.dicebear.com/5.x/fun-emoji/svg?seed=chamna`}
+          src={`https://api.dicebear.com/5.x/fun-emoji/svg?seed=${session.user?.email}`}
         />
       </Dropdown.Trigger>
       <Dropdown.Menu
