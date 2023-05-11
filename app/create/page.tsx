@@ -10,9 +10,10 @@ import { eventType, nodeType } from "../../lib/types";
 import styles from "../../styles/createPage/create.module.css";
 
 export default function Page() {
-  const [graphId, setGraphId] = useState<string>("");
+  const [graphId, setGraphId] = useState<String>("");
+  const [eventId, setEventId] = useState<String>("");
+  const [specificYearId, setSpecificYearId] = useState<String>("");
   const [events, setEvents] = useState<eventType>([]);
-  const [numPeriods, setNumPeriods] = useState<number>(0);
   const [modalPageNum, setModalPageNum] = useState<number>(NaN);
   /* 
     #1: ContinueModal
@@ -27,10 +28,6 @@ export default function Page() {
   #4: ValueQuestions 
   */
 
-  useEffect(() => {
-    console.log(events)
-  }, [events])
-
   //Initialization when the Create page mounts
   useEffect(() => {
     const savedState = localStorage.getItem("savedPost");
@@ -38,9 +35,7 @@ export default function Page() {
       setGraphId(JSON.parse(savedState).graphId);
       setEvents(JSON.parse(savedState).events);
       setQuestionPageNum(JSON.parse(savedState).questionPageNum);
-      setNumPeriods(JSON.parse(savedState).numPeriods);
       setModalPageNum(1);
-
     } else {
       setModalPageNum(2);
       createPost();
@@ -51,7 +46,6 @@ export default function Page() {
       setEvents([]);
       setQuestionPageNum(NaN);
       setModalPageNum(NaN);
-      setNumPeriods(0);
     };
   }, []);
 
@@ -61,38 +55,36 @@ export default function Page() {
       graphId: graphId,
       events: events,
       questionPageNum: questionPageNum,
-      numPeriods: numPeriods,
     };
     localStorage.setItem("savedPost", JSON.stringify(savedState));
-  }, [graphId, events, questionPageNum, numPeriods]);
+  }, [graphId, events, questionPageNum]);
 
   async function createPost() {
-    // const options = {
-    //   method: "POST",
-    //   body: JSON.stringify({
-    //     data: {
-    //       graph: {
-    //         create: { isYear: false },
-    //       },
-    //     },
-    //     include: {
-    //       graph: {
-    //         select: {
-    //           id: true,
-    //         },
-    //       },
-    //     },
-    //   }),
-    // };
-    // const response = await fetch("/api/post", options);
-    // const data = await response.json();
-    // setGraphId(data.graph.id);
+    const options = {
+      method: "POST",
+      body: JSON.stringify({
+        data: {
+          graph: {
+            create: { dummy: false },
+          },
+        },
+        include: {
+          graph: {
+            select: {
+              id: true,
+            },
+          },
+        },
+      }),
+    };
+    const response = await fetch("/api/post", options);
+    const data = await response.json();
+    setGraphId(data.graph.id);
   }
 
   function reset() {
     localStorage.removeItem("savedPost");
     setEvents([]);
-    setNumPeriods(0);
     setGraphId("");
     setModalPageNum(2);
     setQuestionPageNum(NaN);
@@ -107,12 +99,14 @@ export default function Page() {
           setModalPageNum,
           setQuestionPageNum,
           setEvents,
-          setNumPeriods,
           reset,
+          graphId,
+          setEventId,
+          setSpecificYearId,
         }}
       />
       <div className={styles.graphContainer}>
-        <Graph {...{events}}/>
+        <Graph {...{ events }} />
       </div>
       <div className={styles.questionsContainer}>
         <QuestionsMain
@@ -122,9 +116,12 @@ export default function Page() {
             setQuestionPageNum,
             events,
             setEvents,
-            numPeriods,
-            setNumPeriods,
             reset,
+            graphId,
+            eventId,
+            specificYearId,
+            setEventId,
+            setSpecificYearId,
           }}
         />
       </div>
