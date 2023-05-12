@@ -1,4 +1,4 @@
-import { eventType } from "../../../lib/types";
+import { eventType } from "./types";
 
 export function createGraphNodes(events: eventType) {
   var periodNodes: { xValue: number; yValue: number }[] = [];

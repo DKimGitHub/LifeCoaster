@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import { createGraphNodes } from "./tools/createGraphNodes";
+import { createGraphNodes } from "../../lib/createGraphNodes";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -20,7 +20,7 @@ ChartJS.register(
   LineElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
 );
 
 export default function Graph({ events }: { events: eventType }) {

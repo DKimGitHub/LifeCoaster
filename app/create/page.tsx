@@ -5,11 +5,13 @@ import React, { useState, useEffect } from "react";
 import Graph from "../../components/createPage/Graph";
 import QuestionsMain from "../../components/createPage/questions/QuestionsMain";
 import ModalsMain from "../../components/createPage/modals/ModalsMain";
+import nodes from "../../lib/importDataCreateNode";
 
 import { eventType, nodeType } from "../../lib/types";
 import styles from "../../styles/createPage/create.module.css";
 
 export default function Page() {
+  const [postId, setPostId] = useState<String>("");
   const [graphId, setGraphId] = useState<String>("");
   const [eventId, setEventId] = useState<String>("");
   const [specificYearId, setSpecificYearId] = useState<String>("");
@@ -27,6 +29,10 @@ export default function Page() {
   #3: YearOverlay
   #4: ValueQuestions 
   */
+
+  useEffect(() => {
+    postId? nodes(postId) : null;
+  })
 
   //Initialization when the Create page mounts
   useEffect(() => {
@@ -68,7 +74,8 @@ export default function Page() {
             create: { dummy: false },
           },
         },
-        include: {
+        select: {
+          id: true,
           graph: {
             select: {
               id: true,
@@ -80,6 +87,7 @@ export default function Page() {
     const response = await fetch("/api/post", options);
     const data = await response.json();
     setGraphId(data.graph.id);
+    setPostId(data.id);
   }
 
   function reset() {
