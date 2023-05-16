@@ -2,7 +2,8 @@
 const nextConfig = {
   reactStrictMode: true,
   experimental: {
-    appDir: true,
+    serverActions: true,
+    swcPlugins: [["next-superjson-plugin", {}]],
   },
   images: {
     domains: ["api.dicebear.com", "lh3.googleusercontent.com"],

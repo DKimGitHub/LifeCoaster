@@ -1,14 +1,12 @@
-import Link from "next/link";
-import LifeChart from "../../components/listPage/ListPageGraph";
-import ListPageCard from "../../components/listPage/ListPageCard";
-import PageModal from "../../components/PostPage";
-import ListPageSorter from "../../components/listPage/ListPageSorter";
 import prisma from "../../lib/prisma";
-import { dataType } from "../../lib/types";
 import ListPageContent from "../../components/listPage/ListPageContent";
 import AuthButtonHeader from "../../components/AuthButtonHeader";
 import backArrow from "../../public/rounded-square-left-direction-svgrepo-com.svg";
 import Image from "next/image";
+import Link from "next/link";
+
+
+export const dynamic = 'force-dynamic';
 
 async function fetchData() {
   const listOfPosts = await prisma.post.findMany({
@@ -16,38 +14,38 @@ async function fetchData() {
     // where: {
     //   published:true,
     // },
-    select: {
-      id: true,
-      user: true,
-      usersWhoHearted: true,
-      numOfHearts: true,
-      comments: true,
-      updatedAt: true,
-      createdAt: true,
+    include: {
+      comments: {
+        include: {
+          user: true,
+        },
+        orderBy: {
+          createdAt: "desc",
+        },
+      },
       graph: {
         include: {
-          nodes: {
-            select: {
-              xValue: true,
-              yValue: true,
-            },
-          },
+          event: {
+            include: {
+              specificYear: true,
+              period: true,
+            }
+          }
         },
       },
     },
     orderBy: {
-      createdAt: 'desc'
-    }
+      createdAt: "desc",
+    },
   });
   // const filtered = feed.filter(
   //   (e) => e.graph?.nodes && e.graph?.nodes.length > 0
   // );
   // return filtered;
-  return {listOfPosts};
+  return { listOfPosts };
 }
 export default async function Page() {
   const { listOfPosts } = await fetchData();
-  const colorTheme = "cupcake";
   return (
     <>
       <Link href="/" className="absolute top-6 left-8">
@@ -55,7 +53,7 @@ export default async function Page() {
       </Link>
       <div className="absolute top-6 right-8"><AuthButtonHeader/>
       </div>
-      <ListPageContent listOfPosts={JSON.stringify(listOfPosts)}/>
+      <ListPageContent listOfPosts={listOfPosts} data-superjson/>
     </>
   );
 }

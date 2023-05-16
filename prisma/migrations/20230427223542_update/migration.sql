@@ -8,10 +8,7 @@
 */
 -- AlterTable
 ALTER TABLE "Graph" DROP COLUMN "isYear",
-ADD COLUMN     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-ADD COLUMN     "dummy" BOOLEAN NOT NULL,
-ADD COLUMN     "updated_at" TIMESTAMP(3) NOT NULL;
-
+ADD COLUMN     "dummy" BOOLEAN NOT NULL;
 -- CreateTable
 CREATE TABLE "Event" (
     "id" TEXT NOT NULL,

@@ -1,11 +1,13 @@
 "use client";
 import ListPageCard from "./ListPageCard";
 import InfiniteScroll from "react-infinite-scroll-component";
-
 import { useState } from "react";
-import { Loading } from "@nextui-org/react";
+import { Loading, useModal } from "@nextui-org/react";
 import ListPageSorter from "./ListPageSorter";
 import { ToastContainer, Flip } from "react-toastify";
+import ListPageModal from "./ListPageModal";
+import { PostDataType } from "../../lib/types";
+import PostPage from "../postPage/PostPage";
 
 enum sortByEnum {
   RU = "Recently Updated",
@@ -16,13 +18,14 @@ enum sortByEnum {
 export default function ListPageContent({
   listOfPosts,
 }: {
-  listOfPosts: string;
+  listOfPosts: PostDataType[];
 }) {
-  //const defaultValue = { "Recently Created": JSON.parse(listOfPosts) };
-  //const [cache, setCache] = useState(new Map(Object.entries(defaultValue)));
-  const [posts, setPosts] = useState(JSON.parse(listOfPosts));
+  const [posts, setPosts] = useState(listOfPosts);
   const [hasMore, setHasMore] = useState(true);
   const [sortBy, setSortBy] = useState("Recently Created");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { setVisible, bindings } = useModal();
+  const [modalPostData, setModalPostData] = useState<PostDataType>(null);
 
   const getMorePosts = async () => {
     const enumType = Object.entries(sortByEnum).find(
@@ -35,8 +38,7 @@ export default function ListPageContent({
     const curPosts = posts;
     newPosts.length === 0
       ? setHasMore(false)
-      : setPosts((post: any[]) => [...post, ...newPosts]);
-    //setCache((prev) => prev.set(sortBy, [...curPosts, ...newPosts]));
+      : setPosts((post) => [...post, ...newPosts]);
   };
 
   const sorterCallback = async (selection: string) => {
@@ -44,16 +46,12 @@ export default function ListPageContent({
     const enumType = Object.entries(sortByEnum).find(
       ([key, val]) => val === selection
     )?.[0];
-    // if (cache.has(selection)) {
-    //   setPosts(cache.get(selection));
-    // } else {
     const res = await fetch(`/api/listPage?sortby=${enumType}&offset=0`);
     const newPosts = await res.json();
     setPosts(newPosts);
-    //setCache((prev) => prev.set(selection, newPosts));
     setHasMore(true);
-    // }
   };
+  
   const cardCallback = (post: any) => {
     setPosts((prevPosts: any) =>
       prevPosts.map((p: any) =>
@@ -67,6 +65,7 @@ export default function ListPageContent({
       )
     );
   };
+
   return (
     <>
       <ToastContainer
@@ -90,7 +89,7 @@ export default function ListPageContent({
         dataLength={posts.length}
         next={getMorePosts}
         hasMore={hasMore}
-        scrollThreshold="48px"
+        scrollThreshold="96px"
         loader={
           <div className="mb-10 mt-10 flex justify-center">
             <Loading type="points" size="xl" />
@@ -99,10 +98,21 @@ export default function ListPageContent({
         <div className="mb-10 grid w-full grid-cols-1 gap-12 md:grid-cols-2 md:gap-12">
           {posts.map((post: any) => (
             //eslint-disable-next-line
-            <ListPageCard handleChange={cardCallback} data={post} />
+            <ListPageCard
+              handleChange={cardCallback}
+              setIsModalOpen={setVisible}
+              setModalPostData={setModalPostData}
+              data={post}
+            />
           ))}
         </div>
       </InfiniteScroll>
+      <ListPageModal
+        bindings={bindings}
+        setIsModalOpen={setIsModalOpen}
+        isModalOpen={isModalOpen}>
+        <PostPage postData={modalPostData} />
+      </ListPageModal>
     </>
   );
 }

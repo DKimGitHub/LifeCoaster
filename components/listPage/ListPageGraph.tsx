@@ -1,92 +1,43 @@
 "use client";
 
-import { Line } from "react-chartjs-2";
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-  defaults,
-  ChartData,
-  ChartOptions,
-} from "chart.js";
+import { ResponsiveLine } from "@nivo/line";
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend
-);
-export const options = {
-  responsive: true,
-  plugins: {
-    legend: {
-      display: false,
-    },
-    tooltip: {
-      enabled: false,
-    },
-  },
-  scales: {
-    x: {
-      type: "linear",
-      grid: { display: false },
-      display: false,
-    },
-    y: {
-      type: "linear",
-      grid: { display: false },
-      display: false,
-    },
-  },
-  elements: {
-    point: {
-      radius: 0,
-      hoverRadius: 0,
-    },
-  },
-  interaction: {
-    mode: "nearest",
-    intersect: false,
-  },
-  layout: {
-    padding: {
-      top: 25,
-    },
-  },
-  parsing: {
-    xAxisKey: "xValue",
-    yAxisKey: "yValue",
-  },
-  //aspectRatio: 3,
-  maintainAspectRatio: false,
-  cubicInterpolationMode: "monotone",
-};
-
-export default function ListPageGraph({ data }: { data: any }) {
-  const graphData = data?.sort(
-    //@ts-expect-error
-    (a, b) => a.xValue - b.xValue
-  );
-  const lineData: ChartData<"line", { xValue: number; yValue: number }[]> = {
-    datasets: [
-      {
-        label: "Dataset 1",
-        data: graphData,
-        borderColor: "hsl(0,0%,50%)",
-      },
-    ],
-  };
+export default function ListPageGraph({ data }: { data: any[] }) {
+  const nivoGraphData = data ? [{ id: 1, data: data }] : [{ id: 1, data: [] }];
 
   return (
-    // @ts-expect-error
-    <Line options={options} data={lineData} />
+    <ResponsiveLine
+      margin={{ top: 8, right: 8, bottom: 8, left: 8 }}
+      data={nivoGraphData}
+      curve={"cardinal"}
+      enableGridX={false}
+      enableGridY={false}
+      animate={true}
+      enableCrosshair={false}
+      xScale={{ type: "linear", min: "auto", max: "auto" }}
+      yScale={{
+        type: "linear",
+        min: 0,
+        max: 10,
+      }}
+      axisBottom={null}
+      axisLeft={null}
+      enablePoints={false}
+      lineWidth={4}
+      enableArea={true}
+      areaOpacity={0.4}
+      defs={[
+        {
+          id: "gridLines",
+          type: "patternSquares",
+          size: 50,
+          padding: 3,
+          stagger: false,
+          background: "#3f301d",
+          color: "#ffffff",
+        },
+      ]}
+      fill={[{ match: "*", id: "gridLines" }]}
+    />
   );
 }

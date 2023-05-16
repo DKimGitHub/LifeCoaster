@@ -7,11 +7,6 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {
-      backgroundImage: {
-        'vintage': "url('/assets/vintageBackground.jpg')"
-      }
-    },
   },
   plugins: [require("daisyui"),     require("tailwindcss-animation-delay"),],
   daisyUI: {

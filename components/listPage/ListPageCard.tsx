@@ -1,11 +1,8 @@
 "use client";
 
 import ListPageGraph from "./ListPageGraph";
-import Modal from "react-modal";
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { usePathname } from "next/navigation";
-import PostPage from "../PostPage";
 import Tilt from "react-parallax-tilt";
 import Image from "next/image";
 import CommentIcon from "../../public/comment.svg";
@@ -15,61 +12,49 @@ import { useSession } from "next-auth/react";
 import { clsx } from "clsx";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { PostDataType } from "../../lib/types";
+import { eventsToNodes, timeSince } from "../../lib/helpers";
 
-const customStyles = {
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-    marginX: "auto",
-    width: "90%",
-    maxWidth: "72rem",
-    maxHeight: "36rem",
-  },
-  overlay: {
-    backgroundColor: "hsla(0,0%,0%,0.3)",
-  },
-};
-//TODO disable scroll but keep scrollbar
 export default function ListPageCard({
   data,
   handleChange,
+  setIsModalOpen,
+  setModalPostData,
 }: {
-  data: any;
+  data: PostDataType;
   handleChange: (post: any) => void;
+  setIsModalOpen: Dispatch<SetStateAction<boolean>>;
+  setModalPostData: Dispatch<SetStateAction<PostDataType>>;
 }) {
   const { data: session, status } = useSession();
   const colorTheme = "light";
   const router = useRouter();
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  //const [isModalOpen, setIsModalOpen] = useState(false);
 
   function isHearted() {
     if (!session) return false;
-    return data.usersWhoHearted.includes(session?.user?.email as string)
+    return data?.usersWhoHearted.includes(session?.user?.email as string)
       ? true
       : false;
   }
   function clickHandler() {
-    window.history.pushState(null, "Post 6", "/p/6");
+    window.history.pushState(null, "LifeCoaster Post", `/p/${data?.id}`);
+    setModalPostData(data);
     setIsModalOpen(true);
-    router.prefetch("p/6");
+    //router.prefetch("p/6");
   }
-  function onModalClose() {
-    router.back();
-    setIsModalOpen(false);
-  }
+  // function onModalClose() {
+  //   router.back();
+  //   setIsModalOpen(false);
+  // }
   function heartHandler() {
-    //const toastContent = <label htmlFor="my-modal-4" >Login to heart posts!</label>
     if (!session) {
       toast.info("Login to heart posts!", {
         position: "top-center",
         autoClose: 2000,
         hideProgressBar: false,
         closeOnClick: true,
-        pauseOnHover: true,
+        pauseOnHover: false,
         draggable: true,
         progress: undefined,
         theme: "light",
@@ -96,42 +81,34 @@ export default function ListPageCard({
   }
 
   return (
+    data && 
     <>
-      <Modal
-        isOpen={isModalOpen}
-        onRequestClose={onModalClose}
-        contentLabel="Post Modal"
-        ariaHideApp={false}
-        closeTimeoutMS={150}
-        style={customStyles}>
-        <PostPage />
-      </Modal>{" "}
       <Tilt perspective={2000} tiltMaxAngleX={10} tiltMaxAngleY={10}>
         <div
           data-theme={colorTheme}
-          className="gradientBorder card card-compact rounded-sm border-2 border-solid bg-base-100  shadow-xl">
-          <button
-            onClick={clickHandler}
-            className={` relative h-56 w-full bg-base-200`}>
-            <ListPageGraph data={data?.graph?.nodes} />
+          className=" card card-compact rounded-md bg-base-100  shadow-xl">
+          <button onClick={clickHandler} className={` relative h-56 w-full`}>
+            <ListPageGraph data={eventsToNodes(data?.graph?.event)} />
           </button>
 
           <div className="flex items-center justify-between p-2">
             {" "}
             <div className="flex flex-1">
-              <Image
-                height={46}
-                width={46}
-                src="https://api.dicebear.com/5.x/fun-emoji/svg?seed=Ryan&radius=10"
-                alt="avatar"
-              />{" "}
+              <button onClick={clickHandler}>
+                <Image
+                  height={46}
+                  width={46}
+                  src="https://api.dicebear.com/5.x/fun-emoji/svg?seed=Ryan&radius=10"
+                  alt="avatar"
+                />
+              </button>
               <div className="flex flex-col pl-2">
-                <p className="text-lg font-semibold leading-6">Johnyg</p>
-                <p>2022 Year</p>
+                  <button onClick={clickHandler} className="text-lg font-semibold leading-6 text-left">Gerald</button>
+                <p className="text-gray-500">{(typeof data.createdAt === "string") ? timeSince(new Date(data.createdAt)) : timeSince(data.createdAt) }</p>
               </div>
             </div>
             <div className="flex flex-none items-center">
-              <p className="pr-1 text-xl font-medium">{data.numOfHearts}</p>
+              <p className="pr-1 text-xl font-medium">{data?.numOfHearts}</p>
               <button
                 onClick={heartHandler}
                 className="flex items-center justify-center">
@@ -157,14 +134,18 @@ export default function ListPageCard({
                   />
                 </label>
               </button>
-              <p className="pr-1 text-xl font-medium">{data.comments.length}</p>
-              <Image
-                className="mr-1 inline"
-                width={20}
-                height={20}
-                src={CommentIcon}
-                alt="Comment Icon"
-              />
+              <p className="pr-1 text-xl font-medium">
+                {data?.comments.length}
+              </p>
+              <button className="mr-1 inline" onClick={clickHandler}>
+                <Image
+                  // className="mr-1 inline"
+                  width={20}
+                  height={20}
+                  src={CommentIcon}
+                  alt="Comment Icon"
+                />
+              </button>
             </div>
           </div>
         </div>

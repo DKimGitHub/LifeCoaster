@@ -14,22 +14,16 @@ export default async function handler(
       const data = await prisma.post.findMany({
         take: 6,
         skip: offset,
-        select: {
-          id: true,
-          user: true,
-          usersWhoHearted: true,
-          numOfHearts: true,
+        include: {
           comments: true,
-          updatedAt: true,
-          createdAt: true,
           graph: {
             include: {
-              nodes: {
-                select: {
-                  xValue: true,
-                  yValue: true,
-                },
-              },
+              event: {
+                include: {
+                  specificYear: true,
+                  period: true,
+                }
+              }
             },
           },
         },
