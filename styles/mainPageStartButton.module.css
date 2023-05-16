@@ -10,7 +10,7 @@
   border-radius: 3rem;
   color: #ff0000;
   animation-name: animateButton;
-  animation-duration: 3s;
+  animation-duration: 2.5s;
   animation-iteration-count: infinite;
   transition: font-size 0.1s;
 }
@@ -42,10 +42,10 @@
   0% {
      font-size: 3.5rem
   }
-  30%{
+  40%{
     font-size: 4rem
   }
-  60%{
+  80%{
     font-size: 3.5rem
   }
 }

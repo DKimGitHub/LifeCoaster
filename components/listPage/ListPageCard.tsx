@@ -13,7 +13,7 @@ import { clsx } from "clsx";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { PostDataType } from "../../lib/types";
-import { eventsToNodes, timeSince } from "../../lib/helpers";
+import { eventsToNodes, randomName, timeSince } from "../../lib/helpers";
 
 export default function ListPageCard({
   data,
@@ -79,77 +79,85 @@ export default function ListPageCard({
       })
       .catch((error) => console.log(error));
   }
-
   return (
-    data && 
-    <>
-      <Tilt perspective={2000} tiltMaxAngleX={10} tiltMaxAngleY={10}>
-        <div
-          data-theme={colorTheme}
-          className=" card card-compact rounded-md bg-base-100  shadow-xl">
-          <button onClick={clickHandler} className={` relative h-56 w-full`}>
-            <ListPageGraph data={eventsToNodes(data?.graph?.event)} />
-          </button>
+    data && (
+      <>
+        <Tilt perspective={2000} tiltMaxAngleX={10} tiltMaxAngleY={10}>
+          <div
+            data-theme={colorTheme}
+            className=" card card-compact rounded-md bg-base-100  shadow-xl">
+            <button onClick={clickHandler} className={` relative h-56 w-full`}>
+              <ListPageGraph data={eventsToNodes(data?.graph?.event)} />
+            </button>
 
-          <div className="flex items-center justify-between p-2">
-            {" "}
-            <div className="flex flex-1">
-              <button onClick={clickHandler}>
-                <Image
-                  height={46}
-                  width={46}
-                  src="https://api.dicebear.com/5.x/fun-emoji/svg?seed=Ryan&radius=10"
-                  alt="avatar"
-                />
-              </button>
-              <div className="flex flex-col pl-2">
-                  <button onClick={clickHandler} className="text-lg font-semibold leading-6 text-left">Gerald</button>
-                <p className="text-gray-500">{(typeof data.createdAt === "string") ? timeSince(new Date(data.createdAt)) : timeSince(data.createdAt) }</p>
+            <div className="flex items-center justify-between p-2">
+              {" "}
+              <div className="flex flex-1">
+                <button onClick={clickHandler}>
+                  <Image
+                    height={46}
+                    width={46}
+                    src={`https://api.dicebear.com/5.x/fun-emoji/svg?seed=${randomName(data.id)}&radius=10`}
+                    alt="avatar"
+                  />
+                </button>
+                <div className="flex flex-col pl-2">
+                  <button
+                    onClick={clickHandler}
+                    className="text-left text-lg font-semibold leading-6">
+                    {randomName(data.id)}
+                  </button>
+                  <p className="text-gray-500">
+                    {typeof data.createdAt === "string"
+                      ? timeSince(new Date(data.createdAt))
+                      : timeSince(data.createdAt)}
+                  </p>
+                </div>
+              </div>
+              <div className="flex flex-none items-center">
+                <p className="pr-1 text-xl font-medium">{data?.numOfHearts}</p>
+                <button
+                  onClick={heartHandler}
+                  className="flex items-center justify-center">
+                  <label
+                    className={clsx(
+                      "swap swap-flip",
+                      isHearted() && "swap-active"
+                    )}>
+                    {/* {session && <input type="checkbox" />} */}
+                    <Image
+                      className={clsx("swap-off mr-2 inline")}
+                      width={22}
+                      height={22}
+                      src={outlineHeartIcon}
+                      alt="Heart"
+                    />
+                    <Image
+                      className={clsx("swap-on mr-2 inline")}
+                      width={22}
+                      height={22}
+                      src={redHeartIcon}
+                      alt="Filled Heart"
+                    />
+                  </label>
+                </button>
+                <p className="pr-1 text-xl font-medium">
+                  {data?.comments.length}
+                </p>
+                <button className="mr-1 inline" onClick={clickHandler}>
+                  <Image
+                    // className="mr-1 inline"
+                    width={20}
+                    height={20}
+                    src={CommentIcon}
+                    alt="Comment Icon"
+                  />
+                </button>
               </div>
             </div>
-            <div className="flex flex-none items-center">
-              <p className="pr-1 text-xl font-medium">{data?.numOfHearts}</p>
-              <button
-                onClick={heartHandler}
-                className="flex items-center justify-center">
-                <label
-                  className={clsx(
-                    "swap swap-flip",
-                    isHearted() && "swap-active"
-                  )}>
-                  {/* {session && <input type="checkbox" />} */}
-                  <Image
-                    className={clsx("swap-off mr-2 inline")}
-                    width={22}
-                    height={22}
-                    src={outlineHeartIcon}
-                    alt="Heart"
-                  />
-                  <Image
-                    className={clsx("swap-on mr-2 inline")}
-                    width={22}
-                    height={22}
-                    src={redHeartIcon}
-                    alt="Filled Heart"
-                  />
-                </label>
-              </button>
-              <p className="pr-1 text-xl font-medium">
-                {data?.comments.length}
-              </p>
-              <button className="mr-1 inline" onClick={clickHandler}>
-                <Image
-                  // className="mr-1 inline"
-                  width={20}
-                  height={20}
-                  src={CommentIcon}
-                  alt="Comment Icon"
-                />
-              </button>
-            </div>
           </div>
-        </div>
-      </Tilt>
-    </>
+        </Tilt>
+      </>
+    )
   );
 }

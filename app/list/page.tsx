@@ -4,9 +4,9 @@ import AuthButtonHeader from "../../components/AuthButtonHeader";
 import backArrow from "../../public/rounded-square-left-direction-svgrepo-com.svg";
 import Image from "next/image";
 import Link from "next/link";
+import Navigation from "../../components/Navigation";
 
-
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 async function fetchData() {
   const listOfPosts = await prisma.post.findMany({
@@ -29,8 +29,8 @@ async function fetchData() {
             include: {
               specificYear: true,
               period: true,
-            }
-          }
+            },
+          },
         },
       },
     },
@@ -48,12 +48,16 @@ export default async function Page() {
   const { listOfPosts } = await fetchData();
   return (
     <>
-      <Link href="/" className="absolute top-6 left-8">
-        <Image height="48" width="48" alt="back-arrow" src={backArrow}/>
-      </Link>
-      <div className="absolute top-6 right-8"><AuthButtonHeader/>
+      {/* <Link href="/" className="absolute left-8 top-6">
+        <Image height="48" width="48" alt="back-arrow" src={backArrow} />
+      </Link> */}
+      <Navigation/>
+      <div className="absolute right-8 top-6">
+        <AuthButtonHeader />
       </div>
-      <ListPageContent listOfPosts={listOfPosts} data-superjson/>
+      <div className="mx-auto w-full max-w-6xl px-4">
+      <ListPageContent listOfPosts={listOfPosts} data-superjson />
+      </div>
     </>
   );
 }

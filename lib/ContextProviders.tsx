@@ -51,7 +51,7 @@ export default function ContextProviders({
     isBrowser ? (
       <>
         <SSRProvider>
-          <NextUIProvider>
+          <NextUIProvider theme={theme}>
             <SessionProvider>{children} </SessionProvider>
           </NextUIProvider>
         </SSRProvider>

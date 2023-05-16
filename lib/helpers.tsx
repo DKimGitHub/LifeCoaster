@@ -26,7 +26,21 @@ export function timeSince(date: Date) {
   }
   return Math.floor(seconds) + " seconds ago";
 }
-
+export function randomName(id: string) {
+  let hash = 0,
+    i,
+    chr;
+  if (id.length === 0) return hash;
+  for (i = 0; i < id.length; i++) {
+    chr = id.charCodeAt(i);
+    hash = (hash << 5) - hash + chr;
+    hash |= 0;
+  }
+  let ranNum = Math.abs(hash%28);
+  let names = ["Jimmy", "John", "Michael", "David", "Will", "Joseph", "Tommy", "Chris", "Daniel", "Matt", "Tony", "Paul", "Ahmed", "Ali", "Brian", "Eric", "Scott", "Rachel", "Sarah", "Laura", "Liam", "Olivia", "Emma", "Ben", "Alex", "Noah", "Saad", "David"];
+  console.log("ranum " + ranNum);
+  return names[ranNum];
+}
 export function eventsToNodes(events: any) {
   const temp = createGraphNodes(events);
   const nodes = temp
