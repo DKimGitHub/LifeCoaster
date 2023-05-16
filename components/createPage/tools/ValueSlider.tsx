@@ -14,14 +14,6 @@ export default function ValueSlider({
 
   const marks = [
     {
-      value: -5,
-      label: -5,
-    },
-    { value: -4 },
-    { value: -3 },
-    { value: -2 },
-    { value: -1 },
-    {
       value: 0,
       label: 0,
     },
@@ -33,14 +25,22 @@ export default function ValueSlider({
       value: 5,
       label: 5,
     },
+    { value: 6 },
+    { value: 7 },
+    { value: 8 },
+    { value: 9 },
+    {
+      value: 10,
+      label: 10,
+    },
   ];
   return (
     <Slider
       defaultValue={defaultValue}
       step={1}
       marks={marks}
-      min={-5}
-      max={5}
+      min={0}
+      max={10}
       valueLabelDisplay="on"
       onChange={(_, value) => onChange (value)}
       sx={{

@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import "../styles/navigation.css";
 
@@ -24,14 +25,15 @@ export default function NavigTion() {
           isNavVisible ? "" : "hidden"
         }`}>
         <ul className="nav-list">
-          <li className="nav-item">
-            <a href="/create" className="item-anchor">
-              Create
-            </a>
-          </li>
+
           <li className="nav-item">
             <a href="/" className="item-anchor">
               Home
+            </a>
+          </li>
+          <li className="nav-item">
+            <a href="/create" className="item-anchor">
+              Create
             </a>
           </li>
           <li className="nav-item">

@@ -36,33 +36,35 @@ export default function Home() {
               return (
                 <>
                   <Link
-                    className="fade-list-item h-full w-full animation-delay-1000"
+                    className="fade-list-item h-full w-full animation-delay-100"
                     href="/create">
                     <Button
                       auto
                       css={{
+                        backgroundColor: "beige",
                         height: "100%",
                         width: "100%",
-                        color: "black",
+                        color: "darkgreen",
                         fontSize: "1.5rem",
-                        fontFamily: "courier",
-                        "@sm": { fontSize: "4rem" },
+                        fontFamily: "Helvetica ",
+                        "@sm": { fontSize: "3.5rem" },
                       }}>
                       CREATE
                     </Button>
                   </Link>
                   <Link
-                    className="fade-list-item h-full w-full  animation-delay-1500"
+                    className="fade-list-item h-full w-full  animation-delay-600"
                     href="/list">
                     <Button
                       auto
                       css={{
+                        backgroundColor: "beige",
                         height: "100%",
                         width: "100%",
-                        color: "black",
+                        color: "darkgreen",
                         fontSize: "1.5rem",
-                        fontFamily: "courier",
-                        "@sm": { fontSize: "4rem" },
+                        fontFamily: "Helvetica",
+                        "@sm": { fontSize: "3.5rem" },
                       }}>
                       LIST
                     </Button>
@@ -73,14 +75,15 @@ export default function Home() {
                     //@ts-expect-error
                     htmlFor="my-modal-4"
                     auto
-                    className="fade-list-item animation-delay-2000"
+                    className="fade-list-item animation-delay-1100"
                     css={{
+                      backgroundColor: "beige",
                       height: "100%",
                       width: "100%",
-                      color: "black",
+                      color: "darkgreen",
                       fontSize: "1.5rem",
-                      fontFamily: "courier",
-                      "@sm": { fontSize: "4rem" },
+                      fontFamily: "Helvetica",
+                      "@sm": { fontSize: "3.5rem" },
                     }}>
                     LOGIN
                   </Button>

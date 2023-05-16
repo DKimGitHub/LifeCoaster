@@ -5,7 +5,7 @@ import Image from "next/image";
 import CommentTextArea from "./CommentTextArea";
 import PostPageGraph from "./PostPageGraph";
 import { PostDataType } from "../../lib/types";
-import { eventsToNodes, timeSince } from "../../lib/helpers";
+import { eventsToNodes, randomName, timeSince } from "../../lib/helpers";
 
 export default function PostPage({ postData } : { postData: PostDataType }) {
   return ( postData ? 
@@ -19,10 +19,10 @@ export default function PostPage({ postData } : { postData: PostDataType }) {
               <Image
                 height={46}
                 width={46}
-                src="https://api.dicebear.com/5.x/fun-emoji/svg?seed=Ryan&radius=10"
+                src={`https://api.dicebear.com/5.x/fun-emoji/svg?seed=${randomName(postData.id)}&radius=10`}
                 alt="avatar"
               />{" "}
-              <p className="px-3 text-lg font-semibold leading-6">Gerald</p>
+              <p className="px-3 text-lg font-semibold leading-6">{randomName(postData.id)}</p>
               <p></p>
             </div>
             <div className="flex flex-none justify-center pr-2">
