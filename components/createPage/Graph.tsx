@@ -77,7 +77,7 @@ export default function Graph({ events }: { events: eventType }) {
     datasets: [
       {
         data: nodes ? nodes.sort(function (a, b) {
-          return a.xValue - b.xValue;
+          return a.x - b.x;
         }) : [],
         borderColor: "rgb(255, 99, 132)",
         backgroundColor: "rgba(255, 99, 132, 0.5)",
