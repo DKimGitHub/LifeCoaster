@@ -13,6 +13,7 @@ import { clsx } from "clsx";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { PostDataType } from "../../lib/types";
+import { timeSince } from "../../lib/helpers";
 
 export default function ListPageCard({
   data,
@@ -25,6 +26,7 @@ export default function ListPageCard({
   setIsModalOpen: Dispatch<SetStateAction<boolean>>;
   setModalPostData: Dispatch<SetStateAction<PostDataType>>;
 }) {
+  console.log(data);
   const { data: session, status } = useSession();
   const colorTheme = "light";
   const router = useRouter();
@@ -80,6 +82,7 @@ export default function ListPageCard({
   }
 
   return (
+    data && 
     <>
       <Tilt perspective={2000} tiltMaxAngleX={10} tiltMaxAngleY={10}>
         <div
@@ -101,8 +104,8 @@ export default function ListPageCard({
                 />
               </button>
               <div className="flex flex-col pl-2">
-                  <button onClick={clickHandler} className="text-lg font-semibold leading-6 text-left">Johnyg</button>
-                <p className="text-gray-500">4 days ago</p>
+                  <button onClick={clickHandler} className="text-lg font-semibold leading-6 text-left">Gerald</button>
+                <p className="text-gray-500">{(typeof data.createdAt === "string") ? timeSince(new Date(data.createdAt)) : timeSince(data.createdAt) }</p>
               </div>
             </div>
             <div className="flex flex-none items-center">

@@ -41,7 +41,7 @@ export default function PostPageGraph({
           transform: "translateX(-50%)",
           top: "0.5rem",
         }}>
-          zoomies~
+          Ride~
         </Button>
         }
         <Image

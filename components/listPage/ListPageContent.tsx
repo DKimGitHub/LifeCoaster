@@ -51,6 +51,7 @@ export default function ListPageContent({
     setPosts(newPosts);
     setHasMore(true);
   };
+  
   const cardCallback = (post: any) => {
     setPosts((prevPosts: any) =>
       prevPosts.map((p: any) =>

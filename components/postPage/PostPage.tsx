@@ -23,11 +23,11 @@ export default function PostPage({ postData } : { postData: PostDataType }) {
                 src="https://api.dicebear.com/5.x/fun-emoji/svg?seed=Ryan&radius=10"
                 alt="avatar"
               />{" "}
-              <p className="px-3 text-lg font-semibold leading-6">Johny g</p>
+              <p className="px-3 text-lg font-semibold leading-6">Gerald</p>
               <p></p>
             </div>
-            <div className="flex flex-none justify-center">
-              <p className="pr-1 text-2xl">10</p>
+            <div className="flex flex-none justify-center pr-2">
+              <p className="pr-1 text-2xl">{postData.numOfHearts}</p>
               <label className="swap swap-flip">
                 <input type="checkbox" />
                 <Image
@@ -55,7 +55,7 @@ export default function PostPage({ postData } : { postData: PostDataType }) {
             </div>
           ) : (
             <div className="commentContainer flex flex-1 flex-col-reverse overflow-auto border-t border-b">
-              {postData?.comments. map((comment, index) => (
+              {postData?.comments.map((comment, index) => (
                 
                 <div key={index} className="flex w-full py-[0.6rem] px-3">
                   <Image
@@ -64,12 +64,12 @@ export default function PostPage({ postData } : { postData: PostDataType }) {
                     src={`https://api.dicebear.com/5.x/fun-emoji/svg?seed=${comment.user?.email}&radius=50`}
                     alt="avatar"
                   />
-                  <div className="flex h-max flex-col justify-start pl-4">
+                  <div className="flex h-max flex-col justify-start pl-3">
                     <div className="flex items-center">
                       <div className="pr-2 font-bold">ryan kim</div>{" "}
                       <div className="text-sm">{timeSince(comment.createdAt)}</div>
                     </div>
-                    <div className="w-full">{comment.text}</div>
+                    <div className="w-full text-left">{comment.text}</div>
                   </div>
                 </div>
               ))}
