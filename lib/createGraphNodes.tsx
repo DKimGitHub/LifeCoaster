@@ -3,6 +3,8 @@ import { eventType } from "./types";
 export function createGraphNodes(events: any) {
   var periodNodes: { x: number; y: number }[] = [];
   var yearNodes: { x: number; y: number }[] = [];
+  //temp fix
+  //@ts-expect-error
   events.sort((a,b) => a.createdAt - b.createdAt);
   for (let i = 0; i < events.length; i++) {
     if (events[i].type === "period") {
