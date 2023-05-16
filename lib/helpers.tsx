@@ -38,7 +38,6 @@ export function randomName(id: string) {
   }
   let ranNum = Math.abs(hash%28);
   let names = ["Jimmy", "John", "Michael", "David", "Will", "Joseph", "Tommy", "Chris", "Daniel", "Matt", "Tony", "Paul", "Ahmed", "Ali", "Brian", "Eric", "Scott", "Rachel", "Sarah", "Laura", "Liam", "Olivia", "Emma", "Ben", "Alex", "Noah", "Saad", "David"];
-  console.log("ranum " + ranNum);
   return names[ranNum];
 }
 export function eventsToNodes(events: any) {

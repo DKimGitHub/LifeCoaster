@@ -9,6 +9,24 @@ import Navigation from "../../components/Navigation";
 export const dynamic = "force-dynamic";
 
 async function fetchData() {
+
+  // const deletea = await prisma.post.deleteMany({
+  //   include:{
+  //     graph: {
+  //       include: {
+  //         event: true,
+  //       }
+  //     }
+  //   },
+  //   where: {
+  //     graph: {
+  //       event: {
+  //        isEmpty: true, 
+  //       }
+  //     }
+  //   }
+  // });
+
   const listOfPosts = await prisma.post.findMany({
     take: 6,
     // where: {

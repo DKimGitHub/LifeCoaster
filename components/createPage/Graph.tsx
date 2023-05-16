@@ -58,8 +58,8 @@ export default function Graph({ events }: { events: eventType }) {
         grid: {
           display: false,
         },
-        min: -6,
-        max: 6,
+        min: -1,
+        max: 11,
         ticks: {
           autoSkip: false,
           stepSize: 1,
