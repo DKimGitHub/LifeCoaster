@@ -1,9 +1,8 @@
 "use client";
 
 import { ResponsiveLine } from "@nivo/line";
-import { Node } from "@prisma/client";
 
-export default function ListPageGraph({ data }: { data: Node[] | undefined }) {
+export default function ListPageGraph({ data }: { data: any[] | null }) {
   const nivoGraphData = data ? [{ id: 1, data: data }] : [{ id: 1, data: [] }];
 
   return (

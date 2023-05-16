@@ -4,7 +4,6 @@ import { Dropdown, Avatar, Text, Button } from "@nextui-org/react";
 
 export default function AuthButtonHeader() {
   const { data: session } = useSession();
-  console.log(session?.user?.email);
   return session ? (
     <Dropdown placement="bottom-right">
       <Dropdown.Trigger>

@@ -13,7 +13,7 @@ import { clsx } from "clsx";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { PostDataType } from "../../lib/types";
-import { timeSince } from "../../lib/helpers";
+import { eventsToNodes, timeSince } from "../../lib/helpers";
 
 export default function ListPageCard({
   data,
@@ -26,7 +26,6 @@ export default function ListPageCard({
   setIsModalOpen: Dispatch<SetStateAction<boolean>>;
   setModalPostData: Dispatch<SetStateAction<PostDataType>>;
 }) {
-  console.log(data);
   const { data: session, status } = useSession();
   const colorTheme = "light";
   const router = useRouter();
@@ -89,7 +88,7 @@ export default function ListPageCard({
           data-theme={colorTheme}
           className=" card card-compact rounded-md bg-base-100  shadow-xl">
           <button onClick={clickHandler} className={` relative h-56 w-full`}>
-            <ListPageGraph data={data?.graph?.nodes} />
+            <ListPageGraph data={eventsToNodes(data?.graph?.event)} />
           </button>
 
           <div className="flex items-center justify-between p-2">

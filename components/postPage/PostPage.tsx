@@ -5,14 +5,13 @@ import Image from "next/image";
 import CommentTextArea from "./CommentTextArea";
 import PostPageGraph from "./PostPageGraph";
 import { PostDataType } from "../../lib/types";
-import { timeSince } from "../../lib/helpers";
+import { eventsToNodes, timeSince } from "../../lib/helpers";
 
 export default function PostPage({ postData } : { postData: PostDataType }) {
-  console.log(postData);
   return ( postData ? 
     <>
       <div className="flex flex-col md:flex-row">
-        <PostPageGraph data={postData?.graph?.nodes} />
+        <PostPageGraph data={eventsToNodes(postData?.graph?.event)} />
         <div className="flex h-[calc(100vh-20rem)]  w-full flex-col justify-between overflow-y-auto md:h-[80vh] md:w-1/3">
           <div className="flex items-center justify-between p-2">
             {" "}

@@ -82,8 +82,8 @@ export default function Graph({ events }: { events: eventType }) {
         borderColor: "rgb(255, 99, 132)",
         backgroundColor: "rgba(255, 99, 132, 0.5)",
         parsing: {
-          xAxisKey: "xValue",
-          yAxisKey: "yValue",
+          xAxisKey: "x",
+          yAxisKey: "y",
         },
       },
     ],

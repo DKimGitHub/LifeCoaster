@@ -11,7 +11,7 @@ import { Button, css } from "@nextui-org/react";
 export default function PostPageGraph({
   data,
 }: {
-  data: Node[] | undefined;
+  data: any[] |null;
 }) {
   const cartRef = useRef(null);
   const [isCartAnimating, setIsCartAnimating] = useState(false);
