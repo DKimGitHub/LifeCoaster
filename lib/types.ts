@@ -25,7 +25,7 @@ export type PostDataType = Post & {
 
 export type eventType = {
   nextYear: number;
-  type: "period" | "specificYear" | null;
+  type: "period" | "specificYear" | "year" | null;
   period: {
     value: number;
     description: string;
