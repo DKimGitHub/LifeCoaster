@@ -1,3 +1,5 @@
+import { createGraphNodes } from "./createGraphNodes";
+
 export function timeSince(date : Date) {
 
     var seconds = Math.floor((new Date().valueOf() - date.valueOf()) / 1000);
@@ -24,4 +26,9 @@ export function timeSince(date : Date) {
       return Math.floor(interval) + " minutes ago";
     }
     return Math.floor(seconds) + " seconds ago";
+  }
+
+  export function eventsToNodes(events : any) {
+    const temp = createGraphNodes(events);
+    return temp? temp.periodNodes.concat(temp.yearNodes) : null;
   }

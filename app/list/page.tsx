@@ -20,7 +20,12 @@ async function fetchData() {
       },
       graph: {
         include: {
-          nodes: true,
+          event: {
+            include: {
+              specificYear: true,
+              period: true,
+            }
+          }
         },
       },
     },

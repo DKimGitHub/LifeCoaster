@@ -1,4 +1,4 @@
-import { Post, Comment, Graph, Node, User } from "@prisma/client";
+import { Post, Comment, Graph, Node, User, Event, SpecificYear, Period } from "@prisma/client";
 
 export type PageProps = {
   params?: any;
@@ -15,11 +15,12 @@ export type FormState = {
 
 export type PostDataType = Post & {
   comments: (Comment & {user:User | null})[];
-  graph:
-    | (Graph & {
-        nodes: Node[];
-      })
-    | null;
+  graph: (Graph & {
+    event: (Event & {
+        specificYear: SpecificYear[];
+        period: Period | null;
+    })[];
+}) | null;
 } | null;
 
 export type eventType = {
