@@ -29,12 +29,10 @@ export function timeSince(date: Date) {
 
 export function eventsToNodes(events: any) {
   const temp = createGraphNodes(events);
-  console.log(temp)
   const nodes = temp
     ? temp.periodNodes
         .concat(temp.yearNodes)
         .sort((a, b) => a.x- b.x)
-    : null;
-    console.log(nodes);
+    : [];
     return nodes;
 }

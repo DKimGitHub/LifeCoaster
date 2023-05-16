@@ -2,7 +2,7 @@
 
 import { ResponsiveLine } from "@nivo/line";
 
-export default function ListPageGraph({ data }: { data: any[] | null }) {
+export default function ListPageGraph({ data }: { data: any[] }) {
   const nivoGraphData = data ? [{ id: 1, data: data }] : [{ id: 1, data: [] }];
 
   return (

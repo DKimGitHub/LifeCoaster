@@ -17,7 +17,12 @@ async function getData(postId: string) {
       },
       graph: {
         include: {
-          nodes: true,
+          event: {
+            include: {
+              specificYear: true,
+              period: true,
+            }
+          }
         },
       },
     },

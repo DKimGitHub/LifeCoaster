@@ -11,7 +11,7 @@ import { Button, css } from "@nextui-org/react";
 export default function PostPageGraph({
   data,
 }: {
-  data: any[] |null;
+  data: any[];
 }) {
   const cartRef = useRef(null);
   const [isCartAnimating, setIsCartAnimating] = useState(false);
@@ -30,6 +30,7 @@ export default function PostPageGraph({
     setTimeout(()=>setIsCartAnimating(false), 5000);
   };
 
+  const domain =data[data.length-1].x - data[0].x + 1;
   return (
     <>
       <div className={`py-auto relative h-[14rem] w-full md:h-[80vh] md:w-2/3`}>
@@ -72,7 +73,7 @@ export default function PostPageGraph({
             min: 0,
             max: 10,
           }}
-          axisBottom={{ tickSize: 0, tickPadding: 8 }}
+          axisBottom={{ tickSize: 0, tickPadding: 8, tickValues: domain}}
           axisLeft={{ tickSize: 0, tickPadding: 8 }}
           pointSize={8}
           pointColor={"white"}

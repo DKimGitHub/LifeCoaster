@@ -18,7 +18,12 @@ export default async function handler(
           comments: true,
           graph: {
             include: {
-              nodes: true,
+              event: {
+                include: {
+                  specificYear: true,
+                  period: true,
+                }
+              }
             },
           },
         },
