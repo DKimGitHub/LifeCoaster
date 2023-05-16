@@ -61,6 +61,7 @@ export default function QuestionsMain({
             setEvents,
             reset,
             specificYearId,
+            eventId,
           }}
         />
       );
@@ -77,6 +78,7 @@ export default function QuestionsMain({
             graphId,
             setEventId,
             setSpecificYearId,
+            eventId,
           }}
         />
       );

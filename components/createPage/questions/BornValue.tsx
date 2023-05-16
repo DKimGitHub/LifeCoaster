@@ -20,7 +20,7 @@ export default function BornValue({
   setModalPageNum: React.Dispatch<React.SetStateAction<number>>;
   setEvents: React.Dispatch<React.SetStateAction<eventType>>;
   reset: () => void;
-  specificYearId: React.Dispatch<React.SetStateAction<String>>;
+  specificYearId: String;
   eventId: String;
 }) {
   const {
