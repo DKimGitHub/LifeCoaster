@@ -1,24 +1,11 @@
-<!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
-<a name="readme-top"></a>
-<!--
-*** Thanks for checking out the Best-README-Template. If you have a suggestion
-*** that would make this better, please fork the repo and create a pull request
-*** or simply open an issue with the tag "enhancement".
-*** Don't forget to give the project a star!
-*** Thanks again! Now go create something AMAZING! :D
--->
 
-
-
-
-<!-- PROJECT LOGO -->
 <br />
 <div align="center">
   <a href="https://lifecoaster.vercel.app">
-    <img src="public/favico.png" alt="Logo" width="80" height="80">
+    <img src="public/small-logo.png" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">LifeCoaster</h3>
+<h1 align="center">LifeCoaster</h1>
 
   <p align="center">
     Visualize the ups and downs of your life with LifeCoaster!
