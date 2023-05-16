@@ -6,6 +6,7 @@ export type PageProps = {
 export type dataType = {
   [key: string]: any;
 };
+
 export type eventType = {
   nextYear: number;
   type: "period" | "specificYear" | null;

@@ -9,6 +9,7 @@ import nodes from "../../lib/importDataCreateNode";
 
 import { eventType, nodeType } from "../../lib/types";
 import styles from "../../styles/createPage/create.module.css";
+import Navigation from "../../components/Navigation";
 
 export default function Page() {
   const [postId, setPostId] = useState<String>("");
@@ -31,8 +32,8 @@ export default function Page() {
   */
 
   useEffect(() => {
-    postId? nodes(postId) : null;
-  })
+    postId ? nodes(postId) : null;
+  });
 
   //Initialization when the Create page mounts
   useEffect(() => {
@@ -101,6 +102,7 @@ export default function Page() {
 
   return (
     <div className={styles.container}>
+      <Navigation />
       <ModalsMain
         {...{
           modalPageNum,

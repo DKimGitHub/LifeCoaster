@@ -19,18 +19,9 @@ export default function RootLayout({
       <body>
         <ContextProviders>
           <div>
-            <main
-              style={{
-                minHeight: "100vh",
-                width: "100vw",
-                maxWidth: "100%",
-                overflowX: 'hidden',
-              }}>
-              <Navigation />
-              <div style={{ height: "1000px" }}>
-                {children}
-                {/* footer */}
-              </div>
+            <main className="min-h-screen w-screen max-w-full overflow-x-hidden">
+              {children}
+              {/* footer */}
             </main>
           </div>
           <AuthModal />

@@ -1,0 +1,57 @@
+@import url("https://fonts.googleapis.com/css2?family=Kalam&display=swap");
+
+.button {
+  font-family: "Kalam", cursive;
+  font-size: 3.5rem;
+  cursor: pointer;
+  padding: 0.3em 0.6em;
+  font-weight: bold;
+  border: none;
+  border-radius: 3rem;
+  color: #ff0000;
+  animation-name: animateButton;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  transition: font-size 0.1s;
+}
+
+.button:hover {
+  animation: none;
+  font-size: 4.5rem;  
+}
+
+.button:active{
+  font-size: 4.3rem;
+  color: #ffea00;
+}
+
+.buttonClicked {
+  animation-name: fadeOutButton;
+  animation-duration: 0.8s;
+  font-family: "Kalam", cursive;
+  font-size: 4.3rem;
+  cursor: pointer;
+  padding: 0.3em 0.6em;
+  font-weight: bold;
+  border: none;
+  border-radius: 3rem;
+  color: #ffea00;
+}
+
+@keyframes animateButton {
+  0% {
+     font-size: 3.5rem
+  }
+  30%{
+    font-size: 4rem
+  }
+  60%{
+    font-size: 3.5rem
+  }
+}
+
+@keyframes fadeOutButton {
+  100% {
+    color: #ffea0000
+  }
+}
