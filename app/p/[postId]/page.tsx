@@ -4,7 +4,6 @@ import PostPage from "../../../components/postPage/PostPage";
 import prisma from "../../../lib/prisma";
 
 async function getData(postid: string) {
-  if (!postid) return {postData: null};
   const postData = await prisma.post.findUnique({
     where: {
       id: postid,
