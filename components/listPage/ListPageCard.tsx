@@ -50,6 +50,7 @@ export default function ListPageCard({
   function heartHandler() {
     if (!session) {
       toast.info("Login to heart posts!", {
+        containerId: "L",
         position: "top-center",
         autoClose: 2000,
         hideProgressBar: false,

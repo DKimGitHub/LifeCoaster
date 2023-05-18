@@ -7,7 +7,7 @@ import PostPageGraph from "./PostPageGraph";
 import { PostDataType } from "../../lib/types";
 import { eventsToNodes, randomName, timeSince } from "../../lib/helpers";
 import { useSession } from "next-auth/react";
-import { toast } from "react-toastify";
+import { Flip, toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import clsx from "clsx";
 
@@ -23,6 +23,7 @@ export default function PostPage({ postData } : { postData: PostDataType }) {
   function heartHandler() {
     if (!session) {
       toast.info("Login to heart posts!", {
+        containerId: "P",
         position: "top-center",
         autoClose: 2000,
         hideProgressBar: false,
@@ -52,6 +53,22 @@ export default function PostPage({ postData } : { postData: PostDataType }) {
 
   return ( postData ? 
     <>
+     <ToastContainer
+     enableMultiContainer 
+     containerId={'P'} 
+        position="top-center"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        transition={Flip}
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+
       <div className="flex flex-col md:flex-row">
         <PostPageGraph data={eventsToNodes(postData?.graph?.event)} />
         <div className="flex h-[calc(100vh-20rem)]  w-full flex-col justify-between overflow-y-auto md:h-[80vh] md:w-1/3">
@@ -113,7 +130,7 @@ export default function PostPage({ postData } : { postData: PostDataType }) {
                   />
                   <div className="flex h-max flex-col justify-start pl-3">
                     <div className="flex items-center">
-                      <div className="pr-2 font-bold">{session?.user?.name}</div>{" "}
+                      <div className="pr-2 font-bold">{comment.user?.name}</div>{" "}
                       <div className="text-sm">{timeSince(comment.createdAt)}</div>
                     </div>
                     <div className="w-full text-left">{comment.text}</div>

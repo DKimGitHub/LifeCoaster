@@ -10,6 +10,7 @@ import nodes from "../../lib/importDataCreateNode";
 import { eventType, nodeType } from "../../lib/types";
 import styles from "../../styles/createPage/create.module.css";
 import Navigation from "../../components/Navigation";
+import AuthButtonHeader from "../../components/AuthButtonHeader";
 
 export default function Page() {
   const [postId, setPostId] = useState<String>("");
@@ -103,6 +104,9 @@ export default function Page() {
   return (
     <div className={styles.container}>
       <Navigation />
+      <div className="absolute right-8 top-6">
+        <AuthButtonHeader />
+      </div>
       <ModalsMain
         {...{
           modalPageNum,

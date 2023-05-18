@@ -69,6 +69,8 @@ export default function ListPageContent({
   return (
     <>
       <ToastContainer
+           enableMultiContainer 
+           containerId={'L'} 
         position="top-center"
         autoClose={2000}
         hideProgressBar={false}

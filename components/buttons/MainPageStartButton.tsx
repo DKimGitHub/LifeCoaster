@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useEffect } from "react";
 import styles from "../../styles/mainPageStartButton.module.css";
 
@@ -9,8 +11,6 @@ export default function MainPageStartButton(props: any) {
     onClickFunction();
     setIsButtonClicked(true);
   }
-
-  useEffect(() => {console.log(isButtonClicked)});
 
   var buttonClassName = !isButtonClicked ? styles.button : styles.buttonClicked;
 
