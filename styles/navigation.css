@@ -36,14 +36,14 @@
 }
 
 .btn-nav {
-  position: fixed;
+  position: absolute;
   top: 30px;
   left: 30px;
   background: transparent;
   border: none;
   padding: 10px;
   cursor: pointer;
-  z-index: 99999;
+  z-index: 800;
 }
 
 .btn-nav:focus {

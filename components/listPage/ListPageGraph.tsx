@@ -9,7 +9,7 @@ export default function ListPageGraph({ data }: { data: any[] }) {
     <ResponsiveLine
       margin={{ top: 8, right: 8, bottom: 8, left: 8 }}
       data={nivoGraphData}
-      curve={"cardinal"}
+      curve={"monotoneX"}
       enableGridX={false}
       enableGridY={false}
       animate={true}

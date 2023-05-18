@@ -68,7 +68,7 @@ export default function PostPageGraph({
         <ResponsiveLine
           margin={{ top: 25, right: 25, bottom: 25, left: 25 }}
           data={nivoGraphData}
-          curve={"cardinal"}
+          curve={"monotoneX"}
           enableGridX={false}
           enableGridY={false}
           animate={true}
