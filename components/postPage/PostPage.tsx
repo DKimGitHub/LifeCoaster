@@ -112,8 +112,8 @@ export default function PostPage({ postData } : { postData: PostDataType }) {
             </div>
           </div>
           {postData?.comments.length === 0 ? (
-            <div className="flex h-full flex-col">
-              <p className="flex justify-center pt-5 text-gray-400">
+            <div className="flex h-full flex-col justify-end">
+              <p className="flex justify-center pb-4 text-gray-400">
                 Be the first to leave a comment!
               </p>
             </div>

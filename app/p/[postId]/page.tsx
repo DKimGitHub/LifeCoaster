@@ -42,7 +42,7 @@ export default async function Page({ params }: { params: { postId: string } }) {
         <AuthButtonHeader />
       </div>
     <div className="mx-auto w-full max-w-6xl px-4">
-      <div className="p-6" />
+      <div className="p-10" />
       <PostPage postData={postData} data-superjson />
     </div>
     </>
