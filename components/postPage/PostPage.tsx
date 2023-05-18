@@ -10,10 +10,13 @@ import { useSession } from "next-auth/react";
 import { Flip, toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import clsx from "clsx";
+import { revalidatePath } from "next/cache";
+import { useRouter } from 'next/navigation';
 
-export default function PostPage({ postData } : { postData: PostDataType }) {
+export default function PostPage({ postData }: { postData: PostDataType }) {
   const { data: session, status } = useSession();
-  
+  const router = useRouter();
+
   function isHearted() {
     if (!session) return false;
     return postData?.usersWhoHearted.includes(session?.user?.email as string)
@@ -49,13 +52,14 @@ export default function PostPage({ postData } : { postData: PostDataType }) {
     fetch("/api/heart", options)
       .then((response) => response.json())
       .catch((error) => console.log(error));
-  }
+      router.refresh();
+    }
 
-  return ( postData ? 
+  return postData ? (
     <>
-     <ToastContainer
-     enableMultiContainer 
-     containerId={'P'} 
+      <ToastContainer
+        enableMultiContainer
+        containerId={"P"}
         position="top-center"
         autoClose={2000}
         hideProgressBar={false}
@@ -78,36 +82,41 @@ export default function PostPage({ postData } : { postData: PostDataType }) {
               <Image
                 height={46}
                 width={46}
-                src={`https://api.dicebear.com/5.x/fun-emoji/svg?seed=${randomName(postData.id)}&radius=10`}
+                src={`https://api.dicebear.com/5.x/fun-emoji/svg?seed=${randomName(
+                  postData.id
+                )}&radius=10`}
                 alt="avatar"
               />{" "}
-              <p className="px-3 text-lg font-semibold leading-6">{randomName(postData.id)}</p>
+              <p className="px-3 text-lg font-semibold leading-6">
+                {randomName(postData.id)}
+              </p>
               <p></p>
             </div>
             <div className="flex flex-none justify-center pr-2">
               <p className="pr-1 text-2xl">{postData.numOfHearts}</p>
-              <button onClick={heartHandler}
-                  className="flex items-center justify-center">
-                  <label
-                    className={clsx(
-                      "swap swap-flip",
-                      isHearted() && "swap-active"
-                    )}>                
-                <Image
-                  className="swap-off"
-                  width={24}
-                  height={24}
-                  src={outlineHeartIcon}
-                  alt="Heart"
-                />
-                <Image
-                  className="swap-on"
-                  width={24}
-                  height={24}
-                  src={redHeartIcon}
-                  alt="Filled Heart"
-                />
-              </label>
+              <button
+                onClick={heartHandler}
+                className="flex items-center justify-center">
+                <label
+                  className={clsx(
+                    "swap swap-flip",
+                    isHearted() && "swap-active"
+                  )}>
+                  <Image
+                    className="swap-off inline"
+                    width={24}
+                    height={24}
+                    src={outlineHeartIcon}
+                    alt="Heart"
+                  />
+                  <Image
+                    className="swap-on inline"
+                    width={24}
+                    height={24}
+                    src={redHeartIcon}
+                    alt="Filled Heart"
+                  />
+                </label>
               </button>
             </div>
           </div>
@@ -118,10 +127,9 @@ export default function PostPage({ postData } : { postData: PostDataType }) {
               </p>
             </div>
           ) : (
-            <div className="commentContainer flex flex-1 flex-col-reverse overflow-auto border-t border-b">
+            <div className="commentContainer flex flex-1 flex-col-reverse overflow-auto border-b border-t">
               {postData?.comments.map((comment, index) => (
-                
-                <div key={index} className="flex w-full py-[0.6rem] px-3">
+                <div key={index} className="flex w-full px-3 py-[0.6rem]">
                   <Image
                     height={38}
                     width={38}
@@ -131,7 +139,12 @@ export default function PostPage({ postData } : { postData: PostDataType }) {
                   <div className="flex h-max flex-col justify-start pl-3">
                     <div className="flex items-center">
                       <div className="pr-2 font-bold">{comment.user?.name}</div>{" "}
-                      <div className="text-sm">{timeSince(comment.createdAt)}</div>
+                      <div className="text-sm">
+                        {" "}
+                        {typeof comment.createdAt === "string"
+                          ? timeSince(new Date(comment.createdAt))
+                          : timeSince(comment.createdAt)}
+                      </div>
                     </div>
                     <div className="w-full text-left">{comment.text}</div>
                   </div>
@@ -139,10 +152,13 @@ export default function PostPage({ postData } : { postData: PostDataType }) {
               ))}
             </div>
           )}
-          <CommentTextArea postId={postData.id as string}/>
+          <CommentTextArea postId={postData.id as string} />
         </div>
       </div>
     </>
-    : <div><p>empty like our mind</p></div>
+  ) : (
+    <div>
+      <p>empty like our mind</p>
+    </div>
   );
 }
