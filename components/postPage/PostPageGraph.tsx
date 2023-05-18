@@ -30,7 +30,15 @@ export default function PostPageGraph({
     setTimeout(()=>setIsCartAnimating(false), 5000);
   };
 
-  const domain =data[data.length-1].x - data[0].x + 1;
+  function getDomain() {
+    let i = 0;
+    let domain;
+    while (data && data[i] && !data[i].x) {
+      i++;
+      domain =data[data.length-1].x - data[i].x + 1;
+    }
+    return domain;
+  }
   return (
     <>
       <div className={`py-auto relative h-[14rem] w-full md:h-[80vh] md:w-2/3`}>
@@ -73,7 +81,7 @@ export default function PostPageGraph({
             min: 0,
             max: 10,
           }}
-          axisBottom={{ tickSize: 0, tickPadding: 8, tickValues: domain}}
+          axisBottom={{ tickSize: 0, tickPadding: 8, tickValues: getDomain()}}
           axisLeft={{ tickSize: 0, tickPadding: 8 }}
           pointSize={8}
           pointColor={"white"}

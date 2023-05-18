@@ -47,7 +47,7 @@ model Post {
 model Graph {
   id     String  @id @default(cuid())
   postId String? @unique
-  post   Post?   @relation(fields: [postId], references: [id])
+  post   Post?   @relation(fields: [postId], references: [id], onDelete: Cascade)
   nodes  Node[]
   event  Event[]
 
@@ -63,7 +63,7 @@ model Event {
   type         String?
   period       Period?
   specificYear SpecificYear[]
-  graph        Graph?         @relation(fields: [graphId], references: [id])
+  graph        Graph?         @relation(fields: [graphId], references: [id], onDelete: Cascade)
   graphId      String
   
   createdAt DateTime @default(now()) @map(name: "created_at")
@@ -75,7 +75,7 @@ model Period {
   id          String  @id @default(cuid())
   value       Int?
   description String?
-  event       Event?  @relation(fields: [eventId], references: [id])
+  event       Event?  @relation(fields: [eventId], references: [id], onDelete: Cascade)
   eventId     String  @unique
 
   createdAt DateTime @default(now()) @map(name: "created_at")
@@ -88,7 +88,7 @@ model SpecificYear {
   year        Int?
   value       Int?
   description String?
-  event       Event   @relation(fields: [eventId], references: [id])
+  event       Event   @relation(fields: [eventId], references: [id], onDelete: Cascade) 
   eventId     String
 
   createdAt DateTime @default(now()) @map(name: "created_at")
@@ -113,7 +113,7 @@ model Comment {
   userId    String?
   user      User?    @relation(fields: [userId], references: [id])
   postId    String?
-  post      Post?    @relation(fields: [postId], references: [id])
+  post      Post?    @relation(fields: [postId], references: [id], onDelete: Cascade)
 }
 
 model Account {
@@ -154,8 +154,3 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-model TestNode {
-  id    Int @id @default(autoincrement())
-  year  Int
-  value Int
-}

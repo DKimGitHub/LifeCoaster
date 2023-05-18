@@ -35,7 +35,7 @@ export default async function Page({ params }: { params: { postId: string } }) {
   const { postId } = params;
   const { postData } = await getData(postId);
   return (
-    <div className="">
+    <div className="mx-auto w-full max-w-6xl px-4">
       <div className="p-2" />
       <PostPage postData={postData} data-superjson />
     </div>

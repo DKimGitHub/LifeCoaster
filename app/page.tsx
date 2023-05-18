@@ -23,7 +23,7 @@ export default function Home() {
       <div className={styles.mainContainer}>
         <div className={styles.gridContainer}>
           <div className={styles.mainTextContainer}>
-            <Image src={logo} alt={"logo"}></Image>
+            <Image src={logo} alt={"logo"} priority></Image>
           </div>
           {(() => {
             if (!startClicked) {

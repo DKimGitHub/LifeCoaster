@@ -1,5 +1,3 @@
-"use client";
-
 import AuthModal from "../components/AuthModal";
 import Header from "../components/Header";
 import ContextProviders from "../lib/ContextProviders";

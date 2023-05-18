@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import Image from "next/image";
 import GoogleIcon from "../public/google_logo.svg";
 import IGIcon from "../public/Instagram_logo_2022.svg";
+import GHIcon from "../public/Octicons-mark-github.svg";
 import { Input } from "@nextui-org/react";
 
 export default function AuthModal() {
@@ -67,8 +68,8 @@ export default function AuthModal() {
   function googleHandler() {
     popupCenter("/auth/google-signin", "LifeCoaster Login with Google");
   }
-  function igHandler() {
-    signIn("instagram");
+  function ghHandler() {
+    popupCenter("/auth/github-signin", "LifeCoaster Login with Github");
   }
 
   const popupCenter = (url: string, title: string) => {
@@ -166,9 +167,9 @@ export default function AuthModal() {
             <Image height={16} width={16} src={GoogleIcon} alt="Google Logo" />
             <p className="pl-3 text-xs font-medium">Sign in with Google</p>
           </button>
-          <button className="flex w-full border p-3" onClick={igHandler}>
-            <Image height={16} width={16} src={IGIcon} alt="Instagram Logo" />
-            <p className="pl-3 text-xs font-medium">Sign in with Instagram</p>
+          <button className="flex w-full border p-3" onClick={ghHandler}>
+            <Image height={16} width={16} src={GHIcon} alt="GitHub Logo" />
+            <p className="pl-3 text-xs font-medium">Sign in with Github</p>
           </button>
         </label>
       </label>

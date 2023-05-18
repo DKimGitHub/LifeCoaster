@@ -6,8 +6,50 @@ import CommentTextArea from "./CommentTextArea";
 import PostPageGraph from "./PostPageGraph";
 import { PostDataType } from "../../lib/types";
 import { eventsToNodes, randomName, timeSince } from "../../lib/helpers";
+import { useSession } from "next-auth/react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import clsx from "clsx";
 
 export default function PostPage({ postData } : { postData: PostDataType }) {
+  const { data: session, status } = useSession();
+  
+  function isHearted() {
+    if (!session) return false;
+    return postData?.usersWhoHearted.includes(session?.user?.email as string)
+      ? true
+      : false;
+  }
+  function heartHandler() {
+    if (!session) {
+      toast.info("Login to heart posts!", {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    }
+    const body = {
+      email: session?.user?.email,
+      postId: postData?.id,
+    };
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    };
+    fetch("/api/heart", options)
+      .then((response) => response.json())
+      .catch((error) => console.log(error));
+  }
+
   return ( postData ? 
     <>
       <div className="flex flex-col md:flex-row">
@@ -27,8 +69,13 @@ export default function PostPage({ postData } : { postData: PostDataType }) {
             </div>
             <div className="flex flex-none justify-center pr-2">
               <p className="pr-1 text-2xl">{postData.numOfHearts}</p>
-              <label className="swap swap-flip">
-                <input type="checkbox" />
+              <button onClick={heartHandler}
+                  className="flex items-center justify-center">
+                  <label
+                    className={clsx(
+                      "swap swap-flip",
+                      isHearted() && "swap-active"
+                    )}>                
                 <Image
                   className="swap-off"
                   width={24}
@@ -44,6 +91,7 @@ export default function PostPage({ postData } : { postData: PostDataType }) {
                   alt="Filled Heart"
                 />
               </label>
+              </button>
             </div>
           </div>
           {postData?.comments.length === 0 ? (
@@ -65,7 +113,7 @@ export default function PostPage({ postData } : { postData: PostDataType }) {
                   />
                   <div className="flex h-max flex-col justify-start pl-3">
                     <div className="flex items-center">
-                      <div className="pr-2 font-bold">ryan kim</div>{" "}
+                      <div className="pr-2 font-bold">{session?.user?.name}</div>{" "}
                       <div className="text-sm">{timeSince(comment.createdAt)}</div>
                     </div>
                     <div className="w-full text-left">{comment.text}</div>
