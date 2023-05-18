@@ -5,12 +5,15 @@ import "./globals.css";
 import styles from "../styles/mainPage.module.css";
 import Navigation from "../components/Navigation";
 
+export const metadata = {
+  title: 'LifeCoaster',
+  description: "Visualize the ups and downs of your life with LifeCoaster!"
+}
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  //test
   return (
     <html lang="en" data-theme="light">
       <head />
