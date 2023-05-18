@@ -6,14 +6,17 @@ import { addComment } from "../../lib/actions";
 
 export default function CommentTextArea({postId} : {postId: string}) {
   const { data: session, status } = useSession();
-  //const session = true; //BLUEBERRY
   let [isPending, startTransition] = useTransition();
 
   const {
     value,
     bindings,
   } = useInput("");
-
+ 
+  function clickHandler () {
+                {/*@ts-expect-error*/}
+    return value ? startTransition(()=> addComment(value,session.user?.email, postId)) : null;
+  }
   return session ? (
     <div className="m-1 flex items-center">
       <Textarea
@@ -24,10 +27,8 @@ export default function CommentTextArea({postId} : {postId: string}) {
         placeholder="Comment..."
         minRows={1}
       />
-      {/* qwe123 */}
-            {/*@ts-expect-error*/}
 
-      <button onClick={()=>startTransition(()=> addComment(value,session.user?.email, postId))} className="m-2 flex-none text-base font-medium leading-4">
+      <button onClick={clickHandler} className="m-2 flex-none text-base font-medium leading-4">
         Post
       </button>
     </div>

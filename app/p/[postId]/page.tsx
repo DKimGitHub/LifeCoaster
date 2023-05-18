@@ -3,10 +3,11 @@ import Navigation from "../../../components/Navigation";
 import PostPage from "../../../components/postPage/PostPage";
 import prisma from "../../../lib/prisma";
 
-async function getData(postId: string) {
+async function getData(postid: string) {
+  if (!postid) return {postData: null};
   const postData = await prisma.post.findUnique({
     where: {
-      id: postId,
+      id: postid,
     },
     include: {
       comments: {
@@ -32,9 +33,9 @@ async function getData(postId: string) {
   return { postData };
 }
 
-export default async function Page({ params }: { params: { postId: string } }) {
-  const { postId } = params;
-  const { postData } = await getData(postId);
+export default async function Page({ params }: { params: { postid: string } }) {
+  const { postid } = params;
+  const { postData } = await getData(postid);
   return (
     <>
     <Navigation/>
