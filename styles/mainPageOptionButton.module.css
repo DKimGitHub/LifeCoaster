@@ -2,7 +2,7 @@
 
 .button {
   display: block;
-  background-color: rgba(245, 245, 220, 0.758);
+  background-color: rgba(245, 245, 220, 0.858);
   height: 70%;
   width: 80%;
   color: darkgreen;
@@ -11,7 +11,7 @@
   border-radius: 2rem;
   text-align: center;
   margin: auto;
-  border: 0.25rem solid rgba(198, 198, 178, 0.758)
+  /* border: 0.25rem solid rgba(198, 198, 178, 0.758) */
 }
 
 .label {
@@ -37,7 +37,7 @@
   background-color: rgb(245, 245, 220);
   box-shadow: 0.2rem 0.2rem 0.5rem 0.5rem rgba(244, 244, 231, 0.934);
   font-size: 2.8rem;
-  color: rgb(146, 193, 146);
+  color: rgb(117, 128, 117);
   border: none;
 }
 

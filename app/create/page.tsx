@@ -119,9 +119,9 @@ export default function Page() {
           setSpecificYearId,
         }}
       />
-      <div className={styles.graphContainer}>
+      {/* <div className={styles.graphContainer}>
         <Graph {...{ events }} />
-      </div>
+      </div> */}
       <div className={styles.questionsContainer}>
         <QuestionsMain
           {...{
