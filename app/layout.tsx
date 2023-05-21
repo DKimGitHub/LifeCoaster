@@ -20,7 +20,7 @@ export default function RootLayout({
       <body>
         <ContextProviders>
           <div>
-            <main className="min-h-screen w-screen max-w-full overflow-x-hidden bg-slate-100">
+            <main className="min-h-screen w-screen max-w-full overflow-x-hidden bg-slate-100 ">
               {children}
               {/* footer */}
             </main>

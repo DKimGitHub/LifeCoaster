@@ -1,3 +1,10 @@
+.background {
+  background-color: beige;
+  height: 100%;
+  width: 100%;
+  border: black solid 2px;
+}
+
 .container {
   display: grid;
   grid-template-rows: 40vh 1fr;
@@ -27,7 +34,7 @@
   transition: background-color 0.3s, color 0.3s, font-size 0.1s;
 }
 
-.resetButton:hover{
+.resetButton:hover {
   background-color: brown;
   color: white;
 }

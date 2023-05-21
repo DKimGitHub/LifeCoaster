@@ -46,7 +46,7 @@ export default function Page() {
       setModalPageNum(1);
     } else {
       setModalPageNum(2);
-      createPost();
+      //createPost();
     }
     //clean up function
     return () => {
@@ -102,42 +102,44 @@ export default function Page() {
   }
 
   return (
-    <div className={styles.container}>
-      <Navigation />
-      <div className="absolute right-8 top-6">
-        <AuthButtonHeader />
-      </div>
-      <ModalsMain
-        {...{
-          modalPageNum,
-          setModalPageNum,
-          setQuestionPageNum,
-          setEvents,
-          reset,
-          graphId,
-          setEventId,
-          setSpecificYearId,
-        }}
-      />
-      <div className={styles.graphContainer}>
-        <Graph {...{ events }} />
-      </div>
-      <div className={styles.questionsContainer}>
-        <QuestionsMain
+    <div className={styles.background}>
+      <div className={styles.container}>
+        <Navigation />
+        <div className="absolute right-8 top-6">
+          <AuthButtonHeader />
+        </div>
+        <ModalsMain
           {...{
+            modalPageNum,
             setModalPageNum,
-            questionPageNum,
             setQuestionPageNum,
-            events,
             setEvents,
             reset,
             graphId,
-            eventId,
-            specificYearId,
             setEventId,
             setSpecificYearId,
           }}
         />
+        <div className={styles.graphContainer}>
+          <Graph {...{ events }} />
+        </div>
+        <div className={styles.questionsContainer}>
+          <QuestionsMain
+            {...{
+              setModalPageNum,
+              questionPageNum,
+              setQuestionPageNum,
+              events,
+              setEvents,
+              reset,
+              graphId,
+              eventId,
+              specificYearId,
+              setEventId,
+              setSpecificYearId,
+            }}
+          />
+        </div>
       </div>
     </div>
   );
