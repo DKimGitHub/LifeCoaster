@@ -3,7 +3,7 @@ import Header from "../components/Header";
 import ContextProviders from "../lib/ContextProviders";
 import "./globals.css";
 import styles from "../styles/mainPage.module.css";
-import Navigation from "../components/Navigation";
+
 
 export const metadata = {
   title: 'LifeCoaster',
