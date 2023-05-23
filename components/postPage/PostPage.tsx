@@ -10,13 +10,12 @@ import { useSession } from "next-auth/react";
 import { Flip, toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import clsx from "clsx";
-import { revalidatePath } from "next/cache";
-import { useRouter } from 'next/navigation';
+import { useTransition } from 'react';
+import { clickHeart } from "../../lib/actions";
 
 export default function PostPage({ postData }: { postData: PostDataType }) {
   const { data: session, status } = useSession();
-  const router = useRouter();
-
+  let [isPending, startTransition] = useTransition();
   function isHearted() {
     if (!session) return false;
     return postData?.usersWhoHearted.includes(session?.user?.email as string)
@@ -38,22 +37,25 @@ export default function PostPage({ postData }: { postData: PostDataType }) {
       });
       return;
     }
-    const body = {
-      email: session?.user?.email,
-      postId: postData?.id,
-    };
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    };
-    fetch("/api/heart", options)
-      .then((response) => response.json())
-      .catch((error) => console.log(error));
-      router.refresh();
-    }
+    // const body = {
+    //   email: session?.user?.email,
+    //   postId: postData?.id,
+    // };
+    // const options = {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(body),
+    // };
+    // fetch("/api/heart", options)
+    //   .then((response) => response.json())
+    //   .catch((error) => console.log(error));
+    //   router.refresh();
+      {/*@ts-expect-error*/}
+return startTransition(()=> clickHeart(session.user?.email, postData?.id));
+}
+
 
   return postData ? (
     <>
@@ -138,9 +140,8 @@ export default function PostPage({ postData }: { postData: PostDataType }) {
                   />
                   <div className="flex h-max flex-col justify-start pl-3">
                     <div className="flex items-center">
-                      <div className="pr-2 font-bold">{comment.user?.name}</div>{" "}
+                      <div className="pr-2 font-bold">{comment.user?.name}</div>
                       <div className="text-sm">
-                        {" "}
                         {typeof comment.createdAt === "string"
                           ? timeSince(new Date(comment.createdAt))
                           : timeSince(comment.createdAt)}

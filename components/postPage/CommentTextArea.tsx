@@ -1,26 +1,26 @@
 "use client";
 import { Textarea, useInput } from "@nextui-org/react";
 import { useSession } from "next-auth/react";
-import { useTransition } from 'react';
+import { useTransition } from "react";
 import { addComment } from "../../lib/actions";
-
-export default function CommentTextArea({postId} : {postId: string}) {
+export default function CommentTextArea({ postId }: { postId: string }) {
   const { data: session, status } = useSession();
   let [isPending, startTransition] = useTransition();
 
-  const {
-    value,
-    bindings,
-  } = useInput("");
- 
-  function clickHandler () {
-                {/*@ts-expect-error*/}
-    return value ? startTransition(()=> addComment(value,session.user?.email, postId)) : null;
+  const { value, reset, bindings } = useInput("");
+
+  function clickHandler() {
+    const temp = value;
+    if (temp) {
+      reset();
+      /*@ts-expect-error*/
+      startTransition(() => addComment(value, session.user?.email, postId));
+    }
   }
   return session ? (
     <div className="m-1 flex items-center">
       <Textarea
-              {...bindings}
+        {...bindings}
         aria-label="Comment Field"
         className="flex-1"
         fullWidth
@@ -28,7 +28,9 @@ export default function CommentTextArea({postId} : {postId: string}) {
         minRows={1}
       />
 
-      <button onClick={clickHandler} className="m-2 flex-none text-base font-medium leading-4">
+      <button
+        onClick={clickHandler}
+        className="m-2 flex-none text-base font-medium leading-4">
         Post
       </button>
     </div>
@@ -42,7 +44,9 @@ export default function CommentTextArea({postId} : {postId: string}) {
         placeholder="Login to Comment"
         minRows={1}
       />
-      <button disabled className="m-2 flex-none text-base font-medium leading-4 text-gray-500">
+      <button
+        disabled
+        className="m-2 flex-none text-base font-medium leading-4 text-gray-500">
         Post
       </button>
     </div>
