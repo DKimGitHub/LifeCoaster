@@ -7,6 +7,8 @@ import Image from "next/image";
 import Link from "next/link";
 import logo from "../public/logo.png";
 import StartButton from "../components/buttons/MainPageStartButton";
+import OptionButton from "../components/buttons/MainPageOptionButton";
+import optionButtonStyles from "../styles/mainPageOptionButton.module.css";
 
 export default function Home() {
   const [startClicked, setStartClicked] = useState(false);
@@ -15,7 +17,6 @@ export default function Home() {
     setTimeout(() => {
       setStartClicked(true);
     }, 800);
-    
   }
 
   return (
@@ -29,7 +30,10 @@ export default function Home() {
             if (!startClicked) {
               return (
                 <div className={styles.startButtonContainer}>
-                  <StartButton onClick={startButtonClicked} startClicked={startClicked}/>
+                  <StartButton
+                    onClick={startButtonClicked}
+                    startClicked={startClicked}
+                  />
                 </div>
               );
             } else {
@@ -38,55 +42,22 @@ export default function Home() {
                   <Link
                     className="fade-list-item h-full w-full animation-delay-100"
                     href="/create">
-                    <Button
-                      auto
-                      css={{
-                        backgroundColor: "beige",
-                        height: "100%",
-                        width: "100%",
-                        color: "darkgreen",
-                        fontSize: "1.5rem",
-                        fontFamily: "Helvetica ",
-                        "@sm": { fontSize: "3.5rem" },
-                      }}>
-                      CREATE
-                    </Button>
+                    <OptionButton>create</OptionButton>
                   </Link>
                   <Link
-                    className="fade-list-item h-full w-full  animation-delay-600"
+                    className="fade-list-item h-full w-full animation-delay-600"
                     href="/list">
-                    <Button
-                      auto
-                      css={{
-                        backgroundColor: "beige",
-                        height: "100%",
-                        width: "100%",
-                        color: "darkgreen",
-                        fontSize: "1.5rem",
-                        fontFamily: "Helvetica",
-                        "@sm": { fontSize: "3.5rem" },
-                      }}>
-                      LIST
-                    </Button>
+                    <OptionButton>list</OptionButton>
                   </Link>
-
-                  <Button
-                    as="label"
-                    //@ts-expect-error
-                    htmlFor="my-modal-4"
-                    auto
-                    className="fade-list-item animation-delay-1100"
-                    css={{
-                      backgroundColor: "beige",
-                      height: "100%",
-                      width: "100%",
-                      color: "darkgreen",
-                      fontSize: "1.5rem",
-                      fontFamily: "Helvetica",
-                      "@sm": { fontSize: "3.5rem" },
-                    }}>
-                    LOGIN
-                  </Button>
+                  <div className="fade-list-item h-full w-full animation-delay-1100">
+                    <button className={optionButtonStyles.button}>
+                      <label
+                        htmlFor="my-modal-4"
+                        className={optionButtonStyles.label}>
+                        <span className={optionButtonStyles.span}>login</span>
+                      </label>
+                    </button>
+                  </div>
                 </>
               );
             }

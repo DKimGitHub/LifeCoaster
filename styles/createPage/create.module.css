@@ -1,15 +1,21 @@
 .container {
+  position: absolute;
+  background-color: beige;
   display: grid;
   grid-template-rows: 40vh 1fr;
   grid-template-areas:
     "graph"
     "questions";
   column-gap: 3px;
-  height: 100%;
+  height: 100vh;
+  width: 100vw;
+  padding: 2vh 5vh;
 }
 
 .graphContainer {
   grid-area: graph;
+  height: 100%;
+  width: 100%;
 }
 
 .questionsContainer {
@@ -27,7 +33,7 @@
   transition: background-color 0.3s, color 0.3s, font-size 0.1s;
 }
 
-.resetButton:hover{
+.resetButton:hover {
   background-color: brown;
   color: white;
 }
