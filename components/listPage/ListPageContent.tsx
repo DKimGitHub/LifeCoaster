@@ -109,12 +109,6 @@ export default function ListPageContent({
           ))}
         </div>
       </InfiniteScroll>
-      <ListPageModal
-        bindings={bindings}
-        setIsModalOpen={setIsModalOpen}
-        isModalOpen={isModalOpen}>
-        <PostPage postData={modalPostData} />
-      </ListPageModal>
     </>
   );
 }

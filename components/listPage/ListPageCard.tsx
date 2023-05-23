@@ -14,6 +14,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { PostDataType } from "../../lib/types";
 import { eventsToNodes, randomName, timeSince } from "../../lib/helpers";
+import Link from 'next/link';
 
 export default function ListPageCard({
   data,
@@ -38,9 +39,9 @@ export default function ListPageCard({
       : false;
   }
   function clickHandler() {
-    window.history.pushState(null, "LifeCoaster Post", `/p/${data?.id}`);
-    setModalPostData(data);
-    setIsModalOpen(true);
+    // window.history.pushState(null, "LifeCoaster Post", `/p/${data?.id}`);
+    // setModalPostData(data);
+    // setIsModalOpen(true);
     //router.prefetch("p/6");
   }
   // function onModalClose() {
@@ -87,9 +88,9 @@ export default function ListPageCard({
           <div
             data-theme={colorTheme}
             className=" card card-compact rounded-md bg-base-100  shadow-xl">
-            <button onClick={clickHandler} className={` relative h-56 w-full`}>
+            <Link href={`/p/${data.id}`} className={` relative h-56 w-full`}>
               <ListPageGraph data={eventsToNodes(data?.graph?.event)} />
-            </button>
+            </Link>
 
             <div className="flex items-center justify-between p-2">
               {" "}
@@ -125,7 +126,6 @@ export default function ListPageCard({
                       "swap swap-flip",
                       isHearted() && "swap-active"
                     )}>
-                    {/* {session && <input type="checkbox" />} */}
                     <Image
                       className={clsx("swap-off mr-2 inline")}
                       width={22}
