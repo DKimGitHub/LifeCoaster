@@ -4,10 +4,10 @@ import PostPage from "../../../components/postPage/PostPage";
 import TempComp from "../../../components/TempComp";
 import getPostPageData from "../../../lib/getPostPageData"
 
-export default async function Page({ params }: { params: { postid: string } }) {
-  const { postid } = params;
+export default async function Page({ params }: { params: { postId: string } }) {
+  const { postId } = params;
   //const { postData } = await getPostPageData(postid);
-  console.log(postid);
+  console.log(postId);
   //console.log(postData);
   return (
     <>
@@ -17,7 +17,7 @@ export default async function Page({ params }: { params: { postid: string } }) {
       </div>
       <div className="mx-auto w-full max-w-6xl px-4">
         <div className="p-10" />
-        <TempComp postid={postid}/>
+        <TempComp postid={postId}/>
         {/* <PostPage postData={postData} data-superjson /> */}
       </div>
     </>
