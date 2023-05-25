@@ -7,7 +7,7 @@ import prisma from "../../../../../lib/prisma";
 
 
 async function getData(postid: string) {
-  if (!postid) return {postData: null};
+  console.log(postid);
   const postData = await prisma.post.findUnique({
     where: {
       id: postid,
@@ -37,6 +37,7 @@ async function getData(postid: string) {
 }
 
 export default async function Page({ params }: { params: { postid: string } }) {
+  console.log(params);
   const { postid } = params;
   const { postData } = await getData(postid);
   return (

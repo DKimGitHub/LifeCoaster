@@ -23,8 +23,8 @@ async function getData(postid: string) {
             include: {
               specificYear: true,
               period: true,
-            }
-          }
+            },
+          },
         },
       },
     },
@@ -33,18 +33,21 @@ async function getData(postid: string) {
 }
 
 export default async function Page({ params }: { params: { postid: string } }) {
+  console.log(params);
   const { postid } = params;
+  console.log(postid);
   const { postData } = await getData(postid);
+  console.log(postData);
   return (
     <>
-    <Navigation/>
-    <div className="absolute right-8 top-6">
+      <Navigation />
+      <div className="absolute right-8 top-6">
         <AuthButtonHeader />
       </div>
-    <div className="mx-auto w-full max-w-6xl px-4">
-      <div className="p-10" />
-      <PostPage postData={postData} data-superjson />
-    </div>
+      <div className="mx-auto w-full max-w-6xl px-4">
+        <div className="p-10" />
+        <PostPage postData={postData} data-superjson />
+      </div>
     </>
   );
 }
