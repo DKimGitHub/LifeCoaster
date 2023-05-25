@@ -16,10 +16,7 @@ export default function Error({
    
     return (
       <div className='flex justify-center'>
-        <h2>Something went wrong!</h2>
-        <h2 className='p-4'>{error.name}</h2>
-        <h2 className='p-4'>{error.message}</h2>
-        <h2 className='p-4'>{error.stack}</h2>
+        <h2>oof not looking good man..</h2>
         <button className='p-4'
           onClick={
             // Attempt to recover by trying to re-render the segment

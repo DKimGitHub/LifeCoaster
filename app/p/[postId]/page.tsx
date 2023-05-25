@@ -1,43 +1,11 @@
 import AuthButtonHeader from "../../../components/AuthButtonHeader";
 import Navigation from "../../../components/Navigation";
 import PostPage from "../../../components/postPage/PostPage";
-import prisma from "../../../lib/prisma";
-
-async function getData(postid: string) {
-  const postData = await prisma.post.findUnique({
-    where: {
-      id: postid,
-    },
-    include: {
-      comments: {
-        include: {
-          user: true,
-        },
-        orderBy: {
-          createdAt: "desc",
-        },
-      },
-      graph: {
-        include: {
-          event: {
-            include: {
-              specificYear: true,
-              period: true,
-            },
-          },
-        },
-      },
-    },
-  });
-  return { postData };
-}
+import getPostPageData from "../../../lib/getPostPageData"
 
 export default async function Page({ params }: { params: { postid: string } }) {
-  console.log(params);
   const { postid } = params;
-  console.log(postid);
-  const { postData } = await getData(postid);
-  console.log(postData);
+  const { postData } = await getPostPageData(postid);
   return (
     <>
       <Navigation />
