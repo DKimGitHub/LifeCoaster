@@ -8,14 +8,8 @@ export default async function Page({ params }: { params: { postid: string } }) {
   const { postData } = await getPostPageData(postid);
   return (
     <>
-      <Navigation />
-      <div className="absolute right-8 top-6">
-        <AuthButtonHeader />
-      </div>
-      <div className="mx-auto w-full max-w-6xl px-4">
-        <div className="p-10" />
+
         <PostPage postData={postData} data-superjson />
-      </div>
     </>
   );
 }
