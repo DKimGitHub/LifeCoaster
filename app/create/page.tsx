@@ -149,7 +149,7 @@ export default function Page() {
       />
       <div className={styles.graphContainer}>
         <Graph {...{ events }} />
-      </div> */}
+      </div>
         <div className={styles.questionsContainer}>
           <QuestionsMain
             {...{
