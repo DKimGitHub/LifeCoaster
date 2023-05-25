@@ -1,6 +1,7 @@
 import AuthButtonHeader from "../../../components/AuthButtonHeader";
 import Navigation from "../../../components/Navigation";
 import PostPage from "../../../components/postPage/PostPage";
+import TempComp from "../../../components/TempComp";
 import getPostPageData from "../../../lib/getPostPageData"
 
 export default async function Page({ params }: { params: { postid: string } }) {
@@ -16,6 +17,7 @@ export default async function Page({ params }: { params: { postid: string } }) {
       </div>
       <div className="mx-auto w-full max-w-6xl px-4">
         <div className="p-10" />
+        <TempComp postid={postid}/>
         {/* <PostPage postData={postData} data-superjson /> */}
       </div>
     </>
