@@ -1,18 +1,11 @@
-import prisma from "../../lib/prisma";
-import ListPageContent from "../../components/listPage/ListPageContent";
 import AuthButtonHeader from "../../components/AuthButtonHeader";
-import backArrow from "../../public/rounded-square-left-direction-svgrepo-com.svg";
-import Image from "next/image";
-import Link from "next/link";
 import Navigation from "../../components/Navigation";
-import { Suspense } from "react";
-import { SkeletonCard } from "../../components/SkeletonCard";
+
 
 
 export default function Layout({
-    children, modal}: {
+    children}: {
     children: React.ReactNode;
-    modal: React.ReactNode;
   }) {
   return (
     <>
@@ -24,7 +17,6 @@ export default function Layout({
 
       {children}
       </div>
-      {modal}
     </>
   );
 }
