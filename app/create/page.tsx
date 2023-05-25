@@ -130,26 +130,26 @@ export default function Page() {
 
   return (
     <>
-      <div className={styles.container}>
-        <Navigation />
-        <div className="absolute right-8 top-6">
-          <AuthButtonHeader />
-        </div>
-        <ModalsMain
-          {...{
-            modalPageNum,
-            setModalPageNum,
-            setQuestionPageNum,
-            setEvents,
-            reset,
-            graphId,
-            setEventId,
-            setSpecificYearId,
-          }}
-        />
-        <div className={styles.graphContainer}>
-          <Graph {...{ events }} />
-        </div>
+    <div className={styles.container}>
+      <Navigation />
+      <div className="absolute right-8 top-6">
+        <AuthButtonHeader />
+      </div>
+      <ModalsMain
+        {...{
+          modalPageNum,
+          setModalPageNum,
+          setQuestionPageNum,
+          setEvents,
+          reset,
+          graphId,
+          setEventId,
+          setSpecificYearId,
+        }}
+      />
+      <div className={styles.graphContainer}>
+        <Graph {...{ events }} />
+      </div> */}
         <div className={styles.questionsContainer}>
           <QuestionsMain
             {...{
