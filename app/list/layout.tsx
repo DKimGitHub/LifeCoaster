@@ -10,8 +10,9 @@ import { SkeletonCard } from "../../components/SkeletonCard";
 
 
 export default function Layout({
-    children}: {
+    children, modal}: {
     children: React.ReactNode;
+    modal: React.ReactNode;
   }) {
   return (
     <>
@@ -23,6 +24,7 @@ export default function Layout({
 
       {children}
       </div>
+      {modal}
     </>
   );
 }
