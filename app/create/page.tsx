@@ -149,26 +149,24 @@ export default function Page() {
       />
       <div className={styles.graphContainer}>
         <Graph {...{ events }} />
-      </div> */}
-        <div className={styles.questionsContainer}>
-          <QuestionsMain
-            {...{
-              setModalPageNum,
-              questionPageNum,
-              setQuestionPageNum,
-              events,
-              setEvents,
-              reset,
-              graphId,
-              eventId,
-              specificYearId,
-              setEventId,
-              setSpecificYearId,
-            }}
-          />
-        </div>
       </div>
-      <CreatePageAuthModal isOpen={isModalOpen} />
-    </>
+      <div className={styles.questionsContainer}>
+        <QuestionsMain
+          {...{
+            setModalPageNum,
+            questionPageNum,
+            setQuestionPageNum,
+            events,
+            setEvents,
+            reset,
+            graphId,
+            eventId,
+            specificYearId,
+            setEventId,
+            setSpecificYearId,
+          }}
+        />
+      </div>
+    </div>
   );
 }
