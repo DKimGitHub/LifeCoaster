@@ -25,7 +25,7 @@ export default function Page() {
   const [modalPageNum, setModalPageNum] = useState<number>(NaN);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isFirstTime, setIsFirstTime] = useState<boolean>(true);
-  
+
   /* 
     #1: ContinueModal
     #2: IntroModal
@@ -60,22 +60,21 @@ export default function Page() {
         createPost();
       }
     }
-    
   }, [session]);
 
   //Initialization when the Create page mounts
   useEffect(() => {
-      // const savedState = localStorage.getItem("savedPost");
-      // if (savedState && !Number.isNaN(JSON.parse(savedState).questionPageNum)) {
-      //   setGraphId(JSON.parse(savedState).graphId);
-      //   setEvents(JSON.parse(savedState).events);
-      //   setQuestionPageNum(JSON.parse(savedState).questionPageNum);
-      //   setModalPageNum(1);
-      // } else {
-      //   setModalPageNum(2);
-      //   createPost();
-      // }
-    
+    // const savedState = localStorage.getItem("savedPost");
+    // if (savedState && !Number.isNaN(JSON.parse(savedState).questionPageNum)) {
+    //   setGraphId(JSON.parse(savedState).graphId);
+    //   setEvents(JSON.parse(savedState).events);
+    //   setQuestionPageNum(JSON.parse(savedState).questionPageNum);
+    //   setModalPageNum(1);
+    // } else {
+    //   setModalPageNum(2);
+    //   createPost();
+    // }
+
     //clean up function
     return () => {
       setGraphId("");
@@ -130,43 +129,46 @@ export default function Page() {
   }
 
   return (
-    <div className={styles.container}>
-      <Navigation />
-      <div className="absolute right-8 top-6">
-        <AuthButtonHeader />
-      </div>
-      <ModalsMain
-        {...{
-          modalPageNum,
-          setModalPageNum,
-          setQuestionPageNum,
-          setEvents,
-          reset,
-          graphId,
-          setEventId,
-          setSpecificYearId,
-        }}
-      />
-      <div className={styles.graphContainer}>
-        <Graph {...{ events }} />
-      </div>
-      <div className={styles.questionsContainer}>
-        <QuestionsMain
+    <>
+      <div className={styles.container}>
+        <Navigation />
+        <div className="absolute right-8 top-6">
+          <AuthButtonHeader />
+        </div>
+        <ModalsMain
           {...{
+            modalPageNum,
             setModalPageNum,
-            questionPageNum,
             setQuestionPageNum,
-            events,
             setEvents,
             reset,
             graphId,
-            eventId,
-            specificYearId,
             setEventId,
             setSpecificYearId,
           }}
         />
+        <div className={styles.graphContainer}>
+          <Graph {...{ events }} />
+        </div>
+        <div className={styles.questionsContainer}>
+          <QuestionsMain
+            {...{
+              setModalPageNum,
+              questionPageNum,
+              setQuestionPageNum,
+              events,
+              setEvents,
+              reset,
+              graphId,
+              eventId,
+              specificYearId,
+              setEventId,
+              setSpecificYearId,
+            }}
+          />
+        </div>
       </div>
-    </div>
+      <CreatePageAuthModal isOpen={isModalOpen} />
+    </>
   );
 }

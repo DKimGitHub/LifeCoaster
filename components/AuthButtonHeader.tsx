@@ -28,7 +28,7 @@ export default function AuthButtonHeader() {
           </Text>
         </Dropdown.Item>
         <Dropdown.Item key="profile" withDivider>
-          My Profile
+          <button onClick={()=>{console.log(session)}}>My Profile</button>
         </Dropdown.Item>
         <Dropdown.Item key="team_settings">Settings</Dropdown.Item>
         <Dropdown.Item key="logout" color="error" withDivider>
