@@ -5,9 +5,9 @@ import getPostPageData from "../../../lib/getPostPageData"
 
 export default async function Page({ params }: { params: { postid: string } }) {
   const { postid } = params;
-  const { postData } = await getPostPageData(postid);
+  //const { postData } = await getPostPageData(postid);
   console.log(postid);
-  console.log(postData);
+  //console.log(postData);
   return (
     <>
       <Navigation />
