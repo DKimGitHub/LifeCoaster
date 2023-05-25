@@ -4,12 +4,10 @@ import PostPage from "../../../components/postPage/PostPage";
 import getPostPageData from "../../../lib/getPostPageData"
 
 export default async function Page({ params }: { params: { postid: string } }) {
-  const { postid } = params;
-  const { postData } = await getPostPageData(postid);
+
   return (
     <>
-
-        <PostPage postData={postData} data-superjson />
+    <p>cmon man not even this?</p>
     </>
   );
 }
