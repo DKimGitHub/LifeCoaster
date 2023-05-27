@@ -9,12 +9,11 @@ import logo from "../public/logo.png";
 import StartButton from "../components/buttons/MainPageStartButton";
 import OptionButton from "../components/buttons/MainPageOptionButton";
 import optionButtonStyles from "../styles/mainPageOptionButton.module.css";
-import { Inter } from 'next/font/google';
- 
-const inter = Inter({ subsets: ['latin'] });
-// import { Kalam } from "next/font/google";
+import startButtonStyles from "../styles/mainPageStartButton.module.css";
 
-// const kalam = Kalam({ weight: "700", subsets: ["latin"] });
+import { Kalam } from "next/font/google";
+
+const kalam = Kalam({ weight: "700", subsets: ["latin"] });
 
 export default function Home() {
   const [startClicked, setStartClicked] = useState(false);
@@ -35,7 +34,7 @@ export default function Home() {
           {(() => {
             if (!startClicked) {
               return (
-                <div>
+                <div className = {`${kalam.className} ${startButtonStyles.button}`}>
                   <StartButton
                     onClick={startButtonClicked}
                     startClicked={startClicked}

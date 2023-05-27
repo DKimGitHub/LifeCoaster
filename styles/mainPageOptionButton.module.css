@@ -1,4 +1,4 @@
-/* @import url("https://fonts.googleapis.com/css2?family=Kalam&display=swap"); */
+@import url("https://fonts.googleapis.com/css2?family=Kalam&display=swap");
 
 .button {
   display: block;
@@ -7,7 +7,7 @@
   width: 80%;
   color: darkgreen;
   font-size: 2.5rem;
-  /* font-family: "Kalam", cursive; */
+  font-family: "Kalam", cursive;
   border-radius: 2rem;
   text-align: center;
   margin: auto;
