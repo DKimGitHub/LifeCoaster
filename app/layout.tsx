@@ -5,14 +5,11 @@ import "./globals.css";
 import styles from "../styles/mainPage.module.css";
 import Navigation from "../components/Navigation";
 import { Analytics } from "@vercel/analytics/react";
-import { Kalam } from "next/font/google";
 
 export const metadata = {
   title: "LifeCoaster",
   description: "Visualize the ups and downs of your life with LifeCoaster!",
 };
-
-const kalam = Kalam({ weight: "700", subsets: ["latin"], display: "swap" });
 
 export default function RootLayout({
   children,
@@ -20,7 +17,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" data-theme="light" className={kalam.className}>
+    <html lang="en" data-theme="light">
       <head />
       <body>
         <ContextProviders>
