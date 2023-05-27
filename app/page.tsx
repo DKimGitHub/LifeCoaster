@@ -35,7 +35,7 @@ export default function Home() {
           {(() => {
             if (!startClicked) {
               return (
-                <div className={`${styles.startButtonContainer} ${inter.className}`}>
+                <div className={`${inter.className}`}>
                   <StartButton
                     onClick={startButtonClicked}
                     startClicked={startClicked}
