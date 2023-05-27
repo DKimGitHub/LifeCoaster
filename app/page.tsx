@@ -9,9 +9,11 @@ import logo from "../public/logo.png";
 import StartButton from "../components/buttons/MainPageStartButton";
 import OptionButton from "../components/buttons/MainPageOptionButton";
 import optionButtonStyles from "../styles/mainPageOptionButton.module.css";
+import { Kalam } from "next/font/google";
 
 export default function Home() {
   const [startClicked, setStartClicked] = useState(false);
+  const kalam = Kalam({ weight: "700", subsets: ["latin"] });
 
   function startButtonClicked() {
     setTimeout(() => {
@@ -29,7 +31,7 @@ export default function Home() {
           {(() => {
             if (!startClicked) {
               return (
-                <div className={styles.startButtonContainer}>
+                <div className={`${styles.startButtonContainer} ${kalam.className}`}>
                   <StartButton
                     onClick={startButtonClicked}
                     startClicked={startClicked}
