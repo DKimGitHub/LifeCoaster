@@ -9,12 +9,16 @@ import logo from "../public/logo.png";
 import StartButton from "../components/buttons/MainPageStartButton";
 import OptionButton from "../components/buttons/MainPageOptionButton";
 import optionButtonStyles from "../styles/mainPageOptionButton.module.css";
-import { Kalam } from "next/font/google";
 
-const kalam = Kalam({ weight: "700", subsets: ["latin"] });
+import { Neucha } from "next/font/google";
+
+const neucha = Neucha ({ weight: "400", subsets: ["latin"], display: "swap" });
+const neuchaLight = Neucha ({ weight: "400", subsets: ["latin"], display: "swap" });
 
 export default function Home() {
   const [startClicked, setStartClicked] = useState(false);
+  const kalam = Kalam({ weight: "700", subsets: ["latin"] });
+
   function startButtonClicked() {
     setTimeout(() => {
       setStartClicked(true);
@@ -31,7 +35,7 @@ export default function Home() {
           {(() => {
             if (!startClicked) {
               return (
-                <div className={`${styles.startButtonContainer} ${kalam.className}`}>
+                <div className = {`${neucha.className} ${styles.startButtonContainer}`}>
                   <StartButton
                     onClick={startButtonClicked}
                     startClicked={startClicked}
@@ -52,7 +56,7 @@ export default function Home() {
                     <OptionButton>list</OptionButton>
                   </Link>
                   <div className="fade-list-item h-full w-full animation-delay-1100">
-                    <button className={optionButtonStyles.button}>
+                    <button className={`${neuchaLight.className} ${optionButtonStyles.button}`}>
                       <label
                         htmlFor="my-modal-4"
                         className={optionButtonStyles.label}>
