@@ -2,6 +2,9 @@
 
 import { useState, useEffect } from "react";
 import styles from "../../styles/mainPageOptionButton.module.css";
+import { Kalam } from "next/font/google";
+
+const kalamLight = Kalam({ weight: "400", subsets: ["latin"], display: "swap" });
 
 export default function MainPageOptionButton(props: any) {
   const [isButtonClicked, setIsButtonClicked] = useState(false);
@@ -13,7 +16,7 @@ export default function MainPageOptionButton(props: any) {
   }
 
   return (
-    <button className={styles.button}>
+    <button className={`${kalamLight.className} ${styles.button}`}>
       {props.children}
     </button>
   );
