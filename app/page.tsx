@@ -11,10 +11,10 @@ import OptionButton from "../components/buttons/MainPageOptionButton";
 import optionButtonStyles from "../styles/mainPageOptionButton.module.css";
 import { Kalam } from "next/font/google";
 
+const kalam = Kalam({ weight: "700", subsets: ["latin"] });
+
 export default function Home() {
   const [startClicked, setStartClicked] = useState(false);
-  const kalam = Kalam({ weight: "700", subsets: ["latin"] });
-
   function startButtonClicked() {
     setTimeout(() => {
       setStartClicked(true);
