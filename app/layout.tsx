@@ -12,20 +12,13 @@ export const metadata = {
   description: "Visualize the ups and downs of your life with LifeCoaster!"
 }
 
-const kalam = Kalam({
-  weight: '400',
-  subsets: ['latin'],
-  display: 'swap',
-});
-
-
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" data-theme="light" className={kalam.className}>
+    <html lang="en" data-theme="light">
       <head />
       <body>
         <ContextProviders>
