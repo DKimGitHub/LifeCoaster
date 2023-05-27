@@ -10,6 +10,7 @@ const nextConfig = {
       dangerouslyAllowSVG: true,
       contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
+  optimizeFonts: false,
 };
 
 module.exports = nextConfig;
