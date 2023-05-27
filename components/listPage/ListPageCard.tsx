@@ -95,20 +95,19 @@ export default function ListPageCard({
             <div className="flex items-center justify-between p-2">
               {" "}
               <div className="flex flex-1">
-                <button onClick={clickHandler}>
+                <Link href={`/p/${data.id}`}>
                   <Image
                     height={46}
                     width={46}
                     src={`https://api.dicebear.com/5.x/fun-emoji/svg?seed=${randomName(data.id)}&radius=10`}
                     alt="avatar"
                   />
-                </button>
+                </Link>
                 <div className="flex flex-col pl-2">
-                  <button
-                    onClick={clickHandler}
-                    className="text-left text-lg font-semibold leading-6">
+                  <Link href={`/p/${data.id}`}
+                    className="text-left text-lg text-inherit no-underline font-semibold leading-6">
                     {randomName(data.id)}
-                  </button>
+                  </Link>
                   <p className="text-gray-500">
                     {typeof data.createdAt === "string"
                       ? timeSince(new Date(data.createdAt))
@@ -145,7 +144,7 @@ export default function ListPageCard({
                 <p className="pr-1 text-xl font-medium">
                   {data?.comments.length}
                 </p>
-                <button className="mr-1 inline" onClick={clickHandler}>
+                <Link href={`/p/${data.id}`} className="mr-1 inline">
                   <Image
                     // className="mr-1 inline"
                     width={20}
@@ -153,7 +152,7 @@ export default function ListPageCard({
                     src={CommentIcon}
                     alt="Comment Icon"
                   />
-                </button>
+                </Link>
               </div>
             </div>
           </div>
