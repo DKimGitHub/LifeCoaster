@@ -6,6 +6,7 @@ import styles from "../styles/mainPage.module.css";
 import Navigation from "../components/Navigation";
 import { Analytics } from "@vercel/analytics/react";
 import { Pangolin } from "next/font/google";
+import { AnimatePresence } from "framer-motion";
 
 const pangolin = Pangolin({
   weight: "400",
@@ -32,8 +33,9 @@ export default function RootLayout({
           <div>
             <main
               className={`min-h-screen w-screen max-w-full overflow-x-hidden bg-slate-100`}>
-              {children}
-              {/* footer */}
+
+                {children}
+
             </main>
           </div>
           <AuthModal />

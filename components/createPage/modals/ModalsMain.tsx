@@ -59,7 +59,7 @@ export default function ModalsMain({
       isOpen={isModalOpen}
       contentLabel="Modal"
       ariaHideApp={false}
-      closeTimeoutMS={1500}
+      closeTimeoutMS={1000}
       shouldCloseOnOverlayClick={false}
       style={customStyles}>
       {(() => {

@@ -37,7 +37,7 @@ export default function AgeModal({
     setTimeout(() => {
       setQuestionPageNum(1);
       setModalPageNum(NaN);
-    }, 1500);
+    }, 1000);
     setEvents([
       {
         nextYear: data.yearSelect,

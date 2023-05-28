@@ -5,6 +5,7 @@ import styles from "../../../styles/createPage/form.module.css";
 import { eventType } from "../../../lib/types";
 import Slider from "../tools/ValueSlider";
 import Select from "../tools/YearSelect";
+import PageTransition from "../../PageTransition"
 
 export default function YearToggleSelected({
   events,
@@ -161,6 +162,7 @@ export default function YearToggleSelected({
   }
 
   return (
+    <PageTransition>
     <form
       onSubmit={handleSubmit(onSubmit)}
       className={styles.yearToggleQuestionContainer}>
@@ -227,5 +229,6 @@ export default function YearToggleSelected({
         <input className={styles.button} type="submit" value="Add" />
       </div>
     </form>
+    </PageTransition>
   );
 }

@@ -4,6 +4,7 @@ import ToolBar from "./ToolBar";
 import styles from "../../../styles/createPage/form.module.css";
 import { dataType, eventType } from "../../../lib/types";
 import Select from "../tools/YearSelect";
+import PageTransition from "../../PageTransition";
 
 export default function NextBigYear({
   questionPageNum,
@@ -135,42 +136,44 @@ export default function NextBigYear({
           }}
         />
       </div>
-      <div className={styles.question}>
-        <label className={styles.questionText}>
-          When was your next big event?
-        </label>
-        <div
-          style={{
-            height: "fit-content",
-            display: "flex",
-            flexDirection: "row",
-          }}>
-          <p
+      <PageTransition>
+        <div className={styles.question}>
+          <label className={styles.questionText}>
+            When was your next big event?
+          </label>
+          <div
             style={{
-              marginTop: "auto",
-              marginBottom: "auto",
-              width: "fit-content",
-            }}>{`${events.slice(-1)[0].nextYear} ~ `}</p>
-          <Controller
-            name="yearSelect"
-            control={control}
-            render={({ field: { onChange, value } }) => (
-              <Select
-                reverse={false}
-                onChange={onChange}
-                start={events.slice(-1)[0].nextYear + 1}
-                end={new Date().getFullYear()}
-                defaultValue={events.slice(-1)[0].nextYear + 1}
-              />
+              height: "fit-content",
+              display: "flex",
+              flexDirection: "row",
+            }}>
+            <p
+              style={{
+                marginTop: "auto",
+                marginBottom: "auto",
+                width: "fit-content",
+              }}>{`${events.slice(-1)[0].nextYear} ~ `}</p>
+            <Controller
+              name="yearSelect"
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <Select
+                  reverse={false}
+                  onChange={onChange}
+                  start={events.slice(-1)[0].nextYear + 1}
+                  end={new Date().getFullYear()}
+                  defaultValue={events.slice(-1)[0].nextYear + 1}
+                />
+              )}
+            />
+            {errors.yearSelect && (
+              <p style={{ display: "inline", color: "red" }}>
+                {errors.yearSelect.message as string}
+              </p>
             )}
-          />
-          {errors.yearSelect && (
-            <p style={{ display: "inline", color: "red" }}>
-              {errors.yearSelect.message as string}
-            </p>
-          )}
+          </div>
         </div>
-      </div>
+      </PageTransition>
     </form>
   );
 }

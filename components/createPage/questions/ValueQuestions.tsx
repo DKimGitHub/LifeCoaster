@@ -6,6 +6,7 @@ import YearToggleSelected from "./YearToggleSelected";
 import PeriodToggleSelected from "./PeriodToggleSelected";
 import styles from "../../../styles/createPage/form.module.css";
 import { eventType } from "../../../lib/types";
+import PageTransition from "../../PageTransition";
 
 export default function ValueQuestions({
   questionPageNum,
@@ -72,16 +73,17 @@ export default function ValueQuestions({
           }}
         />
       </div>
-      <div className={styles.question}>
-        {(() => {
-          if (mode === "period") {
-            return (
+
+      {(() => {
+        if (mode === "period") {
+          return (
+            
               <PeriodToggleSelected
                 {...{ setEvents, defaultValues, setDefaultValues, eventId }}
               />
-            );
-          } else if (mode === "year") {
-            return (
+          );
+        } else if (mode === "year") {
+          return (
               <YearToggleSelected
                 {...{
                   setEvents,
@@ -89,13 +91,14 @@ export default function ValueQuestions({
                   defaultValues,
                   setDefaultValues,
                   specificYearId,
-                  eventId
+                  eventId,
                 }}
               />
-            );
-          }
-        })()}
-      </div>
+
+          );
+        }
+      })()}
+
     </div>
   );
 }

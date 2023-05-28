@@ -5,6 +5,7 @@ import ToolBar from "./ToolBar";
 import styles from "../../../styles/createPage/form.module.css";
 import { dataType, eventType } from "../../../lib/types";
 import Slider from "../tools/ValueSlider";
+import PageTransition from "../../PageTransition";
 
 export default function BornValue({
   questionPageNum,
@@ -87,25 +88,27 @@ export default function BornValue({
           }}
         />
       </div>
-      <div className={styles.question}>
-        <label className={styles.questionText}>
-          How content were you when you were born?
-        </label>
-        <div className={styles.questionTool}>
-          <Controller
-            name="valueSlider"
-            control={control}
-            render={({ field: { onChange, value } }) => (
-              <Slider onChange={onChange} defaultValue={0} />
+      <PageTransition>
+        <div className={styles.question}>
+          <label className={styles.questionText}>
+            How content were you when you were born?
+          </label>
+          <div className={styles.questionTool}>
+            <Controller
+              name="valueSlider"
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <Slider onChange={onChange} defaultValue={0} />
+              )}
+            />
+            {errors.valueSlider && (
+              <p style={{ display: "inline", color: "red" }}>
+                {errors.valueSlider.message as string}
+              </p>
             )}
-          />
-          {errors.valueSlider && (
-            <p style={{ display: "inline", color: "red" }}>
-              {errors.valueSlider.message as string}
-            </p>
-          )}
+          </div>
         </div>
-      </div>
+      </PageTransition>
     </form>
   );
 }

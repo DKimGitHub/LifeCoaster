@@ -5,6 +5,7 @@ import ToolBar from "./ToolBar";
 import styles from "../../../styles/createPage/form.module.css";
 import { eventType } from "../../../lib/types";
 import Slider from "../tools/ValueSlider";
+import PageTransition from "../../PageTransition";
 
 export default function PeriodToggleSelected({
   setEvents,
@@ -99,27 +100,29 @@ export default function PeriodToggleSelected({
   }
 
   return (
-    <div className={styles.question}>
-      <label className={styles.questionText}>
-        What is the average satisfactory level within this period?
-      </label>
-      <div className={styles.questionTool}>
-        <Controller
-          name="valueSlider"
-          control={control}
-          render={() => (
-            <Slider
-              onChange={updateValueChange}
-              defaultValue={defaultValues[0]}
-            />
+    <PageTransition>
+      <div className={styles.question}>
+        <label className={styles.questionText}>
+          What is the average satisfactory level within this period?
+        </label>
+        <div className={styles.questionTool}>
+          <Controller
+            name="valueSlider"
+            control={control}
+            render={() => (
+              <Slider
+                onChange={updateValueChange}
+                defaultValue={defaultValues[0]}
+              />
+            )}
+          />
+          {errors.valueSlider && (
+            <p style={{ display: "inline", color: "red" }}>
+              {errors.valueSlider.message as string}
+            </p>
           )}
-        />
-        {errors.valueSlider && (
-          <p style={{ display: "inline", color: "red" }}>
-            {errors.valueSlider.message as string}
-          </p>
-        )}
+        </div>
       </div>
-    </div>
+    </PageTransition>
   );
 }
