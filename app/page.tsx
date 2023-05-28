@@ -12,18 +12,10 @@ import optionButtonStyles from "../styles/mainPageOptionButton.module.css";
 import PageTransition from "../components/PageTransition";
 
 import { Neucha } from "next/font/google";
-import { Courgette } from "next/font/google";
-
-const courgette = Courgette({
-  weight: "400",
-  subsets: ["latin"],
-  display: "swap",
-});
-const neuchaLight = Neucha({
-  weight: "400",
-  subsets: ["latin"],
-  display: "swap",
-});
+import { Cabin_Sketch } from "next/font/google";
+  
+const courgette = Cabin_Sketch ({ weight: "400", subsets: ["latin"], display: "swap" });
+const neuchaLight = Neucha ({ weight: "400", subsets: ["latin"], display: "swap" });
 
 type IndexPageRef = React.ForwardedRef<HTMLDivElement>;
 
