@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import Modal from "react-modal";
 
 import AgeModal from "../../../components/createPage/modals/AgeModal";
@@ -8,6 +8,7 @@ import { customStyles } from "../../../styles/createPage/modalCustomStyle";
 import { eventType } from "../../../lib/types";
 import styles from "../../../styles/createPage/modal.module.css";
 import { Pangolin } from "next/font/google";
+import "../../../styles/createPage/modal.css";
 
 const pangolin = Pangolin({
   weight: "400",
@@ -24,6 +25,8 @@ export default function ModalsMain({
   graphId,
   setEventId,
   setSpecificYearId,
+  isModalOpen,
+  setIsModalOpen
 }: {
   modalPageNum: number;
   setModalPageNum: React.Dispatch<React.SetStateAction<number>>;
@@ -33,18 +36,10 @@ export default function ModalsMain({
   graphId: String;
   setEventId: React.Dispatch<React.SetStateAction<String>>;
   setSpecificYearId: React.Dispatch<React.SetStateAction<String>>;
+  isModalOpen: boolean;
+  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   //Opens the modal if the modal page number is not NaN.
-  var isModalOpen;
-  if (!Number.isNaN(modalPageNum)) {
-    isModalOpen = true;
-  } else {
-    isModalOpen = false;
-  }
-
-  function closeModal() {
-    setModalPageNum(NaN);
-  }
 
   function skipClicked() {
     setModalPageNum(3);
@@ -62,10 +57,9 @@ export default function ModalsMain({
   return (
     <Modal
       isOpen={isModalOpen}
-      onRequestClose={closeModal}
       contentLabel="Modal"
       ariaHideApp={false}
-      closeTimeoutMS={150}
+      closeTimeoutMS={1500}
       shouldCloseOnOverlayClick={false}
       style={customStyles}>
       {(() => {
@@ -86,6 +80,7 @@ export default function ModalsMain({
                   graphId,
                   setEventId,
                   setSpecificYearId,
+                  setIsModalOpen,
                 }}
               />
             );

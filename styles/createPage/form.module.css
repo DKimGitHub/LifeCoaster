@@ -3,6 +3,7 @@
   font-family: "Courier New";
   font-weight: bold;
   color: #704f47;
+  font-size: 1.3rem;
 }
 
 .tool {
@@ -11,13 +12,11 @@
   align-items: center;
   padding: 1rem;
   border-bottom: 1px solid black;
-  
 }
 
 .toolContainer {
-  grid-row: 1 / 2; 
+  grid-row: 1 / 2;
   width: 100%;
-  
 }
 
 .questionContainer {
@@ -25,10 +24,12 @@
   grid-template-rows: auto 1fr;
 }
 
-.yearToggleQuestionContainer{
+.yearToggleQuestionContainer {
   display: grid;
-  grid-template-rows: 1fr 1fr;
   width: 100%;
+  grid-template-rows: 1fr 1fr auto;
+  grid-template-columns: 1fr 2fr;
+  row-gap: 1rem;
 }
 
 .question {
@@ -41,8 +42,6 @@
   align-items: center;
 }
 
-
-
 .questionText {
   margin: 1rem 0;
 }
@@ -54,12 +53,11 @@
 .button {
   padding: 0.5rem 1rem;
   border-radius: 7px;
-  color: #fbc6b9;
+  color: white;
   font-weight: bold;
   font-size: 1rem;
   transition: all 0.3s;
-  background-color: #704f47;
-  border: 2px solid #382723;
+  background-color: #58574f;
 }
 
 .resetButton {
@@ -70,12 +68,20 @@
   margin: 0 20px;
 }
 
+.addButton {
+  grid-column: 1 / span 2;
+  width: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
 .nextButton {
   margin: 0 20px;
 }
 
 .button:hover {
-  background-color: #4c3631;
+  background-color: #3b3a32;
+  cursor: pointer;
 }
 
 .button:active {
@@ -92,4 +98,3 @@
   padding: 1px;
   overflow-wrap: break-word;
 }
-

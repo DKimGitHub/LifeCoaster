@@ -7,8 +7,14 @@ import BornValue from "./BornValue";
 import NextBigYear from "./NextBigYear";
 import YearOverlay from "./YearOverlay";
 import ValueQuestions from "./ValueQuestions";
-
 import styles from "../../../styles/createPage/form.module.css";
+import { Pangolin } from "next/font/google";
+
+const pangolin = Pangolin({
+  weight: "400",
+  subsets: ["latin"],
+  display: "swap",
+});
 
 async function fetchData(api: string, options: dataType) {
   const response = await fetch(api, options);
@@ -106,7 +112,7 @@ export default function QuestionsMain({
   }
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${pangolin.className}`}>
       {page}
     </div>
   );

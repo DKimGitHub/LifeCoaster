@@ -152,8 +152,8 @@ export default function YearToggleSelected({
           },
         },
         include: {
-          specificYear: true
-        }
+          specificYear: true,
+        },
       }),
     };
     const response = await fetch("/api/post/graph/event/", options);
@@ -164,15 +164,8 @@ export default function YearToggleSelected({
     <form
       onSubmit={handleSubmit(onSubmit)}
       className={styles.yearToggleQuestionContainer}>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateRows: "1fr 1fr auto",
-          gridTemplateColumns: "1fr 2fr",
-          rowGap: "1rem",
-        }}>
-        <label className={styles.questionText}>What year?</label>
-
+      <label className={styles.questionText}>What year?</label>
+      <div style={{ display: "flex", justifyContent: "center" }}>
         <Controller
           name="yearSelect"
           control={control}
@@ -191,42 +184,47 @@ export default function YearToggleSelected({
             {errors.yearSelect.message as string}
           </p>
         )}
+      </div>
 
-        <label className={styles.questionText}>Value</label>
+      <label className={styles.questionText}>Value</label>
 
-        <Controller
-          name="valueSlider"
-          control={control}
-          render={() => (
-            <Slider
-              onChange={updateEventsValue}
-              defaultValue={defaultValues[2]}
-            />
-          )}
-        />
-        {errors.valueSlider && (
-          <p style={{ display: "inline", color: "red" }}>
-            {errors.valueSlider.message as string}
-          </p>
+      <Controller
+        name="valueSlider"
+        control={control}
+        render={() => (
+          <Slider
+            onChange={updateEventsValue}
+            defaultValue={defaultValues[2]}
+          />
         )}
+      />
+      {errors.valueSlider && (
+        <p style={{ display: "inline", color: "red" }}>
+          {errors.valueSlider.message as string}
+        </p>
+      )}
 
-        <label>Description</label>
+      <label>Description</label>
 
-        <Controller
-          name="description"
-          control={control}
-          render={({ field: { onChange } }) => (
-            <textarea onChange={onChange} rows={4} cols={25} />
-          )}
-        />
-        {errors.description && (
-          <p style={{ display: "inline", color: "red" }}>
-            {errors.description.message as string}
-          </p>
+      <Controller
+        name="description"
+        control={control}
+        render={({ field: { onChange } }) => (
+          <textarea
+            style={{ overflowY: "scroll" }}
+            onChange={onChange}
+            rows={4}
+            cols={25}
+          />
         )}
-        <div style={{ width: "fit-content" }}>
-          <input className={styles.button} type="submit" value="Add" />
-        </div>
+      />
+      {errors.description && (
+        <p style={{ display: "inline", color: "red" }}>
+          {errors.description.message as string}
+        </p>
+      )}
+      <div className={styles.addButton}>
+        <input className={styles.button} type="submit" value="Add" />
       </div>
     </form>
   );

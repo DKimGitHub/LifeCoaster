@@ -99,7 +99,7 @@ export default function PeriodToggleSelected({
   }
 
   return (
-    <div className={styles.questionContainer}>
+    <div className={styles.question}>
       <label className={styles.questionText}>
         What is the average satisfactory level within this period?
       </label>

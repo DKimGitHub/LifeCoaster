@@ -6,7 +6,11 @@ import styles from "../../../styles/createPage/modal.module.css";
 import Select from "../tools/YearSelect";
 import { Pangolin } from "next/font/google";
 
-const pangolin = Pangolin ({weight: '400', subsets: ['latin'], display: 'swap'})
+const pangolin = Pangolin({
+  weight: "400",
+  subsets: ["latin"],
+  display: "swap",
+});
 
 export default function AgeModal({
   setModalPageNum,
@@ -15,6 +19,7 @@ export default function AgeModal({
   graphId,
   setEventId,
   setSpecificYearId,
+  setIsModalOpen,
 }: {
   setModalPageNum: React.Dispatch<React.SetStateAction<number>>;
   setQuestionPageNum: React.Dispatch<React.SetStateAction<number>>;
@@ -22,12 +27,17 @@ export default function AgeModal({
   graphId: String;
   setEventId: React.Dispatch<React.SetStateAction<String>>;
   setSpecificYearId: React.Dispatch<React.SetStateAction<String>>;
+  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   /*
     Closes the modal and sets the nextYear and specificYear with the birth year.
   */
   function onSubmit(data: dataType) {
-    setModalPageNum(NaN);
+    setIsModalOpen(false);
+    setTimeout(() => {
+      setQuestionPageNum(1);
+      setModalPageNum(NaN);
+    }, 1500);
     setEvents([
       {
         nextYear: data.yearSelect,
@@ -46,7 +56,7 @@ export default function AgeModal({
       },
     ]);
     updateDBAdd(data);
-    setQuestionPageNum(1);
+    
   }
 
   const {
@@ -96,20 +106,22 @@ export default function AgeModal({
         include: {
           event: {
             include: {
-              specificYear: true
-            }
-          }
-        }
+              specificYear: true,
+            },
+          },
+        },
       }),
     };
     const response = await fetch("/api/post/graph", options);
     const data = await response.json();
-    setEventId(data.event.slice(-1)[0].id)
-    setSpecificYearId(data.event.slice(-1)[0].specificYear.slice(-1)[0].id)
+    setEventId(data.event.slice(-1)[0].id);
+    setSpecificYearId(data.event.slice(-1)[0].specificYear.slice(-1)[0].id);
   }
 
   return (
-    <form className={`${styles.container} ${pangolin.className}`} onSubmit={handleSubmit(onSubmit)}>
+    <form
+      className={`${styles.container} ${pangolin.className}`}
+      onSubmit={handleSubmit(onSubmit)}>
       <label className={styles.formLabel}>When were you born?</label>
       <Controller
         name="yearSelect"

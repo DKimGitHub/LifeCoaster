@@ -23,6 +23,7 @@ export default function Page() {
   const [specificYearId, setSpecificYearId] = useState<String>("");
   const [events, setEvents] = useState<eventType>([]);
   const [modalPageNum, setModalPageNum] = useState<number>(NaN);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isFirstTime, setIsFirstTime] = useState<boolean>(true);
 
@@ -43,45 +44,58 @@ export default function Page() {
     postId ? nodes(postId) : null;
   });
 
-  useEffect(() => {
-    if (!session) {
-      setIsModalOpen(true);
-    } else if (session && isFirstTime) {
-      setIsFirstTime(false);
-      setIsModalOpen(false);
-      const savedState = localStorage.getItem("savedPost");
-      if (savedState && !Number.isNaN(JSON.parse(savedState).questionPageNum)) {
-        setGraphId(JSON.parse(savedState).graphId);
-        setEvents(JSON.parse(savedState).events);
-        setQuestionPageNum(JSON.parse(savedState).questionPageNum);
-        setModalPageNum(1);
-      } else {
-        setModalPageNum(2);
-        createPost();
-      }
-    }
-  }, [session]);
+  // useEffect(() => {
+  //   if (!session) {
+  //     setIsAuthModalOpen(true);
+  //   } else if (session && isFirstTime) {
+  //     setIsFirstTime(false);
+  //     setIsAuthModalOpen(false);
+  //     const savedState = localStorage.getItem("savedPost");
+  //     if (savedState && !Number.isNaN(JSON.parse(savedState).questionPageNum)) {
+  //       setGraphId(JSON.parse(savedState).graphId);
+  //       setEvents(JSON.parse(savedState).events);
+  //       setQuestionPageNum(JSON.parse(savedState).questionPageNum);
+  //       setIsModalOpen(true);
+  //       setModalPageNum(1);
+  //     } else {
+  //       setIsModalOpen(true);
+  //       setModalPageNum(2);
+  //       createPost();
+  //     }
+  //   }
+  //   return () => {
+  //     setGraphId("");
+  //     setEvents([]);
+  //     setQuestionPageNum(NaN);
+  //     setIsModalOpen(false);
+  //     setModalPageNum(NaN);
+  //   };
+  // }, []);
 
   //Initialization when the Create page mounts
   useEffect(() => {
-    // const savedState = localStorage.getItem("savedPost");
-    // if (savedState && !Number.isNaN(JSON.parse(savedState).questionPageNum)) {
-    //   setGraphId(JSON.parse(savedState).graphId);
-    //   setEvents(JSON.parse(savedState).events);
-    //   setQuestionPageNum(JSON.parse(savedState).questionPageNum);
-    //   setModalPageNum(1);
-    // } else {
-    //   setModalPageNum(2);
-    //   createPost();
-    // }
+    const savedState = localStorage.getItem("savedPost");
+    if (savedState && !Number.isNaN(JSON.parse(savedState).questionPageNum)) {
+      setGraphId(JSON.parse(savedState).graphId);
+      setEvents(JSON.parse(savedState).events);
+      setQuestionPageNum(JSON.parse(savedState).questionPageNum);
+      setIsModalOpen(true);
+      setModalPageNum(1);
+    } else {
+      setIsModalOpen(true);
+      setModalPageNum(2);
+      //createPost();
+    }
 
     //clean up function
     return () => {
       setGraphId("");
       setEvents([]);
       setQuestionPageNum(NaN);
+      setIsModalOpen(false);
       setModalPageNum(NaN);
     };
+    
   }, []);
 
   //Update the local cache whenever these dependcies change.
@@ -123,6 +137,7 @@ export default function Page() {
     localStorage.removeItem("savedPost");
     setEvents([]);
     setGraphId("");
+    setIsModalOpen(true);
     setModalPageNum(2);
     setQuestionPageNum(NaN);
     createPost();
@@ -143,6 +158,8 @@ export default function Page() {
             graphId,
             setEventId,
             setSpecificYearId,
+            isModalOpen,
+            setIsModalOpen
           }}
         />
         <div className="absolute right-8 top-6">
@@ -169,7 +186,7 @@ export default function Page() {
           />
         </div>
       </div>
-      {/* <CreatePageAuthModal isOpen={isModalOpen} /> */}
+      {/* <CreatePageAuthModal isOpen={isAuthModalOpen} /> */}
     </>
   );
 }
