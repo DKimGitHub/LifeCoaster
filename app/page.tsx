@@ -11,9 +11,9 @@ import OptionButton from "../components/buttons/MainPageOptionButton";
 import optionButtonStyles from "../styles/mainPageOptionButton.module.css";
 
 import { Neucha } from "next/font/google";
-import { Courgette } from "next/font/google";
+import { Cabin_Sketch } from "next/font/google";
   
-const courgette = Courgette ({ weight: "400", subsets: ["latin"], display: "swap" });
+const courgette = Cabin_Sketch ({ weight: "400", subsets: ["latin"], display: "swap" });
 const neuchaLight = Neucha ({ weight: "400", subsets: ["latin"], display: "swap" });
 
 export default function Home() {
