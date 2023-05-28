@@ -11,13 +11,13 @@ import OptionButton from "../components/buttons/MainPageOptionButton";
 import optionButtonStyles from "../styles/mainPageOptionButton.module.css";
 
 import { Neucha } from "next/font/google";
-
-const neucha = Neucha ({ weight: "400", subsets: ["latin"], display: "swap" });
+import { Courgette } from "next/font/google";
+  
+const courgette = Courgette ({ weight: "400", subsets: ["latin"], display: "swap" });
 const neuchaLight = Neucha ({ weight: "400", subsets: ["latin"], display: "swap" });
 
 export default function Home() {
   const [startClicked, setStartClicked] = useState(false);
-  const kalam = Kalam({ weight: "700", subsets: ["latin"] });
 
   function startButtonClicked() {
     setTimeout(() => {
@@ -35,7 +35,7 @@ export default function Home() {
           {(() => {
             if (!startClicked) {
               return (
-                <div className = {`${neucha.className} ${styles.startButtonContainer}`}>
+                <div className = {`${courgette.className} ${styles.startButtonContainer}`}>
                   <StartButton
                     onClick={startButtonClicked}
                     startClicked={startClicked}

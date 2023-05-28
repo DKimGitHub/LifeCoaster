@@ -4,6 +4,9 @@ import { useForm, Controller } from "react-hook-form";
 import { dataType, eventType } from "../../../lib/types";
 import styles from "../../../styles/createPage/modal.module.css";
 import Select from "../tools/YearSelect";
+import { Pangolin } from "next/font/google";
+
+const pangolin = Pangolin ({weight: '400', subsets: ['latin'], display: 'swap'})
 
 export default function AgeModal({
   setModalPageNum,
@@ -106,7 +109,7 @@ export default function AgeModal({
   }
 
   return (
-    <form className={styles.container} onSubmit={handleSubmit(onSubmit)}>
+    <form className={`${styles.container} ${pangolin.className}`} onSubmit={handleSubmit(onSubmit)}>
       <label className={styles.formLabel}>When were you born?</label>
       <Controller
         name="yearSelect"
@@ -129,7 +132,7 @@ export default function AgeModal({
         </p>
       )}
       <br />
-      <input className={styles.button} type="submit" value="Next" />
+      <input className={styles.button} type="submit" value="Start" />
     </form>
   );
 }

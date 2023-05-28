@@ -4,9 +4,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-weight: bold;
-  font-family: "Courier New";
   padding-top: 1px;
+  font-size: 18px;
 }
 
 .button {
@@ -14,16 +13,16 @@
   padding: 0.5rem 1rem;
   margin: 2rem 0;
   border-radius: 7px;
-  color: black;
+  color: white;
   font-weight: bold;
   font-size: 1rem;
   transition: all 0.3s;
-  background-color: #B5838DAA;
-  border: 2px solid #b5435a;
+  background-color: #807769;
 }
 
 .button:hover{
-  background-color: #8c666eaa;
+  background-color: #635e52;
+  cursor: pointer;
 }
 
 .button:active{
@@ -35,4 +34,24 @@
   margin-top: 1rem;
   padding: 3px;
   color: black;
+}
+
+.formLabel{
+  margin-bottom: 1rem;
+}
+
+.skipButton{
+  color: #474239;
+  border-radius: 1rem;
+  border: 1px #474239 solid;
+  padding: 0.3rem 0.6rem;
+}
+
+.skipButton:hover{
+  background-color: #474239;
+  color: white;
+}
+
+.skipButton:active{
+  transform: scale(0.95);
 }

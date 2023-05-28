@@ -1,5 +1,8 @@
 import React from "react";
 import styles from "../../../styles/createPage/modal.module.css";
+import { Pangolin } from "next/font/google";
+
+const pangolin = Pangolin ({weight: '400', subsets: ['latin'], display: 'swap'})
 
 export default function ContinueModal(
   {
@@ -22,7 +25,7 @@ export default function ContinueModal(
   }
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${pangolin.className}`}>
       <button className={styles.button} onClick={beginningButtonClick}>
         Start from beginning
       </button>

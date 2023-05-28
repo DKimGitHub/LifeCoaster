@@ -1,6 +1,9 @@
 "use client";
 import React, { useState } from "react";
 import "../styles/navigation.css";
+import { Neucha } from "next/font/google";
+
+const neucha = Neucha ({ weight: "400", subsets: ["latin"], display: "swap" });
 
 export default function NavigTion() {
   const [isNavVisible, setIsNavVisible] = useState(false);
@@ -12,7 +15,7 @@ export default function NavigTion() {
   };
 
   return (
-    <div>
+    <div className={neucha.className}>
       <button
         className={`btn-nav ${isAnimated ? "animated" : ""}`}
         onClick={handleNavClick}>

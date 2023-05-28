@@ -132,9 +132,7 @@ export default function Page() {
     <>
       <div className={styles.container}>
         <Navigation />
-        <div className="absolute right-8 top-6">
-          <AuthButtonHeader />
-        </div>
+
         <ModalsMain
           {...{
             modalPageNum,
@@ -147,9 +145,12 @@ export default function Page() {
             setSpecificYearId,
           }}
         />
-        <div className={styles.graphContainer}>
-          <Graph {...{ events }} />
+        <div className="absolute right-8 top-6">
+          <AuthButtonHeader />
         </div>
+        {/* <div className={styles.graphContainer}>
+          <Graph {...{ events }} />
+        </div> */}
         <div className={styles.questionsContainer}>
           <QuestionsMain
             {...{
@@ -168,7 +169,7 @@ export default function Page() {
           />
         </div>
       </div>
-      <CreatePageAuthModal isOpen={isModalOpen} />
+      {/* <CreatePageAuthModal isOpen={isModalOpen} /> */}
     </>
   );
 }

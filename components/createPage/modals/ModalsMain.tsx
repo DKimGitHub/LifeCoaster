@@ -6,6 +6,14 @@ import ContinueModal from "../../../components/createPage/modals/ContinueModal";
 import IntroModal from "../../../components/createPage/modals/IntroModal";
 import { customStyles } from "../../../styles/createPage/modalCustomStyle";
 import { eventType } from "../../../lib/types";
+import styles from "../../../styles/createPage/modal.module.css";
+import { Pangolin } from "next/font/google";
+
+const pangolin = Pangolin({
+  weight: "400",
+  subsets: ["latin"],
+  display: "swap",
+});
 
 export default function ModalsMain({
   modalPageNum,
@@ -43,7 +51,13 @@ export default function ModalsMain({
   }
 
   const skipButton =
-    modalPageNum === 2 ? <button onClick={skipClicked}>Skip</button> : <></>;
+    modalPageNum === 2 ? (
+      <button onClick={skipClicked} className={`${styles.skipButton} ${pangolin.className}`}>
+        Skip
+      </button>
+    ) : (
+      <></>
+    );
 
   return (
     <Modal

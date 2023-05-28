@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import styles from "../../../styles/createPage/modal.module.css";
+import { Pangolin } from "next/font/google";
+
+const pangolin = Pangolin ({weight: '400', subsets: ['latin'], display: 'swap'})
 
 export default function IntroModal({
   setModalPageNum,
@@ -56,16 +59,14 @@ export default function IntroModal({
   }
 
   return (
-    <div className={styles.container}>
-      <p
+    <div className={`${styles.container} ${pangolin.className}`}>
+      <span
         style={{
           marginTop: "2rem",
           lineHeight: "1.8",
-          fontWeight: "bold",
-          fontFamily: "Courier New",
         }}>
         <center>{text}</center>
-      </p>
+      </span>
       <button className={styles.button} onClick={nextButtonClicked}>
         Next
       </button>

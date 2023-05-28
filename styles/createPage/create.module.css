@@ -1,6 +1,6 @@
 .container {
   position: absolute;
-  background-color: beige;
+  background-color: #FBF4E6;
   display: grid;
   grid-template-rows: 40vh 1fr;
   grid-template-areas:
@@ -9,7 +9,7 @@
   column-gap: 3px;
   height: 100%;
   width: 100%;
-  padding: 2vh 5vh;
+  padding: 3vh 5vh;
 }
 
 .graphContainer {

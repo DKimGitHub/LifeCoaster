@@ -7,9 +7,23 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    // extend: {
+    //   fontFamily: {
+    //     sans: ["var(--font-pangolin"],
+    //   },
+    // },
   },
-  plugins: [require("daisyui"),     require("tailwindcss-animation-delay"),],
+  plugins: [require("daisyui"), require("tailwindcss-animation-delay")],
   daisyUI: {
-    themes: ["autumn", "forest", "coffee", "dark", "luxury", "dracula", "cupcake", "emerald"]
-  }
+    themes: [
+      "autumn",
+      "forest",
+      "coffee",
+      "dark",
+      "luxury",
+      "dracula",
+      "cupcake",
+      "emerald",
+    ],
+  },
 };
