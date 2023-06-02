@@ -5,7 +5,7 @@ import styles from "../../../styles/createPage/form.module.css";
 import { eventType } from "../../../lib/types";
 import Slider from "../tools/ValueSlider";
 import Select from "../tools/YearSelect";
-import PageTransition from "../../PageTransition"
+import PageTransition from "../../PageTransition";
 
 export default function YearToggleSelected({
   events,
@@ -163,72 +163,77 @@ export default function YearToggleSelected({
 
   return (
     <PageTransition>
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className={styles.yearToggleQuestionContainer}>
-      <label className={styles.questionText}>What year?</label>
-      <div style={{ display: "flex", justifyContent: "center" }}>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className={styles.yearToggleQuestionContainer}>
+        <label className={styles.questionText}>What year?</label>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <Controller
+            name="yearSelect"
+            control={control}
+            render={() => (
+              <Select
+                onChange={updateEventsYear}
+                reverse={false}
+                start={startYear}
+                end={events.slice(-1)[0].nextYear - 1}
+                defaultValue={defaultValues[1]}
+              />
+            )}
+          />
+          {errors.yearSelect && (
+            <p style={{ display: "inline", color: "red" }}>
+              {errors.yearSelect.message as string}
+            </p>
+          )}
+        </div>
+
+        <label className={styles.questionText}>Value</label>
+
         <Controller
-          name="yearSelect"
+          name="valueSlider"
           control={control}
           render={() => (
-            <Select
-              onChange={updateEventsYear}
-              reverse={false}
-              start={startYear}
-              end={events.slice(-1)[0].nextYear - 1}
-              defaultValue={defaultValues[1]}
+            <Slider
+              onChange={updateEventsValue}
+              defaultValue={defaultValues[2]}
             />
           )}
         />
-        {errors.yearSelect && (
+        {errors.valueSlider && (
           <p style={{ display: "inline", color: "red" }}>
-            {errors.yearSelect.message as string}
+            {errors.valueSlider.message as string}
           </p>
         )}
-      </div>
 
-      <label className={styles.questionText}>Value</label>
+        <label>Description</label>
 
-      <Controller
-        name="valueSlider"
-        control={control}
-        render={() => (
-          <Slider
-            onChange={updateEventsValue}
-            defaultValue={defaultValues[2]}
-          />
+        <Controller
+          name="description"
+          control={control}
+          render={({ field: { onChange } }) => (
+            <textarea
+              style={{
+                overflowY: "scroll",
+                background: "#faf6ed",
+                border: "2px solid #9c9587",
+                borderRadius: "0.5rem",
+              }}
+              onChange={onChange}
+              rows={2}
+              cols={15}
+            />
+          )}
+        />
+        {errors.description && (
+          <p style={{ display: "inline", color: "red" }}>
+            {errors.description.message as string}
+          </p>
         )}
-      />
-      {errors.valueSlider && (
-        <p style={{ display: "inline", color: "red" }}>
-          {errors.valueSlider.message as string}
-        </p>
-      )}
-
-      <label>Description</label>
-
-      <Controller
-        name="description"
-        control={control}
-        render={({ field: { onChange } }) => (
-          <textarea
-            style={{ overflowY: "scroll" }}
-            onChange={onChange}
-            rows={4}
-            cols={25}
-          />
-        )}
-      />
-      {errors.description && (
-        <p style={{ display: "inline", color: "red" }}>
-          {errors.description.message as string}
-        </p>
-      )}
-      <div className={styles.addButton}>
-        <input className={styles.button} type="submit" value="Add" />
-      </div>
-    </form>
+        <div className={styles.addButton}>
+          <input className={styles.button} type="submit" value="Add" />
+        </div>
+      </form>
     </PageTransition>
   );
 }

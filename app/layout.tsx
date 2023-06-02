@@ -5,15 +5,6 @@ import "./globals.css";
 import styles from "../styles/mainPage.module.css";
 import Navigation from "../components/Navigation";
 import { Analytics } from "@vercel/analytics/react";
-import { Pangolin } from "next/font/google";
-import { AnimatePresence } from "framer-motion";
-
-const pangolin = Pangolin({
-  weight: "400",
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-pangolin",
-});
 
 export const metadata = {
   title: "LifeCoaster",
@@ -39,7 +30,7 @@ export default function RootLayout({
             </main>
           </div>
           <AuthModal />
-        </ContextProviders>
+        </ContextProviders> 
         <Analytics />
       </body>
     </html>

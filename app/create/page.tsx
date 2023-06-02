@@ -77,6 +77,9 @@ export default function Page() {
     const savedState = localStorage.getItem("savedPost");
     if (savedState && !Number.isNaN(JSON.parse(savedState).questionPageNum)) {
       setGraphId(JSON.parse(savedState).graphId);
+      setEventId(JSON.parse(savedState).eventId);
+      setSpecificYearId(JSON.parse(savedState).specificYearId);
+      setPostId(JSON.parse(savedState).postId);
       setEvents(JSON.parse(savedState).events);
       setQuestionPageNum(JSON.parse(savedState).questionPageNum);
       setIsModalOpen(true);
@@ -102,11 +105,14 @@ export default function Page() {
   useEffect(() => {
     const savedState = {
       graphId: graphId,
+      eventId: eventId,
+      postId: postId,
       events: events,
+      specificYearId: specificYearId,
       questionPageNum: questionPageNum,
     };
     localStorage.setItem("savedPost", JSON.stringify(savedState));
-  }, [graphId, events, questionPageNum]);
+  }, [graphId, eventId, events, specificYearId, postId, questionPageNum]);
 
   async function createPost() {
     const options = {
@@ -137,6 +143,8 @@ export default function Page() {
     localStorage.removeItem("savedPost");
     setEvents([]);
     setGraphId("");
+    setEventId("");
+    setSpecificYearId("");
     setIsModalOpen(true);
     setModalPageNum(2);
     setQuestionPageNum(NaN);
@@ -165,9 +173,9 @@ export default function Page() {
         <div className="absolute right-8 top-6">
           <AuthButtonHeader />
         </div>
-        {/* <div className={styles.graphContainer}>
+        <div className={styles.graphContainer}>
           <Graph {...{ events }} />
-        </div> */}
+        </div>
         <div className={styles.questionsContainer}>
           <QuestionsMain
             {...{

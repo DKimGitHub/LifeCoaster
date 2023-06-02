@@ -1,13 +1,21 @@
 import React, { useState } from "react";
 import { UseFormHandleSubmit, FieldValues } from "react-hook-form";
 import styles from "../../../styles/createPage/form.module.css";
-import Image from 'next/image'
-import previousIcon from '../../../public/createPage/previous.svg'
-import nextIcon from '../../../public/createPage/next.svg'
-import resetIcon from '../../../public/createPage/reset.svg'
+import Image from "next/image";
+import previousIcon from "../../../public/createPage/previous.svg";
+import nextIcon from "../../../public/createPage/next.svg";
+import resetIcon from "../../../public/createPage/reset.svg";
 
 import { dataType, eventType } from "../../../lib/types";
 import { ToggleButton, ToggleButtonGroup } from "@mui/material";
+
+import { Pangolin } from "next/font/google";
+
+const pangolin = Pangolin({
+  weight: "400",
+  subsets: ["latin"],
+  display: "swap",
+});
 
 export default function ToolBar({
   handlePrevButton,
@@ -38,7 +46,7 @@ export default function ToolBar({
     newMode: "period" | "year"
   ) {
     setModeToolBar(newMode);
-    if ((newMode === "period")) {
+    if (newMode === "period") {
       setEventsToolBar((prev) => [
         ...prev.slice(0, -1),
         {
@@ -46,7 +54,7 @@ export default function ToolBar({
           type: "period",
         },
       ]);
-    } else if (newMode === "year"){
+    } else if (newMode === "year") {
       setEventsToolBar((prev) => [
         ...prev.slice(0, -1),
         {
@@ -55,7 +63,7 @@ export default function ToolBar({
         },
       ]);
     }
-    updateDBAdd(newMode)
+    updateDBAdd(newMode);
   }
 
   async function updateDBAdd(type: String) {
@@ -63,11 +71,11 @@ export default function ToolBar({
       method: "PUT",
       body: JSON.stringify({
         where: {
-          id: eventId
-        }, 
+          id: eventId,
+        },
         data: {
-          type: type
-        }
+          type: type,
+        },
       }),
     };
     const response = await fetch("/api/post/graph/event/", options);
@@ -78,12 +86,7 @@ export default function ToolBar({
     <div className={styles.tool}>
       <div style={{ flex: "1" }}>
         <button className={styles.resetButton} onClick={reset}>
-        <Image
-            src={resetIcon}
-            alt="resetIcon"
-            width={30}
-            height={30}
-          />
+          <Image src={resetIcon} alt="resetIcon" width={30} height={30} />
         </button>
       </div>
       <div
@@ -93,12 +96,7 @@ export default function ToolBar({
           alignItems: "center",
         }}>
         <button className={styles.prevButton} onClick={handlePrevButton}>
-          <Image
-            src={previousIcon}
-            alt="previousIcon"
-            width={40}
-            height={40}
-          />
+          <Image src={previousIcon} alt="previousIcon" width={40} height={40} />
         </button>
         {(() => {
           if (questionPageNum === 4) {
@@ -109,8 +107,28 @@ export default function ToolBar({
                   value={mode}
                   exclusive
                   onChange={handleMode}>
-                  <ToggleButton value="period">Period</ToggleButton>
-                  <ToggleButton value="year">Year</ToggleButton>
+                  <ToggleButton value="period">
+                    <span
+                      style={{
+                        color: "#45302b",
+                        fontWeight: "bold",
+                        fontSize: "1.1rem",
+                        margin: "0 0.3rem"
+                      }}
+                      className={pangolin.className}>
+                      Period
+                    </span>
+                  </ToggleButton>
+                  <ToggleButton value="year"><span
+                      style={{
+                        color: "#45302b",
+                        fontWeight: "bold",
+                        fontSize: "1.1rem",
+                        margin: "0 0.3rem"
+                      }}
+                      className={pangolin.className}>
+                      Year
+                    </span></ToggleButton>
                 </ToggleButtonGroup>
               </div>
             );
@@ -119,12 +137,7 @@ export default function ToolBar({
         <button
           className={styles.nextButton}
           onClick={handleSubmit(handleNextButton)}>
-          <Image
-            src={nextIcon}
-            alt="nextIcon"
-            width={40}
-            height={40}
-          />
+          <Image src={nextIcon} alt="nextIcon" width={40} height={40} />
         </button>
       </div>
       <div style={{ flex: "1" }}></div>

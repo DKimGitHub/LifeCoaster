@@ -40,9 +40,7 @@ export default function NextBigYear({
   the period starts from birth year + 1. Otherwise, the period starts from the previous year.
   */
   useEffect(() => {
-    events.length === 1
-      ? setValue("yearSelect", events.slice(-1)[0].nextYear + 1)
-      : setValue("yearSelect", events.slice(-1)[0].nextYear);
+    setValue("yearSelect", events.slice(-1)[0].nextYear + 1);
   }, [setValue, events]);
 
   function handlePrevButton() {
@@ -51,11 +49,6 @@ export default function NextBigYear({
 
   function handleNextButton(data: dataType) {
     setQuestionPageNum(3);
-    const newYear: number =
-      events.length > 2
-        ? events.slice(-2)[0].nextYear
-        : events.slice(-2)[0].nextYear + 1;
-
     setEvents((prev) => {
       return [
         ...prev,
@@ -63,21 +56,15 @@ export default function NextBigYear({
           nextYear: data.yearSelect,
           type: null,
           period: { value: 0, description: "" },
-          specificYear: [
-            {
-              year: newYear,
-              value: 0,
-              description: "",
-            },
-          ],
+          specificYear: [],
         },
       ];
     });
 
-    updateDBAdd(data, newYear);
+    updateDBAdd(data);
   }
 
-  async function updateDBAdd(input: dataType, newYear: number) {
+  async function updateDBAdd(input: dataType) {
     const options: any = {
       method: "PUT",
       body: JSON.stringify({
@@ -94,13 +81,7 @@ export default function NextBigYear({
                   create: { value: 0, description: "" },
                 },
                 specificYear: {
-                  create: [
-                    {
-                      year: newYear,
-                      value: 0,
-                      description: "",
-                    },
-                  ],
+                  create: [],
                 },
               },
             ],
@@ -118,7 +99,7 @@ export default function NextBigYear({
     const response = await fetch("/api/post/graph/", options);
     const data = await response.json();
     setEventId(data.event.slice(-1)[0].id);
-    setSpecificYearId(data.event.slice(-1)[0].specificYear.slice(-1)[0].id);
+    setSpecificYearId(data.event.slice(-1)[0]?.specificYear.slice(-1)[0]?.id);
   }
 
   return (

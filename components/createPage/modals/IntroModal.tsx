@@ -9,6 +9,16 @@ export default function IntroModal({
 }: {
   setModalPageNum: React.Dispatch<React.SetStateAction<number>>;
 }) {
+
+  function prevButtonClicked() {
+    if (introPageNum === 1) {
+      setIntroPageNum(1);
+      setModalPageNum(1);
+    } else {
+      setIntroPageNum((prev) => prev - 1);
+    }
+  }
+
   function nextButtonClicked() {
     if (introPageNum === 8) {
       setIntroPageNum(1);
@@ -67,9 +77,13 @@ export default function IntroModal({
         }}>
         <center>{text}</center>
       </span>
+      <div style={{display: "flex", width: '100%', justifyContent: "space-evenly"}}><button className={styles.button} onClick={prevButtonClicked}>
+        Prev
+      </button>
       <button className={styles.button} onClick={nextButtonClicked}>
         Next
-      </button>
+      </button></div>
+      
     </div>
   );
 }

@@ -65,7 +65,7 @@ export default function ModalsMain({
       {(() => {
         switch (modalPageNum) {
           case 1:
-            return <ContinueModal {...{ setModalPageNum, reset }} />;
+            return <ContinueModal {...{ setModalPageNum, reset, setIsModalOpen }} />;
             break;
           case 2:
             return <IntroModal {...{ setModalPageNum }} />;

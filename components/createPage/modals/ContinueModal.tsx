@@ -7,10 +7,12 @@ const pangolin = Pangolin ({weight: '400', subsets: ['latin'], display: 'swap'})
 export default function ContinueModal(
   {
     setModalPageNum,
+    setIsModalOpen,
     reset,
   }:
   {
   setModalPageNum: React.Dispatch<React.SetStateAction<number>>;
+  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   reset: () => void;
   }
 ) {
@@ -21,7 +23,10 @@ export default function ContinueModal(
   }
 
   function continueButtonClick() {
-    setModalPageNum(NaN);
+    setIsModalOpen(false);
+    setTimeout(() => {
+      setModalPageNum(NaN);
+    }, 1000);
   }
 
   return (
