@@ -5,6 +5,7 @@ import React, { useState, useEffect } from "react";
 import Graph from "../../components/createPage/Graph";
 import QuestionsMain from "../../components/createPage/questions/QuestionsMain";
 import ModalsMain from "../../components/createPage/modals/ModalsMain";
+import CompleteModal from "../../components/createPage/modals/CompleteModal"
 import nodes from "../../lib/importDataCreateNode";
 
 import { eventType, nodeType } from "../../lib/types";
@@ -26,6 +27,7 @@ export default function Page() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isFirstTime, setIsFirstTime] = useState<boolean>(true);
+  const [isCompleteModalOpen, setIsCompleteModalOpen] = useState<boolean>(false);
 
   /* 
     #1: ContinueModal
@@ -39,10 +41,6 @@ export default function Page() {
   #3: YearOverlay
   #4: ValueQuestions 
   */
-
-  useEffect(() => {
-    postId ? nodes(postId) : null;
-  });
 
   // useEffect(() => {
   //   if (!session) {
@@ -190,11 +188,13 @@ export default function Page() {
               specificYearId,
               setEventId,
               setSpecificYearId,
+              setIsCompleteModalOpen,
             }}
           />
         </div>
       </div>
       {/* <CreatePageAuthModal isOpen={isAuthModalOpen} /> */}
+      <CompleteModal {...{isCompleteModalOpen, setIsCompleteModalOpen, events}}/>
     </>
   );
 }

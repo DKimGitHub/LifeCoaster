@@ -2,14 +2,17 @@ import React, { useState } from "react";
 import styles from "../../../styles/createPage/modal.module.css";
 import { Pangolin } from "next/font/google";
 
-const pangolin = Pangolin ({weight: '400', subsets: ['latin'], display: 'swap'})
+const pangolin = Pangolin({
+  weight: "400",
+  subsets: ["latin"],
+  display: "swap",
+});
 
 export default function IntroModal({
   setModalPageNum,
 }: {
   setModalPageNum: React.Dispatch<React.SetStateAction<number>>;
 }) {
-
   function prevButtonClicked() {
     if (introPageNum === 1) {
       setIntroPageNum(1);
@@ -77,13 +80,19 @@ export default function IntroModal({
         }}>
         <center>{text}</center>
       </span>
-      <div style={{display: "flex", width: '100%', justifyContent: "space-evenly"}}><button className={styles.button} onClick={prevButtonClicked}>
-        Prev
-      </button>
-      <button className={styles.button} onClick={nextButtonClicked}>
-        Next
-      </button></div>
-      
+      <div
+        style={{
+          display: "flex",
+          width: "100%",
+          justifyContent: "space-evenly",
+        }}>
+        {/* <button className={styles.button} onClick={prevButtonClicked}>
+          Prev
+        </button> */}
+        <button className={styles.button} onClick={nextButtonClicked}>
+          Next
+        </button>
+      </div>
     </div>
   );
 }

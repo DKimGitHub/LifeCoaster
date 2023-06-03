@@ -15,6 +15,7 @@ export default function BornValue({
   reset,
   specificYearId,
   eventId,
+  setIsCompleteModalOpen,
 }: {
   questionPageNum: number;
   setQuestionPageNum: React.Dispatch<React.SetStateAction<number>>;
@@ -23,6 +24,7 @@ export default function BornValue({
   reset: () => void;
   specificYearId: String;
   eventId: String;
+  setIsCompleteModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const {
     register,
@@ -85,6 +87,7 @@ export default function BornValue({
             reset,
             setEvents,
             eventId,
+            setIsCompleteModalOpen,
           }}
         />
       </div>

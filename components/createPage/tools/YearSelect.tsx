@@ -24,7 +24,6 @@ export default function YearSelect({
       label="Year"
       onChange={(event, _) => {
         onChange(event.target.value);
-        console.log(event.target.value);
       }}
       defaultValue={defaultValue}
       sx={{

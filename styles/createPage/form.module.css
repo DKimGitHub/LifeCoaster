@@ -99,3 +99,19 @@
   padding: 1px;
   overflow-wrap: break-word;
 }
+
+.doneButton{
+  color: #474239;
+  border-radius: 1rem;
+  border: 2px #474239 solid;
+  padding: 0.3rem 0.6rem;
+}
+
+.doneButton:hover{
+  background-color: #474239;
+  color: white;
+}
+
+.doneButton:active{
+  transform: scale(0.95);
+}

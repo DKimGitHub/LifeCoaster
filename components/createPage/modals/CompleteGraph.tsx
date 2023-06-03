@@ -1,19 +1,21 @@
 "use client";
 import React, { useEffect, useRef, useState, forwardRef } from "react";
 import { ResponsiveLine, Line } from "@nivo/line";
-import TrainSvg from "../../public/train.svg";
+import TrainSvg from "../../../public/train.svg";
 // import { mockData1 } from "../lib/mockData";
-import CustomToolTip from "../CustomToolTip";
+import CustomToolTip from "../../CustomToolTip";
 import Image from "next/image";
 import { Node } from "@prisma/client";
 import { Button, css } from "@nextui-org/react";
+import { MutableRefObject } from "react";
 
-export default function PostPageGraph ({
+const CompleteGraph = forwardRef(function CompleteGraph({
   data,
+  printRef,
 }: {
   data: any[];
+  printRef: MutableRefObject<null>;
 }) {
-
   const cartRef = useRef(null);
   const [isCartAnimating, setIsCartAnimating] = useState(false);
   const nivoGraphData = data ? [{ id: 1, data: data }] : [{ id: 1, data: [] }];
@@ -42,22 +44,16 @@ export default function PostPageGraph ({
   }
   return (
     <>
-      <div className={`py-auto relative h-[14rem] w-full md:h-[80vh] md:w-2/3`}>
+      
+      <div ref={printRef} style={{ width: "100%", height: "80%" }}>
         {!isCartAnimating && (
-          <Button
-            shadow
-            light
-            auto
+          <button
             onClick={startCartAnimation}
-            css={{
-              zIndex: 20,
-              position: "absolute",
-              left: "50%",
-              transform: "translateX(-50%)",
-              top: "0.5rem",
+            style={{
+             
             }}>
-            Ride~
-          </Button>
+            Play
+          </button>
         )}
         <Image
           src={TrainSvg}
@@ -98,6 +94,7 @@ export default function PostPageGraph ({
           lineWidth={4}
           enableArea={true}
           areaOpacity={0.8}
+          colors="red"
           defs={[
             {
               id: "gridLines",
@@ -105,8 +102,8 @@ export default function PostPageGraph ({
               size: 50,
               padding: 3,
               stagger: false,
-              background: "#3f301d",
-              color: "#ffffff",
+              background: "black",
+              color: "#fcf8f0",
             },
           ]}
           fill={[{ match: "*", id: "gridLines" }]}
@@ -115,4 +112,6 @@ export default function PostPageGraph ({
       </div>
     </>
   );
-};
+});
+
+export default CompleteGraph;

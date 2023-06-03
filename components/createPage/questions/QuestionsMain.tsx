@@ -34,6 +34,7 @@ export default function QuestionsMain({
   specificYearId,
   setEventId,
   setSpecificYearId,
+  setIsCompleteModalOpen,
   
 }: {
   setModalPageNum: React.Dispatch<React.SetStateAction<number>>;
@@ -46,7 +47,8 @@ export default function QuestionsMain({
   eventId: String;
   specificYearId: String;
   setEventId: React.Dispatch<React.SetStateAction<String>>;
-  setSpecificYearId: React.Dispatch<React.SetStateAction<String>>
+  setSpecificYearId: React.Dispatch<React.SetStateAction<String>>;
+  setIsCompleteModalOpen: React.Dispatch<React.SetStateAction<boolean>>
 }) {
   const {
     register,
@@ -68,6 +70,7 @@ export default function QuestionsMain({
             reset,
             specificYearId,
             eventId,
+            setIsCompleteModalOpen,
           }}
         />
       );
@@ -85,6 +88,7 @@ export default function QuestionsMain({
             setEventId,
             setSpecificYearId,
             eventId,
+            setIsCompleteModalOpen,
           }}
         />
       );
@@ -103,6 +107,7 @@ export default function QuestionsMain({
             reset,
             eventId,
             specificYearId,
+            setIsCompleteModalOpen
           }}
         />
       );

@@ -16,6 +16,7 @@ export default function ValueQuestions({
   reset,
   eventId,
   specificYearId,
+  setIsCompleteModalOpen,
 }: {
   questionPageNum: number;
   setQuestionPageNum: React.Dispatch<React.SetStateAction<number>>;
@@ -24,6 +25,7 @@ export default function ValueQuestions({
   reset: () => void;
   eventId: String;
   specificYearId: String;
+  setIsCompleteModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const {
     register,
@@ -53,7 +55,13 @@ export default function ValueQuestions({
   }
 
   function handleNextButton(input: any) {
-    setQuestionPageNum(2);
+    if (events.slice(-1)[0].nextYear === new Date().getFullYear()){
+      setIsCompleteModalOpen(true);
+      setQuestionPageNum(NaN);
+    }
+    else{ 
+      setQuestionPageNum(2);
+    }
   }
 
   return (
@@ -70,6 +78,7 @@ export default function ValueQuestions({
             setMode,
             setEvents,
             eventId,
+            setIsCompleteModalOpen,
           }}
         />
       </div>

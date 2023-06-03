@@ -27,6 +27,7 @@ export default function ToolBar({
   setMode,
   setEvents,
   eventId,
+  setIsCompleteModalOpen,
 }: {
   handlePrevButton: () => void;
   handleNextButton: (data: dataType) => void;
@@ -37,6 +38,7 @@ export default function ToolBar({
   setMode?: React.Dispatch<React.SetStateAction<"period" | "year">>;
   setEvents?: React.Dispatch<React.SetStateAction<eventType>>;
   eventId: String;
+  setIsCompleteModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const setModeToolBar = setMode ? setMode : () => null;
   const setEventsToolBar = setEvents ? setEvents : () => null;
@@ -64,6 +66,11 @@ export default function ToolBar({
       ]);
     }
     updateDBAdd(newMode);
+  }
+
+  function doneButtonClicked(event: any){
+    event.preventDefault();
+    setIsCompleteModalOpen(true);
   }
 
   async function updateDBAdd(type: String) {
@@ -140,7 +147,9 @@ export default function ToolBar({
           <Image src={nextIcon} alt="nextIcon" width={40} height={40} />
         </button>
       </div>
-      <div style={{ flex: "1" }}></div>
+      <div style={{ flex: "1", display: "flex", flexDirection: "row-reverse"}}>
+        <button className={styles.doneButton} onClick={doneButtonClicked}>Done</button>
+      </div>
     </div>
   );
 }

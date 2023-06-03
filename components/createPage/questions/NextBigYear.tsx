@@ -16,6 +16,7 @@ export default function NextBigYear({
   eventId,
   setEventId,
   setSpecificYearId,
+  setIsCompleteModalOpen,
 }: {
   questionPageNum: number;
   setQuestionPageNum: React.Dispatch<React.SetStateAction<number>>;
@@ -26,6 +27,7 @@ export default function NextBigYear({
   eventId: String;
   setEventId: React.Dispatch<React.SetStateAction<String>>;
   setSpecificYearId: React.Dispatch<React.SetStateAction<String>>;
+  setIsCompleteModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const {
     register,
@@ -114,6 +116,7 @@ export default function NextBigYear({
             reset,
             setEvents,
             eventId,
+            setIsCompleteModalOpen,
           }}
         />
       </div>
