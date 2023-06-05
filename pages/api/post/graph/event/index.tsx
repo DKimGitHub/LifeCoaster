@@ -26,7 +26,9 @@ export default async function handler(
       res.status(200).json(putData);
       break
     case "DELETE":
-      const deleteData = await prisma.event.deleteMany(req.body.query);
+      const deleteData = await prisma.event.delete({
+        ... JSON.parse(req.body)
+      });
       res.status(200).json(deleteData);
       break;
     default:

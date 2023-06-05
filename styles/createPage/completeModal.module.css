@@ -1,0 +1,72 @@
+.playButton {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  font-size: 3rem;
+  cursor: pointer;
+  padding: 0.3em 0.6em;
+  border: none;
+  border-radius: 3rem;
+  color: #f7393985;
+  animation-name: animateButton;
+  animation-duration: 2.5s;
+  animation-iteration-count: infinite;
+  transition: font-size 0.1s;
+}
+
+.playButton:hover {
+  animation: none;
+  font-size: 3.3rem;  
+}
+
+.playButton:active{
+  font-size: 3rem;
+}
+
+.playButtonClicked {
+  animation-name: fadeOutButton;
+  animation-duration: 0.1s;
+  font-size: 3.5rem;
+  cursor: pointer;
+  padding: 0.3em 0.6em;
+  border: none;
+  border-radius: 3rem;
+  color: #f7393985;
+}
+
+@keyframes animateButton {
+  0% {
+     font-size: 3rem
+  }
+  40%{
+    font-size: 3.3rem
+  }
+  80%{
+    font-size: 3rem
+  }
+}
+
+@keyframes fadeOutButton {
+  100% {
+    color: #ffea0000
+  }
+}
+
+.saveButton{
+  margin-right: 1rem;
+  color: #474239;
+  border-radius: 1rem;
+  border: 1px #474239 solid;
+  padding: 0.3rem 0.6rem;
+}
+
+.saveButton:hover{
+  background-color: #474239;
+  color: white;
+}
+
+.saveButton:active{
+  transform: scale(0.95);
+}

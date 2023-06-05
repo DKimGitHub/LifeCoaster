@@ -15,6 +15,12 @@ export function createGraphNodes(events: any) {
 
     for (let i = 1; i < events.length; i++) {
       if (events[i].type === "period") {
+        if (i === 0){
+          periodNodes.push({
+            x: events[i].nextYear,
+            y: events[i].period.value,
+          });
+        }
         if (events[i - 1].nextYear === events[i].nextYear - 1) {
           periodNodes.push({
             x: events[i].nextYear - 1,

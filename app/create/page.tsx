@@ -5,7 +5,7 @@ import React, { useState, useEffect } from "react";
 import Graph from "../../components/createPage/Graph";
 import QuestionsMain from "../../components/createPage/questions/QuestionsMain";
 import ModalsMain from "../../components/createPage/modals/ModalsMain";
-import CompleteModal from "../../components/createPage/modals/CompleteModal"
+import CompleteModal from "../../components/createPage/modals/CompleteModal";
 import nodes from "../../lib/importDataCreateNode";
 
 import { eventType, nodeType } from "../../lib/types";
@@ -13,6 +13,7 @@ import styles from "../../styles/createPage/create.module.css";
 import Navigation from "../../components/Navigation";
 import AuthButtonHeader from "../../components/AuthButtonHeader";
 import CreatePageAuthModal from "../../components/CreatePageAuthModal";
+import importDataCreateNode from "../../lib/importDataCreateNode";
 import { useSession } from "next-auth/react";
 
 export default function Page() {
@@ -27,7 +28,8 @@ export default function Page() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isFirstTime, setIsFirstTime] = useState<boolean>(true);
-  const [isCompleteModalOpen, setIsCompleteModalOpen] = useState<boolean>(false);
+  const [isCompleteModalOpen, setIsCompleteModalOpen] =
+    useState<boolean>(false);
 
   /* 
     #1: ContinueModal
@@ -41,6 +43,8 @@ export default function Page() {
   #3: YearOverlay
   #4: ValueQuestions 
   */
+
+  useEffect(() => {importDataCreateNode(postId)})
 
   // useEffect(() => {
   //   if (!session) {
@@ -71,6 +75,7 @@ export default function Page() {
   // }, []);
 
   //Initialization when the Create page mounts
+
   useEffect(() => {
     const savedState = localStorage.getItem("savedPost");
     if (savedState && !Number.isNaN(JSON.parse(savedState).questionPageNum)) {
@@ -85,18 +90,19 @@ export default function Page() {
     } else {
       setIsModalOpen(true);
       setModalPageNum(2);
-      //createPost();
     }
 
     //clean up function
-    return () => {
-      setGraphId("");
-      setEvents([]);
-      setQuestionPageNum(NaN);
-      setIsModalOpen(false);
-      setModalPageNum(NaN);
-    };
-    
+    // return () => {
+    //   setGraphId("");
+    //   setEventId("");
+    //   setSpecificYearId("");
+    //   setPostId("");
+    //   setEvents([]);
+    //   setQuestionPageNum(NaN);
+    //   setIsModalOpen(false);
+    //   setModalPageNum(NaN);
+    // };
   }, []);
 
   //Update the local cache whenever these dependcies change.
@@ -109,7 +115,9 @@ export default function Page() {
       specificYearId: specificYearId,
       questionPageNum: questionPageNum,
     };
-    localStorage.setItem("savedPost", JSON.stringify(savedState));
+    if (postId) {
+      localStorage.setItem("savedPost", JSON.stringify(savedState));
+    }
   }, [graphId, eventId, events, specificYearId, postId, questionPageNum]);
 
   async function createPost() {
@@ -142,11 +150,12 @@ export default function Page() {
     setEvents([]);
     setGraphId("");
     setEventId("");
+    setPostId("");
     setSpecificYearId("");
     setIsModalOpen(true);
     setModalPageNum(2);
     setQuestionPageNum(NaN);
-    createPost();
+    //createPost();
   }
 
   return (
@@ -165,7 +174,7 @@ export default function Page() {
             setEventId,
             setSpecificYearId,
             isModalOpen,
-            setIsModalOpen
+            setIsModalOpen,
           }}
         />
         <div className="absolute right-8 top-6">
@@ -180,6 +189,7 @@ export default function Page() {
               setModalPageNum,
               questionPageNum,
               setQuestionPageNum,
+              setIsModalOpen,
               events,
               setEvents,
               reset,
@@ -194,7 +204,9 @@ export default function Page() {
         </div>
       </div>
       {/* <CreatePageAuthModal isOpen={isAuthModalOpen} /> */}
-      <CompleteModal {...{isCompleteModalOpen, setIsCompleteModalOpen, events}}/>
+      <CompleteModal
+        {...{ isCompleteModalOpen, setIsCompleteModalOpen, events }}
+      />
     </>
   );
 }

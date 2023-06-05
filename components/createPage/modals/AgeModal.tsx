@@ -29,36 +29,6 @@ export default function AgeModal({
   setSpecificYearId: React.Dispatch<React.SetStateAction<String>>;
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  /*
-    Closes the modal and sets the nextYear and specificYear with the birth year.
-  */
-  function onSubmit(data: dataType) {
-    setIsModalOpen(false);
-    setTimeout(() => {
-      setQuestionPageNum(1);
-      setModalPageNum(NaN);
-    }, 1000);
-    setEvents([
-      {
-        nextYear: data.yearSelect,
-        type: "specificYear",
-        period: {
-          value: NaN,
-          description: "",
-        },
-        specificYear: [
-          {
-            year: data.yearSelect,
-            value: NaN,
-            description: "Born",
-          },
-        ],
-      },
-    ]);
-    updateDBAdd(data);
-    
-  }
-
   const {
     register,
     handleSubmit,
@@ -71,7 +41,35 @@ export default function AgeModal({
   useEffect(() => setValue("yearSelect", new Date().getFullYear()), [setValue]);
   const currentYear = new Date().getFullYear();
 
-  async function updateDBAdd(input: dataType) {
+  /*
+    Closes the modal and opens the question page.
+  */
+  function onSubmit(data: dataType) {
+    setIsModalOpen(false);
+    setTimeout(() => {
+      setQuestionPageNum(1);
+      setModalPageNum(NaN);
+    }, 1000);
+    updateEvents(data);
+    updateDBCreateEvent(data);
+  }
+
+  //Create a new event such that the nextYear is equal to the birth year.
+  function updateEvents(input: dataType) {
+    setEvents([
+      {
+        nextYear: input.yearSelect,
+        type: "period",
+        period: {
+          value: 0,
+          description: "Born",
+        },
+        specificYear: [],
+      },
+    ]);
+  }
+
+  async function updateDBCreateEvent(input: dataType) {
     const options: any = {
       method: "PUT",
       body: JSON.stringify({
@@ -83,39 +81,28 @@ export default function AgeModal({
             create: [
               {
                 nextYear: input.yearSelect,
-                type: "specificYear",
+                type: "period",
                 period: {
                   create: {
-                    value: NaN,
-                    description: "",
+                    value: 0,
+                    description: "Born",
                   },
                 },
                 specificYear: {
-                  create: [
-                    {
-                      year: input.yearSelect,
-                      value: NaN,
-                      description: "Born",
-                    },
-                  ],
+                  create: [],
                 },
               },
             ],
           },
         },
         include: {
-          event: {
-            include: {
-              specificYear: true,
-            },
-          },
+          event: true,
         },
       }),
     };
     const response = await fetch("/api/post/graph", options);
     const data = await response.json();
     setEventId(data.event.slice(-1)[0].id);
-    setSpecificYearId(data.event.slice(-1)[0].specificYear.slice(-1)[0].id);
   }
 
   return (

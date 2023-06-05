@@ -28,6 +28,7 @@ export default function QuestionsMain({
   setQuestionPageNum,
   events,
   setEvents,
+  setIsModalOpen,
   reset,
   graphId,
   eventId, 
@@ -42,6 +43,7 @@ export default function QuestionsMain({
   setQuestionPageNum: React.Dispatch<React.SetStateAction<number>>;
   events: eventType;
   setEvents: React.Dispatch<React.SetStateAction<eventType>>;
+  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   reset: () => void;
   graphId: String;
   eventId: String;
@@ -66,10 +68,15 @@ export default function QuestionsMain({
             questionPageNum,
             setQuestionPageNum,
             setModalPageNum,
+            events,
             setEvents,
+            setIsModalOpen,
             reset,
             specificYearId,
             eventId,
+            graphId,
+            setEventId,
+            setSpecificYearId,
             setIsCompleteModalOpen,
           }}
         />
@@ -85,6 +92,7 @@ export default function QuestionsMain({
             setEvents,
             reset,
             graphId,
+            specificYearId,
             setEventId,
             setSpecificYearId,
             eventId,
@@ -106,6 +114,7 @@ export default function QuestionsMain({
             setEvents,
             reset,
             eventId,
+            graphId,
             specificYearId,
             setIsCompleteModalOpen
           }}

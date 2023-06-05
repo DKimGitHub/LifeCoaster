@@ -8,6 +8,14 @@ import Image from "next/image";
 import { Node } from "@prisma/client";
 import { Button, css } from "@nextui-org/react";
 import { MutableRefObject } from "react";
+import styles from "../../../styles/createPage/completeModal.module.css";
+import { Press_Start_2P } from "next/font/google";
+
+const pressStart2p = Press_Start_2P({
+  weight: "400",
+  subsets: ["latin"],
+  display: "swap",
+});
 
 const CompleteGraph = forwardRef(function CompleteGraph({
   data,
@@ -44,24 +52,28 @@ const CompleteGraph = forwardRef(function CompleteGraph({
   }
   return (
     <>
-      
+      {!isCartAnimating && (
+        <button
+          onClick={startCartAnimation}
+          className={`${styles.playButton} ${pressStart2p.className}`}>
+          Play
+        </button>
+      )}
+
       <div ref={printRef} style={{ width: "100%", height: "80%" }}>
-        {!isCartAnimating && (
-          <button
-            onClick={startCartAnimation}
-            style={{
-             
-            }}>
-            Play
-          </button>
-        )}
         <Image
           src={TrainSvg}
           alt="train"
           width="30"
           height="30"
           ref={cartRef}
-          className=" invisible absolute left-[20px] top-4 z-10"
+          style={{
+            position: "absolute",
+            top: "8.2rem",
+            
+            zIndex: "10",
+            left: "6rem",
+          }}
           onAnimationEnd={() =>
             cartRef.current &&
             (cartRef.current as HTMLElement).classList.remove("animateCart")

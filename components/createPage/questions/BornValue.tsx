@@ -6,24 +6,35 @@ import styles from "../../../styles/createPage/form.module.css";
 import { dataType, eventType } from "../../../lib/types";
 import Slider from "../tools/ValueSlider";
 import PageTransition from "../../PageTransition";
+import { eventsToNodes } from "../../../lib/helpers";
 
 export default function BornValue({
   questionPageNum,
   setQuestionPageNum,
   setModalPageNum,
+  setIsModalOpen,
+  events,
   setEvents,
   reset,
   specificYearId,
   eventId,
+  graphId,
+  setEventId,
+  setSpecificYearId,
   setIsCompleteModalOpen,
 }: {
   questionPageNum: number;
   setQuestionPageNum: React.Dispatch<React.SetStateAction<number>>;
   setModalPageNum: React.Dispatch<React.SetStateAction<number>>;
+  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  events: eventType;
   setEvents: React.Dispatch<React.SetStateAction<eventType>>;
   reset: () => void;
   specificYearId: String;
   eventId: String;
+  graphId: String;
+  setEventId: React.Dispatch<React.SetStateAction<String>>;
+  setSpecificYearId: React.Dispatch<React.SetStateAction<String>>;
   setIsCompleteModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const {
@@ -34,44 +45,119 @@ export default function BornValue({
     setValue,
   } = useForm();
 
+  const currentYear = events.slice(-1)[0].nextYear;
+
   //Sets the default slider value
-  useEffect(() => setValue("valueSlider", 0), [setValue]);
+  useEffect(() => {
+    setValue("valueSlider", 0);
+  }, [setValue]);
 
   /*
     Go back to the age modal.
     Year of birth is removed from the event array. 
   */
-  function handlePrevButton() {
+
+  async function handlePrevButton() {
     setQuestionPageNum(NaN);
     setModalPageNum(3);
     setEvents([]);
+    updateDBDeleteEvent()
+    setEventId("");
+    setIsModalOpen(true);
   }
 
-  function handleNextButton(data: dataType) {
+  function handleNextButton() {
     setQuestionPageNum(2);
-    //Update the specificYear array
-    setEvents((prev) => [
-      {
-        ...prev[0],
-        specificYear: [{ ...prev[0].specificYear[0], value: data.valueSlider }],
-      },
-    ]);
-    updateDBAdd(data);
+    createNewEvent();
+    updateDBCreateNewEvent();
   }
 
-  async function updateDBAdd(input: dataType) {
+  function updateOnValueChange(value: number) {
+    updateEventsBornValue(value);
+    updateDBBornValue(value);
+  }
+ 
+  //Deletes the event.
+  async function updateDBDeleteEvent() {
+    await fetch(`/api/post/graph/event/${eventId}/deleteEvent`);
+  }
+
+  //Creates a new event 
+  function createNewEvent() {
+    setEvents((prev) => {
+      return [
+        ...prev,
+        {
+          nextYear: currentYear + 1,
+          type: null,
+          period: { value: 0, description: "" },
+          specificYear: [],
+        },
+      ];
+    });
+  }
+
+  //Create a new event on the database
+  async function updateDBCreateNewEvent() {
     const options: any = {
       method: "PUT",
       body: JSON.stringify({
         where: {
-          id: specificYearId,
+          id: graphId,
         },
         data: {
-          value: input.valueSlider,
+          event: {
+            create: [
+              {
+                nextYear: 0,
+                type: null,
+                period: {
+                  create: { value: 0, description: "" },
+                },
+                specificYear: {
+                  create: [],
+                },
+              },
+            ],
+          },
+        },
+        include: {
+          event: true,
         },
       }),
     };
-    const response = await fetch("/api/post/graph/event/specificYear", options);
+    const response = await fetch("/api/post/graph/", options);
+    const data = await response.json();
+    setEventId(data.event.slice(-1)[0].id);
+  }
+
+  //update the next year on the first event, which is the only event present currently.
+  function updateEventsBornValue(value: number) {
+    setEvents((prev) => [
+      {
+        ...prev[0],
+        period: { ...prev[0].period, value: value },
+      },
+    ]);
+  }
+
+  async function updateDBBornValue(input: number) {
+    const options: any = {
+      method: "PUT",
+      body: JSON.stringify({
+        where: {
+          id: eventId,
+        },
+        data: {
+          period: {
+            update: {
+              value: input
+            }
+          }
+        },
+      }),
+    };
+    const response = await fetch("/api/post/graph/event/", options);
     const data = await response.json();
   }
 
@@ -100,8 +186,8 @@ export default function BornValue({
             <Controller
               name="valueSlider"
               control={control}
-              render={({ field: { onChange, value } }) => (
-                <Slider onChange={onChange} defaultValue={0} />
+              render={() => (
+                <Slider onChange={updateOnValueChange} defaultValue={0} />
               )}
             />
             {errors.valueSlider && (

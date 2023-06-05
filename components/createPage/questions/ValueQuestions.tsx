@@ -15,6 +15,8 @@ export default function ValueQuestions({
   setEvents,
   reset,
   eventId,
+  setEventId,
+  graphId,
   specificYearId,
   setIsCompleteModalOpen,
 }: {
@@ -24,6 +26,8 @@ export default function ValueQuestions({
   setEvents: React.Dispatch<React.SetStateAction<eventType>>;
   reset: () => void;
   eventId: String;
+  setEventId: React.Dispatch<React.SetStateAction<String>>;
+  graphId: String;
   specificYearId: String;
   setIsCompleteModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
@@ -48,20 +52,108 @@ export default function ValueQuestions({
       index 1: Year tab select year
       index 2: Year tab value slider
     */
+  const previousYear = events.slice(-2)[0].nextYear;
+  const currentYear = events.slice(-1)[0].nextYear;
 
   function handlePrevButton() {
-    setEvents((prev) => prev.slice(0, -1));
+    updateEventNextYear();
+    updateDBNextYear();
     setQuestionPageNum(2);
   }
 
   function handleNextButton(input: any) {
-    if (events.slice(-1)[0].nextYear === new Date().getFullYear()){
+    if (events.slice(-1)[0].nextYear === new Date().getFullYear()) {
       setIsCompleteModalOpen(true);
       setQuestionPageNum(NaN);
-    }
-    else{ 
+    } else {
       setQuestionPageNum(2);
+      createNewEvent();
+      updateDBCreateNewEvent();
     }
+  }
+
+  function updateEventNextYear() {
+    setEvents((prev) => {
+      return [
+        ...prev.slice(0, -1),
+        {
+          nextYear: previousYear,
+          type: null,
+          period: { value: 0, description: "" },
+          specificYear: [],
+        },
+      ];
+    });
+  }
+
+  async function updateDBNextYear() {
+    const options: any = {
+      method: "PUT",
+      body: JSON.stringify({
+        where: {
+          id: eventId,
+        },
+        data: {
+          nextYear: 0,
+          type: null,
+          period: { update: { value: 0, description: "" } },
+          specificYear: { deleteMany: { eventId: eventId } },
+        },
+      }),
+    };
+    await fetch("/api/post/graph/event", options);
+  }
+
+  function createNewEvent() {
+    setEvents((prev) => {
+      return [
+        ...prev,
+        {
+          nextYear: currentYear + 1,
+          type: null,
+          period: { value: 0, description: "" },
+          specificYear: [],
+        },
+      ];
+    });
+  }
+
+  async function updateDBCreateNewEvent() {
+    const options: any = {
+      method: "PUT",
+      body: JSON.stringify({
+        where: {
+          id: graphId,
+        },
+        data: {
+          event: {
+            create: [
+              {
+                nextYear: currentYear + 1,
+                type: null,
+                period: {
+                  create: { value: 0, description: "" },
+                },
+                specificYear: {
+                  create: [],
+                },
+              },
+            ],
+          },
+        },
+        include: {
+          event: {
+            include: {
+              specificYear: true,
+            },
+          },
+        },
+      }),
+    };
+    const response = await fetch("/api/post/graph/", options);
+    const data = await response.json();
+    setEventId(data.event.slice(-1)[0].id);
+    // setSpecificYearId(data.event.slice(-1)[0]?.specificYear.slice(-1)[0]?.id);
   }
 
   return (
@@ -86,28 +178,25 @@ export default function ValueQuestions({
       {(() => {
         if (mode === "period") {
           return (
-            
-              <PeriodToggleSelected
-                {...{ setEvents, defaultValues, setDefaultValues, eventId }}
-              />
+            <PeriodToggleSelected
+              {...{ setEvents, defaultValues, setDefaultValues, eventId }}
+            />
           );
         } else if (mode === "year") {
           return (
-              <YearToggleSelected
-                {...{
-                  setEvents,
-                  events,
-                  defaultValues,
-                  setDefaultValues,
-                  specificYearId,
-                  eventId,
-                }}
-              />
-
+            <YearToggleSelected
+              {...{
+                setEvents,
+                events,
+                defaultValues,
+                setDefaultValues,
+                specificYearId,
+                eventId,
+              }}
+            />
           );
         }
       })()}
-
     </div>
   );
 }

@@ -96,7 +96,7 @@ export default function CompleteModal({
             flexDirection: "row-reverse",
             paddingTop: "1rem",
           }}>
-          <button style={{ marginRight: "1rem" }} onClick={handleDownloadImage}>
+          <button className={styles.skipButton} onClick={handleDownloadImage}>
             Save Image
           </button>
         </div>

@@ -29,6 +29,7 @@ export default function Graph({ events }: { events: eventType }) {
   const nodes = nodeData? nodeData.periodNodes.concat(nodeData.yearNodes) : null;
 
   const minYear = events.length > 0 ? events[0].nextYear : 1900;
+  const maxYear = events.length > 0 ? events.slice(-1)[0].nextYear : minYear + 1;
   
   const options = {
     responsive: true,
