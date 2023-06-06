@@ -89,7 +89,11 @@ export default function ValueQuestions({
               value: 0,
               description: "",
             },
-            specificYear: []
+            specificYear: [{
+              year: new Date().getFullYear(),
+              value: 0,
+              description: "",
+            }]
           }
         ];
       });

@@ -10,7 +10,7 @@
   right: 0;
   bottom: 0;
   background-color: black;
-  animation: container ease-in-out 3.5s;
+  animation: container ease-in-out 2.5s;
   animation-fill-mode: forwards;
 }
 

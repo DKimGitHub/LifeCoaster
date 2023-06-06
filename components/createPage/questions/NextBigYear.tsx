@@ -37,7 +37,11 @@ export default function NextBigYear({
     formState: { errors },
     control,
     setValue,
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      "yearSelect": events.slice(-1)[0].nextYear + 1,
+    },
+  });
 
   /*
   If the current period is the period right after the birth year, 
@@ -104,7 +108,11 @@ export default function NextBigYear({
           nextYear: value,
           type: null,
           period: { value: 0, description: "" },
-          specificYear: [],
+          specificYear: [{
+            year: value + 1,
+            value: 0,
+            description: "",
+          },],
         },
       ];
     });
@@ -157,6 +165,7 @@ export default function NextBigYear({
               name="yearSelect"
               control={control}
               render={({ field: { onChange, value } }) => {
+
                 function customOnChange(value: number) {
                   onChange(value);
                   setCurrentSelectedInput(value);
@@ -167,7 +176,7 @@ export default function NextBigYear({
                     onChange={customOnChange}
                     start={events.slice(-1)[0].nextYear + 1}
                     end={new Date().getFullYear()}
-                    defaultValue={events.slice(-1)[0].nextYear + 1}
+                    value={value}
                   />
                 );
               }}
@@ -185,9 +194,8 @@ export default function NextBigYear({
                 if (events.slice(-1)[0].nextYear === currentSelectedInput - 1) {
                   return `${events.slice(-1)[0].nextYear}`;
                 } else {
-                  return `${events.slice(-1)[0].nextYear} ~ ${
-                    currentSelectedInput - 1
-                  }`;
+                  return `${events.slice(-1)[0].nextYear} ~ ${currentSelectedInput - 1
+                    }`;
                 }
               } else {
                 return `${events.slice(-1)[0].nextYear}`;

@@ -36,16 +36,44 @@ export function randomName(id: string) {
     hash = (hash << 5) - hash + chr;
     hash |= 0;
   }
-  let ranNum = Math.abs(hash%28);
-  let names = ["Jimmy", "John", "Michael", "David", "Will", "Joseph", "Tommy", "Chris", "Daniel", "Matt", "Tony", "Paul", "Ahmed", "Ali", "Brian", "Eric", "Scott", "Rachel", "Sarah", "Laura", "Liam", "Olivia", "Emma", "Ben", "Alex", "Noah", "Saad", "David"];
+  let ranNum = Math.abs(hash % 28);
+  let names = [
+    "Jimmy",
+    "John",
+    "Michael",
+    "David",
+    "Will",
+    "Joseph",
+    "Tommy",
+    "Chris",
+    "Daniel",
+    "Matt",
+    "Tony",
+    "Paul",
+    "Ahmed",
+    "Ali",
+    "Brian",
+    "Eric",
+    "Scott",
+    "Rachel",
+    "Sarah",
+    "Laura",
+    "Liam",
+    "Olivia",
+    "Emma",
+    "Ben",
+    "Alex",
+    "Noah",
+    "Saad",
+    "David",
+  ];
   return names[ranNum];
 }
 export function eventsToNodes(events: any) {
   const temp = createGraphNodes(events);
-  const nodes = temp
-    ? temp.periodNodes
-        .concat(temp.yearNodes)
-        .sort((a, b) => a.x- b.x)
+  const temp2 = temp
+    ? temp.periodNodes.concat(temp.yearNodes).sort((a, b) => a.x - b.x)
     : [];
-    return nodes;
+  const nodes = temp2.filter(i => !Number.isNaN(i.x))
+  return nodes;
 }

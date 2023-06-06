@@ -8,14 +8,14 @@ export default function YearSelect({
   rangeInput,
   start,
   end,
-  defaultValue,
+  value,
 }: {
   onChange: (...event: any[]) => void;
   rangeInput?: number[];
   reverse?: boolean;
   start?: number;
   end?: number;
-  defaultValue: number;
+  value: number;
 }) {
   var range: number[] = [];
 
@@ -32,7 +32,7 @@ export default function YearSelect({
       onChange={(event, _) => {
         onChange(event.target.value);
       }}
-      defaultValue={defaultValue}
+      value={value}
       sx={{
         color: "#474239",
       }}>

@@ -36,64 +36,51 @@ export default function YearToggleSelected({
     setValue,
   } = useForm({
     defaultValues: {
-      yearSelect: defaultValues[1],
-      valueSlider: defaultValues[2],
-      description: "",
+      "yearSelect": defaultValues[1],
+      "valueSlider": defaultValues[2],
+      "description": "",
     },
   });
 
-  useEffect(() => {
-    console.log(range);
-  });
-
   //If it is the first period, then the period starts from birth year + 1
-  const startYear =
-    events.length > 2
-      ? events.slice(-2)[0].nextYear
-      : events.slice(-2)[0].nextYear + 1;
-
- const [isAddedVisible, setIsAddedVisible] = useState<boolean>(false);
-
-  useEffect(() => {
-    setValue("yearSelect", startYear);
-    setValue("valueSlider", 0);
-  }, [setValue, startYear]);
+  const [startYear, setStartYear] = useState<number>(events.length > 2
+    ? events.slice(-2)[0].nextYear
+    : events.slice(-2)[0].nextYear + 1)
+  const [isAddedVisible, setIsAddedVisible] = useState<boolean>(false);
 
   function onSubmit(data: dataType) {
-    if (!Number.isNaN(events.slice(-1)[0].specificYear.slice(-1)[0].year)){
+    if (!Number.isNaN(events.slice(-1)[0].specificYear.slice(-1)[0].year)) {
       const yearInput = events.slice(-1)[0].specificYear.slice(-1)[0].year;
-    setEvents((prev) => [
-      ...prev.slice(0, -1),
-      {
-        ...prev.slice(-1)[0],
-        specificYear: [
-          ...prev.slice(-1)[0].specificYear.slice(0, -1),
-          {
-            ...prev.slice(-1)[0].specificYear.slice(-1)[0],
-            description: data.description,
-          },
-          {
-            year: NaN,
-            value: 0,
-            description: "",
-          },
-        ],
-      },
-    ]);
-    setDefaultValues((prev) => [prev[0], prev[1], 0]);
-    setRange(range.filter((i) => i !== yearInput));
-    // updateDBAdd();
-    setValue("valueSlider", 0);
-    setDefaultValues((prev) => [prev[0], NaN, 0]);
-    setIsAddedVisible(true);
-    setTimeout(() => {
-      setIsAddedVisible(false);
-    }, 1000);
+      setEvents((prev) => [
+        ...prev.slice(0, -1),
+        {
+          ...prev.slice(-1)[0],
+          specificYear: [
+            ...prev.slice(-1)[0].specificYear.slice(0, -1),
+            {
+              ...prev.slice(-1)[0].specificYear.slice(-1)[0],
+              description: data.description,
+            },
+            {
+              year: NaN,
+              value: 0,
+              description: "",
+            },
+          ],
+        },
+      ]);
+      setRange(range.filter((i) => i !== yearInput));
+      // updateDBAdd();
+      setValue("valueSlider", 0);
+      setDefaultValues((prev) => [prev[0], NaN, 0]);
+      setIsAddedVisible(true);
+      setTimeout(() => {
+        setIsAddedVisible(false);
+      }, 1000);
     }
   }
 
   function updateEventsYear(value: number) {
-    
     setEvents((prev) => [
       ...prev.slice(0, -1),
       {
@@ -134,7 +121,7 @@ export default function YearToggleSelected({
   // async function updateDBEventsYear(value: number) {
   //   const options: any = {
   //     method: "PUT",
-  //     body: JSON.stringify({
+  //     body: JSON.stringify({d
   //       where: {
   //         id: specificYearId,
   //       },
@@ -198,13 +185,19 @@ export default function YearToggleSelected({
           <Controller
             name="yearSelect"
             control={control}
-            render={() => (
-              <Select
-                onChange={updateEventsYear}
-                rangeInput={range}
-                defaultValue={defaultValues[1]}
-              />
-            )}
+            render={({ field: { onChange, value } }) => {
+              function customOnChange(value: number) {
+                onChange(value);
+                updateEventsYear(value);
+              }
+              return (
+                <Select
+                  onChange={customOnChange}
+                  rangeInput={range}
+                  value={value}
+                />
+              )
+            }}
           />
           {errors.yearSelect && (
             <p style={{ display: "inline", color: "red" }}>
@@ -218,12 +211,18 @@ export default function YearToggleSelected({
         <Controller
           name="valueSlider"
           control={control}
-          render={() => (
-            <Slider
-              onChange={updateEventsValue}
-              defaultValue={defaultValues[2]}
-            />
-          )}
+          render={({ field: { onChange, value } }) => {
+            function customOnChange(value: number) {
+              onChange(value);
+              updateEventsValue(value);
+            }
+            return (
+              <Slider
+                onChange={customOnChange}
+                value={value}
+              />
+            )
+          }}
         />
         {errors.valueSlider && (
           <p style={{ display: "inline", color: "red" }}>
@@ -236,7 +235,7 @@ export default function YearToggleSelected({
         <Controller
           name="description"
           control={control}
-          render={({ field: { onChange } }) => (
+          render={({ field: { onChange, value } }) => (
             <textarea
               style={{
                 overflowY: "scroll",

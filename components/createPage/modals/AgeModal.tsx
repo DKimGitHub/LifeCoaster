@@ -29,17 +29,20 @@ export default function AgeModal({
   setSpecificYearId: React.Dispatch<React.SetStateAction<String>>;
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
+  const currentYear = new Date().getFullYear();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
     control,
     setValue,
-  } = useForm();
+  } = useForm({defaultValues: {
+    "yearSelect": currentYear
+  },});
 
   //Sets the default selector value
   useEffect(() => setValue("yearSelect", new Date().getFullYear()), [setValue]);
-  const currentYear = new Date().getFullYear();
 
   /*
     Closes the modal and opens the question page.
@@ -113,14 +116,14 @@ export default function AgeModal({
       <Controller
         name="yearSelect"
         control={control}
-        render={({ field: { onChange } }) => {
+        render={({ field: { onChange, value } }) => {
           return (
             <Select
               onChange={onChange}
               reverse={true}
               start={1900}
               end={currentYear}
-              defaultValue={currentYear}
+              value={value}
             />
           );
         }}

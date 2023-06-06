@@ -43,14 +43,14 @@ export default function BornValue({
     formState: { errors },
     control,
     setValue,
-  } = useForm();
+  } = useForm({
+      defaultValues: {
+        "valueSlider": 0
+      },
+    }
+  );
 
   const currentYear = events.slice(-1)[0].nextYear;
-
-  //Sets the default slider value
-  useEffect(() => {
-    setValue("valueSlider", 0);
-  }, [setValue]);
 
   /*
     Go back to the age modal.
@@ -75,7 +75,7 @@ export default function BornValue({
     updateEventsBornValue(value);
     // updateDBBornValue(value);
   }
- 
+
   //Deletes the event.
   // async function updateDBDeleteEvent() {
   //   await fetch(`/api/post/graph/event/${eventId}/deleteEvent`);
@@ -186,9 +186,16 @@ export default function BornValue({
             <Controller
               name="valueSlider"
               control={control}
-              render={() => (
-                <Slider onChange={updateOnValueChange} defaultValue={0} />
-              )}
+              render={({ field: { onChange, value } }) => {
+                console.log(value);
+                function customOnChange(value: number){
+                  onChange(value);
+                  updateOnValueChange(value);
+                }
+                return (
+                  <Slider onChange={customOnChange} value={value} />
+                )
+              }}
             />
             {errors.valueSlider && (
               <p style={{ display: "inline", color: "red" }}>

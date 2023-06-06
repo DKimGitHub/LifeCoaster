@@ -4,11 +4,11 @@ import { styled } from "@nextui-org/react";
 
 export default function ValueSlider({
   onChange,
-  defaultValue,
+  value,
  
 }: {
   onChange: (...event: any[]) => void;
-  defaultValue: number
+  value?: number;
 
 }) {
 
@@ -36,7 +36,6 @@ export default function ValueSlider({
   ];
   return (
     <Slider
-      defaultValue={defaultValue}
       step={1}
       marks={marks}
       min={0}
@@ -46,6 +45,7 @@ export default function ValueSlider({
       sx={{
         color: "#704f47",
       }}
+      value={value}
     />
   );
 }
