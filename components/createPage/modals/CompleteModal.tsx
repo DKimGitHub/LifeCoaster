@@ -89,17 +89,20 @@ export default function CompleteModal({
           />
         </button>
         <CompleteGraph data={eventsToNodes(events)} printRef={printRef} />
-        {/* <div
+        <div
           style={{
             width: "100%",
             display: "flex",
             flexDirection: "row-reverse",
             paddingTop: "1rem",
           }}>
-          <button className={styles.skipButton}>
+          <button className={styles.skipButton} onClick={async () => {
+            const { exportComponentAsPNG } = await import('react-component-export-image')
+            exportComponentAsPNG(printRef)
+          }}>
             Save Image
           </button>
-        </div> */}
+        </div>
       </div>
     </Modal>
   );
