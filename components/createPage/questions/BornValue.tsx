@@ -187,7 +187,6 @@ export default function BornValue({
               name="valueSlider"
               control={control}
               render={({ field: { onChange, value } }) => {
-                console.log(value);
                 function customOnChange(value: number){
                   onChange(value);
                   updateOnValueChange(value);
