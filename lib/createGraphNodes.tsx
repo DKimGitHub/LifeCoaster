@@ -39,14 +39,14 @@ export function createGraphNodes(events: any) {
             });
           }
         }
-      } else if (events[i].type === "specificYear") {
+      } else if (events[i].type === "specificYear" || events[i].type === "year") {
         for (let y of events[i].specificYear) {
           yearNodes.push({
             x: y.year,
             y: y.value,
           });
         }
-      }
+      } 
     }
     return { periodNodes, yearNodes };
   }
