@@ -13,6 +13,7 @@ import Navigation from "../../components/Navigation";
 import AuthButtonHeader from "../../components/AuthButtonHeader";
 import CreatePageAuthModal from "../../components/CreatePageAuthModal";
 import { useSession } from "next-auth/react";
+import { eventsToNodes } from "../../lib/helpers";
 
 export default function Page() {
   const { data: session } = useSession();
@@ -179,7 +180,7 @@ export default function Page() {
           <AuthButtonHeader />
         </div>
         <div className={styles.graphContainer}>
-          <Graph {...{ events }} />
+          <Graph data={eventsToNodes(events)}/>
         </div>
         <div className={styles.questionsContainer}>
           <QuestionsMain

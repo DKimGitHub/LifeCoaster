@@ -184,7 +184,7 @@ export default function ToolBar({
       </div>
       <div style={{ flex: "1", display: "flex", flexDirection: "row-reverse" }}>
         <button className={styles.doneButton} onClick={doneButtonClicked}>
-          Done
+          Save
         </button>
       </div>
     </div>
