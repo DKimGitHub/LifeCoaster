@@ -25,7 +25,7 @@ export default function PeriodToggleSelected({
     control,
   } = useForm({
     defaultValues: {
-      valueSlider: defaultValues[0],
+      "valueSlider": defaultValues[0],
     },
   });
 
@@ -109,12 +109,19 @@ export default function PeriodToggleSelected({
           <Controller
             name="valueSlider"
             control={control}
-            render={() => (
-              <Slider
-                onChange={updateValueChange}
-                defaultValue={defaultValues[0]}
-              />
-            )}
+            render={({ field: { value, onChange } }) => {
+              function customOnChange(value: number){
+                onChange(value);
+                updateValueChange(value);
+              }
+
+              return (
+                <Slider
+                  onChange={customOnChange}
+                  value={value}
+                />
+              )
+            }}
           />
           {errors.valueSlider && (
             <p style={{ display: "inline", color: "red" }}>
