@@ -57,9 +57,9 @@ export default function CompleteModal({
     setIsCompleteModalOpen(false);
   }
 
-  function handleDownloadImage() {
-    exportComponentAsPNG(printRef);
-  }
+  // function handleDownloadImage() {
+  //   exportComponentAsPNG(printRef);
+  // }
 
   return (
     <Modal
@@ -96,7 +96,7 @@ export default function CompleteModal({
             flexDirection: "row-reverse",
             paddingTop: "1rem",
           }}>
-          <button className={styles.skipButton} onClick={handleDownloadImage}>
+          <button className={styles.skipButton}>
             Save Image
           </button>
         </div>

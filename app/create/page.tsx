@@ -173,9 +173,9 @@ export default function Page() {
             setIsModalOpen,
           }}
         />
-        {/* <CompleteModal
+        <CompleteModal
           {...{ isCompleteModalOpen, setIsCompleteModalOpen, events }}
-        /> */}
+        />
         <div className="absolute right-8 top-6">
           <AuthButtonHeader />
         </div>
