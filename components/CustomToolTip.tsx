@@ -1,5 +1,4 @@
 import { PointTooltipProps } from "@nivo/line";
-import { TooltipWrapper } from '@nivo/tooltip';
 import { mockData1 } from "../lib/mockData";
 import { Pangolin } from "next/font/google";
 
@@ -14,7 +13,6 @@ export default function CustomToolTip(props: PointTooltipProps) {
   // const data = mockData1[0].data.find(e=> e.y ===p.y)?.title;
 
   return (
-    <TooltipWrapper anchor="left" position={[0, 0]}>
       <div
         className={pangolin.className}
         style={{
@@ -30,6 +28,5 @@ export default function CustomToolTip(props: PointTooltipProps) {
           Satisfactory: {p.yFormatted}
         </span>
       </div>
-    </TooltipWrapper>
   );
 }
