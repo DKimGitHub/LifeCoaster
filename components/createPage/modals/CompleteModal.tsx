@@ -89,7 +89,7 @@ export default function CompleteModal({
           />
         </button>
         <CompleteGraph data={eventsToNodes(events)} printRef={printRef} />
-        <div
+        {/* <div
           style={{
             width: "100%",
             display: "flex",
@@ -99,7 +99,7 @@ export default function CompleteModal({
           <button className={styles.skipButton}>
             Save Image
           </button>
-        </div>
+        </div> */}
       </div>
     </Modal>
   );
