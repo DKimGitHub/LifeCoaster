@@ -71,7 +71,7 @@ export default function CompleteModal({
       style={customStyles}>
       <div
         className={pangolin.className}
-        style={{ width: "100%", height: "100%" }}>
+        style={{ width: "100%", height: "100%", overflow: "hidden"}}>
         <div
           style={{ width: "100%", display: "flex", justifyContent: "center" }}>
           <span style={{ fontSize: "1.5rem", fontWeight: "bold" }}>
