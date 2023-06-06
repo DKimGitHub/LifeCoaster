@@ -6,14 +6,12 @@ import Graph from "../../components/createPage/Graph";
 import QuestionsMain from "../../components/createPage/questions/QuestionsMain";
 import ModalsMain from "../../components/createPage/modals/ModalsMain";
 import CompleteModal from "../../components/createPage/modals/CompleteModal";
-import nodes from "../../lib/importDataCreateNode";
 
 import { eventType, nodeType } from "../../lib/types";
 import styles from "../../styles/createPage/create.module.css";
 import Navigation from "../../components/Navigation";
 import AuthButtonHeader from "../../components/AuthButtonHeader";
 import CreatePageAuthModal from "../../components/CreatePageAuthModal";
-import importDataCreateNode from "../../lib/importDataCreateNode";
 import { useSession } from "next-auth/react";
 
 export default function Page() {
@@ -44,7 +42,7 @@ export default function Page() {
   #4: ValueQuestions 
   */
 
-  useEffect(() => {importDataCreateNode(postId)})
+  useEffect(() => console.log(events))
 
   // useEffect(() => {
   //   if (!session) {
@@ -120,30 +118,30 @@ export default function Page() {
     }
   }, [graphId, eventId, events, specificYearId, postId, questionPageNum]);
 
-  async function createPost() {
-    const options = {
-      method: "POST",
-      body: JSON.stringify({
-        data: {
-          graph: {
-            create: { dummy: false },
-          },
-        },
-        select: {
-          id: true,
-          graph: {
-            select: {
-              id: true,
-            },
-          },
-        },
-      }),
-    };
-    const response = await fetch("/api/post", options);
-    const data = await response.json();
-    setGraphId(data.graph.id);
-    setPostId(data.id);
-  }
+  // async function createPost() {
+  //   const options = {
+  //     method: "POST",
+  //     body: JSON.stringify({
+  //       data: {
+  //         graph: {
+  //           create: { dummy: false },
+  //         },
+  //       },
+  //       select: {
+  //         id: true,
+  //         graph: {
+  //           select: {
+  //             id: true,
+  //           },
+  //         },
+  //       },
+  //     }),
+  //   };
+  //   const response = await fetch("/api/post", options);
+  //   const data = await response.json();
+  //   setGraphId(data.graph.id);
+  //   setPostId(data.id);
+  // }
 
   function reset() {
     localStorage.removeItem("savedPost");

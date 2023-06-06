@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 
-import ToolBar from "./ToolBar";
-import styles from "../../../styles/createPage/form.module.css";
 import { eventType } from "../../../lib/types";
 import Slider from "../tools/ValueSlider";
 import PageTransition from "../../PageTransition";
+import styles from "../../../styles/createPage/form.module.css";
+
 
 export default function PeriodToggleSelected({
   setEvents,
@@ -40,12 +40,12 @@ export default function PeriodToggleSelected({
       },
     ]);
     setIsSetPeriod(true);
-    updateDBPeriod();
+    // updateDBPeriod();
   }
 
   function updateValueChange(value: number) {
     updateEventsValue(value);
-    updateDBAdd(value);
+    // updateDBAdd(value);
   }
 
   function updateEventsValue(value: number) {
@@ -63,41 +63,41 @@ export default function PeriodToggleSelected({
     setDefaultValues((prev) => [value, prev[1], prev[2]]);
   }
 
-  async function updateDBPeriod() {
-    const options: any = {
-      method: "PUT",
-      body: JSON.stringify({
-        where: {
-          id: eventId,
-        },
-        data: {
-          type: "period",
-        },
-      }),
-    };
-    const response = await fetch("/api/post/graph/event/", options);
-    const data = await response.json();
-  }
+  // async function updateDBPeriod() {
+  //   const options: any = {
+  //     method: "PUT",
+  //     body: JSON.stringify({
+  //       where: {
+  //         id: eventId,
+  //       },
+  //       data: {
+  //         type: "period",
+  //       },
+  //     }),
+  //   };
+  //   const response = await fetch("/api/post/graph/event/", options);
+  //   const data = await response.json();
+  // }
 
-  async function updateDBAdd(value: number) {
-    const options: any = {
-      method: "PUT",
-      body: JSON.stringify({
-        where: {
-          id: eventId,
-        },
-        data: {
-          period: {
-            update: {
-              value: value,
-            },
-          },
-        },
-      }),
-    };
-    const response = await fetch("/api/post/graph/event/", options);
-    const data = await response.json();
-  }
+  // async function updateDBAdd(value: number) {
+  //   const options: any = {
+  //     method: "PUT",
+  //     body: JSON.stringify({
+  //       where: {
+  //         id: eventId,
+  //       },
+  //       data: {
+  //         period: {
+  //           update: {
+  //             value: value,
+  //           },
+  //         },
+  //       },
+  //     }),
+  //   };
+  //   const response = await fetch("/api/post/graph/event/", options);
+  //   const data = await response.json();
+  // }
 
   return (
     <PageTransition>

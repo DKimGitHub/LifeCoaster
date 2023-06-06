@@ -115,3 +115,43 @@
 .doneButton:active{
   transform: scale(0.95);
 }
+
+.addedOverlay{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2.0rem;
+  color: #704f47;
+  animation: addedOverlayAnimate;
+  animation-duration: 1s;
+}
+
+.evaluatingPeriod{
+  opacity: 0;
+  animation: periodAnimate;
+  animation-duration: 1s;
+  animation-delay: 1s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes addedOverlayAnimate {
+  0% {
+    font-size: 2rem;
+    color: #704f47;
+  }
+  100%{
+    font-size: 3rem;
+    color: #704f4700;
+  }
+}
+
+@keyframes periodAnimate{
+  0%{
+    opacity: 0
+  }
+  100%{
+    opacity: 1
+  }
+}
+  

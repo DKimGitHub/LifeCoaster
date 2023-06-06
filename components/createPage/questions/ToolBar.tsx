@@ -25,6 +25,7 @@ export default function ToolBar({
   reset,
   mode,
   setMode,
+  events,
   setEvents,
   eventId,
   setIsCompleteModalOpen,
@@ -37,6 +38,7 @@ export default function ToolBar({
   mode?: "period" | "year";
   setMode?: React.Dispatch<React.SetStateAction<"period" | "year">>;
   setEvents?: React.Dispatch<React.SetStateAction<eventType>>;
+  events: eventType;
   eventId: String;
   setIsCompleteModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
@@ -65,36 +67,67 @@ export default function ToolBar({
         },
       ]);
     }
-    updateDBAdd(newMode);
+    // updateDBAdd(newMode);
   }
 
-  function doneButtonClicked(event: any){
+  function doneButtonClicked(event: any) {
     event.preventDefault();
     setIsCompleteModalOpen(true);
   }
 
-  async function updateDBAdd(type: String) {
-    const options: any = {
-      method: "PUT",
-      body: JSON.stringify({
-        where: {
-          id: eventId,
-        },
-        data: {
-          type: type,
-        },
-      }),
-    };
-    const response = await fetch("/api/post/graph/event/", options);
-    const data = await response.json();
-  }
+  // async function updateDBAdd(type: String) {
+  //   const options: any = {
+  //     method: "PUT",
+  //     body: JSON.stringify({
+  //       where: {
+  //         id: eventId,
+  //       },
+  //       data: {
+  //         type: type,
+  //       },
+  //     }),
+  //   };
+  //   const response = await fetch("/api/post/graph/event/", options);
+  //   const data = await response.json();
+  // }
 
   return (
     <div className={styles.tool}>
-      <div style={{ flex: "1" }}>
+      <div style={{ flex: "0.2" }}>
         <button className={styles.resetButton} onClick={reset}>
           <Image src={resetIcon} alt="resetIcon" width={30} height={30} />
         </button>
+      </div>
+      <div style={{ flex: "0.8"}}>
+        {(() => {
+          if (questionPageNum === 4) {
+            if (
+              events.slice(-2)[0].nextYear ===
+              events.slice(-1)[0].nextYear - 1
+            ) {
+              return (
+                <span className={styles.evaluatingPeriod}>
+                  {events.slice(-2)[0].nextYear}
+                </span>
+              );
+            } else {
+              return (
+                <span className={styles.evaluatingPeriod}>
+                  {`${events.slice(-2)[0].nextYear} ~ ${
+                    events.slice(-1)[0].nextYear - 1
+                  }`}
+                </span>
+              );
+            }
+          }
+          else if (questionPageNum === 1){
+            return (
+              <span className={styles.evaluatingPeriod}>
+                {events.slice(-1)[0].nextYear}
+              </span>
+            );
+          }
+        })()}
       </div>
       <div
         style={{
@@ -120,22 +153,24 @@ export default function ToolBar({
                         color: "#45302b",
                         fontWeight: "bold",
                         fontSize: "1.1rem",
-                        margin: "0 0.3rem"
+                        margin: "0 0.3rem",
                       }}
                       className={pangolin.className}>
                       Period
                     </span>
                   </ToggleButton>
-                  <ToggleButton value="year"><span
+                  <ToggleButton value="year">
+                    <span
                       style={{
                         color: "#45302b",
                         fontWeight: "bold",
                         fontSize: "1.1rem",
-                        margin: "0 0.3rem"
+                        margin: "0 0.3rem",
                       }}
                       className={pangolin.className}>
                       Year
-                    </span></ToggleButton>
+                    </span>
+                  </ToggleButton>
                 </ToggleButtonGroup>
               </div>
             );
@@ -147,8 +182,10 @@ export default function ToolBar({
           <Image src={nextIcon} alt="nextIcon" width={40} height={40} />
         </button>
       </div>
-      <div style={{ flex: "1", display: "flex", flexDirection: "row-reverse"}}>
-        <button className={styles.doneButton} onClick={doneButtonClicked}>Done</button>
+      <div style={{ flex: "1", display: "flex", flexDirection: "row-reverse" }}>
+        <button className={styles.doneButton} onClick={doneButtonClicked}>
+          Done
+        </button>
       </div>
     </div>
   );

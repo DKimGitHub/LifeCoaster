@@ -70,7 +70,7 @@ const CompleteGraph = forwardRef(function CompleteGraph({
           style={{
             position: "absolute",
             top: "8.2rem",
-            
+            // visibility: "hidden",
             zIndex: "10",
             left: "6rem",
           }}

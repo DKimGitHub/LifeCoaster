@@ -16,11 +16,11 @@ const pangolin = Pangolin({
   display: "swap",
 });
 
-async function fetchData(api: string, options: dataType) {
-  const response = await fetch(api, options);
-  const data = await response.json();
-  return data;
-}
+// async function fetchData(api: string, options: dataType) {
+//   const response = await fetch(api, options);
+//   const data = await response.json();
+//   return data;
+// }
 
 export default function QuestionsMain({
   setModalPageNum,

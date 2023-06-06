@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 
 import styles from "../../../styles/createPage/form.module.css";
-import { eventType } from "../../../lib/types";
+import { eventType, dataType } from "../../../lib/types";
 import Slider from "../tools/ValueSlider";
 import Select from "../tools/YearSelect";
 import PageTransition from "../../PageTransition";
+import AddedOverlay from "../../AddedOverlay";
 
 export default function YearToggleSelected({
   events,
@@ -14,6 +15,8 @@ export default function YearToggleSelected({
   setDefaultValues,
   specificYearId,
   eventId,
+  range,
+  setRange,
 }: {
   events: eventType;
   setEvents: React.Dispatch<React.SetStateAction<eventType>>;
@@ -21,6 +24,8 @@ export default function YearToggleSelected({
   setDefaultValues: React.Dispatch<React.SetStateAction<number[]>>;
   specificYearId: String;
   eventId: String;
+  range: number[];
+  setRange: React.Dispatch<React.SetStateAction<number[]>>;
 }) {
   const {
     register,
@@ -37,23 +42,36 @@ export default function YearToggleSelected({
     },
   });
 
+  useEffect(() => {
+    console.log(range);
+  });
+
   //If it is the first period, then the period starts from birth year + 1
   const startYear =
     events.length > 2
       ? events.slice(-2)[0].nextYear
       : events.slice(-2)[0].nextYear + 1;
 
+ const [isAddedVisible, setIsAddedVisible] = useState<boolean>(false);
+
   useEffect(() => {
     setValue("yearSelect", startYear);
+    setValue("valueSlider", 0);
   }, [setValue, startYear]);
 
-  function onSubmit() {
+  function onSubmit(data: dataType) {
+    if (!Number.isNaN(events.slice(-1)[0].specificYear.slice(-1)[0].year)){
+      const yearInput = events.slice(-1)[0].specificYear.slice(-1)[0].year;
     setEvents((prev) => [
       ...prev.slice(0, -1),
       {
         ...prev.slice(-1)[0],
         specificYear: [
-          ...prev.slice(-1)[0].specificYear,
+          ...prev.slice(-1)[0].specificYear.slice(0, -1),
+          {
+            ...prev.slice(-1)[0].specificYear.slice(-1)[0],
+            description: data.description,
+          },
           {
             year: NaN,
             value: 0,
@@ -63,10 +81,19 @@ export default function YearToggleSelected({
       },
     ]);
     setDefaultValues((prev) => [prev[0], prev[1], 0]);
-    updateDBAdd();
+    setRange(range.filter((i) => i !== yearInput));
+    // updateDBAdd();
+    setValue("valueSlider", 0);
+    setDefaultValues((prev) => [prev[0], NaN, 0]);
+    setIsAddedVisible(true);
+    setTimeout(() => {
+      setIsAddedVisible(false);
+    }, 1000);
+    }
   }
 
   function updateEventsYear(value: number) {
+    
     setEvents((prev) => [
       ...prev.slice(0, -1),
       {
@@ -82,7 +109,7 @@ export default function YearToggleSelected({
       },
     ]);
     setDefaultValues((prev) => [prev[0], value, prev[2]]);
-    updateDBEventsYear(value);
+    // updateDBEventsYear(value);
   }
 
   function updateEventsValue(value: number) {
@@ -101,65 +128,65 @@ export default function YearToggleSelected({
       },
     ]);
     setDefaultValues((prev) => [prev[0], prev[1], value]);
-    updateDBEventsValue(value);
+    // updateDBEventsValue(value);
   }
 
-  async function updateDBEventsYear(value: number) {
-    const options: any = {
-      method: "PUT",
-      body: JSON.stringify({
-        where: {
-          id: specificYearId,
-        },
-        data: {
-          year: value,
-        },
-      }),
-    };
-    const response = await fetch("/api/post/graph/event/specificYear", options);
-    const data = await response.json();
-  }
+  // async function updateDBEventsYear(value: number) {
+  //   const options: any = {
+  //     method: "PUT",
+  //     body: JSON.stringify({
+  //       where: {
+  //         id: specificYearId,
+  //       },
+  //       data: {
+  //         year: value,
+  //       },
+  //     }),
+  //   };
+  //   const response = await fetch("/api/post/graph/event/specificYear", options);
+  //   const data = await response.json();
+  // }
 
-  async function updateDBEventsValue(value: number) {
-    const options: any = {
-      method: "PUT",
-      body: JSON.stringify({
-        where: {
-          id: specificYearId,
-        },
-        data: {
-          value: value,
-        },
-      }),
-    };
-    const response = await fetch("/api/post/graph/event/specificYear", options);
-    const data = await response.json();
-  }
+  // async function updateDBEventsValue(value: number) {
+  //   const options: any = {
+  //     method: "PUT",
+  //     body: JSON.stringify({
+  //       where: {
+  //         id: specificYearId,
+  //       },
+  //       data: {
+  //         value: value,
+  //       },
+  //     }),
+  //   };
+  //   const response = await fetch("/api/post/graph/event/specificYear", options);
+  //   const data = await response.json();
+  // }
 
-  async function updateDBAdd() {
-    const options: any = {
-      method: "PUT",
-      body: JSON.stringify({
-        where: {
-          id: eventId,
-        },
-        data: {
-          specificYear: {
-            create: {
-              year: NaN,
-              value: 0,
-              description: "",
-            },
-          },
-        },
-        include: {
-          specificYear: true,
-        },
-      }),
-    };
-    const response = await fetch("/api/post/graph/event/", options);
-    const data = await response.json();
-  }
+  // async function updateDBAdd() {
+  //   const options: any = {
+  //     method: "PUT",
+  //     body: JSON.stringify({
+  //       where: {
+  //         id: eventId,
+  //       },
+  //       data: {
+  //         specificYear: {
+  //           create: {
+  //             year: NaN,
+  //             value: 0,
+  //             description: "",
+  //           },
+  //         },
+  //       },
+  //       include: {
+  //         specificYear: true,
+  //       },
+  //     }),
+  //   };
+  //   const response = await fetch("/api/post/graph/event/", options);
+  //   const data = await response.json();
+  // }
 
   return (
     <PageTransition>
@@ -174,9 +201,7 @@ export default function YearToggleSelected({
             render={() => (
               <Select
                 onChange={updateEventsYear}
-                reverse={false}
-                start={startYear}
-                end={events.slice(-1)[0].nextYear - 1}
+                rangeInput={range}
                 defaultValue={defaultValues[1]}
               />
             )}
@@ -234,6 +259,7 @@ export default function YearToggleSelected({
           <input className={styles.button} type="submit" value="Add" />
         </div>
       </form>
+      {isAddedVisible && <AddedOverlay />}
     </PageTransition>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import ToolBar from "./ToolBar";
 import styles from "../../../styles/createPage/form.module.css";
@@ -47,58 +47,56 @@ export default function NextBigYear({
     setValue("yearSelect", events.slice(-1)[0].nextYear + 1);
   }, [setValue, events]);
 
+  const [currentSelectedInput, setCurrentSelectedInput] = useState<number>(
+    events.slice(-1)[0].nextYear + 1
+  );
+
+  useEffect(() => console.log(currentSelectedInput));
+
   function handlePrevButton() {
-    updateDBDeleteEvent();
-    
-    deleteEvent();
-    events.length === 2 ? setQuestionPageNum(1) : setQuestionPageNum(4);
+    // updateDBDeleteEvent();
+    events.length === 1 ? setQuestionPageNum(1) : setQuestionPageNum(4);
   }
 
   function handleNextButton(data: dataType) {
     setQuestionPageNum(3);
-    updateEventsNextYear(data.yearSelect);
-    updateDBNextYear(data.yearSelect);
+    createNewEvent(data.yearSelect);
+    // updateDBNextYear(data.yearSelect);
   }
 
-  async function updateDBDeleteEvent() {
-    await fetch(`/api/post/graph/event/${eventId}/deleteEvent`);
-    const newEventId = await getDBLatestEventId();
-    setEventId(newEventId);
-    await updateDBBornValue(newEventId);
-  }
+  // async function updateDBDeleteEvent() {
+  //   await fetch(`/api/post/graph/event/${eventId}/deleteEvent`);
+  //   const newEventId = await getDBLatestEventId();
+  //   setEventId(newEventId);
+  //   await updateDBBornValue(newEventId);
+  // }
 
-  async function updateDBBornValue(newEventId: String) {
-    const options: any = {
-      method: "PUT",
-      body: JSON.stringify({
-        where: {
-          id: newEventId,
-        },
-        data: {
-          period: {
-            update: {
-              value: 0,
-            },
-          },
-        },
-      }),
-    };
-    await fetch("/api/post/graph/event", options);
-  }
+  // async function updateDBBornValue(newEventId: String) {
+  //   const options: any = {
+  //     method: "PUT",
+  //     body: JSON.stringify({
+  //       where: {
+  //         id: newEventId,
+  //       },
+  //       data: {
+  //         period: {
+  //           update: {
+  //             value: 0,
+  //           },
+  //         },
+  //       },
+  //     }),
+  //   };
+  //   await fetch("/api/post/graph/event", options);
+  // }
 
-  async function getDBLatestEventId() {
-    const response = await fetch(`/api/post/graph/${graphId}/getLatestEvent`);
-    const data = await response.json();
-    return data ? data[0] : "";
-  }
+  // async function getDBLatestEventId() {
+  //   const response = await fetch(`/api/post/graph/${graphId}/getLatestEvent`);
+  //   const data = await response.json();
+  //   return data ? data[0] : "";
+  // }
 
-  function deleteEvent() {
-    setEvents((prev) => {
-      return [...prev.slice(0, -1)];
-    });
-  }
-
-  function updateEventsNextYear(value: number) {
+  function createNewEvent(value: number) {
     setEvents((prev) => {
       return [
         ...prev,
@@ -112,20 +110,20 @@ export default function NextBigYear({
     });
   }
 
-  async function updateDBNextYear(value: number) {
-    const options: any = {
-      method: "PUT",
-      body: JSON.stringify({
-        where: {
-          id: eventId,
-        },
-        data: {
-          nextYear: value,
-        },
-      }),
-    };
-    await fetch("/api/post/graph/event", options);
-  }
+  // async function updateDBNextYear(value: number) {
+  //   const options: any = {
+  //     method: "PUT",
+  //     body: JSON.stringify({
+  //       where: {
+  //         id: eventId,
+  //       },
+  //       data: {
+  //         nextYear: value,
+  //       },
+  //     }),
+  //   };
+  //   await fetch("/api/post/graph/event", options);
+  // }
 
   return (
     <form className={styles.questionContainer}>
@@ -137,6 +135,7 @@ export default function NextBigYear({
             questionPageNum,
             handleSubmit,
             reset,
+            events,
             setEvents,
             eventId,
             setIsCompleteModalOpen,
@@ -146,7 +145,7 @@ export default function NextBigYear({
       <PageTransition>
         <div className={styles.question}>
           <label className={styles.questionText}>
-            When was your next big event?
+            When was the year in which your next big event had occurred?
           </label>
           <div
             style={{
@@ -154,24 +153,24 @@ export default function NextBigYear({
               display: "flex",
               flexDirection: "row",
             }}>
-            <p
-              style={{
-                marginTop: "auto",
-                marginBottom: "auto",
-                width: "fit-content",
-              }}>{`${events.slice(-1)[0].nextYear} ~ `}</p>
             <Controller
               name="yearSelect"
               control={control}
-              render={({ field: { onChange, value } }) => (
-                <Select
-                  reverse={false}
-                  onChange={onChange}
-                  start={events.slice(-1)[0].nextYear + 1}
-                  end={new Date().getFullYear()}
-                  defaultValue={events.slice(-1)[0].nextYear + 1}
-                />
-              )}
+              render={({ field: { onChange, value } }) => {
+                function customOnChange(value: number) {
+                  onChange(value);
+                  setCurrentSelectedInput(value);
+                }
+                return (
+                  <Select
+                    reverse={false}
+                    onChange={customOnChange}
+                    start={events.slice(-1)[0].nextYear + 1}
+                    end={new Date().getFullYear()}
+                    defaultValue={events.slice(-1)[0].nextYear + 1}
+                  />
+                );
+              }}
             />
             {errors.yearSelect && (
               <p style={{ display: "inline", color: "red" }}>
@@ -179,6 +178,22 @@ export default function NextBigYear({
               </p>
             )}
           </div>
+          <label className={styles.questionText}>
+            You will be rating:{" "}
+            {(() => {
+              if (currentSelectedInput !== undefined) {
+                if (events.slice(-1)[0].nextYear === currentSelectedInput - 1) {
+                  return `${events.slice(-1)[0].nextYear}`;
+                } else {
+                  return `${events.slice(-1)[0].nextYear} ~ ${
+                    currentSelectedInput - 1
+                  }`;
+                }
+              } else {
+                return `${events.slice(-1)[0].nextYear}`;
+              }
+            })()}
+          </label>
         </div>
       </PageTransition>
     </form>

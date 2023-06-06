@@ -5,20 +5,27 @@ import { Menu, MenuItem } from "@mui/material";
 export default function YearSelect({
   onChange,
   reverse,
+  rangeInput,
   start,
   end,
   defaultValue,
 }: {
   onChange: (...event: any[]) => void;
-  reverse: boolean;
-  start: number;
-  end: number;
+  rangeInput?: number[];
+  reverse?: boolean;
+  start?: number;
+  end?: number;
   defaultValue: number;
 }) {
-  const range = reverse
-    ? Array.from(Array(end - start + 1).keys(), (x) => x + start).reverse()
-    : Array.from(Array(end - start + 1).keys(), (x) => x + start);
+  var range: number[] = [];
 
+  if (rangeInput) {
+    range = rangeInput;
+  } else if (!rangeInput && start && end) {
+    range = reverse
+      ? Array.from(Array(end - start + 1).keys(), (x) => x + start).reverse()
+      : Array.from(Array(end - start + 1).keys(), (x) => x + start);
+  }
   return (
     <Select
       label="Year"

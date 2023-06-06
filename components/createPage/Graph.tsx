@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { createGraphNodes } from "../../lib/createGraphNodes";
 import {
   Chart as ChartJS,
@@ -20,17 +20,24 @@ ChartJS.register(
   LineElement,
   Title,
   Tooltip,
-  Legend,
+  Legend
 );
 
 export default function Graph({ events }: { events: eventType }) {
-
   const nodeData = events.length > 0 ? createGraphNodes(events) : null;
-  const nodes = nodeData? nodeData.periodNodes.concat(nodeData.yearNodes) : null;
+  const nodes = nodeData
+    ? nodeData.periodNodes.concat(nodeData.yearNodes)
+    : null;
 
   const minYear = events.length > 0 ? events[0].nextYear : 1900;
-  const maxYear = events.length > 0 ? events.slice(-1)[0].nextYear : minYear + 1;
-  
+  var maxYear = minYear + 1;
+
+  if (events.length === 1) {
+    maxYear = events[0].nextYear + 1;
+  } else if (events.length > 1) {
+    maxYear = events.slice(-1)[0].nextYear - 1;
+  }
+
   const options = {
     responsive: true,
     maintainAspectRatio: false,
@@ -46,6 +53,7 @@ export default function Graph({ events }: { events: eventType }) {
           display: false,
         },
         min: minYear,
+        max: maxYear,
         ticks: {
           callback: function (value: any) {
             if (Math.floor(value) === value) {
@@ -77,9 +85,11 @@ export default function Graph({ events }: { events: eventType }) {
   const data = {
     datasets: [
       {
-        data: nodes ? nodes.sort(function (a, b) {
-          return a.x - b.x;
-        }) : [],
+        data: nodes
+          ? nodes.sort(function (a, b) {
+              return a.x - b.x;
+            })
+          : [],
         borderColor: "rgb(255, 99, 132)",
         backgroundColor: "rgba(255, 99, 132, 0.5)",
         parsing: {

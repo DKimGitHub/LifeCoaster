@@ -61,26 +61,25 @@ export default function BornValue({
     setQuestionPageNum(NaN);
     setModalPageNum(3);
     setEvents([]);
-    updateDBDeleteEvent()
+    // updateDBDeleteEvent()
     setEventId("");
     setIsModalOpen(true);
   }
 
   function handleNextButton() {
     setQuestionPageNum(2);
-    createNewEvent();
-    updateDBCreateNewEvent();
+    // updateDBCreateNewEvent();
   }
 
   function updateOnValueChange(value: number) {
     updateEventsBornValue(value);
-    updateDBBornValue(value);
+    // updateDBBornValue(value);
   }
  
   //Deletes the event.
-  async function updateDBDeleteEvent() {
-    await fetch(`/api/post/graph/event/${eventId}/deleteEvent`);
-  }
+  // async function updateDBDeleteEvent() {
+  //   await fetch(`/api/post/graph/event/${eventId}/deleteEvent`);
+  // }
 
   //Creates a new event 
   function createNewEvent() {
@@ -98,38 +97,38 @@ export default function BornValue({
   }
 
   //Create a new event on the database
-  async function updateDBCreateNewEvent() {
-    const options: any = {
-      method: "PUT",
-      body: JSON.stringify({
-        where: {
-          id: graphId,
-        },
-        data: {
-          event: {
-            create: [
-              {
-                nextYear: 0,
-                type: null,
-                period: {
-                  create: { value: 0, description: "" },
-                },
-                specificYear: {
-                  create: [],
-                },
-              },
-            ],
-          },
-        },
-        include: {
-          event: true,
-        },
-      }),
-    };
-    const response = await fetch("/api/post/graph/", options);
-    const data = await response.json();
-    setEventId(data.event.slice(-1)[0].id);
-  }
+  // async function updateDBCreateNewEvent() {
+  //   const options: any = {
+  //     method: "PUT",
+  //     body: JSON.stringify({
+  //       where: {
+  //         id: graphId,
+  //       },
+  //       data: {
+  //         event: {
+  //           create: [
+  //             {
+  //               nextYear: 0,
+  //               type: null,
+  //               period: {
+  //                 create: { value: 0, description: "" },
+  //               },
+  //               specificYear: {
+  //                 create: [],
+  //               },
+  //             },
+  //           ],
+  //         },
+  //       },
+  //       include: {
+  //         event: true,
+  //       },
+  //     }),
+  //   };
+  //   const response = await fetch("/api/post/graph/", options);
+  //   const data = await response.json();
+  //   setEventId(data.event.slice(-1)[0].id);
+  // }
 
   //update the next year on the first event, which is the only event present currently.
   function updateEventsBornValue(value: number) {
@@ -141,25 +140,25 @@ export default function BornValue({
     ]);
   }
 
-  async function updateDBBornValue(input: number) {
-    const options: any = {
-      method: "PUT",
-      body: JSON.stringify({
-        where: {
-          id: eventId,
-        },
-        data: {
-          period: {
-            update: {
-              value: input
-            }
-          }
-        },
-      }),
-    };
-    const response = await fetch("/api/post/graph/event/", options);
-    const data = await response.json();
-  }
+  // async function updateDBBornValue(input: number) {
+  //   const options: any = {
+  //     method: "PUT",
+  //     body: JSON.stringify({
+  //       where: {
+  //         id: eventId,
+  //       },
+  //       data: {
+  //         period: {
+  //           update: {
+  //             value: input
+  //           }
+  //         }
+  //       },
+  //     }),
+  //   };
+  //   const response = await fetch("/api/post/graph/event/", options);
+  //   const data = await response.json();
+  // }
 
   return (
     <form className={styles.questionContainer}>
@@ -171,6 +170,7 @@ export default function BornValue({
             questionPageNum,
             handleSubmit,
             reset,
+            events,
             setEvents,
             eventId,
             setIsCompleteModalOpen,

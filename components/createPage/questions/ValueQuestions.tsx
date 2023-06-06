@@ -52,24 +52,66 @@ export default function ValueQuestions({
       index 1: Year tab select year
       index 2: Year tab value slider
     */
+  const startYear =
+    events.length > 1
+      ? events.slice(-2)[0].nextYear
+      : events.slice(-2)[0].nextYear + 1;
+
+  const [range, setRange] = useState<number[]>(
+    Array.from(
+      Array(events.slice(-1)[0].nextYear - 1 - startYear + 1).keys(),
+      (x) => x + startYear
+    )
+  );
+
   const previousYear = events.slice(-2)[0].nextYear;
   const currentYear = events.slice(-1)[0].nextYear;
 
-  function handlePrevButton() {
-    updateEventNextYear();
-    updateDBNextYear();
-    setQuestionPageNum(2);
+  function handlePrevButton() {    
+    deleteEvent();
+    if (events.slice(-1)[0].nextYear - 1 !== new Date().getFullYear()){
+      setQuestionPageNum(2);
+    }
   }
 
   function handleNextButton(input: any) {
-    if (events.slice(-1)[0].nextYear === new Date().getFullYear()) {
+    if (events.slice(-1)[0].nextYear - 1 === new Date().getFullYear()) {
+      deleteSpecificYearLastIndex();
       setIsCompleteModalOpen(true);
-      setQuestionPageNum(NaN);
+    } else if (events.slice(-1)[0].nextYear === new Date().getFullYear()) {
+      setEvents((prev) => {
+        return [
+          ...prev, 
+          {
+            nextYear: new Date().getFullYear() + 1,
+            type: "period",
+            period: {
+              value: 0,
+              description: "",
+            },
+            specificYear: []
+          }
+        ];
+      });
+      setQuestionPageNum(3);
     } else {
+      deleteSpecificYearLastIndex();
       setQuestionPageNum(2);
-      createNewEvent();
-      updateDBCreateNewEvent();
+
+      // updateDBCreateNewEvent();
     }
+  }
+
+  function deleteSpecificYearLastIndex() {
+    setEvents((prev) => {
+      return [
+        ...prev.slice(0, -1),
+        {
+          ...prev.slice(-1)[0],
+          specificYear: [...prev.slice(-1)[0].specificYear.slice(0, -1)],
+        },
+      ];
+    });
   }
 
   function updateEventNextYear() {
@@ -86,75 +128,70 @@ export default function ValueQuestions({
     });
   }
 
-  async function updateDBNextYear() {
-    const options: any = {
-      method: "PUT",
-      body: JSON.stringify({
-        where: {
-          id: eventId,
-        },
-        data: {
-          nextYear: 0,
-          type: null,
-          period: { update: { value: 0, description: "" } },
-          specificYear: { deleteMany: { eventId: eventId } },
-        },
-      }),
-    };
-    await fetch("/api/post/graph/event", options);
-  }
-
-  function createNewEvent() {
+  function deleteEvent() {
     setEvents((prev) => {
       return [
-        ...prev,
-        {
-          nextYear: currentYear + 1,
-          type: null,
-          period: { value: 0, description: "" },
-          specificYear: [],
-        },
+        ...prev.slice(0, -2),
+        { ...prev.slice(-2)[0], period: { value: 0, description: "" } },
       ];
     });
   }
 
-  async function updateDBCreateNewEvent() {
-    const options: any = {
-      method: "PUT",
-      body: JSON.stringify({
-        where: {
-          id: graphId,
-        },
-        data: {
-          event: {
-            create: [
-              {
-                nextYear: currentYear + 1,
-                type: null,
-                period: {
-                  create: { value: 0, description: "" },
-                },
-                specificYear: {
-                  create: [],
-                },
-              },
-            ],
-          },
-        },
-        include: {
-          event: {
-            include: {
-              specificYear: true,
-            },
-          },
-        },
-      }),
-    };
-    const response = await fetch("/api/post/graph/", options);
-    const data = await response.json();
-    setEventId(data.event.slice(-1)[0].id);
-    // setSpecificYearId(data.event.slice(-1)[0]?.specificYear.slice(-1)[0]?.id);
-  }
+  // async function updateDBNextYear() {
+  //   const options: any = {
+  //     method: "PUT",
+  //     body: JSON.stringify({
+  //       where: {
+  //         id: eventId,
+  //       },
+  //       data: {
+  //         nextYear: 0,
+  //         type: null,
+  //         period: { update: { value: 0, description: "" } },
+  //         specificYear: { deleteMany: { eventId: eventId } },
+  //       },
+  //     }),
+  //   };
+  //   await fetch("/api/post/graph/event", options);
+  // }
+
+  // async function updateDBCreateNewEvent() {
+  //   const options: any = {
+  //     method: "PUT",
+  //     body: JSON.stringify({
+  //       where: {
+  //         id: graphId,
+  //       },
+  //       data: {
+  //         event: {
+  //           create: [
+  //             {
+  //               nextYear: currentYear + 1,
+  //               type: null,
+  //               period: {
+  //                 create: { value: 0, description: "" },
+  //               },
+  //               specificYear: {
+  //                 create: [],
+  //               },
+  //             },
+  //           ],
+  //         },
+  //       },
+  //       include: {
+  //         event: {
+  //           include: {
+  //             specificYear: true,
+  //           },
+  //         },
+  //       },
+  //     }),
+  //   };
+  //   const response = await fetch("/api/post/graph/", options);
+  //   const data = await response.json();
+  //   setEventId(data.event.slice(-1)[0].id);
+  //   // setSpecificYearId(data.event.slice(-1)[0]?.specificYear.slice(-1)[0]?.id);
+  // }
 
   return (
     <div className={styles.questionContainer}>
@@ -168,6 +205,7 @@ export default function ValueQuestions({
             reset,
             mode,
             setMode,
+            events,
             setEvents,
             eventId,
             setIsCompleteModalOpen,
@@ -192,6 +230,8 @@ export default function ValueQuestions({
                 setDefaultValues,
                 specificYearId,
                 eventId,
+                range,
+                setRange,
               }}
             />
           );
