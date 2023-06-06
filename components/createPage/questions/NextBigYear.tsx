@@ -55,8 +55,6 @@ export default function NextBigYear({
     events.slice(-1)[0].nextYear + 1
   );
 
-  useEffect(() => console.log(currentSelectedInput));
-
   function handlePrevButton() {
     // updateDBDeleteEvent();
     events.length === 1 ? setQuestionPageNum(1) : setQuestionPageNum(4);
