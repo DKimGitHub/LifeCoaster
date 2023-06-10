@@ -43,8 +43,6 @@ export default function Page() {
   #4: ValueQuestions 
   */
 
-  useEffect(() => console.log(events))
-
   // useEffect(() => {
   //   if (!session) {
   //     setIsAuthModalOpen(true);
@@ -89,6 +87,7 @@ export default function Page() {
     } else {
       setIsModalOpen(true);
       setModalPageNum(2);
+      createPost();
     }
 
     //clean up function
@@ -119,30 +118,30 @@ export default function Page() {
     }
   }, [graphId, eventId, events, specificYearId, postId, questionPageNum]);
 
-  // async function createPost() {
-  //   const options = {
-  //     method: "POST",
-  //     body: JSON.stringify({
-  //       data: {
-  //         graph: {
-  //           create: { dummy: false },
-  //         },
-  //       },
-  //       select: {
-  //         id: true,
-  //         graph: {
-  //           select: {
-  //             id: true,
-  //           },
-  //         },
-  //       },
-  //     }),
-  //   };
-  //   const response = await fetch("/api/post", options);
-  //   const data = await response.json();
-  //   setGraphId(data.graph.id);
-  //   setPostId(data.id);
-  // }
+  async function createPost() {
+    const options = {
+      method: "POST",
+      body: JSON.stringify({
+        data: {
+          graph: {
+            create: { dummy: false },
+          },
+        },
+        select: {
+          id: true,
+          graph: {
+            select: {
+              id: true,
+            },
+          },
+        },
+      }),
+    };
+    const response = await fetch("/api/post", options);
+    const data = await response.json();
+    setGraphId(data.graph.id);
+    setPostId(data.id);
+  }
 
   function reset() {
     localStorage.removeItem("savedPost");
@@ -154,7 +153,7 @@ export default function Page() {
     setIsModalOpen(true);
     setModalPageNum(2);
     setQuestionPageNum(NaN);
-    //createPost();
+    createPost();
   }
 
   return (

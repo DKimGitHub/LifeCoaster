@@ -28,6 +28,7 @@ export default function ToolBar({
   events,
   setEvents,
   eventId,
+  graphId,
   setIsCompleteModalOpen,
 }: {
   handlePrevButton: () => void;
@@ -40,6 +41,7 @@ export default function ToolBar({
   setEvents?: React.Dispatch<React.SetStateAction<eventType>>;
   events: eventType;
   eventId: String;
+  graphId: String;
   setIsCompleteModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const setModeToolBar = setMode ? setMode : () => null;
@@ -70,9 +72,49 @@ export default function ToolBar({
     // updateDBAdd(newMode);
   }
 
-  function doneButtonClicked(event: any) {
+  function saveButtonClicked(event: any) {
     event.preventDefault();
     setIsCompleteModalOpen(true);
+    saveDB();
+  }
+
+  async function saveDB() {
+    await fetch(`/api/post/graph/${graphId}/delete`);
+
+    const options: any = {
+      method: "PUT",
+      body: JSON.stringify({
+        where: {
+          id: graphId,
+        },
+        data: {
+          event: {
+            create: [
+              events.map(i => ({
+                nextYear: i.nextYear,
+                type: i.type,
+                period: {
+                  create: {
+                    value: i.period.value,
+                    description: i.period.description,
+                  }
+                },
+                specificYear: {
+                  create: [
+                    i.specificYear.map(j => ({
+                      year: j.year,
+                      value: j.value,
+                      description: j.description,
+                    }))
+                  ]
+                }
+              }))
+            ],
+          },
+        },
+      }),
+    };
+    await fetch("/api/post/graph", options);
   }
 
   // async function updateDBAdd(type: String) {
@@ -98,7 +140,7 @@ export default function ToolBar({
           <Image src={resetIcon} alt="resetIcon" width={30} height={30} />
         </button>
       </div>
-      <div style={{ flex: "0.8"}}>
+      <div style={{ flex: "0.8" }}>
         {(() => {
           if (questionPageNum === 4) {
             if (
@@ -113,14 +155,13 @@ export default function ToolBar({
             } else {
               return (
                 <span className={styles.evaluatingPeriod}>
-                  {`${events.slice(-2)[0].nextYear} ~ ${
-                    events.slice(-1)[0].nextYear - 1
-                  }`}
+                  {`${events.slice(-2)[0].nextYear} ~ ${events.slice(-1)[0].nextYear - 1
+                    }`}
                 </span>
               );
             }
           }
-          else if (questionPageNum === 1){
+          else if (questionPageNum === 1) {
             return (
               <span className={styles.evaluatingPeriod}>
                 {events.slice(-1)[0].nextYear}
@@ -183,7 +224,7 @@ export default function ToolBar({
         </button>
       </div>
       <div style={{ flex: "1", display: "flex", flexDirection: "row-reverse" }}>
-        <button className={styles.doneButton} onClick={doneButtonClicked}>
+        <button className={styles.saveButton} onClick={saveButtonClicked}>
           Save
         </button>
       </div>
