@@ -57,9 +57,9 @@ export default function CompleteModal({
     setIsCompleteModalOpen(false);
   }
 
-  function handleDownloadImage() {
-    exportComponentAsPNG(printRef);
-  }
+  // function handleDownloadImage() {
+  //   exportComponentAsPNG(printRef);
+  // }
 
   return (
     <Modal
@@ -71,7 +71,7 @@ export default function CompleteModal({
       style={customStyles}>
       <div
         className={pangolin.className}
-        style={{ width: "100%", height: "100%" }}>
+        style={{ width: "100%", height: "100%", overflow: "hidden"}}>
         <div
           style={{ width: "100%", display: "flex", justifyContent: "center" }}>
           <span style={{ fontSize: "1.5rem", fontWeight: "bold" }}>
@@ -96,7 +96,10 @@ export default function CompleteModal({
             flexDirection: "row-reverse",
             paddingTop: "1rem",
           }}>
-          <button className={styles.skipButton} onClick={handleDownloadImage}>
+          <button className={styles.skipButton} onClick={async () => {
+            const { exportComponentAsPNG } = await import('react-component-export-image')
+            exportComponentAsPNG(printRef)
+          }}>
             Save Image
           </button>
         </div>

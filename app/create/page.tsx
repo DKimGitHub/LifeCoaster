@@ -160,7 +160,6 @@ export default function Page() {
     <>
       <div className={styles.container}>
         <Navigation />
-
         <ModalsMain
           {...{
             modalPageNum,
@@ -175,11 +174,14 @@ export default function Page() {
             setIsModalOpen,
           }}
         />
+        <CompleteModal
+          {...{ isCompleteModalOpen, setIsCompleteModalOpen, events }}
+        />
         <div className="absolute right-8 top-6">
           <AuthButtonHeader />
         </div>
         <div className={styles.graphContainer}>
-          <Graph data={eventsToNodes(events)}/>
+          <Graph data={eventsToNodes(events)} />
         </div>
         <div className={styles.questionsContainer}>
           <QuestionsMain
@@ -202,9 +204,7 @@ export default function Page() {
         </div>
       </div>
       {/* <CreatePageAuthModal isOpen={isAuthModalOpen} /> */}
-      <CompleteModal
-        {...{ isCompleteModalOpen, setIsCompleteModalOpen, events }}
-      />
+
     </>
   );
 }

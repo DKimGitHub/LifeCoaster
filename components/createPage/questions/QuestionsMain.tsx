@@ -31,12 +31,12 @@ export default function QuestionsMain({
   setIsModalOpen,
   reset,
   graphId,
-  eventId, 
+  eventId,
   specificYearId,
   setEventId,
   setSpecificYearId,
   setIsCompleteModalOpen,
-  
+
 }: {
   setModalPageNum: React.Dispatch<React.SetStateAction<number>>;
   questionPageNum: number;
@@ -114,9 +114,10 @@ export default function QuestionsMain({
             setEvents,
             reset,
             eventId,
+            setEventId,
             graphId,
             specificYearId,
-            setIsCompleteModalOpen
+            setIsCompleteModalOpen,
           }}
         />
       );
