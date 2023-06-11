@@ -33,7 +33,8 @@ export default function Page() {
   /* 
     #1: ContinueModal
     #2: IntroModal
-    #3: AgeModal
+    #3: NameModal
+    #4: AgeModal
   */
   const [questionPageNum, setQuestionPageNum] = useState<number>(NaN);
   /*
@@ -43,36 +44,7 @@ export default function Page() {
   #4: ValueQuestions 
   */
 
-  // useEffect(() => {
-  //   if (!session) {
-  //     setIsAuthModalOpen(true);
-  //   } else if (session && isFirstTime) {
-  //     setIsFirstTime(false);
-  //     setIsAuthModalOpen(false);
-  //     const savedState = localStorage.getItem("savedPost");
-  //     if (savedState && !Number.isNaN(JSON.parse(savedState).questionPageNum)) {
-  //       setGraphId(JSON.parse(savedState).graphId);
-  //       setEvents(JSON.parse(savedState).events);
-  //       setQuestionPageNum(JSON.parse(savedState).questionPageNum);
-  //       setIsModalOpen(true);
-  //       setModalPageNum(1);
-  //     } else {
-  //       setIsModalOpen(true);
-  //       setModalPageNum(2);
-  //       createPost();
-  //     }
-  //   }
-  //   return () => {
-  //     setGraphId("");
-  //     setEvents([]);
-  //     setQuestionPageNum(NaN);
-  //     setIsModalOpen(false);
-  //     setModalPageNum(NaN);
-  //   };
-  // }, []);
-
   //Initialization when the Create page mounts
-
   useEffect(() => {
     const savedState = localStorage.getItem("savedPost");
     if (savedState && !Number.isNaN(JSON.parse(savedState).questionPageNum)) {
