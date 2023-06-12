@@ -15,6 +15,9 @@ export default function NextBigYear({
   setIsCompleteModalOpen,
   setGraphId,
   setPostId,
+  graphId,
+  postId,
+  name,
 }: {
   questionPageNum: number;
   setQuestionPageNum: React.Dispatch<React.SetStateAction<number>>;
@@ -25,6 +28,9 @@ export default function NextBigYear({
   setIsCompleteModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setGraphId: React.Dispatch<React.SetStateAction<String>>;
   setPostId: React.Dispatch<React.SetStateAction<String>>;
+  graphId: String;
+  name: String;
+  postId: String;
 }) {
   const {
     register,
@@ -91,6 +97,9 @@ export default function NextBigYear({
             setEvents,
             setGraphId,
             setPostId,
+            graphId,
+            postId,
+            name,
             setIsCompleteModalOpen,
           }}
         />

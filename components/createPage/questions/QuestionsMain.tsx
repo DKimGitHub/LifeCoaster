@@ -37,6 +37,8 @@ export default function QuestionsMain({
   setIsCompleteModalOpen,
   setGraphId,
   setPostId,
+  postId,
+  name,
 
 }: {
   setModalPageNum: React.Dispatch<React.SetStateAction<number>>;
@@ -53,6 +55,8 @@ export default function QuestionsMain({
   setIsCompleteModalOpen: React.Dispatch<React.SetStateAction<boolean>>
   setGraphId: React.Dispatch<React.SetStateAction<String>>;
   setPostId: React.Dispatch<React.SetStateAction<String>>;
+  postId: String,
+  name: String,
 }) {
   const {
     register,
@@ -79,6 +83,8 @@ export default function QuestionsMain({
             setIsCompleteModalOpen,
             setGraphId,
             setPostId,
+            postId,
+            name,
           }}
         />
       );
@@ -99,6 +105,8 @@ export default function QuestionsMain({
             setIsCompleteModalOpen,
             setGraphId,
             setPostId,
+            postId, 
+            name,
           }}
         />
       );
@@ -118,6 +126,9 @@ export default function QuestionsMain({
             setIsCompleteModalOpen,
             setGraphId,
             setPostId,
+            graphId,
+            postId,
+            name,
           }}
         />
       );

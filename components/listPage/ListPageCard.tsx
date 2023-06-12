@@ -99,14 +99,14 @@ export default function ListPageCard({
                   <Image
                     height={46}
                     width={46}
-                    src={`https://api.dicebear.com/5.x/fun-emoji/svg?seed=${randomName(data.id)}&radius=10`}
+                    src={`https://api.dicebear.com/5.x/fun-emoji/svg?seed=${data.user.name}&radius=10`}
                     alt="avatar"
                   />
                 </Link>
                 <div className="flex flex-col pl-2">
                   <Link href={`/p/${data.id}`}
                     className="text-left text-lg text-inherit no-underline font-semibold leading-6">
-                    {randomName(data.id)}
+                    {data.user.name}
                   </Link>
                   <p className="text-gray-500">
                     {typeof data.createdAt === "string"

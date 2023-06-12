@@ -30,6 +30,7 @@ export default function ToolBar({
   setGraphId,
   postId,
   graphId,
+  name,
   setPostId,
   setIsCompleteModalOpen,
 }: {
@@ -45,6 +46,7 @@ export default function ToolBar({
   setPostId: React.Dispatch<React.SetStateAction<String>>;
   postId: String;
   graphId: String;
+  name: String;
   events: eventType;
   setIsCompleteModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
@@ -78,19 +80,26 @@ export default function ToolBar({
   function doneButtonClicked(event: any) {
     event.preventDefault();
     setIsCompleteModalOpen(true);
-    if (postId){
-      
+    if (postId) {
+      saveDB();
+    } else {
+      createPost();
     }
   }
 
-   async function createPost() {
-    const options = {
+  async function createPost() {
+    var options = {
       method: "POST",
       body: JSON.stringify({
         data: {
           graph: {
             create: { dummy: false },
           },
+          user: {
+            create: {
+              name: name,
+            }
+          }
         },
         select: {
           id: true,
@@ -106,6 +115,40 @@ export default function ToolBar({
     const data = await response.json();
     setGraphId(data.graph.id);
     setPostId(data.id);
+
+    options = {
+      method: "PUT",
+      body: JSON.stringify({
+        where: {
+          id: data.graph.id,
+        },
+        data: {
+          event: {
+            create:
+              events.map(i => ({
+                nextYear: i.nextYear,
+                type: i.type,
+                period: {
+                  create: {
+                    value: i.period.value,
+                    description: i.period.description,
+                  }
+                },
+                specificYear: {
+                  create:
+                    i.specificYear.map(j => ({
+                      year: j.year,
+                      value: j.value,
+                      description: j.description,
+                    }))
+                }
+              }))
+            ,
+          },
+        },
+      }),
+    };
+    await fetch("/api/post/graph", options);
   }
 
   async function saveDB() {
@@ -153,7 +196,7 @@ export default function ToolBar({
           <Image src={resetIcon} alt="resetIcon" width={30} height={30} />
         </button>
       </div>
-      <div style={{ flex: "0.8"}}>
+      <div style={{ flex: "0.8" }}>
         {(() => {
           if (questionPageNum === 4) {
             if (
@@ -168,14 +211,13 @@ export default function ToolBar({
             } else {
               return (
                 <span className={styles.evaluatingPeriod}>
-                  {`${events.slice(-2)[0].nextYear} ~ ${
-                    events.slice(-1)[0].nextYear - 1
-                  }`}
+                  {`${events.slice(-2)[0].nextYear} ~ ${events.slice(-1)[0].nextYear - 1
+                    }`}
                 </span>
               );
             }
           }
-          else if (questionPageNum === 1){
+          else if (questionPageNum === 1) {
             return (
               <span className={styles.evaluatingPeriod}>
                 {events.slice(-1)[0].nextYear}

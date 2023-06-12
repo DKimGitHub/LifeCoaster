@@ -130,6 +130,8 @@ export default function Page() {
               setIsCompleteModalOpen,
               setGraphId,
               setPostId,
+              postId,
+              name,
             }}
           />
         </div>

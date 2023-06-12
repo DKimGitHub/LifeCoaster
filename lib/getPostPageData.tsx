@@ -6,6 +6,11 @@ export default async function getPostPageData(postid: string) {
       id: postid,
     },
     include: {
+      user: {
+        select: {
+          name: true,
+        }
+      },
       comments: {
         include: {
           user: true,

@@ -19,6 +19,9 @@ export default function BornValue({
   setIsCompleteModalOpen,
   setGraphId,
   setPostId,
+  graphId,
+  name,
+  postId,
 }: {
   questionPageNum: number;
   setQuestionPageNum: React.Dispatch<React.SetStateAction<number>>;
@@ -30,6 +33,9 @@ export default function BornValue({
   setEventId: React.Dispatch<React.SetStateAction<String>>;
   setIsCompleteModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setGraphId: React.Dispatch<React.SetStateAction<String>>;
+  graphId: String;
+  postId: String;
+  name: String;
   setPostId: React.Dispatch<React.SetStateAction<String>>;
 }) {
   const {
@@ -39,10 +45,10 @@ export default function BornValue({
     control,
     setValue,
   } = useForm({
-      defaultValues: {
-        "valueSlider": 0
-      },
-    }
+    defaultValues: {
+      "valueSlider": 0
+    },
+  }
   );
 
   const currentYear = events.slice(-1)[0].nextYear;
@@ -102,6 +108,9 @@ export default function BornValue({
             setEvents,
             setGraphId,
             setPostId,
+            graphId,
+            postId,
+            name,
             setIsCompleteModalOpen,
           }}
         />
@@ -116,7 +125,7 @@ export default function BornValue({
               name="valueSlider"
               control={control}
               render={({ field: { onChange, value } }) => {
-                function customOnChange(value: number){
+                function customOnChange(value: number) {
                   onChange(value);
                   updateOnValueChange(value);
                 }

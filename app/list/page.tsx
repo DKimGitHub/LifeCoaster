@@ -27,6 +27,11 @@ async function fetchData() {
     //   published:true,
     // },
     include: {
+      user: {
+        select: {
+          name: true
+        }
+      },
       comments: {
         include: {
           user: true,

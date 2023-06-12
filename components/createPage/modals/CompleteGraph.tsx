@@ -67,6 +67,7 @@ const CompleteGraph = forwardRef(function CompleteGraph({
           width="30"
           height="30"
           ref={cartRef}
+          className="invisible"
           style={{
             position: "absolute",
             top: "8.2rem",
@@ -95,7 +96,7 @@ const CompleteGraph = forwardRef(function CompleteGraph({
             min: 0,
             max: 10,
           }}
-          axisBottom={{ tickSize: 0, tickPadding: 8, tickValues: getDomain() }}
+          axisBottom={{ tickSize: 0, tickPadding: 8, tickValues: getDomain(), format: (e) => Math.floor(e) === e && e }}
           axisLeft={{ tickSize: 0, tickPadding: 8 }}
           pointSize={8}
           pointColor={"white"}
@@ -119,7 +120,7 @@ const CompleteGraph = forwardRef(function CompleteGraph({
             },
           ]}
           fill={[{ match: "*", id: "gridLines" }]}
-          // theme={{background: "#87CEEB"}}
+        // theme={{background: "#87CEEB"}}
         />
       </div>
     </>

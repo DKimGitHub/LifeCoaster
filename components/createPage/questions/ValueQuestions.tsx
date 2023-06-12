@@ -17,6 +17,10 @@ export default function ValueQuestions({
   setIsCompleteModalOpen,
   setGraphId,
   setPostId,
+  graphId,
+  postId,
+  name,
+  
 }: {
   questionPageNum: number;
   setQuestionPageNum: React.Dispatch<React.SetStateAction<number>>;
@@ -26,6 +30,9 @@ export default function ValueQuestions({
   setIsCompleteModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setGraphId: React.Dispatch<React.SetStateAction<String>>;
   setPostId: React.Dispatch<React.SetStateAction<String>>;
+  graphId: String;
+  postId: String;
+  name: String;
 }) {
   const {
     register,
@@ -137,6 +144,9 @@ export default function ValueQuestions({
             setEvents,
             setGraphId,
             setPostId,
+            graphId,
+            name,
+            postId,
             setIsCompleteModalOpen,
           }}
         />

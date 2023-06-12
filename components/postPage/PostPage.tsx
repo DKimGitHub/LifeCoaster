@@ -52,9 +52,9 @@ export default function PostPage({ postData }: { postData: PostDataType }) {
     //   .then((response) => response.json())
     //   .catch((error) => console.log(error));
     //   router.refresh();
-      {/*@ts-expect-error*/}
-return startTransition(()=> clickHeart(session.user?.email, postData?.id));
-}
+    {/*@ts-expect-error*/ }
+    return startTransition(() => clickHeart(session.user?.email, postData?.id));
+  }
 
 
   return postData ? (
@@ -84,13 +84,12 @@ return startTransition(()=> clickHeart(session.user?.email, postData?.id));
               <Image
                 height={46}
                 width={46}
-                src={`https://api.dicebear.com/5.x/fun-emoji/svg?seed=${randomName(
-                  postData.id
-                )}&radius=10`}
+                src={`https://api.dicebear.com/5.x/fun-emoji/svg?seed=${postData.user.name
+                  }&radius=10`}
                 alt="avatar"
               />{" "}
               <p className="px-3 text-lg font-semibold leading-6">
-                {randomName(postData.id)}
+                {postData.user.name}
               </p>
               <p></p>
             </div>

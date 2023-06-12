@@ -15,6 +15,9 @@ export type FormState = {
 
 export type PostDataType = Post & {
   comments: (Comment & {user:User | null})[];
+  user: {
+    name: String;
+  };
   graph: (Graph & {
     event: (Event & {
         specificYear: SpecificYear[];

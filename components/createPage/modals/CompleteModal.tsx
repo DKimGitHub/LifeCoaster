@@ -5,11 +5,6 @@ import styles from "../../../styles/createPage/modal.module.css";
 import closeIcon from "../../../public/createPage/close.svg";
 import CompleteGraph from "../../createPage/modals/CompleteGraph";
 import { eventsToNodes } from "../../../lib/helpers";
-import {
-  exportComponentAsJPEG,
-  exportComponentAsPDF,
-  exportComponentAsPNG,
-} from "react-component-export-image";
 
 import { Pangolin } from "next/font/google";
 
@@ -57,10 +52,6 @@ export default function CompleteModal({
     setIsCompleteModalOpen(false);
   }
 
-  // function handleDownloadImage() {
-  //   exportComponentAsPNG(printRef);
-  // }
-
   return (
     <Modal
       isOpen={isCompleteModalOpen}
@@ -71,7 +62,7 @@ export default function CompleteModal({
       style={customStyles}>
       <div
         className={pangolin.className}
-        style={{ width: "100%", height: "100%", overflow: "hidden"}}>
+        style={{ width: "100%", height: "100%"}}>
         <div
           style={{ width: "100%", display: "flex", justifyContent: "center" }}>
           <span style={{ fontSize: "1.5rem", fontWeight: "bold" }}>
