@@ -11,12 +11,10 @@ export default function PeriodToggleSelected({
   setEvents,
   defaultValues,
   setDefaultValues,
-  eventId,
 }: {
   setEvents: React.Dispatch<React.SetStateAction<eventType>>;
   defaultValues: number[];
   setDefaultValues: React.Dispatch<React.SetStateAction<number[]>>;
-  eventId: String;
 }) {
   const {
     register,
@@ -40,12 +38,10 @@ export default function PeriodToggleSelected({
       },
     ]);
     setIsSetPeriod(true);
-    // updateDBPeriod();
   }
 
   function updateValueChange(value: number) {
     updateEventsValue(value);
-    // updateDBAdd(value);
   }
 
   function updateEventsValue(value: number) {
@@ -62,42 +58,6 @@ export default function PeriodToggleSelected({
     ]);
     setDefaultValues((prev) => [value, prev[1], prev[2]]);
   }
-
-  // async function updateDBPeriod() {
-  //   const options: any = {
-  //     method: "PUT",
-  //     body: JSON.stringify({
-  //       where: {
-  //         id: eventId,
-  //       },
-  //       data: {
-  //         type: "period",
-  //       },
-  //     }),
-  //   };
-  //   const response = await fetch("/api/post/graph/event/", options);
-  //   const data = await response.json();
-  // }
-
-  // async function updateDBAdd(value: number) {
-  //   const options: any = {
-  //     method: "PUT",
-  //     body: JSON.stringify({
-  //       where: {
-  //         id: eventId,
-  //       },
-  //       data: {
-  //         period: {
-  //           update: {
-  //             value: value,
-  //           },
-  //         },
-  //       },
-  //     }),
-  //   };
-  //   const response = await fetch("/api/post/graph/event/", options);
-  //   const data = await response.json();
-  // }
 
   return (
     <PageTransition>

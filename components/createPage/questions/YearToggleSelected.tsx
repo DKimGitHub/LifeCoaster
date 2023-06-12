@@ -13,8 +13,6 @@ export default function YearToggleSelected({
   setEvents,
   defaultValues,
   setDefaultValues,
-  specificYearId,
-  eventId,
   range,
   setRange,
 }: {
@@ -22,8 +20,6 @@ export default function YearToggleSelected({
   setEvents: React.Dispatch<React.SetStateAction<eventType>>;
   defaultValues: number[];
   setDefaultValues: React.Dispatch<React.SetStateAction<number[]>>;
-  specificYearId: String;
-  eventId: String;
   range: number[];
   setRange: React.Dispatch<React.SetStateAction<number[]>>;
 }) {
@@ -70,7 +66,6 @@ export default function YearToggleSelected({
         },
       ]);
       setRange(range.filter((i) => i !== yearInput));
-      // updateDBAdd();
       setValue("valueSlider", 0);
       setDefaultValues((prev) => [prev[0], NaN, 0]);
       setIsAddedVisible(true);
@@ -96,7 +91,6 @@ export default function YearToggleSelected({
       },
     ]);
     setDefaultValues((prev) => [prev[0], value, prev[2]]);
-    // updateDBEventsYear(value);
   }
 
   function updateEventsValue(value: number) {
@@ -115,65 +109,7 @@ export default function YearToggleSelected({
       },
     ]);
     setDefaultValues((prev) => [prev[0], prev[1], value]);
-    // updateDBEventsValue(value);
   }
-
-  // async function updateDBEventsYear(value: number) {
-  //   const options: any = {
-  //     method: "PUT",
-  //     body: JSON.stringify({d
-  //       where: {
-  //         id: specificYearId,
-  //       },
-  //       data: {
-  //         year: value,
-  //       },
-  //     }),
-  //   };
-  //   const response = await fetch("/api/post/graph/event/specificYear", options);
-  //   const data = await response.json();
-  // }
-
-  // async function updateDBEventsValue(value: number) {
-  //   const options: any = {
-  //     method: "PUT",
-  //     body: JSON.stringify({
-  //       where: {
-  //         id: specificYearId,
-  //       },
-  //       data: {
-  //         value: value,
-  //       },
-  //     }),
-  //   };
-  //   const response = await fetch("/api/post/graph/event/specificYear", options);
-  //   const data = await response.json();
-  // }
-
-  // async function updateDBAdd() {
-  //   const options: any = {
-  //     method: "PUT",
-  //     body: JSON.stringify({
-  //       where: {
-  //         id: eventId,
-  //       },
-  //       data: {
-  //         specificYear: {
-  //           create: {
-  //             year: NaN,
-  //             value: 0,
-  //             description: "",
-  //           },
-  //         },
-  //       },
-  //       include: {
-  //         specificYear: true,
-  //       },
-  //     }),
-  //   };
-  //   const response = await fetch("/api/post/graph/event/", options);
-  //   const data = await response.json();
-  // }
 
   return (
     <PageTransition>

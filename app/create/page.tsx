@@ -11,7 +11,6 @@ import { eventType, nodeType } from "../../lib/types";
 import styles from "../../styles/createPage/create.module.css";
 import Navigation from "../../components/Navigation";
 import AuthButtonHeader from "../../components/AuthButtonHeader";
-import CreatePageAuthModal from "../../components/CreatePageAuthModal";
 import { useSession } from "next-auth/react";
 import { eventsToNodes } from "../../lib/helpers";
 
@@ -23,10 +22,9 @@ export default function Page() {
   const [eventId, setEventId] = useState<String>("");
   const [specificYearId, setSpecificYearId] = useState<String>("");
   const [events, setEvents] = useState<eventType>([]);
+  const [name, setName] = useState<String>("");
   const [modalPageNum, setModalPageNum] = useState<number>(NaN);
-  const [isAuthModalOpen, setIsAuthModalOpen] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [isFirstTime, setIsFirstTime] = useState<boolean>(true);
   const [isCompleteModalOpen, setIsCompleteModalOpen] =
     useState<boolean>(false);
 
@@ -60,18 +58,6 @@ export default function Page() {
       setIsModalOpen(true);
       setModalPageNum(2);
     }
-
-    //clean up function
-    // return () => {
-    //   setGraphId("");
-    //   setEventId("");
-    //   setSpecificYearId("");
-    //   setPostId("");
-    //   setEvents([]);
-    //   setQuestionPageNum(NaN);
-    //   setIsModalOpen(false);
-    //   setModalPageNum(NaN);
-    // };
   }, []);
 
   //Update the local cache whenever these dependcies change.
@@ -89,31 +75,6 @@ export default function Page() {
     }
   }, [graphId, eventId, events, specificYearId, postId, questionPageNum]);
 
-  // async function createPost() {
-  //   const options = {
-  //     method: "POST",
-  //     body: JSON.stringify({
-  //       data: {
-  //         graph: {
-  //           create: { dummy: false },
-  //         },
-  //       },
-  //       select: {
-  //         id: true,
-  //         graph: {
-  //           select: {
-  //             id: true,
-  //           },
-  //         },
-  //       },
-  //     }),
-  //   };
-  //   const response = await fetch("/api/post", options);
-  //   const data = await response.json();
-  //   setGraphId(data.graph.id);
-  //   setPostId(data.id);
-  // }
-
   function reset() {
     localStorage.removeItem("savedPost");
     setEvents([]);
@@ -124,7 +85,6 @@ export default function Page() {
     setIsModalOpen(true);
     setModalPageNum(2);
     setQuestionPageNum(NaN);
-    //createPost();
   }
 
   return (
@@ -139,10 +99,9 @@ export default function Page() {
             setEvents,
             reset,
             graphId,
-            setEventId,
-            setSpecificYearId,
             isModalOpen,
             setIsModalOpen,
+            setName,
           }}
         />
         <CompleteModal
@@ -165,17 +124,16 @@ export default function Page() {
               setEvents,
               reset,
               graphId,
-              eventId,
               specificYearId,
               setEventId,
               setSpecificYearId,
               setIsCompleteModalOpen,
+              setGraphId,
+              setPostId,
             }}
           />
         </div>
       </div>
-      {/* <CreatePageAuthModal isOpen={isAuthModalOpen} /> */}
-
     </>
   );
 }

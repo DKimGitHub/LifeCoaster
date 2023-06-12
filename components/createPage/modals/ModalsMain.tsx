@@ -1,9 +1,11 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Modal from "react-modal";
 
 import AgeModal from "../../../components/createPage/modals/AgeModal";
 import ContinueModal from "../../../components/createPage/modals/ContinueModal";
 import IntroModal from "../../../components/createPage/modals/IntroModal";
+import NameModal from "./NameModal"
+
 import { customStyles } from "../../../styles/createPage/modalCustomStyle";
 import { eventType } from "../../../lib/types";
 import styles from "../../../styles/createPage/modal.module.css";
@@ -23,10 +25,9 @@ export default function ModalsMain({
   setEvents,
   reset,
   graphId,
-  setEventId,
-  setSpecificYearId,
   isModalOpen,
-  setIsModalOpen
+  setIsModalOpen, 
+  setName,
 }: {
   modalPageNum: number;
   setModalPageNum: React.Dispatch<React.SetStateAction<number>>;
@@ -34,10 +35,9 @@ export default function ModalsMain({
   setEvents: React.Dispatch<React.SetStateAction<eventType>>;
   reset: () => void;
   graphId: String;
-  setEventId: React.Dispatch<React.SetStateAction<String>>;
-  setSpecificYearId: React.Dispatch<React.SetStateAction<String>>;
   isModalOpen: boolean;
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setName: React.Dispatch<React.SetStateAction<String>>;
 }) {
   //Opens the modal if the modal page number is not NaN.
 
@@ -71,6 +71,12 @@ export default function ModalsMain({
             return <IntroModal {...{ setModalPageNum }} />;
             break;
           case 3:
+            return <NameModal {...{
+              setModalPageNum,
+              setName,
+            }} />;
+            break;
+          case 4:
             return (
               <AgeModal
                 {...{
@@ -78,8 +84,6 @@ export default function ModalsMain({
                   setQuestionPageNum,
                   setEvents,
                   graphId,
-                  setEventId,
-                  setSpecificYearId,
                   setIsModalOpen,
                 }}
               />

@@ -27,7 +27,9 @@ export default function ToolBar({
   setMode,
   events,
   setEvents,
-  eventId,
+  setGraphId,
+  postId,
+  setPostId,
   setIsCompleteModalOpen,
 }: {
   handlePrevButton: () => void;
@@ -38,8 +40,10 @@ export default function ToolBar({
   mode?: "period" | "year";
   setMode?: React.Dispatch<React.SetStateAction<"period" | "year">>;
   setEvents?: React.Dispatch<React.SetStateAction<eventType>>;
+  setGraphId: React.Dispatch<React.SetStateAction<String>>;
+  setPostId: React.Dispatch<React.SetStateAction<String>>;
+  postId: String;
   events: eventType;
-  eventId: String;
   setIsCompleteModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const setModeToolBar = setMode ? setMode : () => null;
@@ -67,29 +71,40 @@ export default function ToolBar({
         },
       ]);
     }
-    // updateDBAdd(newMode);
   }
 
   function doneButtonClicked(event: any) {
     event.preventDefault();
     setIsCompleteModalOpen(true);
+    if (postId){
+      
+    }
   }
 
-  // async function updateDBAdd(type: String) {
-  //   const options: any = {
-  //     method: "PUT",
-  //     body: JSON.stringify({
-  //       where: {
-  //         id: eventId,
-  //       },
-  //       data: {
-  //         type: type,
-  //       },
-  //     }),
-  //   };
-  //   const response = await fetch("/api/post/graph/event/", options);
-  //   const data = await response.json();
-  // }
+   async function createPost() {
+    const options = {
+      method: "POST",
+      body: JSON.stringify({
+        data: {
+          graph: {
+            create: { dummy: false },
+          },
+        },
+        select: {
+          id: true,
+          graph: {
+            select: {
+              id: true,
+            },
+          },
+        },
+      }),
+    };
+    const response = await fetch("/api/post", options);
+    const data = await response.json();
+    setGraphId(data.graph.id);
+    setPostId(data.id);
+  }
 
   return (
     <div className={styles.tool}>

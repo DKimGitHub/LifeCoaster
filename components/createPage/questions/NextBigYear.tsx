@@ -12,24 +12,19 @@ export default function NextBigYear({
   events,
   setEvents,
   reset,
-  graphId,
-  eventId,
-  specificYearId,
-  setEventId,
-  setSpecificYearId,
   setIsCompleteModalOpen,
+  setGraphId,
+  setPostId,
 }: {
   questionPageNum: number;
   setQuestionPageNum: React.Dispatch<React.SetStateAction<number>>;
   events: eventType;
   setEvents: React.Dispatch<React.SetStateAction<eventType>>;
   reset: () => void;
-  graphId: String;
-  eventId: String;
   specificYearId: String;
-  setEventId: React.Dispatch<React.SetStateAction<String>>;
-  setSpecificYearId: React.Dispatch<React.SetStateAction<String>>;
   setIsCompleteModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setGraphId: React.Dispatch<React.SetStateAction<String>>;
+  setPostId: React.Dispatch<React.SetStateAction<String>>;
 }) {
   const {
     register,
@@ -56,47 +51,13 @@ export default function NextBigYear({
   );
 
   function handlePrevButton() {
-    // updateDBDeleteEvent();
     events.length === 1 ? setQuestionPageNum(1) : setQuestionPageNum(4);
   }
 
   function handleNextButton(data: dataType) {
     setQuestionPageNum(3);
     createNewEvent(data.yearSelect);
-    // updateDBNextYear(data.yearSelect);
   }
-
-  // async function updateDBDeleteEvent() {
-  //   await fetch(`/api/post/graph/event/${eventId}/deleteEvent`);
-  //   const newEventId = await getDBLatestEventId();
-  //   setEventId(newEventId);
-  //   await updateDBBornValue(newEventId);
-  // }
-
-  // async function updateDBBornValue(newEventId: String) {
-  //   const options: any = {
-  //     method: "PUT",
-  //     body: JSON.stringify({
-  //       where: {
-  //         id: newEventId,
-  //       },
-  //       data: {
-  //         period: {
-  //           update: {
-  //             value: 0,
-  //           },
-  //         },
-  //       },
-  //     }),
-  //   };
-  //   await fetch("/api/post/graph/event", options);
-  // }
-
-  // async function getDBLatestEventId() {
-  //   const response = await fetch(`/api/post/graph/${graphId}/getLatestEvent`);
-  //   const data = await response.json();
-  //   return data ? data[0] : "";
-  // }
 
   function createNewEvent(value: number) {
     setEvents((prev) => {
@@ -116,21 +77,6 @@ export default function NextBigYear({
     });
   }
 
-  // async function updateDBNextYear(value: number) {
-  //   const options: any = {
-  //     method: "PUT",
-  //     body: JSON.stringify({
-  //       where: {
-  //         id: eventId,
-  //       },
-  //       data: {
-  //         nextYear: value,
-  //       },
-  //     }),
-  //   };
-  //   await fetch("/api/post/graph/event", options);
-  // }
-
   return (
     <form className={styles.questionContainer}>
       <div className={styles.toolContainer}>
@@ -143,7 +89,8 @@ export default function NextBigYear({
             reset,
             events,
             setEvents,
-            eventId,
+            setGraphId,
+            setPostId,
             setIsCompleteModalOpen,
           }}
         />

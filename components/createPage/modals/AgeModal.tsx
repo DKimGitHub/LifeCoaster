@@ -16,17 +16,11 @@ export default function AgeModal({
   setModalPageNum,
   setQuestionPageNum,
   setEvents,
-  graphId,
-  setEventId,
-  setSpecificYearId,
   setIsModalOpen,
 }: {
   setModalPageNum: React.Dispatch<React.SetStateAction<number>>;
   setQuestionPageNum: React.Dispatch<React.SetStateAction<number>>;
   setEvents: React.Dispatch<React.SetStateAction<eventType>>;
-  graphId: String;
-  setEventId: React.Dispatch<React.SetStateAction<String>>;
-  setSpecificYearId: React.Dispatch<React.SetStateAction<String>>;
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const currentYear = new Date().getFullYear();
@@ -54,7 +48,6 @@ export default function AgeModal({
       setModalPageNum(NaN);
     }, 1000);
     updateEvents(data);
-    // updateDBCreateEvent(data);
   }
 
   //Create a new event such that the nextYear is equal to the birth year.
@@ -71,42 +64,6 @@ export default function AgeModal({
       },
     ]);
   }
-
-  // async function updateDBCreateEvent(input: dataType) {
-  //   const options: any = {
-  //     method: "PUT",
-  //     body: JSON.stringify({
-  //       where: {
-  //         id: graphId,
-  //       },
-  //       data: {
-  //         event: {
-  //           create: [
-  //             {
-  //               nextYear: input.yearSelect,
-  //               type: "period",
-  //               period: {
-  //                 create: {
-  //                   value: 0,
-  //                   description: "Born",
-  //                 },
-  //               },
-  //               specificYear: {
-  //                 create: [],
-  //               },
-  //             },
-  //           ],
-  //         },
-  //       },
-  //       include: {
-  //         event: true,
-  //       },
-  //     }),
-  //   };
-  //   const response = await fetch("/api/post/graph", options);
-  //   const data = await response.json();
-  //   setEventId(data.event.slice(-1)[0].id);
-  // }
 
   return (
     <form

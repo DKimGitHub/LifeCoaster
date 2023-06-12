@@ -1,12 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useForm, Controller } from "react-hook-form";
 
 import ToolBar from "./ToolBar";
 import styles from "../../../styles/createPage/form.module.css";
-import { dataType, eventType } from "../../../lib/types";
+import { eventType } from "../../../lib/types";
 import Slider from "../tools/ValueSlider";
 import PageTransition from "../../PageTransition";
-import { eventsToNodes } from "../../../lib/helpers";
 
 export default function BornValue({
   questionPageNum,
@@ -16,12 +15,10 @@ export default function BornValue({
   events,
   setEvents,
   reset,
-  specificYearId,
-  eventId,
-  graphId,
   setEventId,
-  setSpecificYearId,
   setIsCompleteModalOpen,
+  setGraphId,
+  setPostId,
 }: {
   questionPageNum: number;
   setQuestionPageNum: React.Dispatch<React.SetStateAction<number>>;
@@ -30,12 +27,10 @@ export default function BornValue({
   events: eventType;
   setEvents: React.Dispatch<React.SetStateAction<eventType>>;
   reset: () => void;
-  specificYearId: String;
-  eventId: String;
-  graphId: String;
   setEventId: React.Dispatch<React.SetStateAction<String>>;
-  setSpecificYearId: React.Dispatch<React.SetStateAction<String>>;
   setIsCompleteModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setGraphId: React.Dispatch<React.SetStateAction<String>>;
+  setPostId: React.Dispatch<React.SetStateAction<String>>;
 }) {
   const {
     register,
@@ -52,34 +47,21 @@ export default function BornValue({
 
   const currentYear = events.slice(-1)[0].nextYear;
 
-  /*
-    Go back to the age modal.
-    Year of birth is removed from the event array. 
-  */
-
   async function handlePrevButton() {
     setQuestionPageNum(NaN);
     setModalPageNum(3);
     setEvents([]);
-    // updateDBDeleteEvent()
     setEventId("");
     setIsModalOpen(true);
   }
 
   function handleNextButton() {
     setQuestionPageNum(2);
-    // updateDBCreateNewEvent();
   }
 
   function updateOnValueChange(value: number) {
     updateEventsBornValue(value);
-    // updateDBBornValue(value);
   }
-
-  //Deletes the event.
-  // async function updateDBDeleteEvent() {
-  //   await fetch(`/api/post/graph/event/${eventId}/deleteEvent`);
-  // }
 
   //Creates a new event 
   function createNewEvent() {
@@ -96,40 +78,6 @@ export default function BornValue({
     });
   }
 
-  //Create a new event on the database
-  // async function updateDBCreateNewEvent() {
-  //   const options: any = {
-  //     method: "PUT",
-  //     body: JSON.stringify({
-  //       where: {
-  //         id: graphId,
-  //       },
-  //       data: {
-  //         event: {
-  //           create: [
-  //             {
-  //               nextYear: 0,
-  //               type: null,
-  //               period: {
-  //                 create: { value: 0, description: "" },
-  //               },
-  //               specificYear: {
-  //                 create: [],
-  //               },
-  //             },
-  //           ],
-  //         },
-  //       },
-  //       include: {
-  //         event: true,
-  //       },
-  //     }),
-  //   };
-  //   const response = await fetch("/api/post/graph/", options);
-  //   const data = await response.json();
-  //   setEventId(data.event.slice(-1)[0].id);
-  // }
-
   //update the next year on the first event, which is the only event present currently.
   function updateEventsBornValue(value: number) {
     setEvents((prev) => [
@@ -139,26 +87,6 @@ export default function BornValue({
       },
     ]);
   }
-
-  // async function updateDBBornValue(input: number) {
-  //   const options: any = {
-  //     method: "PUT",
-  //     body: JSON.stringify({
-  //       where: {
-  //         id: eventId,
-  //       },
-  //       data: {
-  //         period: {
-  //           update: {
-  //             value: input
-  //           }
-  //         }
-  //       },
-  //     }),
-  //   };
-  //   const response = await fetch("/api/post/graph/event/", options);
-  //   const data = await response.json();
-  // }
 
   return (
     <form className={styles.questionContainer}>
@@ -172,7 +100,8 @@ export default function BornValue({
             reset,
             events,
             setEvents,
-            eventId,
+            setGraphId,
+            setPostId,
             setIsCompleteModalOpen,
           }}
         />

@@ -14,22 +14,18 @@ export default function ValueQuestions({
   events,
   setEvents,
   reset,
-  eventId,
-  setEventId,
-  graphId,
-  specificYearId,
   setIsCompleteModalOpen,
+  setGraphId,
+  setPostId,
 }: {
   questionPageNum: number;
   setQuestionPageNum: React.Dispatch<React.SetStateAction<number>>;
   events: eventType;
   setEvents: React.Dispatch<React.SetStateAction<eventType>>;
   reset: () => void;
-  eventId: String;
-  setEventId: React.Dispatch<React.SetStateAction<String>>;
-  graphId: String;
-  specificYearId: String;
   setIsCompleteModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setGraphId: React.Dispatch<React.SetStateAction<String>>;
+  setPostId: React.Dispatch<React.SetStateAction<String>>;
 }) {
   const {
     register,
@@ -101,8 +97,6 @@ export default function ValueQuestions({
     } else {
       deleteSpecificYearLastIndex();
       setQuestionPageNum(2);
-
-      // updateDBCreateNewEvent();
     }
   }
 
@@ -118,20 +112,6 @@ export default function ValueQuestions({
     });
   }
 
-  function updateEventNextYear() {
-    setEvents((prev) => {
-      return [
-        ...prev.slice(0, -1),
-        {
-          nextYear: previousYear,
-          type: null,
-          period: { value: 0, description: "" },
-          specificYear: [],
-        },
-      ];
-    });
-  }
-
   function deleteEvent() {
     setEvents((prev) => {
       return [
@@ -140,62 +120,6 @@ export default function ValueQuestions({
       ];
     });
   }
-
-  // async function updateDBNextYear() {
-  //   const options: any = {
-  //     method: "PUT",
-  //     body: JSON.stringify({
-  //       where: {
-  //         id: eventId,
-  //       },
-  //       data: {
-  //         nextYear: 0,
-  //         type: null,
-  //         period: { update: { value: 0, description: "" } },
-  //         specificYear: { deleteMany: { eventId: eventId } },
-  //       },
-  //     }),
-  //   };
-  //   await fetch("/api/post/graph/event", options);
-  // }
-
-  // async function updateDBCreateNewEvent() {
-  //   const options: any = {
-  //     method: "PUT",
-  //     body: JSON.stringify({
-  //       where: {
-  //         id: graphId,
-  //       },
-  //       data: {
-  //         event: {
-  //           create: [
-  //             {
-  //               nextYear: currentYear + 1,
-  //               type: null,
-  //               period: {
-  //                 create: { value: 0, description: "" },
-  //               },
-  //               specificYear: {
-  //                 create: [],
-  //               },
-  //             },
-  //           ],
-  //         },
-  //       },
-  //       include: {
-  //         event: {
-  //           include: {
-  //             specificYear: true,
-  //           },
-  //         },
-  //       },
-  //     }),
-  //   };
-  //   const response = await fetch("/api/post/graph/", options);
-  //   const data = await response.json();
-  //   setEventId(data.event.slice(-1)[0].id);
-  //   // setSpecificYearId(data.event.slice(-1)[0]?.specificYear.slice(-1)[0]?.id);
-  // }
 
   return (
     <div className={styles.questionContainer}>
@@ -211,7 +135,8 @@ export default function ValueQuestions({
             setMode,
             events,
             setEvents,
-            eventId,
+            setGraphId,
+            setPostId,
             setIsCompleteModalOpen,
           }}
         />
@@ -221,7 +146,7 @@ export default function ValueQuestions({
         if (mode === "period") {
           return (
             <PeriodToggleSelected
-              {...{ setEvents, defaultValues, setDefaultValues, eventId }}
+              {...{ setEvents, defaultValues, setDefaultValues }}
             />
           );
         } else if (mode === "year") {
@@ -232,8 +157,6 @@ export default function ValueQuestions({
                 events,
                 defaultValues,
                 setDefaultValues,
-                specificYearId,
-                eventId,
                 range,
                 setRange,
               }}

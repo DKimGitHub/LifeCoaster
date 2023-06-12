@@ -31,11 +31,12 @@ export default function QuestionsMain({
   setIsModalOpen,
   reset,
   graphId,
-  eventId,
   specificYearId,
   setEventId,
   setSpecificYearId,
   setIsCompleteModalOpen,
+  setGraphId,
+  setPostId,
 
 }: {
   setModalPageNum: React.Dispatch<React.SetStateAction<number>>;
@@ -46,11 +47,12 @@ export default function QuestionsMain({
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   reset: () => void;
   graphId: String;
-  eventId: String;
   specificYearId: String;
   setEventId: React.Dispatch<React.SetStateAction<String>>;
   setSpecificYearId: React.Dispatch<React.SetStateAction<String>>;
   setIsCompleteModalOpen: React.Dispatch<React.SetStateAction<boolean>>
+  setGraphId: React.Dispatch<React.SetStateAction<String>>;
+  setPostId: React.Dispatch<React.SetStateAction<String>>;
 }) {
   const {
     register,
@@ -72,12 +74,11 @@ export default function QuestionsMain({
             setEvents,
             setIsModalOpen,
             reset,
-            specificYearId,
-            eventId,
             graphId,
             setEventId,
-            setSpecificYearId,
             setIsCompleteModalOpen,
+            setGraphId,
+            setPostId,
           }}
         />
       );
@@ -95,8 +96,9 @@ export default function QuestionsMain({
             specificYearId,
             setEventId,
             setSpecificYearId,
-            eventId,
             setIsCompleteModalOpen,
+            setGraphId,
+            setPostId,
           }}
         />
       );
@@ -113,11 +115,9 @@ export default function QuestionsMain({
             events,
             setEvents,
             reset,
-            eventId,
-            setEventId,
-            graphId,
-            specificYearId,
             setIsCompleteModalOpen,
+            setGraphId,
+            setPostId,
           }}
         />
       );
