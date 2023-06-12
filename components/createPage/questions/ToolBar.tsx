@@ -29,6 +29,7 @@ export default function ToolBar({
   setEvents,
   setGraphId,
   postId,
+  graphId,
   setPostId,
   setIsCompleteModalOpen,
 }: {
@@ -43,6 +44,7 @@ export default function ToolBar({
   setGraphId: React.Dispatch<React.SetStateAction<String>>;
   setPostId: React.Dispatch<React.SetStateAction<String>>;
   postId: String;
+  graphId: String;
   events: eventType;
   setIsCompleteModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
@@ -104,6 +106,44 @@ export default function ToolBar({
     const data = await response.json();
     setGraphId(data.graph.id);
     setPostId(data.id);
+  }
+
+  async function saveDB() {
+    await fetch(`/api/post/graph/${graphId}/delete`)
+    const options: any = {
+      method: "PUT",
+      body: JSON.stringify({
+        where: {
+          id: graphId,
+        },
+        data: {
+          event: {
+            create: [
+              events.map(i => ({
+                nextYear: i.nextYear,
+                type: i.type,
+                period: {
+                  create: {
+                    value: i.period.value,
+                    description: i.period.description,
+                  }
+                },
+                specificYear: {
+                  create: [
+                    i.specificYear.map(j => ({
+                      year: j.year,
+                      value: j.value,
+                      description: j.description,
+                    }))[0]
+                  ]
+                }
+              }))[0]
+            ],
+          },
+        },
+      }),
+    };
+    await fetch("/api/post/graph", options);
   }
 
   return (
