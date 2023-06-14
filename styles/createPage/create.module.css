@@ -1,5 +1,4 @@
 .container {
-  position: absolute;
   background-color: #FBF4E6;
   display: grid;
   grid-template-rows: 40vh 1fr;
@@ -9,7 +8,7 @@
   column-gap: 3px;
   height: full;
   min-height: 100%;
-  width: 100%;
+  width: 100vw;
   padding: 3vh 5vh;
 }
 
@@ -37,4 +36,10 @@
 .resetButton:hover {
   background-color: brown;
   color: white;
+}
+
+@media screen and (max-width: 600px){
+  .container{
+    padding: 3vh 2vh;
+  }
 }

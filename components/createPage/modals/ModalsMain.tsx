@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import Modal from "react-modal";
 
 import AgeModal from "../../../components/createPage/modals/AgeModal";
@@ -6,7 +6,7 @@ import ContinueModal from "../../../components/createPage/modals/ContinueModal";
 import IntroModal from "../../../components/createPage/modals/IntroModal";
 import NameModal from "./NameModal"
 
-import { customStyles } from "../../../styles/createPage/modalCustomStyle";
+import customStyles from "../../../styles/createPage/modalCustomStyle";
 import { eventType } from "../../../lib/types";
 import styles from "../../../styles/createPage/modal.module.css";
 import { Pangolin } from "next/font/google";
@@ -18,6 +18,8 @@ const pangolin = Pangolin({
   display: "swap",
 });
 
+
+
 export default function ModalsMain({
   modalPageNum,
   setModalPageNum,
@@ -26,7 +28,7 @@ export default function ModalsMain({
   reset,
   graphId,
   isModalOpen,
-  setIsModalOpen, 
+  setIsModalOpen,
   setName,
 }: {
   modalPageNum: number;

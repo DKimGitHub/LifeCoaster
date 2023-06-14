@@ -87,12 +87,13 @@ export default function ListPageCard({
         <Tilt perspective={2000} tiltMaxAngleX={10} tiltMaxAngleY={10}>
           <div
             data-theme={colorTheme}
-            className=" card card-compact rounded-md bg-base-100  shadow-xl">
+            className=" card card-compact bg-base-100  shadow-xl"
+            style={{ borderRadius: "2rem", border: "2px solid #9bbaa4" }}>
             <Link href={`/p/${data.id}`} className={` relative h-56 w-full`}>
               <ListPageGraph data={eventsToNodes(data?.graph?.event)} />
             </Link>
 
-            <div className="flex items-center justify-between p-2">
+            <div className="flex items-center justify-between p-2" style={{ borderBottomRightRadius: "2rem", borderBottomLeftRadius: "2rem", borderTop: "3px solid #9bbaa4" }}>
               {" "}
               <div className="flex flex-1">
                 <Link href={`/p/${data.id}`}>

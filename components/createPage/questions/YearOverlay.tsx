@@ -21,19 +21,23 @@ export default function YearOverlay({
     setQuestionPageNum(4);
   }
 
-  
+
 
   return (
-    <>  
+    <>
       <div className={`${styles.container} ${neucha.className}`} onAnimationEnd={handleAnimationEnd}>
         {
           //If the two consecutive years differ by one year, display only the starting year
           events.slice(-2)[0].nextYear === events.slice(-1)[0].nextYear - 1 ? (
             <span className={styles.text}>{`${events.slice(-2)[0].nextYear}`}</span>
           ) : (
-            <span className={styles.text}>{`${events.slice(-2)[0].nextYear} ~ ${
-              events.slice(-1)[0].nextYear - 1
-            }`}</span>
+            <>
+              <span className={styles.text}>{events.slice(-2)[0].nextYear}</span>
+              <span className={styles.text}> ~ </span>
+              <span className={styles.text}>{
+                events.slice(-1)[0].nextYear - 1
+              }</span>
+            </>
           )
         }
       </div>

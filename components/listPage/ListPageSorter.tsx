@@ -22,7 +22,7 @@ export default function ListPageSorter({
 
   return (
     <Dropdown>
-      <Dropdown.Button flat color="primary" css={{ tt: "capitalize" }}>
+      <Dropdown.Button flat color="primary" css={{ tt: "capitalize",fontSize: "1.5rem", color: "#5F7A77"}}>
         {selectedValue}
       </Dropdown.Button>
       <Dropdown.Menu

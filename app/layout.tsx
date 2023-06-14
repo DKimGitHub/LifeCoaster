@@ -23,7 +23,7 @@ export default function RootLayout({
         <ContextProviders>
           <div>
             <main
-              className={`min-h-screen w-screen max-w-full overflow-x-hidden bg-slate-100`}>
+              className={`min-h-screen w-screen max-w-full overflow-x-hidden `} style={{backgroundColor: "#dff0e4"}}>
 
                 {children}
 

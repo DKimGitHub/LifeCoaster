@@ -16,7 +16,7 @@ export default function Graph({ data }: { data: any[] }) {
 
   return (
     <>
-      <div style={{ height: "100%", width: "100%" }}>
+      <div style={{ height: "100%", width: "100%"}}>
         <ResponsiveLine
           margin={{ top: 25, right: 25, bottom: 25, left: 25 }}
           data={nivoGraphData}

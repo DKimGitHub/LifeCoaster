@@ -59,12 +59,12 @@ export default function Home() {
                   <Link
                     className="fade-list-item h-full w-full animation-delay-100"
                     href="/create">
-                    <OptionButton>create</OptionButton>
+                    <OptionButton>CREATE</OptionButton>
                   </Link>
                   <Link
                     className="fade-list-item h-full w-full animation-delay-600"
                     href="/list">
-                    <OptionButton>list</OptionButton>
+                    <OptionButton>LIST</OptionButton>
                   </Link>
                   <div className="fade-list-item h-full w-full animation-delay-1100">
                     <button
@@ -72,7 +72,7 @@ export default function Home() {
                       <label
                         htmlFor="my-modal-4"
                         className={optionButtonStyles.label}>
-                        <span className={optionButtonStyles.span}>login</span>
+                        <span className={optionButtonStyles.span}>LOGIN</span>
                       </label>
                     </button>
                   </div>

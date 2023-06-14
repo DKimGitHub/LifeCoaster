@@ -191,12 +191,12 @@ export default function ToolBar({
 
   return (
     <div className={styles.tool}>
-      <div style={{ flex: "0.2" }}>
+      <div className={styles.toolResetButtonContainer}>
         <button className={styles.resetButton} onClick={reset}>
           <Image src={resetIcon} alt="resetIcon" width={30} height={30} />
         </button>
       </div>
-      <div style={{ flex: "0.8" }}>
+      <div className={styles.toolYearContainer}>
         {(() => {
           if (questionPageNum === 4) {
             if (
@@ -226,19 +226,16 @@ export default function ToolBar({
           }
         })()}
       </div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}>
-        <button className={styles.prevButton} onClick={handlePrevButton}>
-          <Image src={previousIcon} alt="previousIcon" width={40} height={40} />
-        </button>
+      <div className={styles.toolNextPrevToggleContainer}>
+        <div className={styles.toolPrevButtonContainer}>
+          <button className={styles.prevButton} onClick={handlePrevButton}>
+            <Image src={previousIcon} alt="previousIcon" width={40} height={40} />
+          </button>
+        </div>
         {(() => {
           if (questionPageNum === 4) {
             return (
-              <div>
+              <div className={styles.toolToggleButtonContainer}>
                 <ToggleButtonGroup
                   size={"small"}
                   value={mode}
@@ -273,13 +270,15 @@ export default function ToolBar({
             );
           }
         })()}
-        <button
-          className={styles.nextButton}
-          onClick={handleSubmit(handleNextButton)}>
-          <Image src={nextIcon} alt="nextIcon" width={40} height={40} />
-        </button>
+        <div className={styles.toolnextButtonContainer}>
+          <button
+            className={styles.nextButton}
+            onClick={handleSubmit(handleNextButton)}>
+            <Image src={nextIcon} alt="nextIcon" width={40} height={40} />
+          </button>
+        </div>
       </div>
-      <div style={{ flex: "1", display: "flex", flexDirection: "row-reverse" }}>
+      <div className={styles.toolSaveButtonContainer}>
         <button className={styles.doneButton} onClick={doneButtonClicked}>
           Save
         </button>
