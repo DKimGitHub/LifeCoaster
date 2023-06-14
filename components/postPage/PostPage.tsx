@@ -84,12 +84,12 @@ export default function PostPage({ postData }: { postData: PostDataType }) {
               <Image
                 height={46}
                 width={46}
-                src={`https://api.dicebear.com/5.x/fun-emoji/svg?seed=${postData.user.name
+                src={`https://api.dicebear.com/5.x/fun-emoji/svg?seed=${postData.user?.name
                   }&radius=10`}
                 alt="avatar"
               />{" "}
               <p className="px-3 text-lg font-semibold leading-6">
-                {postData.user.name}
+                {postData.user?.name}
               </p>
               <p></p>
             </div>

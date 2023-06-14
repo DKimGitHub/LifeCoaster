@@ -1,0 +1,37 @@
+.Modal {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  width: fit-content;
+  height: fit-content;
+  min-width: 30%;
+  transform: translate(-50%, -50%);
+  border-radius: 3rem;
+  color: #474239;
+  background-color: #99c7c2;
+  padding: 3rem 4rem;
+}
+
+.Overlay {
+  background-color: #FBF4E6aa;
+}
+
+@media screen and (max-width: 600px){
+  .Modal {
+    top: 20%;
+    bottom: auto;
+    left: auto;
+    right: auto;
+    width: fit-content;
+    height: fit-content;
+    min-width: 90%;
+    transform: none;
+    border-radius: 3rem;
+    margin: 5%;
+    color: #474239;
+    background-color: #99c7c2;
+    padding: 3rem 0.5rem;
+  }
+}

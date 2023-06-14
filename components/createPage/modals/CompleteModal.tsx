@@ -5,6 +5,7 @@ import styles from "../../../styles/createPage/modal.module.css";
 import closeIcon from "../../../public/createPage/close.svg";
 import CompleteGraph from "../../createPage/modals/CompleteGraph";
 import { eventsToNodes } from "../../../lib/helpers";
+import "../../../styles/createPage/completeModal.css"
 
 import { Pangolin } from "next/font/google";
 
@@ -80,7 +81,8 @@ export default function CompleteModal({
       ariaHideApp={false}
       closeTimeoutMS={1000}
       shouldCloseOnOverlayClick={false}
-      style={customStyles}>
+      className="CompleteModal"
+      overlayClassName="CompleteOverlay">
       <div
         className={pangolin.className}
         style={{ width: "100%", height: "100%"}}>

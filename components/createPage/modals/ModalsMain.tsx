@@ -11,6 +11,7 @@ import { eventType } from "../../../lib/types";
 import styles from "../../../styles/createPage/modal.module.css";
 import { Pangolin } from "next/font/google";
 import "../../../styles/createPage/modal.css";
+import "../../../styles/createPage/mainModal.css";
 
 const pangolin = Pangolin({
   weight: "400",
@@ -63,7 +64,8 @@ export default function ModalsMain({
       ariaHideApp={false}
       closeTimeoutMS={1000}
       shouldCloseOnOverlayClick={false}
-      style={customStyles}>
+      className="Modal"
+      overlayClassName="Overlay">
       {(() => {
         switch (modalPageNum) {
           case 1:
