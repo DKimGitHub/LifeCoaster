@@ -10,7 +10,7 @@ import StartButton from "../components/buttons/MainPageStartButton";
 import OptionButton from "../components/buttons/MainPageOptionButton";
 import optionButtonStyles from "../styles/mainPageOptionButton.module.css";
 
-import { Neucha } from "next/font/google";
+import { Shadows_Into_Light } from "next/font/google";
 import { Cabin_Sketch } from "next/font/google";
 
 const courgette = Cabin_Sketch({
@@ -18,7 +18,7 @@ const courgette = Cabin_Sketch({
   subsets: ["latin"],
   display: "swap",
 });
-const neuchaLight = Neucha({
+const neuchaLight = Shadows_Into_Light({
   weight: "400",
   subsets: ["latin"],
   display: "swap",
