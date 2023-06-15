@@ -53,19 +53,19 @@ export default function IntroModal({
       break;
     case 5:
       text =
-        "1. Once you have selected your year of birth, select how content you were to be born in this world.";
+        "1. Once you have chosen the year of your birth, indicate your level of satisfaction with being born into this world..";
       break;
     case 6:
       text =
-        "2. Choose the year when a significant change occurred in your life since your last major event. This year will be the period you will rate.";
+        "2. Select the year during which significant events took place in your life, and based on those events, you will rate the period from the year of the last significant event until the year you have chosen..";
       break;
     case 7:
       text =
-        "For instance, if your last significant change was in 2003 and your next significant change occurred in 2007, then you will be rating the period between 2003 and 2007.";
+        "For example, if the last significant event in your life took place in 2003 and the next significant event occurred in 2007, you will be rating the period from 2003 to 2006..";
       break;
     case 8:
       text =
-        "3. You have the option to rate the entire period as a whole or to rate specific years within that period.";
+        "3. You have the option to rate the entire period as a whole or provide individual ratings for specific years within that period..";
       break;
     default:
       text = "";
