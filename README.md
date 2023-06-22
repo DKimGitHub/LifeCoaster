@@ -23,8 +23,9 @@
 
 
 ### Built By
-* Daniel (Hee Sang) Kim
 * Ryan (Ki Sang) Kim
+* Daniel (Hee Sang) Kim
+
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
