@@ -23,7 +23,7 @@
 
 
 ### Built By
-* Ryan (Ki Sang) Kim
+* Kisang Kim
 * Daniel (Hee Sang) Kim
 
 
