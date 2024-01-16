@@ -23,8 +23,9 @@
 
 
 ### Built By
-* Kisang Kim
 * Daniel (Hee Sang) Kim
+* Kisang Kim
+
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
