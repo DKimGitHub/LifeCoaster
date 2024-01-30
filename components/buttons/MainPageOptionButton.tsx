@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from "react";
 import styles from "../../styles/mainPageOptionButton.module.css";
-import { Shadows_Into_Light } from "next/font/google";
+import { Peralta } from "next/font/google";
 
-const neuchaLight = Shadows_Into_Light ({ weight: "400", subsets: ["latin"], display: "swap" });
+const neuchaLight = Peralta ({ weight: "400", subsets: ["latin"], display: "swap" });
 
 export default function MainPageOptionButton(props: any) {
   const [isButtonClicked, setIsButtonClicked] = useState(false);
