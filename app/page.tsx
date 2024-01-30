@@ -18,7 +18,7 @@ const courgette = Cabin_Sketch({
   subsets: ["latin"],
   display: "swap",
 });
-const neuchaLight = Shadows_Into_Light({
+const neuchaLight = Peralta({
   weight: "400",
   subsets: ["latin"],
   display: "swap",
