@@ -15,7 +15,16 @@ export default async function handler(
         take: 6,
         skip: offset,
         include: {
-          comments: true,
+          user: {
+            select: {
+              name: true
+            }
+          },
+          comments: {
+            include: {
+              user: true,
+            },
+          },
           graph: {
             include: {
               event: {
